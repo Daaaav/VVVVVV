@@ -364,8 +364,8 @@
     <string english="edit scripts" explanation="level editor menu option" comment="">redakti skriptojn</string>
     <string english="change music" explanation="level editor menu option" comment="">ŝanĝi muzikon</string>
     <string english="editor ghosts" explanation="level editor menu option. Toggles option to show a repetition of the player&apos;s path after playtesting" comment="">redaktilaj fantomoj</string>
-    <string english="Editor ghost trail is OFF" explanation="level editor. Repetition of the player&apos;s path after playtesting is disabled" max="40" comment="">Redaktila fantomoj estas MALŜALTAJ</string>
-    <string english="Editor ghost trail is ON" explanation="level editor. Repetition of the player&apos;s path after playtesting is enabled" max="40" comment="">Redaktila fantomoj estas ŜALTAJ</string>
+    <string english="Editor ghost trail is OFF" explanation="level editor. Repetition of the player&apos;s path after playtesting is disabled" max="40" comment="">Redaktilaj fantomoj estas MALŜALTAJ</string>
+    <string english="Editor ghost trail is ON" explanation="level editor. Repetition of the player&apos;s path after playtesting is enabled" max="40" comment="">Redaktilaj fantomoj estas ŜALTAJ</string>
     <string english="load level" explanation="level editor menu option" comment="">ŝarĝi nivelon</string>
     <string english="save level" explanation="level editor menu option" comment="">konservi nivelon</string>
     <string english="quit to main menu" explanation="level editor menu option" max="19" comment="">eliri al ĉefa menuo</string>
