@@ -241,7 +241,7 @@
         <dialogue speaker="player" english="Let&apos;s head back to the ship!">Ni revenu al la ŝipo do!</dialogue>
     </cutscene>
     <cutscene id="int1red_1" explanation="">
-        <dialogue speaker="red" english="Wow! Where are we?">Ho! Kie ne estas?</dialogue>
+        <dialogue speaker="red" english="Wow! Where are we?">Ho! Kie ni estas?</dialogue>
         <dialogue speaker="player" english="This... isn&apos;t right... Something must have gone wrong with the teleporter!">Tio... ne ĝustas... Io devas esti misiĝinta pri la teleportilo!</dialogue>
         <dialogue speaker="red" english="Oh well... We can work it out when we get back to the ship!">Ho, ne gravas... ni povas rektigi tion, kiam ni revenas ŝipen!</dialogue>
         <dialogue speaker="red" english="Let&apos;s go exploring!">Ni ekesploru!</dialogue>
