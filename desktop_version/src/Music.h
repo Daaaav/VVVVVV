@@ -23,9 +23,9 @@ public:
     void init(void);
     void destroy(void);
 
-	void start_audio_log(void);
-	void log_audio(const char *logged);
-	void audio_log_set_timestamp(void);
+    void start_audio_log(void);
+    void log_audio(const char *logged);
+    void audio_log_set_timestamp(void);
 
     void play(int t);
     void resume();
@@ -79,12 +79,12 @@ public:
     int num_pppppp_tracks;
     int num_mmmmmm_tracks;
 
-	// Audio log
-	struct timespec audio_log_t;
-	char audio_log_timestring_lol[100];
+    // Audio log
+    struct timespec audio_log_t;
+    char audio_log_timestring_lol[100];
 
-	bool audio_log_started;
-	FILE *audio_log_file;
+    bool audio_log_started;
+    FILE *audio_log_file;
 };
 
 #ifndef MUSIC_DEFINITION
