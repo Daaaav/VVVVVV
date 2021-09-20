@@ -80,7 +80,8 @@ public:
     int num_mmmmmm_tracks;
 
     // Audio log
-    struct timespec audio_log_t;
+    struct timespec audio_log_t_realtime;
+    struct timespec audio_log_t_monotonic;
     char audio_log_timestring_lol[100];
 
     bool audio_log_started;

@@ -35,8 +35,13 @@ musicclass::musicclass(void)
 
 void musicclass::audio_log_set_timestamp(void)
 {
-    clock_gettime(CLOCK_REALTIME, &audio_log_t);
-    sprintf(audio_log_timestring_lol, "%lu.%lu", audio_log_t.tv_sec, audio_log_t.tv_nsec);
+    clock_gettime(CLOCK_REALTIME, &audio_log_t_realtime);
+    clock_gettime(CLOCK_MONOTONIC_RAW, &audio_log_t_monotonic);
+
+    sprintf(audio_log_timestring_lol, "%lu.%lu;%lu.%lu",
+		audio_log_t_realtime.tv_sec, audio_log_t_realtime.tv_nsec,
+		audio_log_t_monotonic.tv_sec, audio_log_t_monotonic.tv_nsec
+	);
 }
 
 void musicclass::start_audio_log(void)
