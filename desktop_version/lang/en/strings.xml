@@ -133,10 +133,12 @@
     <string english="bind enter" explanation="menu option" comment=""></string>
     <string english="bind menu" explanation="menu option" comment=""></string>
     <string english="bind restart" explanation="menu option. In-game death key to restart at checkpoint" comment=""></string>
+    <string english="bind interact" explanation="menu option" comment=""></string>
     <string english="Flip is bound to: " explanation="controller binds, bound to A, B, X, Y, etc" max="32" comment=""></string>
     <string english="Enter is bound to: " explanation="controller binds, bound to A, B, X, Y, etc" max="32" comment=""></string>
     <string english="Menu is bound to: " explanation="controller binds, bound to A, B, X, Y, etc" max="32" comment=""></string>
     <string english="Restart is bound to: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc" max="32" comment=""></string>
+    <string english="Interact is bound to: " explanation="controller binds, bound to A, B, X, Y, etc" max="32" comment=""></string>
     <string english="ERROR: No language files found." explanation="" max="38*3" comment=""></string>
     <string english="This menu is only shown when having a lang folder in your VVVVVV folder." explanation="the folder is called lang. Translation maintenance menu" max="38*3" comment=""></string>
     <string english="translation maintenance" explanation="menu option, menu that allows you to apply maintenance to translations" comment=""></string>
@@ -159,6 +161,12 @@
     <string english="Toggle if the game will pause when the window is unfocused." explanation="" max="38*3" comment=""></string>
     <string english="Unfocus pause is OFF" explanation="Making another window active will not show the pause screen." max="38*2" comment=""></string>
     <string english="Unfocus pause is ON" explanation="Making another window active will show the pause screen." max="38*2" comment=""></string>
+    <string english="interact button" explanation="menu option" comment=""></string>
+    <string english="Interact Button" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20" comment=""></string>
+    <string english="Toggle whether you interact with prompts using ENTER or E." explanation="" max="38*5" comment=""></string>
+    <string english="E" explanation="keyboard key E" comment=""></string>
+    <string english="ENTER" explanation="keyboard key ENTER" comment=""></string>
+    <string english="Interact button: %s" explanation="keyboard key (E or ENTER) is filled in for %s" comment=""></string>
     <string english="fake load screen" explanation="menu option" comment=""></string>
     <string english="Fake Load Screen" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20" comment=""></string>
     <string english="Fake loading screen is OFF" explanation="allows the loading screen which counts to 100% to be turned off" max="38*5" comment=""></string>
@@ -196,8 +204,8 @@
     <string english="text outline" explanation="menu option" comment=""></string>
     <string english="Text Outline" explanation="title" max="20" comment=""></string>
     <string english="Disables outline on game text." explanation="" max="38*2" comment=""></string>
-    <string english="Text outlines are ON." explanation="" max="38*3" comment=""></string>
-    <string english="Text outlines are OFF." explanation="" max="38*3" comment=""></string>
+    <string english="Text outlines are ON." explanation="" max="40" comment=""></string>
+    <string english="Text outlines are OFF." explanation="" max="40" comment=""></string>
     <string english="invincibility" explanation="menu option" comment=""></string>
     <string english="Invincibility" explanation="title" max="20" comment=""></string>
     <string english="Explore the game freely without dying. (Can cause glitches.)" explanation="invincibility mode" max="38*3" comment=""></string>
@@ -302,7 +310,7 @@
     <string english="ACTION = Space, Z, or V" explanation="title screen" max="38*3" comment=""></string>
     <string english="[Press ENTER to return to editor]" explanation="`to editor` is sorta redundant" max="40" comment=""></string>
     <string english="- Press ACTION to advance text -" explanation="to dismiss a textbox" max="40" comment=""></string>
-    <string english="- Press ENTER to Teleport -" explanation="" max="40" comment=""></string>
+    <string english="- Press %s to Teleport -" explanation="keyboard key (E or ENTER) is filled in for %s" max="40" comment=""></string>
     <string english="Current Time" explanation="super gravitron, stopwatch time" max="20" comment=""></string>
     <string english="Best Time" explanation="super gravitron, best stopwatch time" max="20" comment=""></string>
     <string english="Next Trophy at 5 seconds" explanation="" max="38*2" comment=""></string>
@@ -359,7 +367,7 @@
     <string english="return to game" explanation="pause menu option" comment=""></string>
     <string english="quit to menu" explanation="pause menu option" comment=""></string>
     <string english="Press Left/Right to choose a Teleporter" explanation="tight fit, so maybe `Left/Right: choose teleporter`" max="40" comment=""></string>
-    <string english="Press ENTER to Teleport" explanation="" max="40" comment=""></string>
+    <string english="Press %s to Teleport" explanation="keyboard key (E or ENTER) is filled in for %s" max="40" comment=""></string>
     <string english="Map Settings" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20" comment=""></string>
     <string english="edit scripts" explanation="level editor menu option" comment=""></string>
     <string english="change music" explanation="level editor menu option" comment=""></string>

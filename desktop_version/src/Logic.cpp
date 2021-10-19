@@ -222,7 +222,6 @@ void gamelogic(void)
                 //do nothing!
                 //a trigger will set this off in the game
                 map.cameramode = 1;
-                graphics.towerbg.bscroll = 0;
             }
             else if (map.cameramode == 1)
             {
@@ -230,20 +229,15 @@ void gamelogic(void)
                 if(graphics.towerbg.scrolldir==0)
                 {
                     map.ypos -= 2;
-                    graphics.towerbg.bypos -= 1;
-                    graphics.towerbg.bscroll = -1;
                 }
                 else
                 {
                     map.ypos += 2;
-                    graphics.towerbg.bypos += 1;
-                    graphics.towerbg.bscroll = 1;
                 }
             }
             else if (map.cameramode == 2)
             {
                 //do nothing, but cycle colours (for taking damage)
-                graphics.towerbg.bscroll = 0;
             }
             else if (map.cameramode == 4)
             {
@@ -257,8 +251,6 @@ void gamelogic(void)
                 map.cameraseekframe = 10;
 
                 map.cameramode = 5;
-
-                graphics.towerbg.bscroll = map.cameraseek/2;
             }
             else if (map.cameramode == 5)
             {
@@ -284,7 +276,6 @@ void gamelogic(void)
                         }
                     }
                     map.cameraseekframe--;
-                    graphics.towerbg.bypos = map.ypos / 2;
                 }
                 else
                 {
@@ -293,30 +284,21 @@ void gamelogic(void)
                     {
                         map.ypos = obj.entities[i].yp - 120;
                     }
-                    graphics.towerbg.bypos = map.ypos / 2;
                     map.cameramode = 0;
                     map.colsuperstate = 0;
                 }
             }
         }
-        else
-        {
-            graphics.towerbg.bscroll = 0;
-        }
 
         if (map.ypos <= 0)
         {
             map.ypos = 0;
-            graphics.towerbg.bypos = 0;
-            graphics.towerbg.bscroll = 0;
         }
         if (map.towermode && map.minitowermode)
         {
             if (map.ypos >= 568)
             {
                 map.ypos = 568;
-                graphics.towerbg.bypos = map.ypos / 2;
-                graphics.towerbg.bscroll = 0;
             } //100-29 * 8 = 568
         }
         else
@@ -324,7 +306,6 @@ void gamelogic(void)
             if (map.ypos >= 5368)
             {
                 map.ypos = 5368;    //700-29 * 8 = 5368
-                graphics.towerbg.bypos = map.ypos / 2.0;
             }
         }
 
@@ -439,7 +420,8 @@ void gamelogic(void)
                 game.swnstate3 = 0;
                 game.swnstate4 = 0;
                 game.swndelay = 0;
-                if (game.swntimer >= game.swnrecord)
+#ifndef MAKEANDPLAY
+                if (game.swntimer >= game.swnrecord && !map.custommode)
                 {
                     game.swnrecord = game.swntimer;
                     if (game.swnmessage == 0)
@@ -449,6 +431,7 @@ void gamelogic(void)
                     }
                     game.swnmessage = 1;
                 }
+#endif
             }
         }
 
@@ -565,74 +548,82 @@ void gamelogic(void)
             else if(game.swngame==1)   //super gravitron game
             {
                 game.swntimer += 1;
-                if (game.swntimer > game.swnrecord) game.swnrecord = game.swntimer;
+#ifndef MAKEANDPLAY
+                if (!map.custommode)
+                {
+                    if (game.swntimer > game.swnrecord)
+                    {
+                        game.swnrecord = game.swntimer;
+                    }
 
-                if (game.swntimer >= 150 && game.swnrank == 0)
-                {
-                    game.swnrank = 1;
-                    if (game.swnbestrank < 1)
+                    if (game.swntimer >= 150 && game.swnrank == 0)
                     {
-                        game.unlockAchievement("vvvvvvsupgrav5");
-                        game.swnbestrank = 1;
-                        game.swnmessage = 2+30;
-                        music.playef(26);
+                        game.swnrank = 1;
+                        if (game.swnbestrank < 1)
+                        {
+                            game.unlockAchievement("vvvvvvsupgrav5");
+                            game.swnbestrank = 1;
+                            game.swnmessage = 2+30;
+                            music.playef(26);
+                        }
+                    }
+                    else if (game.swntimer >= 300 && game.swnrank == 1)
+                    {
+                        game.swnrank = 2;
+                        if (game.swnbestrank < 2)
+                        {
+                            game.unlockAchievement("vvvvvvsupgrav10");
+                            game.swnbestrank = 2;
+                            game.swnmessage = 2+30;
+                            music.playef(26);
+                        }
+                    }
+                    else if (game.swntimer >= 450 && game.swnrank == 2)
+                    {
+                        game.swnrank = 3;
+                        if (game.swnbestrank < 3)
+                        {
+                            game.unlockAchievement("vvvvvvsupgrav15");
+                            game.swnbestrank = 3;
+                            game.swnmessage = 2+30;
+                            music.playef(26);
+                        }
+                    }
+                    else if (game.swntimer >= 600 && game.swnrank == 3)
+                    {
+                        game.swnrank = 4;
+                        if (game.swnbestrank < 4)
+                        {
+                            game.unlockAchievement("vvvvvvsupgrav20");
+                            game.swnbestrank = 4;
+                            game.swnmessage = 2+30;
+                            music.playef(26);
+                        }
+                    }
+                    else if (game.swntimer >= 900 && game.swnrank == 4)
+                    {
+                        game.swnrank = 5;
+                        if (game.swnbestrank < 5)
+                        {
+                            game.unlockAchievement("vvvvvvsupgrav30");
+                            game.swnbestrank = 5;
+                            game.swnmessage = 2+30;
+                            music.playef(26);
+                        }
+                    }
+                    else if (game.swntimer >= 1800 && game.swnrank == 5)
+                    {
+                        game.swnrank = 6;
+                        if (game.swnbestrank < 6)
+                        {
+                            game.unlockAchievement("vvvvvvsupgrav60");
+                            game.swnbestrank = 6;
+                            game.swnmessage = 2+30;
+                            music.playef(26);
+                        }
                     }
                 }
-                else if (game.swntimer >= 300 && game.swnrank == 1)
-                {
-                    game.swnrank = 2;
-                    if (game.swnbestrank < 2)
-                    {
-                        game.unlockAchievement("vvvvvvsupgrav10");
-                        game.swnbestrank = 2;
-                        game.swnmessage = 2+30;
-                        music.playef(26);
-                    }
-                }
-                else if (game.swntimer >= 450 && game.swnrank == 2)
-                {
-                    game.swnrank = 3;
-                    if (game.swnbestrank < 3)
-                    {
-                        game.unlockAchievement("vvvvvvsupgrav15");
-                        game.swnbestrank = 3;
-                        game.swnmessage = 2+30;
-                        music.playef(26);
-                    }
-                }
-                else if (game.swntimer >= 600 && game.swnrank == 3)
-                {
-                    game.swnrank = 4;
-                    if (game.swnbestrank < 4)
-                    {
-                        game.unlockAchievement("vvvvvvsupgrav20");
-                        game.swnbestrank = 4;
-                        game.swnmessage = 2+30;
-                        music.playef(26);
-                    }
-                }
-                else if (game.swntimer >= 900 && game.swnrank == 4)
-                {
-                    game.swnrank = 5;
-                    if (game.swnbestrank < 5)
-                    {
-                        game.unlockAchievement("vvvvvvsupgrav30");
-                        game.swnbestrank = 5;
-                        game.swnmessage = 2+30;
-                        music.playef(26);
-                    }
-                }
-                else if (game.swntimer >= 1800 && game.swnrank == 5)
-                {
-                    game.swnrank = 6;
-                    if (game.swnbestrank < 6)
-                    {
-                        game.unlockAchievement("vvvvvvsupgrav60");
-                        game.swnbestrank = 6;
-                        game.swnmessage = 2+30;
-                        music.playef(26);
-                    }
-                }
+#endif
 
                 obj.generateswnwave(1);
 
@@ -896,17 +887,64 @@ void gamelogic(void)
                 }
                 else if (INBOUNDS_VEC(player, obj.entities))
                 {
-                    if (obj.entities[player].yp-map.ypos <= 0)
+                    const bool above_screen = obj.entities[player].yp-map.ypos <= 8;
+                    const bool below_screen = obj.entities[player].yp-map.ypos >= 200;
+
+                    if (above_screen)
                     {
-                        map.ypos-=10;
-                        graphics.towerbg.bypos = map.ypos / 2;
-                        graphics.towerbg.bscroll = 0;
+                        if (obj.entities[player].yp - map.ypos <= 0)
+                        {
+                            if (graphics.towerbg.scrolldir == 1)
+                            {
+                                /* Descending tower:
+                                 * Counteract 10 pixels of terminal velocity
+                                 * + 2 pixels of camera movement */
+                                map.ypos -= 12;
+                            }
+                            else
+                            {
+                                /* Ascending tower:
+                                 * Move 8 out of 10 pixels of terminal velocity
+                                 * Camera movement will move 2 pixels for us */
+                                map.ypos -= 8;
+                            }
+                        }
+                        else
+                        {
+                            /* Counter 2 pixels of camera movement */
+                            map.ypos -= 2;
+                        }
                     }
-                    else if (obj.entities[player].yp-map.ypos >= 208)
+                    else if (below_screen)
                     {
-                        map.ypos+=2;
-                        graphics.towerbg.bypos = map.ypos / 2;
-                        graphics.towerbg.bscroll = 0;
+                        if (obj.entities[player].yp - map.ypos >= 208)
+                        {
+                            if (graphics.towerbg.scrolldir == 0)
+                            {
+                                /* Ascending tower:
+                                 * Counteract 10 pixels of terminal velocity
+                                 * + 2 pixels of camera movement */
+                                map.ypos += 12;
+                            }
+                            else
+                            {
+                                /* Descending tower:
+                                 * Move 8 out of 10 pixels of terminal velocity
+                                 * Camera movement will move 2 pixels for us */
+                                map.ypos += 8;
+                            }
+                        }
+                        else
+                        {
+                            /* Counter 2 pixels of camera movement */
+                            map.ypos += 2;
+                        }
+                    }
+
+                    if (above_screen || below_screen)
+                    {
+                        /* The buffer isn't big enough; we have to redraw */
+                        graphics.towerbg.tdrawback = true;
                     }
                 }
 
@@ -1337,6 +1375,11 @@ void gamelogic(void)
         {
             map.twoframedelayfix();
         }
+    }
+
+    if (map.towermode)
+    {
+        map.setbgobjlerp(graphics.towerbg);
     }
 
     //Update colour cycling for final level

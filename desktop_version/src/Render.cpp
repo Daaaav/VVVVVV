@@ -1,10 +1,13 @@
+#include <SDL.h>
+
 #include "Credits.h"
 #include "editor.h"
 #include "Entity.h"
 #include "FileSystemUtils.h"
 #include "Graphics.h"
-#include "Localization.h"
+#include "GraphicsUtil.h"
 #include "KeyPoll.h"
+#include "Localization.h"
 #include "MakeAndPlay.h"
 #include "Map.h"
 #include "Maths.h"
@@ -519,27 +522,27 @@ static void menurender(void)
         {
         case 0:
             //graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
-            graphics.Print(32, 85, loc::gettext("Low"), tr, tg, tb);
-            graphics.Print(-1, 85, loc::gettext("Medium"), tr, tg, tb, true);
+            graphics.Print(32, 75, loc::gettext("Low"), tr, tg, tb);
+            graphics.Print(-1, 75, loc::gettext("Medium"), tr, tg, tb, true);
             #define HIGHLABEL loc::gettext("High")
-            graphics.Print(288-graphics.len(HIGHLABEL), 85, HIGHLABEL, tr, tg, tb);
+            graphics.Print(288-graphics.len(HIGHLABEL), 75, HIGHLABEL, tr, tg, tb);
             #undef HIGHLABEL
             switch(key.sensitivity)
             {
             case 0:
-                graphics.Print( -1, 95, "[]..........................", tr, tg, tb, true);
+                graphics.Print( -1, 85, "[]..........................", tr, tg, tb, true);
                 break;
             case 1:
-                graphics.Print( -1, 95, ".......[]...................", tr, tg, tb, true);
+                graphics.Print( -1, 85, ".......[]...................", tr, tg, tb, true);
                 break;
             case 2:
-                graphics.Print( -1, 95, ".............[].............", tr, tg, tb, true);
+                graphics.Print( -1, 85, ".............[].............", tr, tg, tb, true);
                 break;
             case 3:
-                graphics.Print( -1, 95, "...................[].......", tr, tg, tb, true);
+                graphics.Print( -1, 85, "...................[].......", tr, tg, tb, true);
                 break;
             case 4:
-                graphics.Print( -1, 95, "..........................[]", tr, tg, tb, true);
+                graphics.Print( -1, 85, "..........................[]", tr, tg, tb, true);
                 break;
             }
             break;
@@ -547,10 +550,12 @@ static void menurender(void)
         case 2:
         case 3:
         case 4:
-            graphics.Print( -1, 85, loc::gettext("Flip is bound to: ") + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb, true);
-            graphics.Print( -1, 95, loc::gettext("Enter is bound to: ")  + std::string(help.GCString(game.controllerButton_map)), tr, tg, tb, true);
-            graphics.Print( -1, 105, loc::gettext("Menu is bound to: ") + std::string(help.GCString(game.controllerButton_esc)) , tr, tg, tb, true);
-            graphics.Print( -1, 115, loc::gettext("Restart is bound to: ") + std::string(help.GCString(game.controllerButton_restart)) , tr, tg, tb, true);
+        case 5:
+            graphics.Print( -1, 75, loc::gettext("Flip is bound to: ") + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb, true);
+            graphics.Print( -1, 85, loc::gettext("Enter is bound to: ")  + std::string(help.GCString(game.controllerButton_map)), tr, tg, tb, true);
+            graphics.Print( -1, 95, loc::gettext("Menu is bound to: ") + std::string(help.GCString(game.controllerButton_esc)) , tr, tg, tb, true);
+            graphics.Print( -1, 105, loc::gettext("Restart is bound to: ") + std::string(help.GCString(game.controllerButton_restart)) , tr, tg, tb, true);
+            graphics.Print( -1, 115, loc::gettext("Interact is bound to: ") + std::string(help.GCString(game.controllerButton_interact)) , tr, tg, tb, true);
             break;
         }
 
@@ -617,6 +622,28 @@ static void menurender(void)
             }
             break;
         case 2:
+        {
+            /* Screen width 40 chars, 4 per char */
+            char buffer[160 + 1];
+            const char* button;
+
+            graphics.bigprint(-1, 30, loc::gettext("Interact Button"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Toggle whether you interact with prompts using ENTER or E."), tr, tg, tb, true);
+
+            if (game.separate_interact)
+            {
+                button = loc::gettext("E");
+            }
+            else
+            {
+                button = loc::gettext("ENTER");
+            }
+
+            SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Interact button: %s"), button);
+            graphics.PrintWrap(-1, 95, buffer, tr, tg, tb, true);
+            break;
+        }
+        case 3:
             graphics.bigprint(-1, 30, loc::gettext("Fake Load Screen"), tr, tg, tb, true);
             if (game.skipfakeload)
                 graphics.PrintWrap(-1, 65, loc::gettext("Fake loading screen is OFF"), tr / 2, tg / 2, tb / 2, true);
@@ -707,18 +734,27 @@ static void menurender(void)
             }
             break;
         case OFFSET+4:
+        {
+            const char* text;
+
             graphics.bigprint(-1, 40, loc::gettext("Text Outline"), tr, tg, tb, true);
             graphics.PrintWrap(-1, 75, loc::gettext("Disables outline on game text."), tr, tg, tb, true);
-            // FIXME: Maybe do an outlined print instead? -flibit
+
+            FillRect(graphics.backBuffer, 0, 84, 320, 10, tr, tg, tb);
+
             if (!graphics.notextoutline)
             {
-                graphics.PrintWrap(-1, 95, loc::gettext("Text outlines are ON."), tr, tg, tb, true);
+                text = loc::gettext("Text outlines are ON.");
             }
             else
             {
-                graphics.PrintWrap(-1, 95, loc::gettext("Text outlines are OFF."), tr / 2, tg / 2, tb / 2, true);
+                text = loc::gettext("Text outlines are OFF.");
             }
+
+            graphics.bprint(-1, 85, text, 255, 255, 255, true);
             break;
+        }
+
         }
         break;
 
@@ -735,7 +771,7 @@ static void menurender(void)
             graphics.bigprint( -1, 30, loc::gettext("Time Trials"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Replay any level in the game in a competitive time trial mode."), tr, tg, tb, true);
 
-            if (game.slowdown < 30 || map.invincibility)
+            if (game.nocompetitive())
             {
                 graphics.PrintWrap( -1, 105, loc::gettext("Time Trials are not available with slowdown or invincibility."), tr, tg, tb, true);
             }
@@ -753,7 +789,7 @@ static void menurender(void)
             graphics.bigprint( -1, 30, loc::gettext("No Death Mode"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Play the entire game without dying once."), tr, tg, tb, true);
 
-            if (game.slowdown < 30 || map.invincibility)
+            if (game.nocompetitive())
             {
                 graphics.PrintWrap( -1, 105, loc::gettext("No Death Mode is not available with slowdown or invincibility."), tr, tg, tb, true);
             }
@@ -1545,6 +1581,35 @@ void gamecompleterender2(void)
     graphics.render();
 }
 
+static const char* interact_prompt(
+    char* buffer,
+    const size_t buffer_size,
+    const char* raw
+) {
+    const char* string_fmt_loc = SDL_strstr(raw, "%s");
+    const char* button;
+
+    if (string_fmt_loc == NULL /* No "%s". */
+    || string_fmt_loc != SDL_strchr(raw, '%') /* First "%" found is not "%s". */
+    || SDL_strchr(&string_fmt_loc[1], '%') != NULL) /* Other "%" after "%s". */
+    {
+        return raw;
+    }
+
+    if (game.separate_interact)
+    {
+        button = loc::gettext("E");
+    }
+    else
+    {
+        button = loc::gettext("ENTER");
+    }
+
+    SDL_snprintf(buffer, buffer_size, raw, button);
+
+    return buffer;
+}
+
 void gamerender(void)
 {
 
@@ -1575,7 +1640,7 @@ void gamerender(void)
             {
                 ClearSurface(graphics.backBuffer);
             }
-            if (map.final_colormode)
+            if ((map.finalmode || map.custommode) && map.final_colormode)
             {
                 graphics.drawfinalmap();
             }
@@ -1647,15 +1712,17 @@ void gamerender(void)
 
     if (game.readytotele > 100 || game.oldreadytotele > 100)
     {
+        /* Screen width 40 chars, 4 per char */
+        char buffer[160 + 1];
+        static const char raw[] = loc::gettext("- Press %s to Teleport -"); // final space already removed, will remove this comment once I'm caught up with where that happens -Dav
+        const char* final_string = interact_prompt(
+            buffer,
+            sizeof(buffer),
+            raw
+        );
         int alpha = graphics.lerp(game.oldreadytotele, game.readytotele);
-        if(graphics.flipmode)
-        {
-            graphics.bprint(5, 20, loc::gettext("- Press ENTER to Teleport -"), alpha - 20 - (help.glow / 2), alpha - 20 - (help.glow / 2), alpha, true);
-        }
-        else
-        {
-            graphics.bprint(5, 210, loc::gettext("- Press ENTER to Teleport -"), alpha - 20 - (help.glow / 2), alpha - 20 - (help.glow / 2), alpha, true);
-        }
+
+        graphics.bprint(5, graphics.flipmode ? 20 : 210, final_string, alpha - 20 - (help.glow / 2), alpha - 20 - (help.glow / 2), alpha, true);
     }
 
     if (game.swnmode)
@@ -1786,19 +1853,19 @@ void gamerender(void)
         {
             if (game.timetrialcountdown < 30)
             {
-                if (int(game.timetrialcountdown / 4) % 2 == 0) graphics.bigprint( -1, 100, loc::gettext("Go!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
+                if (int(game.timetrialcountdown / 4) % 2 == 0) graphics.bigbprint( -1, 100, loc::gettext("Go!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
             else if (game.timetrialcountdown < 60)
             {
-                graphics.bigprint( -1, 100, "1", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
+                graphics.bigbprint( -1, 100, "1", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
             else if (game.timetrialcountdown < 90)
             {
-                graphics.bigprint( -1, 100, "2", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
+                graphics.bigbprint( -1, 100, "2", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
             else if (game.timetrialcountdown < 120)
             {
-                graphics.bigprint( -1, 100, "3", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
+                graphics.bigbprint( -1, 100, "3", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
         }
         else
@@ -1863,8 +1930,16 @@ void gamerender(void)
     float act_alpha = graphics.lerp(game.prev_act_fade, game.act_fade) / 10.0f;
     if(game.act_fade>5 || game.prev_act_fade>5)
     {
+        /* Screen width 40 chars, 4 per char */
+        char buffer[160 + 1];
+        const char* final_string = interact_prompt(
+            buffer,
+            sizeof(buffer),
+            game.activity_lastprompt.c_str()
+        );
+
         graphics.drawtextbox(16, 4, 36, 3, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
-        graphics.Print(5, 12, game.activity_lastprompt, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha, true);
+        graphics.Print(5, 12, final_string, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha, true);
     }
 
     if (obj.trophytext > 0 || obj.oldtrophytext > 0)
@@ -1901,7 +1976,7 @@ void maprender(void)
 
 
     //Menubar:
-    graphics.drawtextbox( -10, 212, 42, 3, 65, 185, 207);
+    graphics.drawtextbox( -10, 212, 43, 3, 65, 185, 207);
 
     // Draw the selected page name at the bottom
     // menupage 0 - 3 is the pause screen
@@ -2739,9 +2814,18 @@ void teleporterrender(void)
 
     if (game.useteleporter)
     {
+        /* Screen width 40 chars, 4 per char */
+        char buffer[160 + 1];
+        static const char raw[] = loc::gettext("Press %s to Teleport");
+        const char* final_string = interact_prompt(
+            buffer,
+            sizeof(buffer),
+            raw
+        );
+
         //Instructions!
         graphics.Print(5, 210, loc::gettext("Press Left/Right to choose a Teleporter"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
-        graphics.Print(5, 225, loc::gettext("Press ENTER to Teleport"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+        graphics.Print(5, 225, final_string, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
     }
 
     graphics.drawgui();

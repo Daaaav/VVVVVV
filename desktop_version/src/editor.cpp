@@ -3906,11 +3906,11 @@ static void editormenuactionpress(void)
             key.keybuffer=ed.website;
             break;
         case 4:
-            music.playef(11);
             game.returnmenu();
             map.nexttowercolour();
             break;
         }
+        music.playef(11);
         break;
     case Menu::ed_settings:
         switch (game.currentmenuoption)
@@ -4073,6 +4073,7 @@ void editorinput(void)
     game.press_right = false;
     game.press_action = false;
     game.press_map = false;
+    game.press_interact = false;
 
     if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false))
     {
@@ -4124,6 +4125,7 @@ void editorinput(void)
             ed.desc3mod=false;
             ed.websitemod=false;
             ed.creatormod=false;
+            music.playef(11);
 
             ed.shiftmenu=false;
             ed.shiftkey=false;
@@ -4576,6 +4578,7 @@ void editorinput(void)
                     key.enabletextentry();
                     key.keybuffer=ed.Desc3;
                 }
+                music.playef(11);
             }
         }
     }
