@@ -625,7 +625,7 @@ static void menurender(void)
         {
             /* Screen width 40 chars, 4 per char */
             char buffer[160 + 1];
-            const char* button;
+            std::string button;
 
             graphics.bigprint(-1, 30, loc::gettext("Interact Button"), tr, tg, tb, true);
             graphics.PrintWrap(-1, 65, loc::gettext("Toggle whether you interact with prompts using ENTER or E."), tr, tg, tb, true);
@@ -639,7 +639,7 @@ static void menurender(void)
                 button = loc::gettext("ENTER");
             }
 
-            SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Interact button: %s"), button);
+            SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Interact button: %s").c_str(), button.c_str());
             graphics.PrintWrap(-1, 95, buffer, tr, tg, tb, true);
             break;
         }
@@ -735,7 +735,7 @@ static void menurender(void)
             break;
         case OFFSET+4:
         {
-            const char* text;
+            std::string text;
 
             graphics.bigprint(-1, 40, loc::gettext("Text Outline"), tr, tg, tb, true);
             graphics.PrintWrap(-1, 75, loc::gettext("Disables outline on game text."), tr, tg, tb, true);
@@ -1587,7 +1587,7 @@ static const char* interact_prompt(
     const char* raw
 ) {
     const char* string_fmt_loc = SDL_strstr(raw, "%s");
-    const char* button;
+    std::string button;
 
     if (string_fmt_loc == NULL /* No "%s". */
     || string_fmt_loc != SDL_strchr(raw, '%') /* First "%" found is not "%s". */
@@ -1605,7 +1605,7 @@ static const char* interact_prompt(
         button = loc::gettext("ENTER");
     }
 
-    SDL_snprintf(buffer, buffer_size, raw, button);
+    SDL_snprintf(buffer, buffer_size, raw, button.c_str());
 
     return buffer;
 }
@@ -1714,11 +1714,10 @@ void gamerender(void)
     {
         /* Screen width 40 chars, 4 per char */
         char buffer[160 + 1];
-        static const char raw[] = loc::gettext("- Press %s to Teleport -"); // final space already removed, will remove this comment once I'm caught up with where that happens -Dav
         const char* final_string = interact_prompt(
             buffer,
             sizeof(buffer),
-            raw
+            loc::gettext("- Press %s to Teleport -").c_str()
         );
         int alpha = graphics.lerp(game.oldreadytotele, game.readytotele);
 
@@ -2816,11 +2815,10 @@ void teleporterrender(void)
     {
         /* Screen width 40 chars, 4 per char */
         char buffer[160 + 1];
-        static const char raw[] = loc::gettext("Press %s to Teleport");
         const char* final_string = interact_prompt(
             buffer,
             sizeof(buffer),
-            raw
+            loc::gettext("Press %s to Teleport").c_str()
         );
 
         //Instructions!
