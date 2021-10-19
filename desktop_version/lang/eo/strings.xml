@@ -3,7 +3,7 @@
     <string english="LOADING..." explanation="on loading screen, followed by percentage" max="26" comment="">ŜARGADO...</string>
     <string english="Game paused" explanation="pause screen" max="40" comment="">Ludo paŭzita</string>
     <string english="[click to resume]" explanation="pause screen" max="40" comment="">[alklaku por daŭrigi]</string>
-    <string english="Press M to mute in game" explanation="pause screen" max="40" comment="">Premu M por silentigi enlude</string>
+    <string english="Press M to mute in game" explanation="pause screen" max="40" comment="">Premu M por silentigi la ludon</string>
     <string english="Press N to mute music only" explanation="pause screen" max="40" comment="">Premu N por silentigi nur muzikon</string>
     <string english="MAKE AND PLAY EDITION" explanation="" comment="">ELDONO MAKE AND PLAY</string>
     <string english="[MMMMMM Mod Installed]" explanation="" max="32" comment="">[MMMMMM instalita]</string>
@@ -20,7 +20,7 @@
     <string english="Adjust screen settings" explanation="" max="38*5" comment="">Agordi la ekranon</string>
     <string english="audio" explanation="options menu option" comment="">sono</string>
     <string english="Audio Options" explanation="title" max="20" comment="">Agordoj de sono</string>
-    <string english="Adjust volume settings and soundtrack" explanation="" max="38*5" comment="">Agordi laŭtecon kaj muzikaĵon</string>
+    <string english="Adjust volume settings and soundtrack" explanation="" max="38*5" comment="">Agordi laŭtecon kaj sontrakon</string>
     <string english="Adjust volume settings" explanation="" max="38*5" comment="">Agordi laŭtecon</string>
     <string english="continue" explanation="menu option" comment="">daŭrigi</string>
     <string english="continue from teleporter" explanation="menu option, game save that was made at a teleporter" comment="">daŭrigi de teleportilo</string>
@@ -249,7 +249,7 @@
     <string english="Currently Disabled." explanation="flip mode" max="38*3" comment="">Nune neebligita.</string>
     <string english="TO UNLOCK: Complete the game." explanation="" max="38*3" comment="">POR MALŜLOSI: Fini la ludon.</string>
     <string english="Are you sure you want to quit?" explanation="quit the program" max="38*4" comment="">Ĉu vi vere volas eliri?</string>
-    <string english="GAME OVER" explanation="bigger title" max="13" comment="">GAME OVER</string>
+    <string english="GAME OVER" explanation="bigger title" max="13" comment="">LUDO FINIĜIS</string>
     <string english="You managed to reach:" explanation="you managed to reach the following room" max="40" comment="">Vi sukcesis atingi:</string>
     <string english="Keep trying! You&apos;ll get there!" explanation="player died before managing to save anybody" max="38*2" comment="">Klopodadu! Vi certe sukcesos!</string>
     <string english="Nice one!" explanation="player died after saving one crewmate" max="38*2" comment="">Bone farite!</string>
@@ -345,7 +345,7 @@
     <string english="[Press ACTION to save your game]" explanation="" max="38*7" comment="">[Premu AGBUTONO por konservi la ludon]</string>
     <string english="(Note: The game is autosaved at every teleporter.)" explanation="" max="38*3" comment="">(Notu: la ludo estas aŭtomate konservita ĉe ĉiu teleportilo.)</string>
     <string english="Last Save:" explanation="" max="40" comment="">Lasta konservo:</string>
-    <string english="Return to main menu?" explanation="" max="38*4" comment="">Ĉu revenu al ĉefa menuo?</string>
+    <string english="Return to main menu?" explanation="" max="38*4" comment="">Ĉu reveni al ĉefa menuo?</string>
     <string english="Do you want to quit? You will lose any unsaved progress." explanation="" max="38*4" comment="">Ĉu vi volas eliri? Vi perdos ajnan nekonservitan progreson.</string>
     <string english="Do you want to return to the secret laboratory?" explanation="" max="38*4" comment="">Ĉu vi volas reveni al la sekreta laboratorio?</string>
     <string english="no, keep playing" explanation="" max="28" comment="">ne, daŭru ludi</string>
@@ -358,14 +358,14 @@
     <string english="yes, quit" explanation="quit program" comment="">jes, eliri</string>
     <string english="return to game" explanation="pause menu option" comment="">reveni al ludo</string>
     <string english="quit to menu" explanation="pause menu option" comment="">eliri al menuo</string>
-    <string english="Press Left/Right to choose a Teleporter" explanation="tight fit, so maybe `Left/Right: choose teleporter`" max="40" comment="">Dekstro/Mald.: elekti teleportilon</string>
+    <string english="Press Left/Right to choose a Teleporter" explanation="tight fit, so maybe `Left/Right: choose teleporter`" max="40" comment="">Dekstro/Mal.: elekti teleportilon</string>
     <string english="Press ENTER to Teleport" explanation="" max="40" comment="">Premu ENTER por teleportiĝi</string>
     <string english="Map Settings" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20" comment="">Mapagordoj</string>
     <string english="edit scripts" explanation="level editor menu option" comment="">redakti skriptojn</string>
     <string english="change music" explanation="level editor menu option" comment="">ŝanĝi muzikon</string>
     <string english="editor ghosts" explanation="level editor menu option. Toggles option to show a repetition of the player&apos;s path after playtesting" comment="">redaktilaj fantomoj</string>
-    <string english="Editor ghost trail is OFF" explanation="level editor. Repetition of the player&apos;s path after playtesting is disabled" max="40" comment="">Redaktila fantomoj estas MALŜALTAJ</string>
-    <string english="Editor ghost trail is ON" explanation="level editor. Repetition of the player&apos;s path after playtesting is enabled" max="40" comment="">Redaktila fantomoj estas ŜALTAJ</string>
+    <string english="Editor ghost trail is OFF" explanation="level editor. Repetition of the player&apos;s path after playtesting is disabled" max="40" comment="">Redaktilaj fantomoj estas MALŜALTAJ</string>
+    <string english="Editor ghost trail is ON" explanation="level editor. Repetition of the player&apos;s path after playtesting is enabled" max="40" comment="">Redaktilaj fantomoj estas ŜALTAJ</string>
     <string english="load level" explanation="level editor menu option" comment="">ŝarĝi nivelon</string>
     <string english="save level" explanation="level editor menu option" comment="">konservi nivelon</string>
     <string english="quit to main menu" explanation="level editor menu option" max="19" comment="">eliri al ĉefa menuo</string>
@@ -373,9 +373,9 @@
     <string english="change author" explanation="level editor menu option" comment="">ŝanĝi aŭtoron</string>
     <string english="change description" explanation="level editor menu option" comment="">ŝanĝi priskribon</string>
     <string english="change website" explanation="level editor menu option" comment="">ŝanĝi retejon</string>
-    <string english="Map Music" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20" comment="">Mapmuziko</string>
-    <string english="Current map music:" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2" comment="">Nuna mapmuziko:</string>
-    <string english="No background music" explanation="editor, level starts with no song playing" max="38*2" comment="">Nul fonmuziko</string>
+    <string english="Map Music" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20" comment="">Fonmuziko</string>
+    <string english="Current map music:" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2" comment="">Nuna fonmuziko:</string>
+    <string english="No background music" explanation="editor, level starts with no song playing" max="38*2" comment="">Neniu</string>
     <string english="1: Pushing Onwards" explanation="editor, song name should probably not be translated" max="38*2" comment="">1: Pushing Onwards</string>
     <string english="2: Positive Force" explanation="editor, song name should probably not be translated" max="38*2" comment="">2: Positive Force</string>
     <string english="3: Potential for Anything" explanation="editor, song name should probably not be translated" max="38*2" comment="">3: Potential for Anything</string>
@@ -422,7 +422,7 @@
     <string english="&lt; and &gt; keys change tool" explanation="The &lt; and &gt; keys (actually , and . keys, even on non-US-QWERTY!) can be used to switch between tools" max="36" comment="">Klavoj &lt; kaj &gt; ŝanĝas ilojn</string>
     <string english="1: Walls" explanation="editor tool. Solid tiles" max="32" comment="">1: Muroj</string>
     <string english="2: Backing" explanation="editor tool. Non-solid background tiles" max="32" comment="">2: Fonaĵo</string>
-    <string english="3: Spikes" explanation="editor tool" max="32" comment="">3: Pintaĵoj</string>
+    <string english="3: Spikes" explanation="editor tool" max="32" comment="">3: Pikaĵoj</string>
     <string english="4: Trinkets" explanation="editor tool. Shiny trinkets/collectibles" max="32" comment="">4: Kolektaĵoj</string>
     <string english="5: Checkpoint" explanation="editor tool. You restart at the last checkpoint after death" max="32" comment="">5: Konservejo</string>
     <string english="6: Disappear" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32" comment="">6: Malaperaĵo</string>
@@ -446,7 +446,7 @@
     <string english="F5: Platform Bounds" explanation="editor shortcut, invisible box which platforms always stay inside of" max="25" comment="">F5: Platformlimoj</string>
     <string english="F9: Reload Resources" explanation="editor shortcut, reload tilesets, sprites, music, etc" max="25" comment="">F9: Reŝargi rimedojn</string>
     <string english="F10: Direct Mode" explanation="editor shortcut, direct mode is manual tile placing mode, where walls are not automatically made nice" max="25" comment="">F10: Rekta reĝimo</string>
-    <string english="W: Change Warp Dir" explanation="editor shortcut, dir=direction, change which edges of the room wrap around. Can be horizontal, vertical or all sides" max="25" comment="">W: Teleportdirekto</string>
+    <string english="W: Change Warp Dir" explanation="editor shortcut, dir=direction, change which edges of the room wrap around. Can be horizontal, vertical or all sides" max="25" comment="">W: Volviĝdirekto</string>
     <string english="E: Change Roomname" explanation="editor shortcut, the name of the room appears at the bottom" max="25" comment="">E: Ĉambronomo</string>
     <string english="S: Save Map" explanation="level editor, save level, `Map` is basically redundant" max="12" comment="">S: Konservi</string>
     <string english="L: Load Map" explanation="level editor, load level, `Map` is basically redundant" max="12" comment="">L: Ŝargi</string>
@@ -459,7 +459,7 @@
     <string english="Space Station" explanation="editor tileset name, Now using Space Station Tileset" comment="">Kosmostacio</string>
     <string english="Outside" explanation="editor tileset name, Now using Outside Tileset" comment="">Eksteraĵo</string>
     <string english="Lab" explanation="editor tileset name, Now using Lab Tileset" comment="">Laboratorio</string>
-    <string english="Warp Zone" explanation="editor tileset name, Now using Warp Zone Tileset. The Warp Zone got its name because its rooms wrap around, but think Star Trek" comment="">Teleportejo</string>
+    <string english="Warp Zone" explanation="editor tileset name, Now using Warp Zone Tileset. The Warp Zone got its name because its rooms wrap around, but think Star Trek" comment="">Volviĝejo</string>
     <string english="Ship" explanation="editor tileset name, Now using Ship Tileset. Spaceship" comment="">Ŝipo</string>
     <string english="Now using %s Tileset" explanation="level editor, user changed the tileset of the room to %s (like Ship, Lab, etc)" max="38*3" comment="">Nun uzas kahelaron de %s</string>
     <string english="Tileset Colour Changed" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3" comment="">Kahelara koloro ŝanĝita</string>
