@@ -7,6 +7,7 @@
 #include "Entity.h"
 #include "Enums.h"
 #include "Exit.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
 #include "Localization.h"
@@ -2669,6 +2670,14 @@ void scriptclass::resetgametomenu(void)
 	game.createmenu(Menu::gameover);
 }
 
+static void gotoerrorloadinglevel(void)
+{
+	game.createmenu(Menu::errorloadinglevel);
+	graphics.fademode = 4; /* start fade in */
+	music.currentsong = -1; /* otherwise music.play won't work */
+	music.play(6); /* title screen music */
+}
+
 void scriptclass::startgamemode( int t )
 {
 	switch(t)
@@ -2689,10 +2698,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -2714,10 +2720,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -2738,10 +2741,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		//a very special case for here needs to ensure that the tower is set correctly
@@ -2818,10 +2818,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -2842,10 +2839,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -2870,10 +2864,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -2901,10 +2892,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		music.play(11);
@@ -2935,10 +2923,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -2969,10 +2954,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3003,10 +2985,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3037,10 +3016,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3068,10 +3044,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3099,10 +3072,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3130,10 +3100,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3161,10 +3128,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3187,10 +3151,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -3221,10 +3182,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		if(ed.levmusic>0){
@@ -3238,7 +3196,11 @@ void scriptclass::startgamemode( int t )
 		//Initilise the level
 		//First up, find the start point
 		std::string filename = std::string(ed.ListOfMetaData[game.playcustomlevel].filename);
-		ed.load(filename);
+		if (!ed.load(filename))
+		{
+			gotoerrorloadinglevel();
+			break;
+		}
 		ed.findstartpoint();
 
 		game.gamestate = GAMEMODE;
@@ -3257,10 +3219,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3279,7 +3238,11 @@ void scriptclass::startgamemode( int t )
 		//Initilise the level
 		//First up, find the start point
 		std::string filename = std::string(ed.ListOfMetaData[game.playcustomlevel].filename);
-		ed.load(filename);
+		if (!ed.load(filename))
+		{
+			gotoerrorloadinglevel();
+			break;
+		}
 		ed.findstartpoint();
 
 		game.gamestate = GAMEMODE;
@@ -3301,10 +3264,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		ed.generatecustomminimap();
@@ -3430,13 +3390,15 @@ void scriptclass::teleport(void)
 
 void scriptclass::hardreset(void)
 {
+	const bool version2_2 = GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2);
+
 	//Game:
 	game.hascontrol = true;
 	game.gravitycontrol = 0;
 	game.teleport = false;
 	game.companion = 0;
 	game.roomchange = false;
-	if (!game.glitchrunnermode)
+	if (!version2_2)
 	{
 		// Ironically, resetting more variables makes the janky fadeout system in glitchrunnermode even more glitchy
 		game.roomx = 0;
@@ -3477,7 +3439,7 @@ void scriptclass::hardreset(void)
 	game.savetime = "00:00";
 	game.savearea = "nowhere";
 	game.savetrinkets = 0;
-	if (!game.glitchrunnermode)
+	if (!version2_2)
 	{
 		// Ironically, resetting more variables makes the janky fadeout system in glitchrunnermode even more glitchy
 		game.saverx = 0;
@@ -3523,7 +3485,7 @@ void scriptclass::hardreset(void)
 	game.statedelay = 0;
 
 	game.hascontrol = true;
-	if (!game.glitchrunnermode)
+	if (!GlitchrunnerMode_less_than_or_equal(Glitchrunner2_0))
 	{
 		// Keep the "- Press ACTION to advance text -" prompt around,
 		// apparently the speedrunners call it the "text storage" glitch
@@ -3564,7 +3526,7 @@ void scriptclass::hardreset(void)
 	map.resetnames();
 	map.custommode=false;
 	map.custommodeforreal=false;
-	if (!game.glitchrunnermode)
+	if (!version2_2)
 	{
 		// Ironically, resetting more variables makes the janky fadeout system even more glitchy
 		map.towermode=false;

@@ -7,6 +7,7 @@
 
 #include "Exit.h"
 #include "Game.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "Music.h"
 
@@ -72,7 +73,7 @@ void KeyPoll::toggleFullscreen(void)
 	}
 
 	keymap.clear(); /* we lost the input due to a new window. */
-	if (game.glitchrunnermode)
+	if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2))
 	{
 		game.press_left = false;
 		game.press_right = false;
@@ -326,8 +327,11 @@ void KeyPoll::Poll(void)
 				if (!game.disablepause)
 				{
 					isActive = true;
-					music.resume();
-					music.resumeef();
+					if (!game.disableaudiopause)
+					{
+						music.resume();
+						music.resumeef();
+					}
 				}
 				if (SDL_strcmp(SDL_GetCurrentVideoDriver(), "x11") == 0)
 				{
@@ -346,8 +350,11 @@ void KeyPoll::Poll(void)
 				if (!game.disablepause)
 				{
 					isActive = false;
-					music.pause();
-					music.pauseef();
+					if (!game.disableaudiopause)
+					{
+						music.pause();
+						music.pauseef();
+					}
 				}
 				if (SDL_strcmp(SDL_GetCurrentVideoDriver(), "x11") == 0)
 				{

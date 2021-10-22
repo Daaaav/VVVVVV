@@ -6,6 +6,7 @@
 #include "Enums.h"
 #include "FileSystemUtils.h"
 #include "Game.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
 #include "Localization.h"
@@ -283,7 +284,7 @@ static void startmode(const int mode)
     gotomode = mode;
     graphics.fademode = 2; /* fading out */
     fadetomode = true;
-    fadetomodedelay = 16;
+    fadetomodedelay = 19;
 }
 
 static int* user_changing_volume = NULL;
@@ -492,6 +493,10 @@ static void menuactionpress(void)
             ed.getDirectoryData();
             game.loadcustomlevelstats(); //Should only load a file if it's needed
             game.createmenu(Menu::levellist);
+            if (FILESYSTEM_levelDirHasError())
+            {
+                game.createmenu(Menu::warninglevellist);
+            }
             map.nexttowercolour();
             break;
  #if !defined(NO_EDITOR)
@@ -662,8 +667,9 @@ static void menuactionpress(void)
         case 0:
             // Glitchrunner mode
             music.playef(11);
-            game.glitchrunnermode = !game.glitchrunnermode;
-            game.savestatsandsettings_menu();
+            game.createmenu(Menu::setglitchrunner);
+            game.currentmenuoption = GlitchrunnerMode_get();
+            map.nexttowercolour();
             break;
         case 1:
             /* Input delay */
@@ -683,6 +689,12 @@ static void menuactionpress(void)
             game.savestatsandsettings_menu();
             music.playef(11);
             break;
+        case 4:
+            // toggle in game timer
+            game.showingametimer = !game.showingametimer;
+            game.savestatsandsettings_menu();
+            music.playef(11);
+            break;
         default:
             //back
             music.playef(11);
@@ -690,6 +702,13 @@ static void menuactionpress(void)
             map.nexttowercolour();
             break;
         }
+        break;
+    case Menu::setglitchrunner:
+        GlitchrunnerMode_set((enum GlitchrunnerMode) game.currentmenuoption);
+        music.playef(11);
+        game.returnmenu();
+        game.savestatsandsettings_menu();
+        map.nexttowercolour();
         break;
     case Menu::advancedoptions:
         switch (game.currentmenuoption)
@@ -701,6 +720,12 @@ static void menuactionpress(void)
             music.playef(11);
             break;
         case 1:
+            /* toggle unfocus music pause */
+            game.disableaudiopause = !game.disableaudiopause;
+            game.savestatsandsettings_menu();
+            music.playef(11);
+            break;
+        case 2:
             // toggle translucent roomname BG
             graphics.translucentroomname = !graphics.translucentroomname;
             game.savestatsandsettings_menu();
@@ -1774,6 +1799,12 @@ static void menuactionpress(void)
         game.returnmenu();
         map.nexttowercolour();
         break;
+    case Menu::errorloadinglevel:
+    case Menu::warninglevellist:
+        music.playef(11);
+        game.returnmenu();
+        map.nexttowercolour();
+        break;
     default:
         break;
     }
@@ -1987,7 +2018,11 @@ void gameinput(void)
             }
             else
             {
-                if(game.glitchrunnermode || !game.glitchrunkludge) game.state++;
+                if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_0)
+                || !game.glitchrunkludge)
+                {
+                    game.state++;
+                }
                     game.jumpheld = true;
                     game.glitchrunkludge=true;
                     //Bug fix! You should only be able to do this ONCE.
@@ -2028,8 +2063,18 @@ void gameinput(void)
     {
         if ((game.press_map || key.isDown(27)) && !game.mapheld)
         {
-            game.returntoeditor();
-            game.mapheld = true;
+            if (!game.separate_interact
+            && game.press_map
+            && (INBOUNDS_VEC(game.activeactivity, obj.blocks)
+            || (game.activetele && game.readytotele > 20)))
+            {
+                /* Pass, let code block below handle it */
+            }
+            else
+            {
+                game.returntoeditor();
+                game.mapheld = true;
+            }
         }
     }
 #endif
@@ -2307,10 +2352,12 @@ void gameinput(void)
     }
 }
 
-static void mapmenuactionpress(void);
+static void mapmenuactionpress(bool version2_2);
 
 void mapinput(void)
 {
+    const bool version2_2 = GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2);
+
     //TODO Mouse Input!
     //game.mx = (mouseX / 2);
     //game.my = (mouseY / 2);
@@ -2321,7 +2368,7 @@ void mapinput(void)
     game.press_map = false;
     game.press_interact = false;
 
-    if (game.glitchrunnermode && graphics.fademode == 1 && graphics.menuoffset == 0)
+    if (version2_2 && graphics.fademode == 1 && graphics.menuoffset == 0)
     {
         // Deliberate re-addition of the glitchy gamestate-based fadeout!
 
@@ -2357,7 +2404,7 @@ void mapinput(void)
         }
     }
 
-    if (game.fadetomenu && !game.glitchrunnermode)
+    if (game.fadetomenu && !version2_2)
     {
         if (game.fadetomenudelay > 0)
         {
@@ -2371,7 +2418,7 @@ void mapinput(void)
         }
     }
 
-    if (game.fadetolab && !game.glitchrunnermode)
+    if (game.fadetolab && !version2_2)
     {
         if (game.fadetolabdelay > 0)
         {
@@ -2385,7 +2432,7 @@ void mapinput(void)
     }
 
     if(graphics.menuoffset==0
-    && ((!game.glitchrunnermode && !game.fadetomenu && game.fadetomenudelay <= 0 && !game.fadetolab && game.fadetolabdelay <= 0)
+    && ((!version2_2 && !game.fadetomenu && game.fadetomenudelay <= 0 && !game.fadetolab && game.fadetolabdelay <= 0)
     || graphics.fademode == 0))
     {
         if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_a) ||  key.isDown(KEYBOARD_w)|| key.controllerWantsLeft(true))
@@ -2476,7 +2523,7 @@ void mapinput(void)
 
         if (game.press_action)
         {
-            mapmenuactionpress();
+            mapmenuactionpress(version2_2);
         }
 
         if (game.menupage < 0) game.menupage = 3;
@@ -2493,7 +2540,7 @@ void mapinput(void)
     }
 }
 
-static void mapmenuactionpress(void)
+static void mapmenuactionpress(const bool version2_2)
 {
     switch (game.menupage)
     {
@@ -2565,27 +2612,30 @@ static void mapmenuactionpress(void)
         graphics.fademode = 2;
         music.fadeout();
         map.nexttowercolour();
-        if (!game.glitchrunnermode)
+        if (!version2_2)
         {
             game.fadetomenu = true;
-            game.fadetomenudelay = 16;
+            game.fadetomenudelay = 19;
         }
+        music.playef(11);
         break;
 
     case 20:
         //return to game
         graphics.resumegamemode = true;
+        music.playef(11);
         break;
     case 21:
         //quit to menu
         game.swnmode = false;
         graphics.fademode = 2;
         music.fadeout();
-        if (!game.glitchrunnermode)
+        if (!version2_2)
         {
             game.fadetolab = true;
-            game.fadetolabdelay = 16;
+            game.fadetolabdelay = 19;
         }
+        music.playef(11);
         break;
     case 30:
         // Return to game
@@ -2661,6 +2711,7 @@ void teleporterinput(void)
                 // Close teleporter menu
                 graphics.resumegamemode = true;
             }
+            music.playef(11);
         }
     }
     else

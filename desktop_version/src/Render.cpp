@@ -4,6 +4,7 @@
 #include "editor.h"
 #include "Entity.h"
 #include "FileSystemUtils.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
 #include "KeyPoll.h"
@@ -104,6 +105,34 @@ static void volumesliderrender(void)
     }
 
     graphics.Print(-1, 95, buffer, tr, tg, tb, true);
+}
+
+static void inline drawglitchrunnertext(void)
+{
+    int tempr = tr;
+    int tempg = tg;
+    int tempb = tb;
+
+    /* Screen width 40 chars, 4 per char */
+    char buffer[160 + 1];
+
+    const enum GlitchrunnerMode mode = GlitchrunnerMode_get();
+
+    if (mode == GlitchrunnerNone)
+    {
+        tempr /= 2;
+        tempg /= 2;
+        tempb /= 2;
+
+        SDL_strlcpy(buffer, loc::gettext("Glitchrunner mode is OFF").c_str(), sizeof(buffer));
+    }
+    else
+    {
+        std::string mode_string = loc::gettext(GlitchrunnerMode_enum_to_string(mode));
+        SDL_snprintf(buffer, sizeof(buffer), "Glitchrunner mode is %s", mode_string.c_str());
+    }
+
+    graphics.PrintWrap(-1, 95, buffer, tempr, tempg, tempb, true);
 }
 
 static void menurender(void)
@@ -600,14 +629,7 @@ static void menurender(void)
         case 0:
             graphics.bigprint(-1, 30, loc::gettext("Glitchrunner Mode"), tr, tg, tb, true);
             graphics.PrintWrap(-1, 65, loc::gettext("Re-enable glitches that existed in previous versions of the game."), tr, tg, tb, true);
-            if (game.glitchrunnermode)
-            {
-                graphics.PrintWrap(-1, 95, loc::gettext("Glitchrunner mode is ON"), tr, tg, tb, true);
-            }
-            else
-            {
-                graphics.PrintWrap(-1, 95, loc::gettext("Glitchrunner mode is OFF"), tr / 2, tg / 2, tb / 2, true);
-            }
+            drawglitchrunnertext();
             break;
         case 1:
             graphics.bigprint(-1, 30, loc::gettext("Input Delay"), tr, tg, tb, true);
@@ -650,7 +672,23 @@ static void menurender(void)
             else
                 graphics.PrintWrap(-1, 65, loc::gettext("Fake loading screen is ON"), tr, tg, tb, true);
             break;
+        case 4:
+            graphics.bigprint(-1, 30, loc::gettext("In Game Timer"), tr, tg, tb, true);
+            if (game.showingametimer)
+            {
+                graphics.PrintWrap(-1, 65, loc::gettext("In Game Timer is ON"), tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.PrintWrap(-1, 65, loc::gettext("In Game Timer is OFF"), tr / 2, tg / 2, tb / 2, true);
+            }
+            break;
         }
+        break;
+    case Menu::setglitchrunner:
+        graphics.bigprint(-1, 30, loc::gettext("Glitchrunner Mode"), tr, tg, tb, true);
+        graphics.PrintWrap(-1, 65, loc::gettext("Select a new glitchrunner version below."), tr, tg, tb, true);
+        drawglitchrunnertext();
         break;
     case Menu::advancedoptions:
         switch (game.currentmenuoption)
@@ -668,6 +706,18 @@ static void menurender(void)
             }
             break;
         case 1:
+            graphics.bigprint(-1, 30, loc::gettext("Unfocus Audio"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Toggle if the audio will pause when the window is unfocused."), tr, tg, tb, true);
+            if (game.disableaudiopause)
+            {
+                graphics.PrintWrap(-1, 95, loc::gettext("Unfocus audio pause is OFF"), tr/2, tg/2, tb/2, true);
+            }
+            else
+            {
+                graphics.PrintWrap(-1, 95, loc::gettext("Unfocus audio pause is ON"), tr, tg, tb, true);
+            }
+            break;
+        case 2:
             graphics.bigprint(-1, 30, loc::gettext("Room Name BG"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Lets you see through what is behind the name at the bottom of the screen."), tr, tg, tb, true);
             if (graphics.translucentroomname)
@@ -1343,6 +1393,14 @@ static void menurender(void)
     case Menu::errorsavingsettings:
         graphics.PrintWrap( -1, 95, loc::gettext("ERROR: Could not save settings file!"), tr, tg, tb, true);
         break;
+    case Menu::errorloadinglevel:
+        graphics.bigprint(-1, 45, loc::gettext("ERROR"), tr, tg, tb, true);
+        graphics.PrintWrap(-1, 65, graphics.error, tr, tg, tb, true, 10, 304);
+        break;
+    case Menu::warninglevellist:
+        graphics.bigprint(-1, 45, loc::gettext("WARNING"), tr, tg, tb, true);
+        graphics.PrintWrap(-1, 65, FILESYSTEM_getLevelDirError(), tr, tg, tb, true, 10, 304);
+        break;
     default:
         break;
     }
@@ -1656,6 +1714,12 @@ void gamerender(void)
         {
             graphics.drawtowerspikes();
         }
+    }
+
+    if (graphics.fademode==0 && !game.intimetrial && !game.isingamecompletescreen() && game.swngame != 1 && game.showingametimer)
+    {
+        graphics.bprint(6, 6, loc::gettext("TIME:"),  255,255,255);
+        graphics.bprint(46, 6, game.timestring(),  196, 196, 196);
     }
 
     if(map.extrarow==0 || (map.custommode && map.roomname!=""))
@@ -2696,7 +2760,11 @@ void maprender(void)
     // We need to draw the black screen above the menu in order to disguise it
     // being jankily brought down in glitchrunner mode when exiting to the title
     // Otherwise, there's no reason to obscure the menu
-    if (game.glitchrunnermode || graphics.fademode == 3 || graphics.fademode == 5)
+    if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2)
+    || graphics.fademode == 3
+    || graphics.fademode == 5
+    || game.fadetomenu
+    || game.fadetolab)
     {
         graphics.drawfade();
     }

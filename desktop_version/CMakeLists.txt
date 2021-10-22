@@ -110,6 +110,7 @@ set(VVV_SRC
 	src/XMLUtils.cpp
 	src/main.cpp
 	src/DeferCallbacks.c
+	src/GlitchrunnerMode.c
 	src/Network.c
 	src/ThirdPartyDeps.c
 )

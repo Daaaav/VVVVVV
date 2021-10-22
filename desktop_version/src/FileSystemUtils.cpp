@@ -2,6 +2,7 @@
 #include <iterator>
 #include <physfs.h>
 #include <SDL.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <string>
 #include <tinyxml2.h>
@@ -148,8 +149,8 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 
 	if (basePath == NULL)
 	{
-		puts("Unable to get base path!");
-		return 0;
+		puts("Unable to determine base path, falling back to current directory");
+		basePath = SDL_strdup("./");
 	}
 
 	/* Mount the stock content last */
@@ -251,8 +252,8 @@ static void generateBase36(char* string, const size_t string_size)
 	for (i = 0; i < string_size - 1; ++i)
 	{
 		/* a-z0-9 */
-		char randchar = fRandom() * 36;
-		if (randchar <= 26)
+		char randchar = fRandom() * 35;
+		if (randchar < 26)
 		{
 			randchar += 'a';
 		}
@@ -346,6 +347,41 @@ static PHYSFS_EnumerateCallbackResult zipCheckCallback(
 	return PHYSFS_ENUM_OK;
 }
 
+static char levelDirError[256] = {'\0'};
+
+static bool levelDirHasError = false;
+
+bool FILESYSTEM_levelDirHasError(void)
+{
+	return levelDirHasError;
+}
+
+void FILESYSTEM_clearLevelDirError(void)
+{
+	levelDirHasError = false;
+}
+
+const char* FILESYSTEM_getLevelDirError(void)
+{
+	return levelDirError;
+}
+
+static int setLevelDirError(const char* text, ...)
+{
+	va_list list;
+	int retval;
+
+	levelDirHasError = true;
+
+	va_start(list, text);
+	retval = SDL_vsnprintf(levelDirError, sizeof(levelDirError), text, list);
+	va_end(list);
+
+	puts(levelDirError);
+
+	return retval;
+}
+
 /* For technical reasons, the level file inside a zip named LEVELNAME.zip must
  * be named LEVELNAME.vvvvvv, else its custom assets won't work;
  * if there are .vvvvvv files other than LEVELNAME.vvvvvv, they would be loaded
@@ -359,11 +395,13 @@ static bool checkZipStructure(const char* filename)
 {
 	const char* real_dir = PHYSFS_getRealDir(filename);
 	char base_name[MAX_PATH];
+	char base_name_suffixed[MAX_PATH];
 	char real_path[MAX_PATH];
 	char mount_path[MAX_PATH];
 	char check_path[MAX_PATH];
 	char random_str[6 + 1];
 	bool success;
+	bool file_exists;
 	struct ArchiveState zip_state;
 
 	if (real_dir == NULL)
@@ -393,26 +431,33 @@ static bool checkZipStructure(const char* filename)
 	VVV_between(filename, "levels/", base_name, ".zip");
 
 	SDL_snprintf(
-		check_path,
-		sizeof(check_path),
-		"%s%s.vvvvvv",
-		mount_path,
+		base_name_suffixed,
+		sizeof(base_name_suffixed),
+		"%s.vvvvvv",
 		base_name
 	);
 
-	success = PHYSFS_exists(check_path);
+	SDL_snprintf(
+		check_path,
+		sizeof(check_path),
+		"%s%s",
+		mount_path,
+		base_name_suffixed
+	);
+
+	file_exists = PHYSFS_exists(check_path);
+	success = file_exists;
 
 	SDL_zero(zip_state);
-	zip_state.filename = check_path;
+	zip_state.filename = base_name_suffixed;
 
 	PHYSFS_enumerate(mount_path, zipCheckCallback, (void*) &zip_state);
 
 	/* If no .vvvvvv files in zip, don't print warning. */
 	if (!success && zip_state.has_extension)
 	{
-		/* FIXME: How do we print this for non-terminal users? */
-		printf(
-			"%s.zip is not structured correctly! It is missing %s.vvvvvv.\n",
+		setLevelDirError(
+			"%s.zip is not structured correctly! It is missing %s.vvvvvv.",
 			base_name,
 			base_name
 		);
@@ -421,11 +466,11 @@ static bool checkZipStructure(const char* filename)
 	success &= !zip_state.other_level_files;
 
 	/* ...But if other .vvvvvv file(s), do print warning. */
-	if (zip_state.other_level_files)
+	/* This message is redundant if the correct file already DOESN'T exist. */
+	if (file_exists && zip_state.other_level_files)
 	{
-		/* FIXME: How do we print this for non-terminal users? */
-		printf(
-			"%s.zip is not structured correctly! It has .vvvvvv file(s) other than %s.vvvvvv.\n",
+		setLevelDirError(
+			"%s.zip is not structured correctly! It has .vvvvvv file(s) other than %s.vvvvvv.",
 			base_name,
 			base_name
 		);
@@ -462,7 +507,9 @@ void FILESYSTEM_loadZip(const char* filename)
 	}
 }
 
-void FILESYSTEM_mountAssets(const char* path)
+void FILESYSTEM_unmountAssets(void);
+
+bool FILESYSTEM_mountAssets(const char* path)
 {
 	char filename[MAX_PATH];
 	char zip_data[MAX_PATH];
@@ -493,10 +540,10 @@ void FILESYSTEM_mountAssets(const char* path)
 
 		if (!FILESYSTEM_mountAssetsFrom(zip_data))
 		{
-			return;
+			return false;
 		}
 
-		graphics.reloadresources();
+		MAYBE_FAIL(graphics.reloadresources());
 	}
 	else if (zip_normal != NULL && endsWith(zip_normal, ".zip"))
 	{
@@ -504,10 +551,10 @@ void FILESYSTEM_mountAssets(const char* path)
 
 		if (!FILESYSTEM_mountAssetsFrom(zip_normal))
 		{
-			return;
+			return false;
 		}
 
-		graphics.reloadresources();
+		MAYBE_FAIL(graphics.reloadresources());
 	}
 	else if (FILESYSTEM_exists(dir))
 	{
@@ -515,15 +562,21 @@ void FILESYSTEM_mountAssets(const char* path)
 
 		if (!FILESYSTEM_mountAssetsFrom(dir))
 		{
-			return;
+			return false;
 		}
 
-		graphics.reloadresources();
+		MAYBE_FAIL(graphics.reloadresources());
 	}
 	else
 	{
 		puts("Custom asset directory does not exist");
 	}
+
+	return true;
+
+fail:
+	FILESYSTEM_unmountAssets();
+	return false;
 }
 
 void FILESYSTEM_unmountAssets(void)
@@ -853,7 +906,9 @@ static PHYSFS_EnumerateCallbackResult enumerateCallback(
 void FILESYSTEM_enumerateLevelDirFileNames(
 	void (*callback)(const char* filename)
 ) {
-	int success = PHYSFS_enumerate("levels", enumerateCallback, (void*) callback);
+	int success;
+
+	success = PHYSFS_enumerate("levels", enumerateCallback, (void*) callback);
 
 	if (success == 0)
 	{

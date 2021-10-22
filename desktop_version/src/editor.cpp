@@ -251,6 +251,8 @@ void editorclass::getDirectoryData(void)
 
     ListOfMetaData.clear();
 
+    FILESYSTEM_clearLevelDirError();
+
     loadZips();
 
     FILESYSTEM_enumerateLevelDirFileNames(levelMetaDataCallback);
@@ -1774,6 +1776,11 @@ void editorclass::switch_enemy(const bool reversed /*= false*/)
 
 bool editorclass::load(std::string& _path)
 {
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLHandle hDoc(&doc);
+    tinyxml2::XMLElement* pElem;
+    tinyxml2::XMLHandle hRoot(NULL);
+
     reset();
 
     static const char *levelDir = "levels/";
@@ -1785,14 +1792,13 @@ bool editorclass::load(std::string& _path)
     FILESYSTEM_unmountAssets();
     if (game.cliplaytest && game.playassets != "")
     {
-        FILESYSTEM_mountAssets(game.playassets.c_str());
+        MAYBE_FAIL(FILESYSTEM_mountAssets(game.playassets.c_str()));
     }
     else
     {
-        FILESYSTEM_mountAssets(_path.c_str());
+        MAYBE_FAIL(FILESYSTEM_mountAssets(_path.c_str()));
     }
 
-    tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document(_path.c_str(), doc))
     {
         printf("No level %s to load :(\n", _path.c_str());
@@ -1801,9 +1807,6 @@ bool editorclass::load(std::string& _path)
 
     loaded_filepath = _path;
 
-    tinyxml2::XMLHandle hDoc(&doc);
-    tinyxml2::XMLElement* pElem;
-    tinyxml2::XMLHandle hRoot(NULL);
     version = 0;
 
     {
@@ -2066,6 +2069,9 @@ next:
     version=2;
 
     return true;
+
+fail:
+    return false;
 }
 
 bool editorclass::save(std::string& _path)
@@ -4052,6 +4058,10 @@ static void editormenuactionpress(void)
 void editorinput(void)
 {
     extern editorclass ed;
+    if (graphics.fademode == 3 /* fading out */)
+    {
+        return;
+    }
     game.mx = (float) key.mx;
     game.my = (float) key.my;
     ed.tilex=(game.mx - (game.mx%8))/8;
@@ -5979,12 +5989,21 @@ Uint32 editorclass::getonewaycol(void)
     return graphics.getRGB(255, 255, 255);
 }
 
+static bool inbounds(const edentities* entity)
+{
+    extern editorclass ed;
+    return entity->x >= 0
+    && entity->y >= 0
+    && entity->x < ed.mapwidth * 40
+    && entity->y < ed.mapheight * 30;
+}
+
 int editorclass::numtrinkets(void)
 {
     int temp = 0;
     for (size_t i = 0; i < edentity.size(); i++)
     {
-        if (edentity[i].t == 9)
+        if (edentity[i].t == 9 && inbounds(&edentity[i]))
         {
             temp++;
         }
@@ -5997,7 +6016,7 @@ int editorclass::numcrewmates(void)
     int temp = 0;
     for (size_t i = 0; i < edentity.size(); i++)
     {
-        if (edentity[i].t == 15)
+        if (edentity[i].t == 15 && inbounds(&edentity[i]))
         {
             temp++;
         }

@@ -35,6 +35,8 @@
     <string english="ERROR: No levels found." explanation="" max="38*3" comment=""></string>
     <string english="by %s" explanation="%s: author of level" comment=""></string>
     <string english="ERROR: This level has no start point!" explanation="" max="38*5" comment=""></string>
+    <string english="ERROR" explanation="title" max="20" comment=""></string>
+    <string english="WARNING" explanation="title" max="20" comment=""></string>
     <string english="unlock play modes" explanation="menu option" comment=""></string>
     <string english="Unlock Play Modes" explanation="title" max="20" comment=""></string>
     <string english="Unlock parts of the game normally unlocked as you progress" explanation="" max="38*5" comment=""></string>
@@ -161,6 +163,15 @@
     <string english="Toggle if the game will pause when the window is unfocused." explanation="" max="38*3" comment=""></string>
     <string english="Unfocus pause is OFF" explanation="Making another window active will not show the pause screen." max="38*2" comment=""></string>
     <string english="Unfocus pause is ON" explanation="Making another window active will show the pause screen." max="38*2" comment=""></string>
+    <string english="unfocus audio pause" explanation="menu option. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause" comment=""></string>
+    <string english="Unfocus Audio" explanation="title. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause" max="20" comment=""></string>
+    <string english="Toggle if the audio will pause when the window is unfocused." explanation="" max="38*3" comment=""></string>
+    <string english="Unfocus audio pause is OFF" explanation="Making another window active will leave the music keep playing." max="38*2" comment=""></string>
+    <string english="Unfocus audio pause is ON" explanation="Making another window active will pause the music." max="38*2" comment=""></string>
+    <string english="toggle in game timer" explanation="menu option" comment=""></string>
+    <string english="In Game Timer" explanation="title" max="20" comment=""></string>
+    <string english="In Game Timer is ON" explanation="" max="38*2" comment=""></string>
+    <string english="In Game Timer is OFF" explanation="" max="38*2" comment=""></string>
     <string english="interact button" explanation="menu option" comment=""></string>
     <string english="Interact Button" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20" comment=""></string>
     <string english="Toggle whether you interact with prompts using ENTER or E." explanation="" max="38*5" comment=""></string>
@@ -182,8 +193,12 @@
     <string english="glitchrunner mode" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" comment=""></string>
     <string english="Glitchrunner Mode" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20" comment=""></string>
     <string english="Re-enable glitches that existed in previous versions of the game." explanation="glitchrunner mode" max="38*3" comment=""></string>
-    <string english="Glitchrunner mode is ON" explanation="" max="38*2" comment=""></string>
     <string english="Glitchrunner mode is OFF" explanation="" max="38*2" comment=""></string>
+    <string english="Glitchrunner mode is %s" explanation="a version number is filled in for %s, such as 2.0 or 2.2" max="38*2" comment=""></string>
+    <string english="Select a new glitchrunner version below." explanation="" max="38*3" comment=""></string>
+    <string english="none" explanation="menu option, do not emulate any older version" comment=""></string>
+    <string english="2.0" explanation="VVVVVV version number" comment=""></string>
+    <string english="2.2" explanation="VVVVVV version number" comment=""></string>
     <string english="input delay" explanation="menu option, enable 1 frame of delay after pressing input" comment=""></string>
     <string english="Input Delay" explanation="title, enable 1 frame of delay after pressing input" max="20" comment=""></string>
     <string english="Re-enable the 1-frame input delay from previous versions of the game." explanation="input delay" max="38*2" comment=""></string>
@@ -489,11 +504,6 @@
     <string english="ERROR: No checkpoint to spawn at" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3" comment=""></string>
     <string english="ERROR: Max number of trinkets is 100" explanation="" max="38*3" comment=""></string>
     <string english="ERROR: Max number of crewmates is 100" explanation="" max="38*3" comment=""></string>
-    <string english="" explanation="" comment=""></string>
-    <string english="" explanation="" comment=""></string>
-    <string english="" explanation="" comment=""></string>
-    <string english="" explanation="" comment=""></string>
-    <string english="" explanation="" comment=""></string>
     <string english="" explanation="" comment=""></string>
     <string english="" explanation="" comment=""></string>
     <string english="" explanation="" comment=""></string>

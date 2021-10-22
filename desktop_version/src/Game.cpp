@@ -12,6 +12,7 @@
 #include "Entity.h"
 #include "Enums.h"
 #include "FileSystemUtils.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "Localization.h"
 #include "KeyPoll.h"
@@ -379,7 +380,7 @@ void Game::init(void)
     fadetolabdelay = 0;
 
     over30mode = true;
-    glitchrunnermode = false;
+    showingametimer = false;
 
     ingame_titlemode = false;
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
@@ -389,6 +390,7 @@ void Game::init(void)
     slidermode = SLIDER_NONE;
 
     disablepause = false;
+    disableaudiopause = false;
     inputdelay = false;
 }
 
@@ -3962,7 +3964,7 @@ void Game::gethardestroom(void)
         }
         else if (map.roomname == "")
         {
-            hardestroom = "Dimension VVVVVV";
+            hardestroom = map.hiddenname;
         }
     }
 }
@@ -4197,6 +4199,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             disablepause = help.Int(pText);
         }
 
+        if (SDL_strcmp(pKey, "disableaudiopause") == 0)
+        {
+            disableaudiopause = help.Int(pText);
+        }
+
         if (SDL_strcmp(pKey, "over30mode") == 0)
         {
             over30mode = help.Int(pText);
@@ -4209,7 +4216,12 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
 
         if (SDL_strcmp(pKey, "glitchrunnermode") == 0)
         {
-            glitchrunnermode = help.Int(pText);
+            GlitchrunnerMode_set(GlitchrunnerMode_string_to_enum(pText));
+        }
+
+        if (SDL_strcmp(pKey, "showingametimer") == 0)
+        {
+            showingametimer = help.Int(pText);
         }
 
         if (SDL_strcmp(pKey, "vsync") == 0)
@@ -4468,6 +4480,8 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
 
     xml::update_tag(dataNode, "disablepause", (int) disablepause);
 
+    xml::update_tag(dataNode, "disableaudiopause", (int) disableaudiopause);
+
     xml::update_tag(dataNode, "notextoutline", (int) graphics.notextoutline);
 
     xml::update_tag(dataNode, "translucentroomname", (int) graphics.translucentroomname);
@@ -4476,7 +4490,13 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
 
     xml::update_tag(dataNode, "inputdelay", (int) inputdelay);
 
-    xml::update_tag(dataNode, "glitchrunnermode", (int) glitchrunnermode);
+    xml::update_tag(
+        dataNode,
+        "glitchrunnermode",
+        GlitchrunnerMode_enum_to_string(GlitchrunnerMode_get())
+    );
+
+    xml::update_tag(dataNode, "showingametimer", (int) showingametimer);
 
     xml::update_tag(dataNode, "vsync", (int) screen_settings->useVsync);
 
@@ -6096,12 +6116,26 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("input delay"));
         option(loc::gettext("interact button"));
         option(loc::gettext("fake load screen"));
+        option(loc::gettext("toggle in game timer"));
         option(loc::gettext("return"));
         menuyoff = 0;
         maxspacing = 15;
         break;
+    case Menu::setglitchrunner:
+    {
+        int i;
+
+        option(loc::gettext("none"));
+
+        for (i = 1; i < GlitchrunnerNumVersions; ++i)
+        {
+            option(loc::gettext(GlitchrunnerMode_enum_to_string((enum GlitchrunnerMode) i)));
+        }
+        break;
+    }
     case Menu::advancedoptions:
         option(loc::gettext("unfocus pause"));
+        option(loc::gettext("unfocus audio pause"));
         option(loc::gettext("room name background"));
         option(loc::gettext("return"));
         menuyoff = 0;
@@ -6465,6 +6499,11 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("ok"));
         option(loc::gettext("silence"));
         menuyoff = 10;
+        break;
+    case Menu::errorloadinglevel:
+    case Menu::warninglevellist:
+        option(loc::gettext("ok"));
+        menuyoff = 50;
         break;
     }
 
@@ -6902,4 +6941,9 @@ bool Game::incompetitive(void)
 bool Game::nocompetitive(void)
 {
     return slowdown < 30 || map.invincibility;
+}
+
+bool Game::isingamecompletescreen()
+{
+    return (state >= 3501 && state <= 3518) || (state >= 3520 && state <= 3522);
 }

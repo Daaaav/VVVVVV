@@ -35,6 +35,8 @@ namespace Menu
         youwannaquit,
         errornostart,
         errorsavingsettings,
+        errorloadinglevel,
+        warninglevellist,
         graphicoptions,
         ed_settings,
         ed_desc,
@@ -43,6 +45,7 @@ namespace Menu
         options,
         gameplayoptions,
         speedrunneroptions,
+        setglitchrunner,
         advancedoptions,
         audiooptions,
         accessibility,
@@ -231,6 +234,7 @@ public:
     bool hascontrol, jumpheld;
     int jumppressed;
     int gravitycontrol;
+    bool isingamecompletescreen();
 
     bool muted;
     int mutebutton;
@@ -467,7 +471,7 @@ public:
     bool nocompetitive(void);
 
     bool over30mode;
-    bool glitchrunnermode; // Have fun speedrunners! <3 Misa
+    bool showingametimer;
 
     bool ingame_titlemode;
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
@@ -478,6 +482,7 @@ public:
     void unlockAchievement(const char *name);
 
     bool disablepause;
+    bool disableaudiopause;
     bool inputdelay;
 };
 

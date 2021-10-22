@@ -21,7 +21,7 @@ bool FILESYSTEM_isFile(const char* filename);
 bool FILESYSTEM_isMounted(const char* filename);
 
 void FILESYSTEM_loadZip(const char* filename);
-void FILESYSTEM_mountAssets(const char *path);
+bool FILESYSTEM_mountAssets(const char *path);
 void FILESYSTEM_unmountAssets(void);
 bool FILESYSTEM_isAssetMounted(const char* filename);
 
@@ -44,6 +44,10 @@ void FILESYSTEM_enumerateLevelDirFileNames(void (*callback)(const char* filename
 
 std::vector<std::string> FILESYSTEM_getLanguageCodes(void);
 bool FILESYSTEM_langsAreModded(void);
+
+bool FILESYSTEM_levelDirHasError(void);
+void FILESYSTEM_clearLevelDirError(void);
+const char* FILESYSTEM_getLevelDirError(void);
 
 bool FILESYSTEM_openDirectoryEnabled(void);
 bool FILESYSTEM_openDirectory(const char *dname);

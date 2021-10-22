@@ -4,6 +4,7 @@
 #include "editor.h"
 #include "Entity.h"
 #include "Game.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "MakeAndPlay.h"
 #include "Music.h"
@@ -81,6 +82,8 @@ mapclass::mapclass(void)
 	cameraseek = 0;
 	minitowermode = false;
 	roomtexton = false;
+
+	nexttowercolour_set = false;
 }
 
 //Areamap starts at 100,100 and extends 20x20
@@ -472,11 +475,29 @@ int mapclass::finalat(int x, int y)
 		//Special case: animated tiles
 		if (final_mapcol == 1)
 		{
-			return 737 + (int(fRandom() * 11) * 40);
+			int offset;
+			if (game.noflashingmode)
+			{
+				offset = 0;
+			}
+			else
+			{
+				offset = int(fRandom() * 11) * 40;
+			}
+			return 737 + offset;
 		}
 		else
 		{
-			return contents[x + vmult[y]] - (final_mapcol * 3) + (final_aniframe * 40);
+			int offset;
+			if (game.noflashingmode)
+			{
+				offset = 0;
+			}
+			else
+			{
+				offset = final_aniframe * 40;
+			}
+			return contents[x + vmult[y]] - (final_mapcol * 3) + offset;
 		}
 	}
 	else if (contents[x + vmult[y]] >= 80)
@@ -630,6 +651,13 @@ void mapclass::updatetowerglow(TowerBG& bg_obj)
 
 void mapclass::nexttowercolour(void)
 {
+	/* Prevent cycling title BG more than once per frame. */
+	if (nexttowercolour_set)
+	{
+		return;
+	}
+	nexttowercolour_set = true;
+
 	graphics.titlebg.colstate+=5;
 	if (graphics.titlebg.colstate >= 30) graphics.titlebg.colstate = 0;
 
@@ -815,7 +843,7 @@ void mapclass::resetplayer(const bool player_died)
 		{
 			obj.entities[i].invis = false;
 		}
-		if (!game.glitchrunnermode)
+		if (!GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2))
 		{
 			obj.entities[i].size = 0;
 			obj.entities[i].cx = 6;
@@ -2056,7 +2084,7 @@ void mapclass::twoframedelayfix(void)
 	// and when the script gets loaded script.run() has already ran for that frame, too.
 	// A bit kludge-y, but it's the least we can do without changing the frame ordering.
 
-	if (game.glitchrunnermode
+	if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2)
 	|| !custommode
 	|| game.deathseq != -1)
 		return;
