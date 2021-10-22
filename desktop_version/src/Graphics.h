@@ -132,8 +132,6 @@ public:
 
 	void map_option(int opt, int num_opts, const std::string& text, bool selected = false);
 
-	void PrintWrap(int _x, int _y, std::string _s, int r, int g, int b, bool cen = false, int linespacing = 10, int maxw = 304);
-
 	void Print(int _x, int _y, std::string _s, int r, int g, int b, bool cen = false);
 
 	void PrintAlpha(int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen = false);
@@ -142,7 +140,7 @@ public:
 
 	bool next_wrap_s(char buffer[], size_t buffer_size, size_t* start, const char* str, int maxwidth);
 
-	void PrintWrap(int x, int y, const char* str, int r, int g, int b, bool cen, int linespacing, int maxwidth);
+	void PrintWrap(int x, int y, std::string s, int r, int g, int b, bool cen = false, int linespacing = 10, int maxwidth = 304);
 
 	void PrintOffAlpha(int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen = false);
 
@@ -151,9 +149,9 @@ public:
 	void bprintalpha(int x, int y, std::string t, int r, int g, int b, int a, bool cen = false);
 
 	int len(std::string t);
-	std::string wordwrap(const std::string& _s, int maxwidth, short *lines = NULL);
-	std::string wordwrap_balanced(const std::string& _s, int minwidth, int maxwidth);
-	std::string unwordwrap(const std::string& _s);
+	std::string string_wordwrap(const std::string& _s, int maxwidth, short *lines = NULL);
+	std::string string_wordwrap_balanced(const std::string& _s, int minwidth, int maxwidth);
+	std::string string_unwordwrap(const std::string& _s);
 
 	void bigprint( int _x, int _y, std::string _s, int r, int g, int b, bool cen = false, int sc = 2 );
 	void bigbprint(int x, int y, std::string s, int r, int g, int b, bool cen = false, int sc = 2);

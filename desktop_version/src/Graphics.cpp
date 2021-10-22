@@ -474,30 +474,6 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
     }
 }
 
-void Graphics::PrintWrap( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/, int linespacing /*= 10*/, int maxw /*= 304*/ ) {
-    size_t startline = 0;
-    size_t newline;
-
-    std::string s = wordwrap(_s, maxw);
-
-    do {
-        newline = s.find('\n', startline);
-
-        if (startline == 0 && newline == std::string::npos) {
-            return Print(_x, _y, s, r, g, b, cen);
-        }
-
-        Print(_x, _y, s.substr(startline, newline-startline), r, g, b, cen);
-        if (flipmode) {
-            _y -= linespacing;
-        } else {
-            _y += linespacing;
-        }
-
-        startline = newline+1;
-    } while (newline != std::string::npos);
-}
-
 void Graphics::Print( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ ) {
     return PrintAlpha(_x,_y,_s,r,g,b,255,cen);
 }
@@ -570,8 +546,11 @@ bool Graphics::next_wrap(
         switch (str[idx])
         {
         case ' ':
-            lenfromlastspace = idx;
-            lastspace = *start;
+            if (loc::langmeta.autowordwrap)
+            {
+                lenfromlastspace = idx;
+                lastspace = *start;
+            }
             break;
         case '\n':
             *start += 1;
@@ -623,14 +602,15 @@ bool Graphics::next_wrap_s(
 void Graphics::PrintWrap(
     const int x,
     int y,
-    const char* str,
+    std::string s,
     const int r,
     const int g,
     const int b,
-    const bool cen,
-    const int linespacing,
-    const int maxwidth
+    const bool cen /*= false*/,
+    const int linespacing /*= 10*/,
+    const int maxwidth /*= 304*/
 ) {
+    const char* str = s.c_str();
     /* Screen width is 320 pixels. The shortest a char can be is 6 pixels wide.
      * 320 / 6 is 54, rounded up. 4 bytes per char. */
     char buffer[54*4 + 1];
@@ -719,7 +699,7 @@ int Graphics::len(std::string t)
     return bfontpos;
 }
 
-std::string Graphics::wordwrap(const std::string& _s, int maxwidth, short *lines /*= NULL*/)
+std::string Graphics::string_wordwrap(const std::string& _s, int maxwidth, short *lines /*= NULL*/)
 {
     // Return a string wordwrapped to a maximum limit by adding newlines.
     // Assumes a language that uses spaces, so won't work well with CJK.
@@ -727,68 +707,43 @@ std::string Graphics::wordwrap(const std::string& _s, int maxwidth, short *lines
     if (lines != NULL)
         *lines = 1;
 
-    if (!loc::langmeta.autowordwrap)
+    const char* orig = _s.c_str();
+
+    std::string s;
+    size_t start = 0;
+    bool first = true;
+
+    while (true)
     {
-        if (lines != NULL)
+        size_t len = 0;
+
+        const char* part = &orig[start];
+
+        const bool retval = next_wrap(&start, &len, part, maxwidth);
+
+        if (!retval)
         {
-            // We still need to count the lines...
-            for (size_t i = 0; i < _s.size(); i++)
+            return s;
+        }
+
+        if (first)
+        {
+            first = false;
+        }
+        else
+        {
+            s.push_back('\n');
+
+            if (lines != NULL)
             {
-                if (_s[i] == '\n')
-                    (*lines)++;
+                (*lines)++;
             }
         }
-
-        return _s;
+        s.append(part, len);
     }
-
-    std::string s = std::string(_s);
-    size_t lastsplit = -1, lastspace = -1;
-    int linewidth = 0;
-    int wordwidth = 0; // width since last space/split
-
-    std::string::iterator iter = s.begin();
-    size_t ix;
-    uint32_t ch;
-    while (iter != s.end())
-    {
-        // At index ix starts UTF-8 character ch. Luckily ' ' and '\n' are 1 byte in UTF-8!
-        ix = std::distance(s.begin(), iter);
-        ch = utf8::unchecked::next(iter);
-
-        int charwidth = bfontlen(ch);
-        linewidth += charwidth;
-        wordwidth += charwidth;
-
-        if (ch == ' ')
-        {
-            lastspace = ix;
-            wordwidth = 0;
-        }
-        if (ch == '\n')
-        {
-            lastsplit = ix;
-            lastspace = ix;
-            linewidth = 0;
-            wordwidth = 0;
-            if (lines != NULL)
-                (*lines)++;
-        }
-
-        if (linewidth > maxwidth && lastsplit != lastspace)
-        {
-            s[lastspace] = '\n';
-            lastsplit = lastspace;
-            linewidth = wordwidth;
-            if (lines != NULL)
-                (*lines)++;
-        }
-    }
-
-    return s;
 }
 
-std::string Graphics::wordwrap_balanced(const std::string& _s, int minwidth, int maxwidth)
+std::string Graphics::string_wordwrap_balanced(const std::string& _s, int minwidth, int maxwidth)
 {
     // Return a string wordwrapped to a limit between minwidth and maxwidth by adding newlines.
     // Within these bounds, try to fill the lines as far as possible, and return result where lines are most filled.
@@ -804,7 +759,7 @@ std::string Graphics::wordwrap_balanced(const std::string& _s, int minwidth, int
     double bestwidth_linefill = 0; // What fraction of the area of the "best" textbox is filled with text (0-1)
     for (int curlimit = minwidth; curlimit <= maxwidth; curlimit += 8)
     {
-        std::string curstring = wordwrap(_s, curlimit);
+        std::string curstring = string_wordwrap(_s, curlimit);
 
         // We need to know how much all the lines are filled, on average
         int total_lines = 1;
@@ -848,10 +803,10 @@ std::string Graphics::wordwrap_balanced(const std::string& _s, int minwidth, int
         }
     }
 
-    return wordwrap(_s, bestwidth);
+    return string_wordwrap(_s, bestwidth);
 }
 
-std::string Graphics::unwordwrap(const std::string& _s)
+std::string Graphics::string_unwordwrap(const std::string& _s)
 {
     // Takes a string wordwrapped by newlines, and turns it into a single line, undoing the wrapping.
     // Also trims any leading/trailing whitespace and collapses multiple spaces into one (to undo manual centering)

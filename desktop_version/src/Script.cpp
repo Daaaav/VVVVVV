@@ -2650,8 +2650,8 @@ void scriptclass::translate_dialogue(void)
 		eng.append(txt[i]);
 	}
 
-	eng = graphics.unwordwrap(eng);
-	std::string tra = graphics.wordwrap_balanced(loc::gettext_cutscene(scriptname, eng), 20*8, 32*8);
+	eng = graphics.string_unwordwrap(eng);
+	std::string tra = graphics.string_wordwrap_balanced(loc::gettext_cutscene(scriptname, eng), 20*8, 32*8);
 
 	txt.clear();
 	size_t startline = 0;
