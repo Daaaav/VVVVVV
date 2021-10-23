@@ -14,6 +14,7 @@
 #include "Maths.h"
 #include "Unused.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
 
 /* These are needed for PLATFORM_* crap */
 #if defined(_WIN32)
@@ -25,13 +26,9 @@ int mkdir(char* path, int mode)
 	MultiByteToWideChar(CP_UTF8, 0, path, -1, utf16_path, MAX_PATH);
 	return CreateDirectoryW(utf16_path, NULL);
 }
-#define VNEEDS_MIGRATION (mkdirResult != 0)
-#elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
-#include <unistd.h>
-#include <dirent.h>
+#elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__) || defined(__EMSCRIPTEN__) || defined(__unix__)
 #include <limits.h>
 #include <sys/stat.h>
-#define VNEEDS_MIGRATION (mkdirResult == 0)
 #define MAX_PATH PATH_MAX
 #endif
 
@@ -42,8 +39,6 @@ static char assetDir[MAX_PATH] = {'\0'};
 static char virtualMountPath[MAX_PATH] = {'\0'};
 
 static int PLATFORM_getOSDirectory(char* output, const size_t output_size);
-static void PLATFORM_migrateSaveData(char* output);
-static void PLATFORM_copyFile(const char *oldLocation, const char *newLocation);
 
 static void* bridged_malloc(PHYSFS_uint64 size)
 {
@@ -66,7 +61,6 @@ static const PHYSFS_Allocator allocator = {
 int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 {
 	char output[MAX_PATH];
-	int mkdirResult;
 	int retval;
 	const char* pathSep = PHYSFS_getDirSeparator();
 	char* basePath;
@@ -75,8 +69,8 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 
 	if (!PHYSFS_init(argvZero))
 	{
-		printf(
-			"Unable to initialize PhysFS: %s\n",
+		vlog_error(
+			"Unable to initialize PhysFS: %s",
 			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 		);
 		return 0;
@@ -103,8 +97,8 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	/* Mount our base user directory */
 	if (!PHYSFS_mount(output, NULL, 0))
 	{
-		printf(
-			"Could not mount %s: %s\n",
+		vlog_error(
+			"Could not mount %s: %s",
 			output,
 			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 		);
@@ -112,14 +106,14 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	}
 	if (!PHYSFS_setWriteDir(output))
 	{
-		printf(
-			"Could not set write dir to %s: %s\n",
+		vlog_error(
+			"Could not set write dir to %s: %s",
 			output,
 			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 		);
 		return 0;
 	}
-	printf("Base directory: %s\n", output);
+	vlog_info("Base directory: %s", output);
 
 	/* Store full save directory */
 	SDL_snprintf(saveDir, sizeof(saveDir), "%s%s%s",
@@ -128,7 +122,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 		pathSep
 	);
 	mkdir(saveDir, 0777); /* FIXME: Why did I not | this? -flibit */
-	printf("Save directory: %s\n", saveDir);
+	vlog_info("Save directory: %s", saveDir);
 
 	/* Store full level directory */
 	SDL_snprintf(levelDir, sizeof(levelDir), "%s%s%s",
@@ -136,20 +130,14 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 		"levels",
 		pathSep
 	);
-	mkdirResult = mkdir(levelDir, 0777);
-	printf("Level directory: %s\n", levelDir);
-
-	/* We didn't exist until now, migrate files! */
-	if (VNEEDS_MIGRATION)
-	{
-		PLATFORM_migrateSaveData(output);
-	}
+	mkdir(levelDir, 0777);
+	vlog_info("Level directory: %s", levelDir);
 
 	basePath = SDL_GetBasePath();
 
 	if (basePath == NULL)
 	{
-		puts("Unable to determine base path, falling back to current directory");
+		vlog_warn("Unable to determine base path, falling back to current directory");
 		basePath = SDL_strdup("./");
 	}
 
@@ -167,10 +155,10 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	}
 	if (!PHYSFS_mount(output, NULL, 1))
 	{
-		puts("Error: data.zip missing!");
-		puts("You do not have data.zip!");
-		puts("Grab it from your purchased copy of the game,");
-		puts("or get it from the free Make and Play Edition.");
+		vlog_error("Error: data.zip missing!");
+		vlog_error("You do not have data.zip!");
+		vlog_error("Grab it from your purchased copy of the game,");
+		vlog_error("or get it from the free Make and Play Edition.");
 
 		SDL_ShowSimpleMessageBox(
 			SDL_MESSAGEBOX_ERROR,
@@ -187,7 +175,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	SDL_snprintf(output, sizeof(output), "%s%s", basePath, "gamecontrollerdb.txt");
 	if (SDL_GameControllerAddMappingsFromFile(output) < 0)
 	{
-		printf("gamecontrollerdb.txt not found!\n");
+		vlog_info("gamecontrollerdb.txt not found!");
 	}
 	retval = 1;
 
@@ -222,8 +210,8 @@ bool FILESYSTEM_isFile(const char* filename)
 
 	if (!success)
 	{
-		printf(
-			"Could not stat file: %s\n",
+		vlog_error(
+			"Could not stat file: %s",
 			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 		);
 		return false;
@@ -309,7 +297,7 @@ static int setLevelDirError(const char* text, ...)
 	retval = SDL_vsnprintf(levelDirError, sizeof(levelDirError), text, list);
 	va_end(list);
 
-	puts(levelDirError);
+	vlog_error(levelDirError);
 
 	return retval;
 }
@@ -334,8 +322,8 @@ static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 
 	if (!PHYSFS_mount(path, virtualMountPath, 0))
 	{
-		printf(
-			"Error mounting %s: %s\n",
+		vlog_error(
+			"Error mounting %s: %s",
 			fname,
 			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 		);
@@ -406,8 +394,8 @@ static bool checkZipStructure(const char* filename)
 
 	if (real_dir == NULL)
 	{
-		printf(
-			"Could not check %s: real directory doesn't exist\n",
+		vlog_error(
+			"Could not check %s: real directory doesn't exist",
 			filename
 		);
 		return false;
@@ -420,8 +408,8 @@ static bool checkZipStructure(const char* filename)
 
 	if (!PHYSFS_mount(real_path, mount_path, 1))
 	{
-		printf(
-			"Error mounting and checking %s: %s\n",
+		vlog_error(
+			"Error mounting and checking %s: %s",
 			filename,
 			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 		);
@@ -478,8 +466,8 @@ static bool checkZipStructure(const char* filename)
 
 	if (!PHYSFS_unmount(real_path))
 	{
-		printf(
-			"Could not unmount %s: %s\n",
+		vlog_error(
+			"Could not unmount %s: %s",
 			mount_path,
 			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 		);
@@ -499,8 +487,8 @@ void FILESYSTEM_loadZip(const char* filename)
 
 	if (!PHYSFS_mountHandle(zip, filename, "levels", 1))
 	{
-		printf(
-			"Could not mount %s: %s\n",
+		vlog_error(
+			"Could not mount %s: %s",
 			filename,
 			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 		);
@@ -525,7 +513,7 @@ bool FILESYSTEM_mountAssets(const char* path)
 	);
 	if (FILESYSTEM_exists(virtual_path))
 	{
-		printf("Asset directory is .data.zip at %s\n", virtual_path);
+		vlog_info("Asset directory is .data.zip at %s", virtual_path);
 
 		if (!FILESYSTEM_mountAssetsFrom(virtual_path))
 		{
@@ -545,7 +533,7 @@ bool FILESYSTEM_mountAssets(const char* path)
 		if (FILESYSTEM_exists(virtual_path))
 		{
 			/* This is a full zipped-up level including assets */
-			printf("Asset directory is .zip at %s\n", virtual_path);
+			vlog_info("Asset directory is .zip at %s", virtual_path);
 
 			if (!FILESYSTEM_mountAssetsFrom(virtual_path))
 			{
@@ -565,7 +553,7 @@ bool FILESYSTEM_mountAssets(const char* path)
 			);
 			if (FILESYSTEM_exists(virtual_path))
 			{
-				printf("Asset directory exists at %s\n", virtual_path);
+				vlog_info("Asset directory exists at %s", virtual_path);
 
 				if (!FILESYSTEM_mountAssetsFrom(virtual_path))
 				{
@@ -574,13 +562,11 @@ bool FILESYSTEM_mountAssets(const char* path)
 
 				MAYBE_FAIL(graphics.reloadresources());
 			}
-#if 0 /* flibit removed this because it was noisy, maybe keep for debug? */
 			else
 			{
 				/* Wasn't a level zip, base zip, or folder! */
-				puts("Asset directory does not exist");
+				vlog_debug("Asset directory does not exist");
 			}
-#endif
 		}
 	}
 
@@ -595,17 +581,15 @@ void FILESYSTEM_unmountAssets(void)
 {
 	if (assetDir[0] != '\0')
 	{
-		printf("Unmounting %s\n", assetDir);
+		vlog_info("Unmounting %s", assetDir);
 		PHYSFS_unmount(assetDir);
 		assetDir[0] = '\0';
 		graphics.reloadresources();
 	}
-#if 0 /* flibit removed this because it was noisy, maybe keep for debug? */
 	else
 	{
-		printf("Cannot unmount when no asset directory is mounted\n");
+		vlog_debug("Cannot unmount when no asset directory is mounted");
 	}
-#endif
 }
 
 static void getMountedPath(
@@ -783,7 +767,7 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
 {
 	PHYSFS_sint64 size;
 	PHYSFS_File* handle;
-	int offset;
+	int valid, offset;
 	size_t i;
 	char path[MAX_PATH];
 
@@ -797,7 +781,7 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
 	handle = PHYSFS_openRead(path);
 	if (handle == NULL)
 	{
-		printf("Unable to open file %s\n", filename);
+		vlog_info("Unable to open file %s", filename);
 		return false;
 	}
 
@@ -809,6 +793,7 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
 		sizeof(blob->m_headers)
 	);
 
+	valid = 0;
 	offset = sizeof(blob->m_headers);
 
 	for (i = 0; i < SDL_arraysize(blob->m_headers); ++i)
@@ -841,16 +826,21 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
 		}
 		PHYSFS_readBytes(handle, *memblock, header->size);
 		offset += header->size;
+		valid += 1;
 
 		continue;
-
 fail:
 		header->valid = false;
 	}
 
 	PHYSFS_close(handle);
 
-	printf("The complete reloaded file size: %lli\n", size);
+	if (valid == 0)
+	{
+		return false;
+	}
+
+	vlog_debug("The complete reloaded file size: %lli", size);
 
 	for (i = 0; i < SDL_arraysize(blob->m_headers); ++i)
 	{
@@ -861,7 +851,7 @@ fail:
 			continue;
 		}
 
-		printf("%s unpacked\n", header->name);
+		vlog_debug("%s unpacked", header->name);
 	}
 
 	return true;
@@ -933,8 +923,8 @@ void FILESYSTEM_enumerateLevelDirFileNames(
 
 	if (success == 0)
 	{
-		printf(
-			"Could not get list of levels: %s\n",
+		vlog_error(
+			"Could not get list of levels: %s",
 			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 		);
 	}
@@ -981,8 +971,8 @@ static int PLATFORM_getOSDirectory(char* output, const size_t output_size)
 
 	if (FAILED(retcode))
 	{
-		printf(
-			"Could not get OS directory: SHGetFolderPathW returned 0x%08x\n",
+		vlog_error(
+			"Could not get OS directory: SHGetFolderPathW returned 0x%08x",
 			retcode
 		);
 		return 0;
@@ -1000,8 +990,8 @@ static int PLATFORM_getOSDirectory(char* output, const size_t output_size)
 	);
 	if (num_bytes == 0)
 	{
-		printf(
-			"Could not get OS directory: UTF-8 conversion failed with %d\n",
+		vlog_error(
+			"Could not get OS directory: UTF-8 conversion failed with %d",
 			GetLastError()
 		);
 		return 0;
@@ -1014,8 +1004,8 @@ static int PLATFORM_getOSDirectory(char* output, const size_t output_size)
 	const char* prefDir = PHYSFS_getPrefDir("distractionware", "VVVVVV");
 	if (prefDir == NULL)
 	{
-		printf(
-			"Could not get OS directory: %s\n",
+		vlog_error(
+			"Could not get OS directory: %s",
 			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 		);
 		return 0;
@@ -1023,173 +1013,6 @@ static int PLATFORM_getOSDirectory(char* output, const size_t output_size)
 	SDL_strlcpy(output, prefDir, output_size);
 	return 1;
 #endif
-}
-
-static void PLATFORM_migrateSaveData(char* output)
-{
-	char oldLocation[MAX_PATH];
-	char newLocation[MAX_PATH];
-	char oldDirectory[MAX_PATH];
-#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
-	DIR *dir = NULL;
-	struct dirent *de = NULL;
-	DIR *subDir = NULL;
-	struct dirent *subDe = NULL;
-	char subDirLocation[MAX_PATH];
-	const char *homeDir = SDL_getenv("HOME");
-	if (homeDir == NULL)
-	{
-		/* Uhh, I don't want to get near this. -flibit */
-		return;
-	}
-	const char oldPath[] =
- #if defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
-		"/.vvvvvv/";
- #elif defined(__APPLE__)
-		"/Documents/VVVVVV/";
- #endif
-	SDL_snprintf(oldDirectory, sizeof(oldDirectory), "%s%s", homeDir, oldPath);
-	dir = opendir(oldDirectory);
-	if (!dir)
-	{
-		printf("Could not find directory %s\n", oldDirectory);
-		return;
-	}
-
-	printf("Migrating old savedata to new location...\n");
-	for (de = readdir(dir); de != NULL; de = readdir(dir))
-	{
-		if (	SDL_strcmp(de->d_name, "..") == 0 ||
-			SDL_strcmp(de->d_name, ".") == 0	)
-		{
-			continue;
-		}
-		#define COPY_SAVEFILE(name) \
-			else if (SDL_strcmp(de->d_name, name) == 0) \
-			{ \
-				SDL_snprintf(oldLocation, sizeof(oldLocation), "%s%s", oldDirectory, name); \
-				SDL_snprintf(newLocation, sizeof(newLocation), "%ssaves/%s", output, name); \
-				PLATFORM_copyFile(oldLocation, newLocation); \
-			}
-		COPY_SAVEFILE("unlock.vvv")
-		COPY_SAVEFILE("tsave.vvv")
-		COPY_SAVEFILE("qsave.vvv")
-		#undef COPY_SAVEFILE
-		else if (SDL_strstr(de->d_name, ".vvvvvv.vvv") != NULL)
-		{
-			SDL_snprintf(oldLocation, sizeof(oldLocation), "%s%s", oldDirectory, de->d_name);
-			SDL_snprintf(newLocation, sizeof(newLocation), "%ssaves/%s", output, de->d_name);
-			PLATFORM_copyFile(oldLocation, newLocation);
-		}
-		else if (SDL_strstr(de->d_name, ".vvvvvv") != NULL)
-		{
-			SDL_snprintf(oldLocation, sizeof(oldLocation), "%s%s", oldDirectory, de->d_name);
-			SDL_snprintf(newLocation, sizeof(newLocation), "%slevels/%s", output, de->d_name);
-			PLATFORM_copyFile(oldLocation, newLocation);
-		}
-		else if (SDL_strcmp(de->d_name, "Saves") == 0)
-		{
-			SDL_snprintf(subDirLocation, sizeof(subDirLocation), "%sSaves/", oldDirectory);
-			subDir = opendir(subDirLocation);
-			if (!subDir)
-			{
-				printf("Could not open Saves/ subdir!\n");
-				continue;
-			}
-			for (
-				subDe = readdir(subDir);
-				subDe != NULL;
-				subDe = readdir(subDir)
-			) {
-				#define COPY_SAVEFILE(name) \
-					(SDL_strcmp(subDe->d_name, name) == 0) \
-					{ \
-						SDL_snprintf(oldLocation, sizeof(oldLocation), "%s%s", subDirLocation, name); \
-						SDL_snprintf(newLocation, sizeof(newLocation), "%ssaves/%s", output, name); \
-						PLATFORM_copyFile(oldLocation, newLocation); \
-					}
-				if COPY_SAVEFILE("unlock.vvv")
-				else if COPY_SAVEFILE("tsave.vvv")
-				else if COPY_SAVEFILE("qsave.vvv")
-				#undef COPY_SAVEFILE
-			}
-		}
-	}
-#elif defined(_WIN32)
-	WIN32_FIND_DATA findHandle;
-	HANDLE hFind = NULL;
-	char fileSearch[MAX_PATH];
-
-	/* Same place, different layout. */
-	SDL_strlcpy(oldDirectory, output, sizeof(oldDirectory));
-
-	SDL_snprintf(fileSearch, sizeof(fileSearch), "%s\\*.vvvvvv", oldDirectory);
-	hFind = FindFirstFile(fileSearch, &findHandle);
-	if (hFind == INVALID_HANDLE_VALUE)
-	{
-		printf("Could not find directory %s\n", oldDirectory);
-	}
-	else do
-	{
-		if ((findHandle.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0)
-		{
-			SDL_snprintf(oldLocation, sizeof(oldLocation), "%s%s", oldDirectory, findHandle.cFileName);
-			SDL_snprintf(newLocation, sizeof(newLocation), "%slevels\\%s", output, findHandle.cFileName);
-			PLATFORM_copyFile(oldLocation, newLocation);
-		}
-	} while (FindNextFile(hFind, &findHandle));
-#else
-#error See PLATFORM_migrateSaveData
-#endif
-}
-
-static void PLATFORM_copyFile(const char *oldLocation, const char *newLocation)
-{
-	char *data;
-	size_t length, bytes_read, bytes_written;
-
-	/* Read data */
-	FILE *file = fopen(oldLocation, "rb");
-	if (!file)
-	{
-		printf("Cannot open/copy %s\n", oldLocation);
-		return;
-	}
-	fseek(file, 0, SEEK_END);
-	length = ftell(file);
-	fseek(file, 0, SEEK_SET);
-	data = (char*) SDL_malloc(length);
-	if (data == NULL)
-	{
-		VVV_exit(1);
-	}
-	bytes_read = fread(data, 1, length, file);
-	fclose(file);
-	if (bytes_read != length)
-	{
-		printf("An error occurred when reading from %s\n", oldLocation);
-		SDL_free(data);
-		return;
-	}
-
-	/* Write data */
-	file = fopen(newLocation, "wb");
-	if (!file)
-	{
-		printf("Could not write to %s\n", newLocation);
-		SDL_free(data);
-		return;
-	}
-	bytes_written = fwrite(data, 1, length, file);
-	fclose(file);
-	SDL_free(data);
-
-	/* WTF did we just do */
-	printf("Copied:\n\tOld: %s\n\tNew: %s\n", oldLocation, newLocation);
-	if (bytes_written != length)
-	{
-		printf("Warning: an error occurred when writing to %s\n", newLocation);
-	}
 }
 
 bool FILESYSTEM_openDirectoryEnabled(void)
@@ -1201,17 +1024,24 @@ bool FILESYSTEM_openDirectoryEnabled(void)
 	return !SDL_GetHintBoolean("SteamTenfoot", SDL_FALSE);
 }
 
+#if defined(__EMSCRIPTEN__)
+bool FILESYSTEM_openDirectory(const char *dname)
+{
+	return false;
+}
+#else
 bool FILESYSTEM_openDirectory(const char *dname)
 {
 	char url[MAX_PATH];
 	SDL_snprintf(url, sizeof(url), "file://%s", dname);
 	if (SDL_OpenURL(url) == -1)
 	{
-		printf("Error opening directory: %s\n", SDL_GetError());
+		vlog_error("Error opening directory: %s", SDL_GetError());
 		return false;
 	}
 	return true;
 }
+#endif
 
 bool FILESYSTEM_delete(const char *name)
 {
@@ -1224,7 +1054,7 @@ static void levelSaveCallback(const char* filename)
 	{
 		if (!FILESYSTEM_delete(filename))
 		{
-			printf("Error deleting %s\n", filename);
+			vlog_error("Error deleting %s", filename);
 		}
 	}
 }
@@ -1242,8 +1072,8 @@ void FILESYSTEM_deleteLevelSaves(void)
 
 	if (success == 0)
 	{
-		printf(
-			"Could not enumerate saves/: %s\n",
+		vlog_error(
+			"Could not enumerate saves/: %s",
 			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 		);
 	}

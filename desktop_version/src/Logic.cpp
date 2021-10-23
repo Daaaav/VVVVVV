@@ -120,9 +120,19 @@ void gamecompletelogic2(void)
     }
 }
 
+static void gotoroom_wrapper(const int rx, const int ry)
+{
+    map.gotoroom(rx, ry);
+}
 
 void gamelogic(void)
 {
+    bool roomchange = false;
+#define GOTOROOM(rx, ry) \
+    gotoroom_wrapper(rx, ry); \
+    roomchange = true
+#define gotoroom Do not use map.gotoroom directly.
+
     /* Update old lerp positions of entities */
     {size_t i; for (i = 0; i < obj.entities.size(); ++i)
     {
@@ -1120,8 +1130,6 @@ void gamelogic(void)
             }
         }
 
-        bool screen_transition = false;
-
         if (!map.warpy && !map.towermode)
         {
             //Normal! Just change room
@@ -1129,14 +1137,12 @@ void gamelogic(void)
             if (INBOUNDS_VEC(player, obj.entities) && game.door_down > -2 && obj.entities[player].yp >= 238)
             {
                 obj.entities[player].yp -= 240;
-                map.gotoroom(game.roomx, game.roomy + 1);
-                screen_transition = true;
+                GOTOROOM(game.roomx, game.roomy + 1);
             }
             if (INBOUNDS_VEC(player, obj.entities) && game.door_up > -2 && obj.entities[player].yp < -2)
             {
                 obj.entities[player].yp += 240;
-                map.gotoroom(game.roomx, game.roomy - 1);
-                screen_transition = true;
+                GOTOROOM(game.roomx, game.roomy - 1);
             }
         }
 
@@ -1147,14 +1153,12 @@ void gamelogic(void)
             if (INBOUNDS_VEC(player, obj.entities) && game.door_left > -2 && obj.entities[player].xp < -14)
             {
                 obj.entities[player].xp += 320;
-                map.gotoroom(game.roomx - 1, game.roomy);
-                screen_transition = true;
+                GOTOROOM(game.roomx - 1, game.roomy);
             }
             if (INBOUNDS_VEC(player, obj.entities) && game.door_right > -2 && obj.entities[player].xp >= 308)
             {
                 obj.entities[player].xp -= 320;
-                map.gotoroom(game.roomx + 1, game.roomy);
-                screen_transition = true;
+                GOTOROOM(game.roomx + 1, game.roomy);
             }
         }
 
@@ -1168,13 +1172,13 @@ void gamelogic(void)
                 if (INBOUNDS_VEC(player, obj.entities) && game.door_left > -2 && obj.entities[player].xp < -14)
                 {
                     obj.entities[player].xp += 320;
-                    map.gotoroom(48, 52);
+                    GOTOROOM(48, 52);
                 }
                 if (INBOUNDS_VEC(player, obj.entities) && game.door_right > -2 && obj.entities[player].xp >= 308)
                 {
                     obj.entities[player].xp -= 320;
                     obj.entities[player].yp -= (71*8);
-                    map.gotoroom(game.roomx + 1, game.roomy+1);
+                    GOTOROOM(game.roomx + 1, game.roomy+1);
                 }
             }
             else
@@ -1187,18 +1191,18 @@ void gamelogic(void)
                     {
                         obj.entities[player].xp += 320;
                         obj.entities[player].yp -= (71 * 8);
-                        map.gotoroom(50, 54);
+                        GOTOROOM(50, 54);
                     }
                     else
                     {
                         obj.entities[player].xp += 320;
-                        map.gotoroom(50, 53);
+                        GOTOROOM(50, 53);
                     }
                 }
                 if (INBOUNDS_VEC(player, obj.entities) && game.door_right > -2 && obj.entities[player].xp >= 308)
                 {
                     obj.entities[player].xp -= 320;
-                    map.gotoroom(52, 53);
+                    GOTOROOM(52, 53);
                 }
             }
         }
@@ -1229,12 +1233,12 @@ void gamelogic(void)
                 {
                     obj.entities[player].xp += 320;
                     obj.entities[player].yp -= (671 * 8);
-                    map.gotoroom(108, 109);
+                    GOTOROOM(108, 109);
                 }
                 if (INBOUNDS_VEC(player, obj.entities) && game.door_right > -2 && obj.entities[player].xp >= 308)
                 {
                     obj.entities[player].xp -= 320;
-                    map.gotoroom(110, 104);
+                    GOTOROOM(110, 104);
                 }
             }
         }
@@ -1268,7 +1272,7 @@ void gamelogic(void)
                     {
                         obj.entities[i].yp = 225;
                     }
-                    map.gotoroom(119, 100);
+                    GOTOROOM(119, 100);
                     game.teleport = false;
                 }
                 else if (game.roomx == 119 && game.roomy == 100)
@@ -1278,7 +1282,7 @@ void gamelogic(void)
                     {
                         obj.entities[i].yp = 225;
                     }
-                    map.gotoroom(119, 103);
+                    GOTOROOM(119, 103);
                     game.teleport = false;
                 }
                 else if (game.roomx == 119 && game.roomy == 103)
@@ -1288,7 +1292,7 @@ void gamelogic(void)
                     {
                         obj.entities[i].xp = 0;
                     }
-                    map.gotoroom(116, 103);
+                    GOTOROOM(116, 103);
                     game.teleport = false;
                 }
                 else if (game.roomx == 116 && game.roomy == 103)
@@ -1298,7 +1302,7 @@ void gamelogic(void)
                     {
                         obj.entities[i].yp = 225;
                     }
-                    map.gotoroom(116, 100);
+                    GOTOROOM(116, 100);
                     game.teleport = false;
                 }
                 else if (game.roomx == 116 && game.roomy == 100)
@@ -1308,7 +1312,7 @@ void gamelogic(void)
                     {
                         obj.entities[i].xp = 0;
                     }
-                    map.gotoroom(114, 102);
+                    GOTOROOM(114, 102);
                     game.teleport = false;
                 }
                 else if (game.roomx == 114 && game.roomy == 102)
@@ -1318,7 +1322,7 @@ void gamelogic(void)
                     {
                         obj.entities[i].yp = 225;
                     }
-                    map.gotoroom(113, 100);
+                    GOTOROOM(113, 100);
                     game.teleport = false;
                 }
                 else if (game.roomx == 116 && game.roomy == 104)
@@ -1374,7 +1378,7 @@ void gamelogic(void)
             }
         }
 
-        if (screen_transition)
+        if (roomchange)
         {
             map.twoframedelayfix();
         }
@@ -1401,10 +1405,9 @@ void gamelogic(void)
         }
     }
 
-    if (game.roomchange)
+    if (roomchange)
     {
         //We've changed room? Let's bring our companion along!
-        game.roomchange = false;
         int i = obj.getplayer();
         if (game.companion > 0 && INBOUNDS_VEC(i, obj.entities))
         {
@@ -1644,4 +1647,7 @@ void gamelogic(void)
 
     if (game.teleport_to_new_area)
         script.teleport();
+
+#undef gotoroom
+#undef GOTOROOM
 }

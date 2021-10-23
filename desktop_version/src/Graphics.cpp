@@ -1,7 +1,6 @@
 #define GRAPHICS_DEFINITION
 #include "Graphics.h"
 
-#include <stdio.h>
 #include <utf8/unchecked.h>
 
 #include "editor.h"
@@ -14,6 +13,7 @@
 #include "Music.h"
 #include "Screen.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
 
 void Graphics::init(void)
 {
@@ -324,7 +324,7 @@ void Graphics::updatetitlecolours(void)
         SDL_snprintf(error, sizeof(error), error_fmt, #tilesheet, tile_square); \
         SDL_snprintf(error_title, sizeof(error_title), error_title_fmt, #tilesheet); \
         \
-        puts(error); \
+        vlog_error(error); \
         \
         return false; \
     }
@@ -1574,7 +1574,7 @@ void Graphics::textboxtimer( int t )
 {
     if (!INBOUNDS_VEC(m, textbox))
     {
-        puts("textboxtimer() out-of-bounds!");
+        vlog_error("textboxtimer() out-of-bounds!");
         return;
     }
 
@@ -1585,7 +1585,7 @@ void Graphics::addline( std::string t )
 {
     if (!INBOUNDS_VEC(m, textbox))
     {
-        puts("addline() out-of-bounds!");
+        vlog_error("addline() out-of-bounds!");
         return;
     }
 
@@ -1596,7 +1596,7 @@ void Graphics::textboxadjust(void)
 {
     if (!INBOUNDS_VEC(m, textbox))
     {
-        puts("textboxadjust() out-of-bounds!");
+        vlog_error("textboxadjust() out-of-bounds!");
         return;
     }
 
@@ -3192,41 +3192,14 @@ void Graphics::setcol( int t )
 
 void Graphics::menuoffrender(void)
 {
-	SDL_Rect offsetRect1;
-	setRect (offsetRect1, 0, 0, backBuffer->w ,backBuffer->h);
+	const int usethisoffset = lerp(oldmenuoffset, menuoffset);
+	SDL_Rect offsetRect = {0, usethisoffset, backBuffer->w, backBuffer->h};
 
-	//put the back buffer in the menubuffer
 	BlitSurfaceStandard(backBuffer, NULL, menubuffer, NULL);
+	BlitSurfaceStandard(tempBuffer, NULL, backBuffer, NULL);
+	BlitSurfaceStandard(menubuffer, NULL, backBuffer, &offsetRect);
 
-
-
-	int usethisoffset = lerp(oldmenuoffset, menuoffset);
-	if(flipmode)
-	{
-		SDL_Surface* tempbufferFlipped = FlipSurfaceVerticle(tempBuffer);
-		//put the stored backbuffer in the backbuffer.
-		ClearSurface(backBuffer);
-		BlitSurfaceStandard(tempbufferFlipped, NULL, backBuffer, NULL);
-		SDL_FreeSurface(tempbufferFlipped);
-		SDL_Rect offsetRect;
-		setRect (offsetRect, 0, -usethisoffset, backBuffer->w ,backBuffer->h);
-		SDL_Surface* temp = FlipSurfaceVerticle(menubuffer);
-		BlitSurfaceStandard(temp,NULL,backBuffer,&offsetRect);
-		SDL_FreeSurface(temp);
-	}
-	else
-	{
-		//put the stored backbuffer in the backbuffer.
-		BlitSurfaceStandard(tempBuffer, NULL, backBuffer, NULL);
-
-		SDL_Rect offsetRect;
-		setRect (offsetRect, 0, usethisoffset, backBuffer->w ,backBuffer->h);
-		BlitSurfaceStandard(menubuffer,NULL,backBuffer,&offsetRect);
-	}
-
-	SDL_Rect rect;
-	setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
-	screenbuffer->UpdateScreen(backBuffer,&rect);
+	screenbuffer->UpdateScreen(backBuffer, NULL);
 	ClearSurface(backBuffer);
 }
 
@@ -3287,7 +3260,7 @@ void Graphics::textboxcenterx(void)
 {
 	if (!INBOUNDS_VEC(m, textbox))
 	{
-		puts("textboxcenterx() out-of-bounds!");
+		vlog_error("textboxcenterx() out-of-bounds!");
 		return;
 	}
 
@@ -3298,7 +3271,7 @@ int Graphics::textboxwidth(void)
 {
 	if (!INBOUNDS_VEC(m, textbox))
 	{
-		puts("textboxwidth() out-of-bounds!");
+		vlog_error("textboxwidth() out-of-bounds!");
 		return 0;
 	}
 
@@ -3309,7 +3282,7 @@ void Graphics::textboxmoveto(int xo)
 {
 	if (!INBOUNDS_VEC(m, textbox))
 	{
-		puts("textboxmoveto() out-of-bounds!");
+		vlog_error("textboxmoveto() out-of-bounds!");
 		return;
 	}
 
@@ -3320,7 +3293,7 @@ void Graphics::textboxcentery(void)
 {
 	if (!INBOUNDS_VEC(m, textbox))
 	{
-		puts("textboxcentery() out-of-bounds!");
+		vlog_error("textboxcentery() out-of-bounds!");
 		return;
 	}
 
@@ -3330,12 +3303,12 @@ void Graphics::textboxcentery(void)
 int Graphics::crewcolour(const int t)
 {
 	//given crewmate t, return colour in setcol
-	if (t == 0) return 0;
-	if (t == 1) return 20;
-	if (t == 2) return 14;
-	if (t == 3) return 15;
-	if (t == 4) return 13;
-	if (t == 5) return 16;
+	if (t == 0) return CYAN;
+	if (t == 1) return PURPLE;
+	if (t == 2) return YELLOW;
+	if (t == 3) return RED;
+	if (t == 4) return GREEN;
+	if (t == 5) return BLUE;
 	return 0;
 }
 
@@ -3346,20 +3319,8 @@ void Graphics::flashlight(void)
 
 void Graphics::screenshake(void)
 {
-	if(flipmode)
-	{
-		SDL_Rect shakeRect;
-		setRect(shakeRect,screenshake_x, screenshake_y, backBuffer->w, backBuffer->h);
-		SDL_Surface* flipBackBuffer = FlipSurfaceVerticle(backBuffer);
-		screenbuffer->UpdateScreen( flipBackBuffer, &shakeRect);
-		SDL_FreeSurface(flipBackBuffer);
-	}
-	else
-	{
-		SDL_Rect shakeRect;
-		setRect(shakeRect,screenshake_x, screenshake_y, backBuffer->w, backBuffer->h);
-		screenbuffer->UpdateScreen( backBuffer, &shakeRect);
-	}
+	SDL_Rect shakeRect = {screenshake_x, screenshake_y, backBuffer->w, backBuffer->h};
+	screenbuffer->UpdateScreen(backBuffer, &shakeRect);
 
 	ClearSurface(backBuffer);
 }
@@ -3372,27 +3333,12 @@ void Graphics::updatescreenshake(void)
 
 void Graphics::render(void)
 {
-	if(screenbuffer == NULL)
+	if (screenbuffer == NULL)
 	{
 		return;
 	}
-	if(flipmode)
-	{
-		SDL_Rect rect;
-		setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
-		SDL_Surface* tempsurface = FlipSurfaceVerticle(backBuffer);
-		if(tempsurface != NULL)
-		{
-			screenbuffer->UpdateScreen( tempsurface, &rect);
-			SDL_FreeSurface(tempsurface);
-		}
-	}
-	else
-	{
-		SDL_Rect rect;
-		setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
-		screenbuffer->UpdateScreen( backBuffer, &rect);
-	}
+
+	screenbuffer->UpdateScreen(backBuffer, NULL);
 }
 
 void Graphics::renderwithscreeneffects(void)

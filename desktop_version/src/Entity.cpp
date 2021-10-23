@@ -11,12 +11,14 @@
 #include "Music.h"
 #include "Script.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
+#include "Xoshiro.h"
 
 bool entityclass::checktowerspikes(int t)
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("checktowerspikes() out-of-bounds!");
+        vlog_error("checktowerspikes() out-of-bounds!");
         return false;
     }
 
@@ -66,9 +68,11 @@ void entityclass::init(void)
     upsetmode = false;
     upset = 0;
 
-    customenemy=0;
-    customwarpmode=false; customwarpmodevon=false; customwarpmodehon=false;
-    trophytext = 0 ;
+    customenemy = 0;
+    customwarpmode = false; customwarpmodevon = false; customwarpmodehon = false;
+    customactivitycolour = "";
+    customactivitytext = "";
+    trophytext = 0;
     oldtrophytext = 0;
     trophytype = 0;
     altstates = 0;
@@ -210,7 +214,7 @@ void entityclass::generateswnwave( int t )
                 if (game.deathcounts - game.swndeaths > 25) game.swndelay += 4;
                 break;
             case 1:
-                createentity(-150, 58 + (int(fRandom() * 6) * 20), 23, 0, 0);
+                createentity(-150, 58 + (int(xoshiro_rand() * 6) * 20), 23, 0, 0);
                 game.swnstate = 0;
                 game.swndelay = 0; //return to decision state
                 break;
@@ -238,13 +242,13 @@ void entityclass::generateswnwave( int t )
                 game.swndelay = 0; //return to decision state
                 break;
             case 3:
-                createentity(320+150, 58 + (int(fRandom() * 6) * 20), 23, 1, 0);
+                createentity(320+150, 58 + (int(xoshiro_rand() * 6) * 20), 23, 1, 0);
                 game.swnstate = 0;
                 game.swndelay = 0; //return to decision state
                 break;
             case 4:
                 //left and right compliments
-                game.swnstate2 = int(fRandom() * 6);
+                game.swnstate2 = int(xoshiro_rand() * 6);
                 createentity(-150, 58 + (game.swnstate2  * 20), 23, 0, 0);
                 createentity(320+150, 58 + ((5-game.swnstate2) * 20), 23, 1, 0);
                 game.swnstate = 0;
@@ -319,7 +323,7 @@ void entityclass::generateswnwave( int t )
                 game.swnstate3 = 0;
                 game.swnstate4 = 0;
 
-                game.swnstate2 = int(fRandom() * 100);
+                game.swnstate2 = int(xoshiro_rand() * 100);
                 if (game.swnstate2 < 25)
                 {
                     //simple
@@ -336,7 +340,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 1:
                 //complex chain
-                game.swnstate2 = int(fRandom() * 8);
+                game.swnstate2 = int(xoshiro_rand() * 8);
                 if (game.swnstate2 == 0)
                 {
                     game.swnstate = 10;
@@ -382,7 +386,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 2:
                 //simple chain
-                game.swnstate2 = int(fRandom() * 6);
+                game.swnstate2 = int(xoshiro_rand() * 6);
                 if (game.swnstate2 == 0)
                 {
                     game.swnstate = 23;
@@ -418,7 +422,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 3:
                 //Choose a major action
-                game.swnstate2 = int(fRandom() * 100);
+                game.swnstate2 = int(xoshiro_rand() * 100);
                 game.swnstate4 = 0;
                 if (game.swnstate2 < 25)
                 {
@@ -435,7 +439,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 4:
                 //filler chain
-                game.swnstate2 = int(fRandom() * 6);
+                game.swnstate2 = int(xoshiro_rand() * 6);
                 if (game.swnstate2 == 0)
                 {
                     game.swnstate = 28;
@@ -624,7 +628,7 @@ void entityclass::generateswnwave( int t )
             case 22:
                 game.swnstate4++;
                 //left and right compliments
-                game.swnstate2 = int(fRandom() * 6);
+                game.swnstate2 = int(xoshiro_rand() * 6);
                 createentity(-150, 58 + (game.swnstate2  * 20), 23, 0, 0);
                 createentity(320 + 150, 58 + ((5 - game.swnstate2) * 20), 23, 1, 0);
                 if(game.swnstate4<=12)
@@ -685,7 +689,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 28:
                 game.swnstate4++;
-                game.swnstate2 = int(fRandom() * 6);
+                game.swnstate2 = int(xoshiro_rand() * 6);
                 createentity(-150, 58 + (game.swnstate2  * 20), 23, 0, 0);
                 if(game.swnstate4<=6)
                 {
@@ -701,7 +705,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 29:
                 game.swnstate4++;
-                game.swnstate2 = int(fRandom() * 6);
+                game.swnstate2 = int(xoshiro_rand() * 6);
                 gravcreate(game.swnstate2, 1);
                 if(game.swnstate4<=6)
                 {
@@ -717,7 +721,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 30:
                 game.swnstate4++;
-                game.swnstate2 = int(fRandom() * 3);
+                game.swnstate2 = int(xoshiro_rand() * 3);
                 gravcreate(game.swnstate2, 0);
                 gravcreate(5-game.swnstate2, 0);
                 if(game.swnstate4<=2)
@@ -734,7 +738,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 31:
                 game.swnstate4++;
-                game.swnstate2 = int(fRandom() * 3);
+                game.swnstate2 = int(xoshiro_rand() * 3);
                 gravcreate(game.swnstate2, 1);
                 gravcreate(5-game.swnstate2, 1);
                 if(game.swnstate4<=2)
@@ -758,7 +762,7 @@ void entityclass::generateswnwave( int t )
     }
 }
 
-void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*= 0*/, const std::string& script /*= ""*/ )
+void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*= 0*/, const std::string& script /*= ""*/, bool custom /*= false*/)
 {
     k = blocks.size();
 
@@ -1050,13 +1054,32 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
             trig=0;
             break;
         case 35:
-            block.prompt = "Press %s to activate terminal";
+            if (custom)
+            {
+                block.prompt = "Press %s to interact";
+            }
+            else
+            {
+                block.prompt = "Press %s to activate terminal";
+            }
             block.script = "custom_"+customscript;
             block.setblockcolour("orange");
             trig=0;
             break;
         }
         break;
+    }
+
+    if (customactivitytext != "")
+    {
+        block.prompt = customactivitytext;
+        customactivitytext = "";
+    }
+
+    if (customactivitycolour != "")
+    {
+        block.setblockcolour(customactivitycolour);
+        customactivitycolour = "";
     }
 
     if (!reuse)
@@ -1070,7 +1093,7 @@ bool entityclass::disableentity(int t)
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("disableentity() out-of-bounds!");
+        vlog_error("disableentity() out-of-bounds!");
         return true;
     }
     if (entities[t].rule == 0 && t == getplayer())
@@ -1096,7 +1119,7 @@ void entityclass::disableblock( int t )
 {
     if (!INBOUNDS_VEC(t, blocks))
     {
-        puts("disableblock() out-of-bounds!");
+        vlog_error("disableblock() out-of-bounds!");
         return;
     }
 
@@ -1147,22 +1170,22 @@ void entityclass::removetrigger( int t )
     }
 }
 
-void entityclass::copylinecross( int t )
+void entityclass::copylinecross(std::vector<entclass>& linecrosskludge, int t)
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("copylinecross() out-of-bounds!");
+        vlog_error("copylinecross() out-of-bounds!");
         return;
     }
     //Copy entity t into the first free linecrosskludge entity
     linecrosskludge.push_back(entities[t]);
 }
 
-void entityclass::revertlinecross( int t, int s )
+void entityclass::revertlinecross(std::vector<entclass>& linecrosskludge, int t, int s)
 {
     if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(s, linecrosskludge))
     {
-        puts("revertlinecross() out-of-bounds!");
+        vlog_error("revertlinecross() out-of-bounds!");
         return;
     }
     //Restore entity t info from linecrossing s
@@ -1175,33 +1198,6 @@ bool entityclass::gridmatch( int p1, int p2, int p3, int p4, int p11, int p21, i
 {
     if (p1 == p11 && p2 == p21 && p3 == p31 && p4 == p41) return true;
     return false;
-}
-
-int entityclass::crewcolour( int t )
-{
-    //Return the colour of the indexed crewmate
-    switch(t)
-    {
-    case 0:
-        return 0;
-        break;
-    case 1:
-        return 20;
-        break;
-    case 2:
-        return 14;
-        break;
-    case 3:
-        return 15;
-        break;
-    case 4:
-        return 13;
-        break;
-    case 5:
-        return 16;
-        break;
-    }
-    return 0;
 }
 
 static void entityclonefix(entclass* entity)
@@ -2011,7 +2007,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         }else{
           entity.tile = 0;
         }
-        entity.colour = crewcolour(meta2);
+        entity.colour = graphics.crewcolour(meta2);
         entity.cx = 6;
         entity.cy = 2;
         entity.w = 12;
@@ -2166,7 +2162,7 @@ bool entityclass::updateentities( int i )
 {
     if (!INBOUNDS_VEC(i, entities))
     {
-        puts("updateentities() out-of-bounds!");
+        vlog_error("updateentities() out-of-bounds!");
         return true;
     }
 
@@ -2606,6 +2602,7 @@ bool entityclass::updateentities( int i )
             if (entities[i].state == 1)
             {
                 game.gravitycontrol = (game.gravitycontrol + 1) % 2;
+                ++game.totalflips;
                 return disableentity(i);
 
             }
@@ -2860,7 +2857,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 11)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(1); //purple
+                int j=getcrewman(PURPLE);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2885,7 +2882,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 12)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(2); //yellow
+                int j=getcrewman(YELLOW);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2910,7 +2907,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 13)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(3); //red
+                int j=getcrewman(RED);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2935,7 +2932,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 14)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(4); //green
+                int j=getcrewman(GREEN);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2960,7 +2957,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 15)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(5); //blue
+                int j=getcrewman(BLUE);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -3389,7 +3386,7 @@ void entityclass::animateentities( int _i )
 {
     if (!INBOUNDS_VEC(_i, entities))
     {
-        puts("animateentities() out-of-bounds!");
+        vlog_error("animateentities() out-of-bounds!");
         return;
     }
 
@@ -3774,7 +3771,7 @@ void entityclass::animatehumanoidcollision(const int i)
 
     if (!INBOUNDS_VEC(i, entities))
     {
-        puts("animatehumanoidcollision() out-of-bounds!");
+        vlog_error("animatehumanoidcollision() out-of-bounds!");
         return;
     }
 
@@ -3916,15 +3913,9 @@ int entityclass::getlineat( int t )
     return 0;
 }
 
-int entityclass::getcrewman( int t )
+int entityclass::getcrewman( int t, int fallback /*= 0*/ )
 {
     //Returns the index of the crewman with colour index given by t
-    if (t == 0) t = 0;
-    if (t == 1) t = 20;
-    if (t == 2) t = 14;
-    if (t == 3) t = 15;
-    if (t == 4) t = 13;
-    if (t == 5) t = 16;
 
     for (size_t i = 0; i < entities.size(); i++)
     {
@@ -3938,7 +3929,7 @@ int entityclass::getcrewman( int t )
         }
     }
 
-    return 0;
+    return fallback;
 }
 
 int entityclass::getcustomcrewman( int t )
@@ -3982,7 +3973,7 @@ bool entityclass::entitycollide( int a, int b )
 {
     if (!INBOUNDS_VEC(a, entities) || !INBOUNDS_VEC(b, entities))
     {
-        puts("entitycollide() out-of-bounds!");
+        vlog_error("entitycollide() out-of-bounds!");
         return false;
     }
 
@@ -4209,7 +4200,7 @@ bool entityclass::entityhlinecollide( int t, int l )
 {
     if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(l, entities))
     {
-        puts("entityhlinecollide() out-of-bounds!");
+        vlog_error("entityhlinecollide() out-of-bounds!");
         return false;
     }
 
@@ -4236,7 +4227,7 @@ bool entityclass::entityvlinecollide( int t, int l )
 {
     if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(l, entities))
     {
-        puts("entityvlinecollide() out-of-bounds!");
+        vlog_error("entityvlinecollide() out-of-bounds!");
         return false;
     }
 
@@ -4260,7 +4251,7 @@ bool entityclass::entityvlinecollide( int t, int l )
 bool entityclass::entitywarphlinecollide(int t, int l) {
     if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(l, entities))
     {
-        puts("entitywarphlinecollide() out-of-bounds!");
+        vlog_error("entitywarphlinecollide() out-of-bounds!");
         return false;
     }
 
@@ -4298,7 +4289,7 @@ bool entityclass::entitywarphlinecollide(int t, int l) {
 bool entityclass::entitywarpvlinecollide(int t, int l) {
     if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(l, entities))
     {
-        puts("entitywarpvlinecollide() out-of-bounds!");
+        vlog_error("entitywarpvlinecollide() out-of-bounds!");
         return false;
     }
 
@@ -4333,7 +4324,7 @@ float entityclass::entitycollideplatformroof( int t )
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("entitycollideplatformroof() out-of-bounds!");
+        vlog_error("entitycollideplatformroof() out-of-bounds!");
         return -1000;
     }
 
@@ -4356,7 +4347,7 @@ float entityclass::entitycollideplatformfloor( int t )
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("entitycollideplatformfloor() out-of-bounds!");
+        vlog_error("entitycollideplatformfloor() out-of-bounds!");
         return -1000;
     }
 
@@ -4379,7 +4370,7 @@ bool entityclass::entitycollidefloor( int t )
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("entitycollidefloor() out-of-bounds!");
+        vlog_error("entitycollidefloor() out-of-bounds!");
         return false;
     }
 
@@ -4397,7 +4388,7 @@ bool entityclass::entitycollideroof( int t )
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("entitycollideroof() out-of-bounds!");
+        vlog_error("entitycollideroof() out-of-bounds!");
         return false;
     }
 
@@ -4415,7 +4406,7 @@ bool entityclass::testwallsx( int t, int tx, int ty, const bool skipdirblocks )
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("testwallsx() out-of-bounds!");
+        vlog_error("testwallsx() out-of-bounds!");
         return false;
     }
 
@@ -4459,7 +4450,7 @@ bool entityclass::testwallsy( int t, float tx, float ty )
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("testwallsy() out-of-bounds!");
+        vlog_error("testwallsy() out-of-bounds!");
         return false;
     }
 
@@ -4504,7 +4495,7 @@ void entityclass::applyfriction( int t, float xrate, float yrate )
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("applyfriction() out-of-bounds!");
+        vlog_error("applyfriction() out-of-bounds!");
         return;
     }
 
@@ -4525,7 +4516,7 @@ void entityclass::updateentitylogic( int t )
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("updateentitylogic() out-of-bounds!");
+        vlog_error("updateentitylogic() out-of-bounds!");
         return;
     }
 
@@ -4568,7 +4559,7 @@ void entityclass::entitymapcollision( int t )
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("entitymapcollision() out-of-bounds!");
+        vlog_error("entitymapcollision() out-of-bounds!");
         return;
     }
 
@@ -4596,7 +4587,7 @@ void entityclass::movingplatformfix( int t, int j )
 {
     if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(j, entities))
     {
-        puts("movingplatformfix() out-of-bounds!");
+        vlog_error("movingplatformfix() out-of-bounds!");
         return;
     }
 
@@ -4638,7 +4629,7 @@ void entityclass::movingplatformfix( int t, int j )
 void entityclass::customwarplinecheck(int i) {
     if (!INBOUNDS_VEC(i, entities))
     {
-        puts("customwarplinecheck() out-of-bounds!");
+        vlog_error("customwarplinecheck() out-of-bounds!");
         return;
     }
 
@@ -4738,7 +4729,7 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
 {
     if (!INBOUNDS_VEC(i, entities) || !INBOUNDS_VEC(j, entities))
     {
-        puts("collisioncheck() out-of-bounds!");
+        vlog_error("collisioncheck() out-of-bounds!");
         return;
     }
 
@@ -4872,7 +4863,7 @@ void entityclass::stuckprevention(int t)
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("stuckprevention() out-of-bounds!");
+        vlog_error("stuckprevention() out-of-bounds!");
         return;
     }
 

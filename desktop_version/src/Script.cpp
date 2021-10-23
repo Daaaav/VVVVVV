@@ -2,6 +2,7 @@
 #include "Script.h"
 
 #include <limits.h>
+#include <SDL_timer.h>
 
 #include "editor.h"
 #include "Entity.h"
@@ -14,6 +15,8 @@
 #include "Map.h"
 #include "Music.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
+#include "Xoshiro.h"
 
 scriptclass::scriptclass(void)
 {
@@ -47,12 +50,15 @@ void scriptclass::tokenize( const std::string& t )
 	std::string tempword;
 	char currentletter;
 
+	SDL_zeroa(argexists);
+
 	for (size_t i = 0; i < t.length(); i++)
 	{
 		currentletter = t[i];
 		if (currentletter == '(' || currentletter == ')' || currentletter == ',')
 		{
 			words[j] = tempword;
+			argexists[j] = words[j] != "";
 			for (size_t ii = 0; ii < words[j].length(); ii++)
 			{
 				words[j][ii] = SDL_tolower(words[j][ii]);
@@ -74,18 +80,43 @@ void scriptclass::tokenize( const std::string& t )
 		}
 	}
 
-	if (tempword != "" && j < (int) SDL_arraysize(words))
+	if (j < (int) SDL_arraysize(words))
 	{
-		words[j] = tempword;
-	}
-
-	SDL_zeroa(argexists);
-
-	for (size_t ii = 0; ii < NUM_SCRIPT_ARGS; ++ii)
-	{
-		argexists[ii] = words[ii] != "";
+		const bool lastargexists = tempword != "";
+		if (lastargexists)
+		{
+			words[j] = tempword;
+		}
+		argexists[j] = lastargexists;
 	}
 }
+
+static int getcolorfromname(std::string name)
+{
+	if      (name == "player")     return CYAN;
+	else if (name == "cyan")       return CYAN;
+	else if (name == "red")        return RED;
+	else if (name == "green")      return GREEN;
+	else if (name == "yellow")     return YELLOW;
+	else if (name == "blue")       return BLUE;
+	else if (name == "purple")     return PURPLE;
+	else if (name == "customcyan") return CYAN;
+	else if (name == "gray")       return GRAY;
+	else if (name == "teleporter") return TELEPORTER;
+
+	int color = help.Int(name.c_str(), -1);
+	if (color < 0) return -1; // Not a number (or it's negative), so we give up
+	return color; // Last effort to give a valid color, maybe they just input the color?
+}
+
+static int getcrewmanfromname(std::string name)
+{
+	if (name == "player") return obj.getplayer(); //  Return the player
+	int color = getcolorfromname(name); // Maybe they passed in a crewmate name, or an id?
+	if (color == -1) return -1; // ...Nope, return -1
+	return obj.getcrewman(color);
+}
+
 
 void scriptclass::run(void)
 {
@@ -185,9 +216,16 @@ void scriptclass::run(void)
 					for(size_t edi=0; edi<obj.entities.size(); edi++){
 						if(obj.entities[edi].type==11) obj.disableentity(edi);
 					}
-				}else if(words[1]=="platforms"){
+				}else if(words[1]=="platforms"||words[1]=="moving"){
+					bool fixed=words[1]=="moving";
 					for(size_t edi=0; edi<obj.entities.size(); edi++){
+						if(fixed) obj.disableblockat(obj.entities[edi].xp, obj.entities[edi].yp);
 						if(obj.entities[edi].rule==2 && obj.entities[edi].animate==100) obj.disableentity(edi);
+					}
+				}else if(words[1]=="disappear"){
+					for(size_t edi=0; edi<obj.entities.size(); edi++){
+						obj.disableblockat(obj.entities[edi].xp, obj.entities[edi].yp);
+						if(obj.entities[edi].type==2 && obj.entities[edi].rule==3) obj.disableentity(edi);
 					}
 				}
 			}
@@ -461,45 +499,7 @@ void scriptclass::run(void)
 				j = 0;
 
 				//the first word is the object to position relative to
-				if (words[1] == "player")
-				{
-					i = obj.getplayer();
-					if (INBOUNDS_VEC(i, obj.entities))
-					{
-						j = obj.entities[i].dir;
-					}
-				}
-				else if (words[1] == "cyan")
-				{
-					i = obj.getcrewman(0);
-					j = obj.entities[i].dir;
-				}
-				else if (words[1] == "purple")
-				{
-					i = obj.getcrewman(1);
-					j = obj.entities[i].dir;
-				}
-				else if (words[1] == "yellow")
-				{
-					i = obj.getcrewman(2);
-					j = obj.entities[i].dir;
-				}
-				else if (words[1] == "red")
-				{
-					i = obj.getcrewman(3);
-					j = obj.entities[i].dir;
-				}
-				else if (words[1] == "green")
-				{
-					i = obj.getcrewman(4);
-					j = obj.entities[i].dir;
-				}
-				else if (words[1] == "blue")
-				{
-					i = obj.getcrewman(5);
-					j = obj.entities[i].dir;
-				}
-				else if (words[1] == "centerx")
+				if (words[1] == "centerx")
 				{
 					words[2] = "donothing";
 					j = -1;
@@ -517,6 +517,14 @@ void scriptclass::run(void)
 					j = -1;
 					textx = -500;
 					texty = -500;
+				}
+				else // Well, are they asking for a crewmate...?
+				{
+				    i = getcrewmanfromname(words[1]);
+				    if (INBOUNDS_VEC(i, obj.entities))
+				    {
+				        j = obj.entities[i].dir;
+				    }
 				}
 
 				//next is whether to position above or below
@@ -790,38 +798,11 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "createcrewman")
 			{
-				if (words[3] == "cyan")
-				{
-					r=0;
-				}
-				else if (words[3] == "red")
-				{
-					r=15;
-				}
-				else if (words[3] == "green")
-				{
-					r=13;
-				}
-				else if (words[3] == "yellow")
-				{
-					r=14;
-				}
-				else if (words[3] == "blue")
-				{
-					r=16;
-				}
-				else if (words[3] == "purple")
-				{
-					r=20;
-				}
-				else if (words[3] == "gray")
-				{
-					r=19;
-				}
-				else
-				{
-					r = 19;
-				}
+				// Note: Do not change the "r" variable, it's used in custom levels
+				// to have glitchy textbox colors, where the game treats the value
+				// we set here as the red channel for the color.
+				r = getcolorfromname(words[3]);
+				if (r == -1) r = 19;
 
 				//convert the command to the right index
 				if (words[5] == "followplayer") words[5] = "10";
@@ -864,42 +845,8 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "changemood")
 			{
-				if (words[1] == "player")
-				{
-					i=obj.getplayer();
-				}
-				else if (words[1] == "cyan")
-				{
-					i=obj.getcrewman(0);
-				}
-				else if (words[1] == "customcyan")
-				{
-					i=obj.getcustomcrewman(0);
-				}
-				else if (words[1] == "red")
-				{
-					i=obj.getcrewman(3);
-				}
-				else if (words[1] == "green")
-				{
-					i=obj.getcrewman(4);
-				}
-				else if (words[1] == "yellow")
-				{
-					i=obj.getcrewman(2);
-				}
-				else if (words[1] == "blue")
-				{
-					i=obj.getcrewman(5);
-				}
-				else if (words[1] == "purple")
-				{
-					i=obj.getcrewman(1);
-				}
-				else if (words[1] == "pink")
-				{
-					i=obj.getcrewman(1);
-				}
+				int crewmate = getcrewmanfromname(words[1]);
+				if (crewmate != -1) i = crewmate; // Ensure AEM is kept
 
 				if (INBOUNDS_VEC(i, obj.entities) && ss_toi(words[2]) == 0)
 				{
@@ -969,34 +916,8 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "changetile")
 			{
-				if (words[1] == "player")
-				{
-					i=obj.getplayer();
-				}
-				else if (words[1] == "cyan")
-				{
-					i=obj.getcrewman(0);
-				}
-				else if (words[1] == "red")
-				{
-					i=obj.getcrewman(3);
-				}
-				else if (words[1] == "green")
-				{
-					i=obj.getcrewman(4);
-				}
-				else if (words[1] == "yellow")
-				{
-					i=obj.getcrewman(2);
-				}
-				else if (words[1] == "blue")
-				{
-					i=obj.getcrewman(5);
-				}
-				else if (words[1] == "purple")
-				{
-					i=obj.getcrewman(1);
-				}
+				int crewmate = getcrewmanfromname(words[1]);
+				if (crewmate != -1) i = crewmate; // Ensure AEM is kept
 
 				if (INBOUNDS_VEC(i, obj.entities))
 				{
@@ -1009,33 +930,12 @@ void scriptclass::run(void)
 				if (words[1] == "player")
 				{
 					game.gravitycontrol = !game.gravitycontrol;
+					++game.totalflips;
 				}
 				else
 				{
-					if (words[1] == "cyan")
-					{
-						i=obj.getcrewman(0);
-					}
-					else if (words[1] == "red")
-					{
-						i=obj.getcrewman(3);
-					}
-					else if (words[1] == "green")
-					{
-						i=obj.getcrewman(4);
-					}
-					else if (words[1] == "yellow")
-					{
-						i=obj.getcrewman(2);
-					}
-					else if (words[1] == "blue")
-					{
-						i=obj.getcrewman(5);
-					}
-					else if (words[1] == "purple")
-					{
-						i=obj.getcrewman(1);
-					}
+					int crewmate = getcrewmanfromname(words[1]);
+					if (crewmate != -1) i = crewmate; // Ensure AEM is kept
 
 					if (INBOUNDS_VEC(i, obj.entities) && obj.entities[i].rule == 7)
 					{
@@ -1052,34 +952,8 @@ void scriptclass::run(void)
 			else if (words[0] == "changegravity")
 			{
 				//not something I'll use a lot, I think. Doesn't need to be very robust!
-				if (words[1] == "player")
-				{
-					i=obj.getplayer();
-				}
-				else if (words[1] == "cyan")
-				{
-					i=obj.getcrewman(0);
-				}
-				else if (words[1] == "red")
-				{
-					i=obj.getcrewman(3);
-				}
-				else if (words[1] == "green")
-				{
-					i=obj.getcrewman(4);
-				}
-				else if (words[1] == "yellow")
-				{
-					i=obj.getcrewman(2);
-				}
-				else if (words[1] == "blue")
-				{
-					i=obj.getcrewman(5);
-				}
-				else if (words[1] == "purple")
-				{
-					i=obj.getcrewman(1);
-				}
+				int crewmate = getcrewmanfromname(words[1]);
+				if (crewmate != -1) i = crewmate; // Ensure AEM is kept
 
 				if (INBOUNDS_VEC(i, obj.entities))
 				{
@@ -1088,34 +962,8 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "changedir")
 			{
-				if (words[1] == "player")
-				{
-					i=obj.getplayer();
-				}
-				else if (words[1] == "cyan")
-				{
-					i=obj.getcrewman(0);
-				}
-				else if (words[1] == "red")
-				{
-					i=obj.getcrewman(3);
-				}
-				else if (words[1] == "green")
-				{
-					i=obj.getcrewman(4);
-				}
-				else if (words[1] == "yellow")
-				{
-					i=obj.getcrewman(2);
-				}
-				else if (words[1] == "blue")
-				{
-					i=obj.getcrewman(5);
-				}
-				else if (words[1] == "purple")
-				{
-					i=obj.getcrewman(1);
-				}
+				int crewmate = getcrewmanfromname(words[1]);
+				if (crewmate != -1) i = crewmate; // Ensure AEM is kept
 
 				if (INBOUNDS_VEC(i, obj.entities) && ss_toi(words[2]) == 0)
 				{
@@ -1137,34 +985,8 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "changeai")
 			{
-				if (words[1] == "player")
-				{
-					i=obj.getplayer();
-				}
-				else if (words[1] == "cyan")
-				{
-					i=obj.getcrewman(0);
-				}
-				else if (words[1] == "red")
-				{
-					i=obj.getcrewman(3);
-				}
-				else if (words[1] == "green")
-				{
-					i=obj.getcrewman(4);
-				}
-				else if (words[1] == "yellow")
-				{
-					i=obj.getcrewman(2);
-				}
-				else if (words[1] == "blue")
-				{
-					i=obj.getcrewman(5);
-				}
-				else if (words[1] == "purple")
-				{
-					i=obj.getcrewman(1);
-				}
+				int crewmate = getcrewmanfromname(words[1]);
+				if (crewmate != -1) i = crewmate; // Ensure AEM is kept
 
 				if (words[2] == "followplayer") words[2] = "10";
 				if (words[2] == "followpurple") words[2] = "11";
@@ -1210,65 +1032,12 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "changecolour")
 			{
-				if (words[1] == "player")
-				{
-					i=obj.getplayer();
-				}
-				else if (words[1] == "cyan")
-				{
-					i=obj.getcrewman(0);
-				}
-				else if (words[1] == "red")
-				{
-					i=obj.getcrewman(3);
-				}
-				else if (words[1] == "green")
-				{
-					i=obj.getcrewman(4);
-				}
-				else if (words[1] == "yellow")
-				{
-					i=obj.getcrewman(2);
-				}
-				else if (words[1] == "blue")
-				{
-					i=obj.getcrewman(5);
-				}
-				else if (words[1] == "purple")
-				{
-					i=obj.getcrewman(1);
-				}
+				int crewmate = getcrewmanfromname(words[1]);
+				if (crewmate != -1) i = crewmate; // Ensure AEM is kept
 
 				if (INBOUNDS_VEC(i, obj.entities))
 				{
-					if (words[2] == "cyan")
-					{
-						obj.entities[i].colour = 0;
-					}
-					else if (words[2] == "red")
-					{
-						obj.entities[i].colour = 15;
-					}
-					else if (words[2] == "green")
-					{
-						obj.entities[i].colour = 13;
-					}
-					else if (words[2] == "yellow")
-					{
-						obj.entities[i].colour = 14;
-					}
-					else if (words[2] == "blue")
-					{
-						obj.entities[i].colour = 16;
-					}
-					else if (words[2] == "purple")
-					{
-						obj.entities[i].colour = 20;
-					}
-					else if (words[2] == "teleporter")
-					{
-						obj.entities[i].colour = 102;
-					}
+					obj.entities[i].colour = getcolorfromname(words[2]);
 				}
 			}
 			else if (words[0] == "squeak")
@@ -1571,7 +1340,6 @@ void scriptclass::run(void)
 				game.gravitycontrol = 0;
 				game.teleport = false;
 				game.companion = 0;
-				game.roomchange = false;
 				game.teleport_to_new_area = false;
 				game.teleport_to_x = 0;
 				game.teleport_to_y = 0;
@@ -1676,63 +1444,11 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "face")
 			{
-				if (words[1] == "player")
-				{
-					i=obj.getplayer();
-				}
-				else if (words[1] == "cyan")
-				{
-					i=obj.getcrewman(0);
-				}
-				else if (words[1] == "red")
-				{
-					i=obj.getcrewman(3);
-				}
-				else if (words[1] == "green")
-				{
-					i=obj.getcrewman(4);
-				}
-				else if (words[1] == "yellow")
-				{
-					i=obj.getcrewman(2);
-				}
-				else if (words[1] == "blue")
-				{
-					i=obj.getcrewman(5);
-				}
-				else if (words[1] == "purple")
-				{
-					i=obj.getcrewman(1);
-				}
+				int crewmate = getcrewmanfromname(words[1]);
+				if (crewmate != -1) i = crewmate; // Ensure AEM is kept
 
-				if (words[2] == "player")
-				{
-					j=obj.getplayer();
-				}
-				else if (words[2] == "cyan")
-				{
-					j=obj.getcrewman(0);
-				}
-				else if (words[2] == "red")
-				{
-					j=obj.getcrewman(3);
-				}
-				else if (words[2] == "green")
-				{
-					j=obj.getcrewman(4);
-				}
-				else if (words[2] == "yellow")
-				{
-					j=obj.getcrewman(2);
-				}
-				else if (words[2] == "blue")
-				{
-					j=obj.getcrewman(5);
-				}
-				else if (words[2] == "purple")
-				{
-					j=obj.getcrewman(1);
-				}
+				crewmate = getcrewmanfromname(words[2]);
+				if (crewmate != -1) j = crewmate; // Ensure AEM is kept
 
 				if (INBOUNDS_VEC(i, obj.entities) && INBOUNDS_VEC(j, obj.entities) && obj.entities[j].xp > obj.entities[i].xp + 5)
 				{
@@ -1865,35 +1581,53 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "createactivityzone")
 			{
+				int crew_color = i; // stay consistent with past behavior!
 				if (words[1] == "red")
 				{
-					i=3;
+					i = 3;
+					crew_color = RED;
 				}
 				else if (words[1] == "green")
 				{
-					i=4;
+					i = 4;
+					crew_color = GREEN;
 				}
 				else if (words[1] == "yellow")
 				{
-					i=2;
+					i = 2;
+					crew_color = YELLOW;
 				}
 				else if (words[1] == "blue")
 				{
-					i=5;
+					i = 5;
+					crew_color = BLUE;
 				}
 				else if (words[1] == "purple")
 				{
-					i=1;
+					i = 1;
+					crew_color = PURPLE;
 				}
 
-				int crewman = obj.getcrewman(i);
-				if (INBOUNDS_VEC(crewman, obj.entities) && i == 4)
+				int crewman = obj.getcrewman(crew_color);
+				if (INBOUNDS_VEC(crewman, obj.entities) && crew_color == GREEN)
 				{
-					obj.createblock(5, obj.entities[crewman].xp - 32, obj.entities[crewman].yp-20, 96, 60, i);
+					obj.createblock(5, obj.entities[crewman].xp - 32, obj.entities[crewman].yp-20, 96, 60, i, "", (i == 35));
 				}
 				else if (INBOUNDS_VEC(crewman, obj.entities))
 				{
-					obj.createblock(5, obj.entities[crewman].xp - 32, 0, 96, 240, i);
+					obj.createblock(5, obj.entities[crewman].xp - 32, 0, 96, 240, i, "", (i == 35));
+				}
+			}
+			else if (words[0] == "setactivitycolour")
+			{
+				obj.customactivitycolour = words[1];
+			}
+			else if (words[0] == "setactivitytext")
+			{
+				++position;
+				if (INBOUNDS_VEC(position, commands))
+				{
+					obj.customactivitytext = commands[position];
 				}
 			}
 			else if (words[0] == "createrescuedcrew")
@@ -1936,34 +1670,7 @@ void scriptclass::run(void)
 
 				if (INBOUNDS_VEC(i, obj.entities))
 				{
-					if (words[1] == "cyan")
-					{
-						obj.entities[i].colour = 0;
-					}
-					else if (words[1] == "red")
-					{
-						obj.entities[i].colour = 15;
-					}
-					else if (words[1] == "green")
-					{
-						obj.entities[i].colour = 13;
-					}
-					else if (words[1] == "yellow")
-					{
-						obj.entities[i].colour = 14;
-					}
-					else if (words[1] == "blue")
-					{
-						obj.entities[i].colour = 16;
-					}
-					else if (words[1] == "purple")
-					{
-						obj.entities[i].colour = 20;
-					}
-					else if (words[1] == "teleporter")
-					{
-						obj.entities[i].colour = 102;
-					}
+					obj.entities[i].colour = getcolorfromname(words[1]);
 				}
 			}
 			else if (words[0] == "altstates")
@@ -2095,25 +1802,10 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "createlastrescued")
 			{
-				if (game.lastsaved==2)
+				r = graphics.crewcolour(game.lastsaved);
+				if (r == 0 || r == PURPLE)
 				{
-					r=14;
-				}
-				else if (game.lastsaved==3)
-				{
-					r=15;
-				}
-				else if (game.lastsaved==4)
-				{
-					r=13;
-				}
-				else if (game.lastsaved==5)
-				{
-					r=16;
-				}
-				else
-				{
-					r = 19;
+					r = GRAY; // Default to gray if invalid color.
 				}
 
 				obj.createentity(200, 153, 18, r, 0, 19, 30);
@@ -2637,7 +2329,7 @@ void scriptclass::run(void)
 		if (execution_counter == SHRT_MAX)
 		{
 			// We must be in an infinite loop
-			printf("Warning: execution counter got to %i, stopping script\n", SHRT_MAX);
+			vlog_warn("Warning: execution counter got to %i, stopping script", SHRT_MAX);
 			running = false;
 		}
 		else
@@ -3397,13 +3089,11 @@ void scriptclass::teleport(void)
 	else
 	{
 		//change music based on location
-		if (graphics.setflipmode && game.teleport_to_x == 11 && game.teleport_to_y == 4)
+		if (game.teleport_to_x == 2 && game.teleport_to_y == 11)
 		{
-			music.niceplay(9);
-		}
-		else
-		{
-			music.changemusicarea(game.teleport_to_x, game.teleport_to_y);
+			/* Special case: Ship music needs to be set here;
+			 * ship teleporter on music map is -1 for jukebox. */
+			music.niceplay(4);
 		}
 		game.savetele_textbox();
 	}
@@ -3413,12 +3103,13 @@ void scriptclass::hardreset(void)
 {
 	const bool version2_2 = GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2);
 
+	xoshiro_seed(SDL_GetTicks());
+
 	//Game:
 	game.hascontrol = true;
 	game.gravitycontrol = 0;
 	game.teleport = false;
 	game.companion = 0;
-	game.roomchange = false;
 	if (!version2_2)
 	{
 		// Ironically, resetting more variables makes the janky fadeout system in glitchrunnermode even more glitchy
@@ -3595,12 +3286,21 @@ void scriptclass::hardreset(void)
 		}
 	}
 
+	obj.customscript = "";
+
 	//Script Stuff
 	position = 0;
 	commands.clear();
 	scriptdelay = 0;
 	scriptname = "null";
 	running = false;
+	for (size_t ii = 0; ii < SDL_arraysize(words); ++ii)
+	{
+		words[ii] = "";
+	}
+
+    obj.customactivitycolour = "";
+    obj.customactivitytext = "";
 }
 
 void scriptclass::loadcustom(const std::string& t)
@@ -3789,13 +3489,7 @@ void scriptclass::loadcustom(const std::string& t)
 			add("custom"+lines[i]);
 		}else if(words[0] == "destroy"){
 			if(customtextmode==1){ add("endtext"); customtextmode=0;}
-			if(words[1]=="gravitylines"){
-				add("destroy(gravitylines)");
-			}else if(words[1]=="warptokens"){
-				add("destroy(warptokens)");
-			}else if(words[1]=="platforms"){
-				add("destroy(platforms)");
-			}
+			add(lines[i]);
 		}else if(words[0] == "speaker"){
 			speakermode=0;
 			if(words[1]=="gray" || words[1]=="grey" || words[1]=="terminal" || words[1]=="0") speakermode=0;

@@ -2,12 +2,15 @@
 #include "Music.h"
 
 #include <SDL.h>
-#include <stdio.h>
+#include <physfsrwops.h>
 
 #include "BinaryBlob.h"
 #include "Game.h"
+#include "Graphics.h"
 #include "Map.h"
+#include "Script.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
 
 musicclass::musicclass(void)
 {
@@ -60,7 +63,7 @@ void musicclass::init(void)
 
 #ifdef VVV_COMPILEMUSIC
 	binaryBlob musicWriteBlob;
-#define FOREACH_TRACK(blob, track_name) blob.AddFileToBinaryBlob(track_name);
+#define FOREACH_TRACK(blob, track_name) blob.AddFileToBinaryBlob("data/" track_name);
 	TRACK_NAMES(musicWriteBlob)
 #undef FOREACH_TRACK
 
@@ -73,25 +76,55 @@ void musicclass::init(void)
 
 	if (!mmmmmm_blob.unPackBinary("mmmmmm.vvv"))
 	{
-		mmmmmm = false;
-		usingmmmmmm=false;
-		bool ohCrap = pppppp_blob.unPackBinary("vvvvvvmusic.vvv");
-		SDL_assert(ohCrap && "Music not found!");
+		if (pppppp_blob.unPackBinary("vvvvvvmusic.vvv"))
+		{
+			vlog_info("Loading music from PPPPPP blob...");
+
+			mmmmmm = false;
+			usingmmmmmm=false;
+
+			int index;
+			SDL_RWops* rw;
+
+#define FOREACH_TRACK(blob, track_name) \
+	index = blob.getIndex("data/" track_name); \
+	rw = SDL_RWFromMem(blob.getAddress(index), blob.getSize(index)); \
+	musicTracks.push_back(MusicTrack( rw ));
+
+			TRACK_NAMES(pppppp_blob)
+
+#undef FOREACH_TRACK
+		}
+		else
+		{
+			vlog_info("Loading music from loose files...");
+
+			SDL_RWops* rw;
+#define FOREACH_TRACK(_, track_name) \
+	rw = PHYSFSRWOPS_openRead(track_name); \
+	musicTracks.push_back(MusicTrack( rw ));
+
+			TRACK_NAMES(_)
+
+#undef FOREACH_TRACK
+		}
 	}
 	else
 	{
+		vlog_info("Loading PPPPPP and MMMMMM blobs...");
+
 		mmmmmm = true;
 		int index;
 		SDL_RWops *rw;
 
 #define FOREACH_TRACK(blob, track_name) \
-	index = blob.getIndex(track_name); \
+	index = blob.getIndex("data/" track_name); \
 	if (index >= 0 && index < blob.max_headers) \
 	{ \
 		rw = SDL_RWFromConstMem(blob.getAddress(index), blob.getSize(index)); \
 		if (rw == NULL) \
 		{ \
-			printf("Unable to read music file header: %s\n", SDL_GetError()); \
+			vlog_error("Unable to read music file header: %s", SDL_GetError()); \
 		} \
 		else \
 		{ \
@@ -115,17 +148,15 @@ void musicclass::init(void)
 
 		bool ohCrap = pppppp_blob.unPackBinary("vvvvvvmusic.vvv");
 		SDL_assert(ohCrap && "Music not found!");
-	}
-
-	int index;
-	SDL_RWops *rw;
 
 	TRACK_NAMES(pppppp_blob)
 
 #undef FOREACH_TRACK
+	}
 
 	num_pppppp_tracks += musicTracks.size() - num_mmmmmm_tracks;
 
+	SDL_RWops* rw;
 	size_t index_ = 0;
 	while (pppppp_blob.nextExtra(&index_))
 	{
@@ -195,7 +226,7 @@ void musicclass::play(int t)
 
 	if (!INBOUNDS_VEC(t, musicTracks))
 	{
-		puts("play() out-of-bounds!");
+		vlog_error("play() out-of-bounds!");
 		currentsong = -1;
 		return;
 	}
@@ -208,7 +239,7 @@ void musicclass::play(int t)
 		// Level Complete theme, no fade in or repeat
 		if (Mix_PlayMusic(musicTracks[t].m_music, 0) == -1)
 		{
-			printf("Mix_PlayMusic: %s\n", Mix_GetError());
+			vlog_error("Mix_PlayMusic: %s", Mix_GetError());
 		}
 		else
 		{
@@ -236,7 +267,7 @@ void musicclass::play(int t)
 		}
 		else if (Mix_PlayMusic(musicTracks[t].m_music, -1) == -1)
 		{
-			printf("Mix_PlayMusic: %s\n", Mix_GetError());
+			vlog_error("Mix_PlayMusic: %s", Mix_GetError());
 		}
 		else
 		{
@@ -344,7 +375,8 @@ void musicclass::fadeMusicVolumeOut(const int fadeout_ms)
 	m_doFadeOutVol = true;
 
 	fade.step_ms = 0;
-	fade.duration_ms = fadeout_ms;
+	/* Duration is proportional to current volume. */
+	fade.duration_ms = fadeout_ms * musicVolume / MIX_MAX_VOLUME;
 	fade.start_volume = musicVolume;
 	fade.end_volume = 0;
 }
@@ -404,52 +436,95 @@ void musicclass::processmusic(void)
 
 void musicclass::niceplay(int t)
 {
-	// important: do nothing if the correct song is playing!
-	if((!mmmmmm && currentsong!=t) || (mmmmmm && usingmmmmmm && currentsong!=t) || (mmmmmm && !usingmmmmmm && currentsong!=t+num_mmmmmm_tracks))
+	/* important: do nothing if the correct song is playing! */
+	if ((!mmmmmm && currentsong != t)
+	|| (mmmmmm && usingmmmmmm && currentsong != t)
+	|| (mmmmmm && !usingmmmmmm && currentsong != t + num_mmmmmm_tracks))
 	{
-		if(currentsong!=-1)
+		if (currentsong != -1)
 		{
 			fadeout(false);
 		}
 		nicefade = true;
-		nicechange = t;
 	}
+	nicechange = t;
 }
+
+static const int areamap[] = {
+	4, 3, 3, 3, 3, 3, 3, 3, 4,-2, 4, 4, 4,12,12,12,12,12,12,12,
+	4, 3, 3, 3, 3, 3, 3, 4, 4,-2, 4, 4, 4, 4,12,12,12,12,12,12,
+	4, 4, 4, 4, 3, 4, 4, 4, 4,-2, 4, 4, 4, 4,12,12,12,12,12,12,
+	4, 4, 4, 4, 3, 4, 4, 4, 4,-2, 4, 4, 1, 1, 1, 1,12,12,12,12,
+	4, 4, 3, 3, 3, 4, 4, 4, 4,-2,-2,-2, 1, 1, 1, 1, 4, 4, 4, 4,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 1, 1, 1, 1, 1, 1,11,11,-1, 4,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 1, 1, 1, 1, 1, 1, 1,11,11,11,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 1, 1, 1, 1, 1, 1, 1, 1, 1,11,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 4, 4, 4, 1, 1, 1, 1, 1, 1, 3,
+	4, 4, 4, 4, 4, 4, 4, 4,-2,-2, 4, 4, 4, 1, 1, 1, 1, 1, 1, 4,
+	4, 4,-1,-1,-1, 4, 4, 4, 4,-2, 4, 4, 4, 1, 1, 1, 1, 1, 1, 4,
+	4, 4,-1,-1,-1, 4, 4, 4, 4,-2, 4, 1, 1, 1, 1, 1, 1, 1, 1, 4,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 4, 1, 1, 1, 1, 1, 1, 4, 1, 4,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 4, 1, 1, 1, 1, 1, 1, 4, 1, 4,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 4,-1,-3, 4, 4, 4, 4, 4, 1, 4,
+	4, 4, 4, 4, 4, 3, 3, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+	4, 4, 3, 3, 3, 3, 3, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+	4, 3, 3, 3, 3, 3, 3, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+	3, 3, 3, 3, 3, 4, 4, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+	3, 3, 3, 3, 3, 4, 4, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
+};
+
+SDL_COMPILE_TIME_ASSERT(areamap, SDL_arraysize(areamap) == 20 * 20);
 
 void musicclass::changemusicarea(int x, int y)
 {
-	switch(musicroom(x, y))
+	int room;
+	int track;
+
+	if (script.running)
 	{
-	case musicroom(11, 4):
-		niceplay(2);
-		break;
+		return;
+	}
 
-	case musicroom(2, 4):
-	case musicroom(7, 15):
-		niceplay(3);
-		break;
+	room = musicroom(x, y);
 
-	case musicroom(18, 1):
-	case musicroom(15, 0):
-		niceplay(12);
-		break;
+	if (!INBOUNDS_ARR(room, areamap))
+	{
+		SDL_assert(0 && "Music map index out-of-bounds!");
+		return;
+	}
 
-	case musicroom(0, 0):
-	case musicroom(0, 16):
-	case musicroom(2, 11):
-	case musicroom(7, 9):
-	case musicroom(8, 11):
-	case musicroom(13, 2):
-	case musicroom(17, 12):
-	case musicroom(14, 19):
-	case musicroom(17, 17):
-		niceplay(4);
-		break;
+	track = areamap[room];
 
-	default:
-		niceplay(1);
+	switch (track)
+	{
+	case -1:
+		/* Don't change music. */
+		return;
+	case -2:
+		/* Special case: Tower music, changes with Flip Mode. */
+		if (graphics.setflipmode)
+		{
+			track = 9; /* ecroF evitisoP */
+		}
+		else
+		{
+			track = 2; /* Positive Force */
+		}
+		break;
+	case -3:
+		/* Special case: start of Space Station 2. */
+		if (game.intimetrial)
+		{
+			track = 1; /* Pushing Onwards */
+		}
+		else
+		{
+			track = 4; /* Passion for Exploring */
+		}
 		break;
 	}
+
+	niceplay(track);
 }
 
 void musicclass::playef(int t)
@@ -463,7 +538,7 @@ void musicclass::playef(int t)
 	channel = Mix_PlayChannel(-1, soundTracks[t].sound, 0);
 	if(channel == -1)
 	{
-		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
+		vlog_error("Unable to play WAV file: %s", Mix_GetError());
 	}
 }
 

@@ -159,7 +159,7 @@ static void menurender(void)
 #ifdef INTERIM_COMMIT
         graphics.Print( 310 - (SDL_arraysize(INTERIM_COMMIT) - 1) * 8, 220, INTERIM_COMMIT, tr/2, tg/2, tb/2);
 #endif
-        graphics.Print( 310 - (4*8), 230, "v2.3", tr/2, tg/2, tb/2);
+        graphics.Print( 310 - (4*8), 230, "v2.4", tr/2, tg/2, tb/2);
 
         if(music.mmmmmm){
             graphics.Print( 10, 230, loc::gettext("[MMMMMM Mod Installed]"), tr/2, tg/2, tb/2);
@@ -441,6 +441,7 @@ static void menurender(void)
         graphics.Print( -1, 110, loc::gettext("C++ version by"), tr, tg, tb, true);
         graphics.bigprint( 40, 125, loc::gettext("Simon Roth"), tr, tg, tb, true);
         graphics.bigprint( 40, 145, loc::gettext("Ethan Lee"), tr, tg, tb, true);
+        graphics.bigprint( 40, 165, loc::gettext("Misa Kai"), tr, tg, tb, true);
         break;
     case Menu::credits25:
         graphics.Print( -1, 40, loc::gettext("Beta Testing by"), tr, tg, tb, true);
@@ -500,19 +501,8 @@ static void menurender(void)
 
         int xofs, yofs;
 
-        if (startidx == 0)
-        {
-            graphics.Print(-1, 60, Credits::githubfriends[0], tr, tg, tb, true);
-            graphics.Print(-1, 80, loc::gettext(Credits::githubfriends[2]), tr, tg, tb, true); // "and"
-            startidx += 4; // Skip the superfriends now that we've drawn them...
-            xofs = 80 - 28;
-            yofs = 80 + 20 + (emptyspace / 2);
-        }
-        else
-        {
-            xofs = 80 - 16;
-            yofs = 40 + 20 + (emptyspace / 2);
-        }
+        xofs = 80 - 16;
+        yofs = 40 + 20 + (emptyspace / 2);
 
         for (int i = startidx; i < endidx; ++i)
         {
@@ -1564,30 +1554,31 @@ void gamecompleterender(void)
         graphics.bigprint(60, 650 + position, "Bennett Foddy", tr, tg, tb);
     }
 
-    if (graphics.onscreen(680 + position))
+    if (graphics.onscreen(710 + position))
     {
         graphics.Print(40, 680 + position, "C++ Port by", tr, tg, tb);
         graphics.bigprint(60, 690 + position, "Simon Roth", tr, tg, tb);
         graphics.bigprint(60, 710 + position, "Ethan Lee", tr, tg, tb);
+        graphics.bigprint(60, 730 + position, "Misa Kai", tr, tg, tb);
     }
 
 
-    if (graphics.onscreen(740 + position))
+    if (graphics.onscreen(770 + position))
     {
-        graphics.Print(40, 740 + position, "Beta Testing by", tr, tg, tb);
-        graphics.bigprint(60, 750 + position, "Sam Kaplan", tr, tg, tb);
-        graphics.bigprint(60, 770 + position, "Pauli Kohberger", tr, tg, tb);
+        graphics.Print(40, 760 + position, "Beta Testing by", tr, tg, tb);
+        graphics.bigprint(60, 770 + position, "Sam Kaplan", tr, tg, tb);
+        graphics.bigprint(60, 790 + position, "Pauli Kohberger", tr, tg, tb);
     }
 
-    if (graphics.onscreen(800 + position))
+    if (graphics.onscreen(820 + position))
     {
-        graphics.Print(40, 800 + position, "Ending Picture by", tr, tg, tb);
-        graphics.bigprint(60, 810 + position, "Pauli Kohberger", tr, tg, tb);
+        graphics.Print(40, 820 + position, "Ending Picture by", tr, tg, tb);
+        graphics.bigprint(60, 830 + position, "Pauli Kohberger", tr, tg, tb);
     }
 
-    if (graphics.onscreen(890 + position)) graphics.bigprint( -1, 870 + position, "Patrons", tr, tg, tb, true, 3);
+    if (graphics.onscreen(910 + position)) graphics.bigprint( -1, 890 + position, "Patrons", tr, tg, tb, true, 3);
 
-    int creditOffset = 930;
+    int creditOffset = 950;
 
     for (size_t i = 0; i < SDL_arraysize(Credits::superpatrons); i += 1)
     {

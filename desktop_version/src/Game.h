@@ -206,7 +206,7 @@ public:
 
     void loadsummary(void);
 
-    void readmaingamesave(tinyxml2::XMLDocument& doc);
+    void readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc);
     std::string writemaingamesave(tinyxml2::XMLDocument& doc);
 
     void initteleportermode(void);
@@ -218,7 +218,7 @@ public:
     int door_right;
     int door_up;
     int door_down;
-    int roomx, roomy, roomchangedir;
+    int roomx, roomy;
     int prevroomx, prevroomy;
 
     int savex, savey, saverx, savery;
@@ -392,7 +392,6 @@ public:
     float inertia;
 
     int companion;
-    bool roomchange;
     SDL_Rect teleblock;
     bool activetele;
     int readytotele;

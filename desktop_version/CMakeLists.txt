@@ -113,6 +113,9 @@ set(VVV_SRC
 	src/GlitchrunnerMode.c
 	src/Network.c
 	src/ThirdPartyDeps.c
+	src/Vlogging.c
+	src/Xoshiro.c
+	../third_party/physfs/extras/physfsrwops.c
 )
 if(NOT CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
 	list(APPEND VVV_SRC src/editor.cpp)
@@ -126,7 +129,7 @@ endif()
 
 # Executable information
 if(WIN32)
-	add_executable(VVVVVV WIN32 ${VVV_SRC})
+	add_executable(VVVVVV WIN32 ${VVV_SRC} icon.rc)
 else()
 	add_executable(VVVVVV ${VVV_SRC})
 endif()
@@ -138,6 +141,7 @@ if(BUNDLE_DEPENDENCIES)
 		src
 		../third_party/tinyxml2
 		../third_party/physfs
+		../third_party/physfs/extras
 		../third_party/lodepng
 		../third_party/utfcpp/source
 	)
@@ -146,6 +150,7 @@ else()
 		VVVVVV PRIVATE
 		src
 		../third_party/lodepng
+		../third_party/physfs/extras
 	)
 endif()
 
@@ -304,6 +309,10 @@ if(DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)
 	message(STATUS "Using pre-defined SDL2 variables SDL2_INCLUDE_DIRS and SDL2_LIBRARIES")
 	target_include_directories(VVVVVV SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
 	target_link_libraries(VVVVVV ${SDL2_LIBRARIES})
+elseif (EMSCRIPTEN)
+	message(STATUS "Using Emscripten SDL2")
+	target_compile_options(VVVVVV PUBLIC -sUSE_SDL=2 -sUSE_SDL_MIXER=2)
+	target_link_libraries(VVVVVV -sUSE_SDL=2 -sUSE_SDL_MIXER=2)
 else()
 	# Only try to autodetect if both SDL2 variables aren't explicitly set
 	find_package(SDL2 CONFIG)
@@ -332,4 +341,9 @@ if(HAIKU)
 	find_library(BE_LIBRARY be)
 	find_library(ROOT_LIBRARY root)
 	target_link_libraries(VVVVVV ${BE_LIBRARY} ${ROOT_LIBRARY})
+endif()
+if(EMSCRIPTEN)
+	target_compile_options(VVVVVV PUBLIC -sFORCE_FILESYSTEM=1)
+	# 256MB is enough for everybody
+	target_link_libraries(VVVVVV -sFORCE_FILESYSTEM=1 -sTOTAL_MEMORY=256MB)
 endif()

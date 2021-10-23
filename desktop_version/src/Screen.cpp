@@ -1,11 +1,11 @@
 #include "Screen.h"
 
 #include <SDL.h>
-#include <stdio.h>
 
 #include "FileSystemUtils.h"
 #include "Game.h"
 #include "GraphicsUtil.h"
+#include "Vlogging.h"
 
 // Used to create the window icon
 extern "C"
@@ -24,7 +24,7 @@ ScreenSettings::ScreenSettings(void)
 	windowWidth = 320;
 	windowHeight = 240;
 	fullscreen = false;
-	useVsync = false;
+	useVsync = true; // Now that uncapped is the default...
 	stretch = 0;
 	linearFilter = false;
 	badSignal = false;
@@ -168,7 +168,7 @@ void Screen::ResizeScreen(int x, int y)
 		int result = SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 		if (result != 0)
 		{
-			printf("Error: could not set the game to fullscreen mode: %s\n", SDL_GetError());
+			vlog_error("Error: could not set the game to fullscreen mode: %s", SDL_GetError());
 			return;
 		}
 	}
@@ -177,7 +177,7 @@ void Screen::ResizeScreen(int x, int y)
 		int result = SDL_SetWindowFullscreen(m_window, 0);
 		if (result != 0)
 		{
-			printf("Error: could not set the game to windowed mode: %s\n", SDL_GetError());
+			vlog_error("Error: could not set the game to windowed mode: %s", SDL_GetError());
 			return;
 		}
 		if (x != -1 && y != -1)
@@ -193,13 +193,13 @@ void Screen::ResizeScreen(int x, int y)
 		int result = SDL_RenderSetLogicalSize(m_renderer, winX, winY);
 		if (result != 0)
 		{
-			printf("Error: could not set logical size: %s\n", SDL_GetError());
+			vlog_error("Error: could not set logical size: %s", SDL_GetError());
 			return;
 		}
 		result = SDL_RenderSetIntegerScale(m_renderer, SDL_FALSE);
 		if (result != 0)
 		{
-			printf("Error: could not set scale: %s\n", SDL_GetError());
+			vlog_error("Error: could not set scale: %s", SDL_GetError());
 			return;
 		}
 	}
@@ -209,7 +209,7 @@ void Screen::ResizeScreen(int x, int y)
 		int result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (stretchMode == 2));
 		if (result != 0)
 		{
-			printf("Error: could not set scale: %s\n", SDL_GetError());
+			vlog_error("Error: could not set scale: %s", SDL_GetError());
 			return;
 		}
 	}
@@ -306,19 +306,32 @@ const SDL_PixelFormat* Screen::GetFormat(void)
 	return m_screen->format;
 }
 
-void Screen::FlipScreen(void)
+void Screen::FlipScreen(const bool flipmode)
 {
+	SDL_RendererFlip flip_flags;
+	if (flipmode)
+	{
+		flip_flags = SDL_FLIP_VERTICAL;
+	}
+	else
+	{
+		flip_flags = SDL_FLIP_NONE;
+	}
+
 	SDL_UpdateTexture(
 		m_screenTexture,
 		NULL,
 		m_screen->pixels,
 		m_screen->pitch
 	);
-	SDL_RenderCopy(
+	SDL_RenderCopyEx(
 		m_renderer,
 		m_screenTexture,
 		isFiltered ? &filterSubrect : NULL,
-		NULL
+		NULL,
+		0.0,
+		NULL,
+		flip_flags
 	);
 	SDL_RenderPresent(m_renderer);
 	SDL_RenderClear(m_renderer);

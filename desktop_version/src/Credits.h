@@ -82,43 +82,42 @@ static const char* patrons[] = {
     "Timothy Bragan",
 };
 
-/* CONTRIBUTORS.txt, again listed alphabetically (according to `sort`) by last name */
+/* CONTRIBUTORS.txt, again listed alphabetically (according to `sort`) by first name
+ * Misa is special; she gets to be listed in C++ credits alongside Ethan */
 static const char* githubfriends[] = {
-    "Misa \"Info Teddy\" Elizabeth",
-    "",
-    "and",
-    "",
     "AlexApps99",
-    "AllyTally",
-    "Christoph B{hmwalder",
-    "Charlie Bruce",
-    "Brian Callahan",
-    "Dav999",
     "Allison Fleischer",
-    "Malte Grimm",
+    "AllyTally",
+    "Brian Callahan",
+    "Charlie Bruce",
+    "Christoph B{hmwalder",
     "Daniel Lee",
+    "Dav999",
+    "Elijah Stone",
+    "Elliott Saltar",
+    "Emmanuel Vadot",
     "Fredrik Ljungdahl",
+    "Keith Stellyes",
+    "KyoZM",
+    "leo60228",
     "MAO3J1m0Op",
-    "Nichole Mattera",
+    "Malte Grimm",
+    "Marvin Scholz",
     "Matt Penny",
     "mothbeanie",
-    "Tynan Richards",
-    "Reese Rivers",
-    "Elliott Saltar",
-    "Marvin Scholz",
-    "Keith Stellyes",
-    "Elijah Stone",
-    "Thomas S|nger",
+    "Nichole Mattera",
     "Pierre-Alain TORET",
-    "leo60228",
-    "Emmanuel Vadot",
+    "Reese Rivers",
     "Remi Verschelde", // TODO: Change to "Rémi" if/when UTF-8 support is added
-    "viri",
+    "Thomas S|nger",
+    "Tynan Richards",
     "Wouter",
+    "viri",
+    "Vittorio Romeo",
 };
 
 /* Calculate credits length, finally. */
-static const int creditmaxposition = 1050 + (10 * (
+static const int creditmaxposition = 1040 + (10 * (
     SDL_arraysize(superpatrons) + SDL_arraysize(patrons) + SDL_arraysize(githubfriends)
 ));
 

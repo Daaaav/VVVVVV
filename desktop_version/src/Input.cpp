@@ -15,6 +15,7 @@
 #include "Music.h"
 #include "Script.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
 
 static void updatebuttonmappings(int bind)
 {
@@ -2131,6 +2132,8 @@ void gameinput(void)
     bool has_control = false;
     bool enter_pressed = game.press_map && !game.mapheld;
     bool enter_already_processed = false;
+    bool any_onground = false;
+    bool any_onroof = false;
     bool interact_pressed;
     if (game.separate_interact)
     {
@@ -2236,38 +2239,6 @@ void gameinput(void)
                     }
                 }
 
-                if (game.press_left)
-                {
-                    game.tapleft++;
-                }
-                else
-                {
-                    if (game.tapleft <= 4 && game.tapleft > 0)
-                    {
-                        if (obj.entities[ie].vx < 0.0f)
-                        {
-                            obj.entities[ie].vx = 0.0f;
-                        }
-                    }
-                    game.tapleft = 0;
-                }
-                if (game.press_right)
-                {
-                    game.tapright++;
-                }
-                else
-                {
-                    if (game.tapright <= 4 && game.tapright > 0)
-                    {
-                        if (obj.entities[ie].vx > 0.0f)
-                        {
-                            obj.entities[ie].vx = 0.0f;
-                        }
-                    }
-                    game.tapright = 0;
-                }
-
-
                 if(game.press_left)
                 {
                     obj.entities[ie].ax = -3;
@@ -2278,42 +2249,106 @@ void gameinput(void)
                     obj.entities[ie].ax = 3;
                     obj.entities[ie].dir = 1;
                 }
+            }
 
-                if (!game.press_action)
-                {
-                    game.jumppressed = 0;
-                    game.jumpheld = false;
-                }
+            if (obj.entities[ie].onground > 0)
+            {
+                any_onground = true;
+            }
+            else if (obj.entities[ie].onroof > 0)
+            {
+                any_onroof = true;
+            }
+        }
+    }
 
-                if (game.press_action && !game.jumpheld)
+    if (game.press_left)
+    {
+        game.tapleft++;
+    }
+    else
+    {
+        if (game.tapleft <= 4 && game.tapleft > 0)
+        {
+            for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+            {
+                if (obj.entities[ie].rule == 0)
                 {
-                    game.jumppressed = 5;
-                    game.jumpheld = true;
-                }
-
-                if (game.jumppressed > 0)
-                {
-                    game.jumppressed--;
-                    if (obj.entities[ie].onground>0 && game.gravitycontrol == 0)
+                    if (obj.entities[ie].vx < 0.0f)
                     {
-                        game.gravitycontrol = 1;
-                        obj.entities[ie].vy = -4;
-                        obj.entities[ie].ay = -3;
-                        music.playef(0);
-                        game.jumppressed = 0;
-                        game.totalflips++;
-                    }
-                    if (obj.entities[ie].onroof>0 && game.gravitycontrol == 1)
-                    {
-                        game.gravitycontrol = 0;
-                        obj.entities[ie].vy = 4;
-                        obj.entities[ie].ay = 3;
-                        music.playef(1);
-                        game.jumppressed = 0;
-                        game.totalflips++;
+                        obj.entities[ie].vx = 0.0f;
                     }
                 }
             }
+        }
+        game.tapleft = 0;
+    }
+    if (game.press_right)
+    {
+        game.tapright++;
+    }
+    else
+    {
+        if (game.tapright <= 4 && game.tapright > 0)
+        {
+            for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+            {
+                if (obj.entities[ie].rule == 0)
+                {
+                    if (obj.entities[ie].vx > 0.0f)
+                    {
+                        obj.entities[ie].vx = 0.0f;
+                    }
+                }
+            }
+        }
+        game.tapright = 0;
+    }
+
+    if (!game.press_action)
+    {
+        game.jumppressed = 0;
+        game.jumpheld = false;
+    }
+
+    if (game.press_action && !game.jumpheld)
+    {
+        game.jumppressed = 5;
+        game.jumpheld = true;
+    }
+
+    if (game.jumppressed > 0)
+    {
+        game.jumppressed--;
+        if (any_onground && game.gravitycontrol == 0)
+        {
+            game.gravitycontrol = 1;
+            for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+            {
+                if (obj.entities[ie].rule == 0)
+                {
+                    obj.entities[ie].vy = -4;
+                    obj.entities[ie].ay = -3;
+                }
+            }
+            music.playef(0);
+            game.jumppressed = 0;
+            game.totalflips++;
+        }
+        if (any_onroof && game.gravitycontrol == 1)
+        {
+            game.gravitycontrol = 0;
+            for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+            {
+                if (obj.entities[ie].rule == 0)
+                {
+                    obj.entities[ie].vy = 4;
+                    obj.entities[ie].ay = 3;
+                }
+            }
+            music.playef(1);
+            game.jumppressed = 0;
+            game.totalflips++;
         }
     }
 
