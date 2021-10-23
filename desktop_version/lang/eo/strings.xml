@@ -17,11 +17,11 @@
     <string english="Adjust various gameplay options" explanation="" max="38*5" comment="">Diversaj agordoj pri ludmaniero</string>
     <string english="graphics" explanation="options menu option" comment="">grafikoj</string>
     <string english="Graphics Options" explanation="title" max="20" comment="">Agordoj de grafikoj</string>
-    <string english="Adjust screen settings" explanation="" max="38*5" comment="">Agordi la ekranon</string>
+    <string english="Adjust screen settings." explanation="" max="38*5" comment="">Agordi la ekranon.</string>
     <string english="audio" explanation="options menu option" comment="">sono</string>
     <string english="Audio Options" explanation="title" max="20" comment="">Agordoj de sono</string>
-    <string english="Adjust volume settings and soundtrack" explanation="" max="38*5" comment="">Agordi laŭtecon kaj sontrakon</string>
-    <string english="Adjust volume settings" explanation="" max="38*5" comment="">Agordi laŭtecon</string>
+    <string english="Adjust volume settings and soundtrack." explanation="" max="38*5" comment="">Agordi laŭtecon kaj sontrakon.</string>
+    <string english="Adjust volume settings." explanation="" max="38*5" comment="">Agordi laŭtecon.</string>
     <string english="continue" explanation="menu option" comment="">daŭrigi</string>
     <string english="continue from teleporter" explanation="menu option, game save that was made at a teleporter" comment="">daŭrigi de teleportilo</string>
     <string english="Tele Save" explanation="title, game save that was made at a teleporter" max="20" comment="">Tele-konservaĵo</string>
@@ -37,14 +37,14 @@
     <string english="ERROR: This level has no start point!" explanation="" max="38*5" comment="">ERARO: Tiu ĉi nivelo havas neniun komencejon!</string>
     <string english="unlock play modes" explanation="menu option" comment="">malŝlosi ludreĝimojn</string>
     <string english="Unlock Play Modes" explanation="title" max="20" comment="">Malŝlosi ludreĝimojn</string>
-    <string english="Unlock parts of the game normally unlocked as you progress" explanation="" max="38*5" comment="">Malŝlosi partojn de la ludo, kiuj normale malŝlosiĝas laŭprogrese</string>
+    <string english="Unlock parts of the game normally unlocked as you progress." explanation="" max="38*5" comment="">Malŝlosi partojn de la ludo, kiuj normale malŝlosiĝas laŭprogrese.</string>
     <string english="From here, you may unlock parts of the game that are normally unlocked as you play." explanation="" max="38*5" comment="">Ĉi tie, vi povas malŝlosi partojn de la ludo, kiuj normale malŝlosiĝas laŭprogrese.</string>
     <string english="unlock ship jukebox" explanation="menu option" comment="">malŝlosi ŝipmuzikilon</string>
     <string english="unlock secret lab" explanation="menu option" comment="">malŝlosi sekretan labon</string>
     <string english="game pad" explanation="menu option" comment="">regilo</string>
     <string english="Game Pad Options" explanation="title" max="20" comment="">Regilaj agordoj</string>
     <string english="Game Pad" explanation="title" max="20" comment="">Regilo</string>
-    <string english="Rebind your controller&apos;s buttons and adjust sensitivity" explanation="" max="38*5" comment="">Reagordi butonojn kaj ŝanĝi sentemon</string>
+    <string english="Rebind your controller&apos;s buttons and adjust sensitivity." explanation="" max="38*5" comment="">Reagordi butonojn kaj ŝanĝi sentemon.</string>
     <string english="Change controller options." explanation="" max="38*2" comment="">Ŝanĝi regilajn agordojn.</string>
     <string english="language" explanation="menu option" comment="">lingvo</string>
     <string english="Language" explanation="title" max="20" comment="">Lingvo</string>
@@ -58,7 +58,7 @@
     <string english="yes, delete everything" explanation="menu option" comment="">jes, forigu ĉion</string>
     <string english="soundtrack" explanation="menu option" comment="">sontrako</string>
     <string english="Soundtrack" explanation="title" max="20" comment="">Sontrako</string>
-    <string english="Toggle between MMMMMM and PPPPPP" explanation="" max="38*2" comment="">Baskuligi inter MMMMMM kaj PPPPPP</string>
+    <string english="Toggle between MMMMMM and PPPPPP." explanation="" max="38*2" comment="">Baskuligi inter MMMMMM kaj PPPPPP.</string>
     <string english="Current soundtrack: %s" explanation="" max="38*3" comment="">Nuna sontrako: %s</string>
     <string english="toggle fullscreen" explanation="menu option" comment="">baskuligi plenekranecon</string>
     <string english="Toggle Fullscreen" explanation="title" max="20" comment="">Plenekraneco</string>
@@ -90,7 +90,7 @@
     <string english="Current mode: Over 30 FPS" explanation="" max="38*2" comment="">Nuna reĝimo: Super 30 KS</string>
     <string english="toggle vsync" explanation="menu option" comment="">v-sinkronigo</string>
     <string english="Toggle VSync" explanation="title" max="20" comment="">Vertikala sinkronigo</string>
-    <string english="Turn VSync on or off." explanation="" max="38*3" comment="">Baskuligi vertikalan sinkronigon.</string>
+    <string english="Turn VSync on or off." explanation="" max="38*2" comment="">Baskuligi vertikalan sinkronigon.</string>
     <string english="Current mode: VSYNC OFF" explanation="" max="38*2" comment="">Nuna reĝimo: V-sink. malŝalta</string>
     <string english="Current mode: VSYNC ON" explanation="" max="38*2" comment="">Nuna reĝimo: V-sink. ŝalta</string>
     <string english="music volume" explanation="audio menu option" comment="">muzik-laŭteco</string>
@@ -170,7 +170,7 @@
     <string english="Room name background is OPAQUE" explanation="" max="38*2" comment="">Ĉambronoma fono estas NETRAVIDEBLA</string>
     <string english="speedrun options" explanation="menu option" comment="">agordoj de rapidkurado</string>
     <string english="Speedrunner Options" explanation="title" max="20" comment="">Rapidkuragordoj</string>
-    <string english="Access some advanced settings that might be of interest to speedrunners" explanation="description for speedrunner options" max="38*5" comment="">Aliri iujn altnivelajn agordojn utilajn por rapidkurantoj</string>
+    <string english="Access some advanced settings that might be of interest to speedrunners." explanation="description for speedrunner options" max="38*5" comment="">Aliri iujn altnivelajn agordojn utilajn por rapidkurantoj.</string>
     <string english="glitchrunner mode" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" comment="">cimkuranta reĝimo</string>
     <string english="Glitchrunner Mode" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20" comment="">Cimkuranta reĝimo</string>
     <string english="Re-enable glitches that existed in previous versions of the game." explanation="glitchrunner mode" max="38*3" comment="">Reebligi cimojn, kiuj ekzistis en antaŭaj versioj de la ludo.</string>
@@ -183,7 +183,7 @@
     <string english="Input delay is OFF" explanation="" max="38*2" comment="">Enigprokrasto estas MALŜALTA</string>
     <string english="accessibility" explanation="menu option" comment="">alirebleco</string>
     <string english="Accessibility" explanation="title" max="20" comment="">Alirebleco</string>
-    <string english="Disable screen effects, enable slowdown modes or invincibility" explanation="" max="38*5" comment="">Malebligi ekranefikojn, ebligi malrapidigreĝimon aŭ nevundeblecon</string>
+    <string english="Disable screen effects, enable slowdown modes or invincibility." explanation="" max="38*5" comment="">Malebligi ekranefikojn, ebligi malrapidigreĝimon aŭ nevundeblecon.</string>
     <string english="animated backgrounds" explanation="menu option" comment="">animaciitaj fonoj</string>
     <string english="Backgrounds" explanation="title" max="20" comment="">Fonoj</string>
     <string english="Backgrounds are ON." explanation="" max="38*5" comment="">Fonoj estas ŜALTAJ.</string>
@@ -209,8 +209,8 @@
     <string english="slowdown" explanation="menu option" comment="">malrapidigo</string>
     <string english="Slowdown" explanation="title" max="20" comment="">Malrapidigo</string>
     <string english="Game Speed" explanation="title" max="20" comment="">Ludrapido</string>
-    <string english="Reduce the game speed." explanation="" max="38*3" comment="">Plimalrapidigi la ludon.</string>
-    <string english="Select a new game speed below." explanation="" max="38*3" comment="">Elektu novan ludrapidon sube.</string>
+    <string english="Reduce the game speed." explanation="" max="38*2" comment="">Plimalrapidigi la ludon.</string>
+    <string english="Select a new game speed below." explanation="" max="38*2" comment="">Elektu novan ludrapidon sube.</string>
     <string english="Game speed is normal." explanation="" max="38*2" comment="">Ludrapido normalas.</string>
     <string english="Game speed is at 80%" explanation="" max="38*2" comment="">Ludrapido estas 80%</string>
     <string english="Game speed is at 60%" explanation="" max="38*2" comment="">Ludrapido estas 60%</string>

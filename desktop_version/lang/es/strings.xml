@@ -17,11 +17,11 @@
     <string english="Adjust various gameplay options" explanation="" max="38*5" comment=""></string>
     <string english="graphics" explanation="options menu option" comment=""></string>
     <string english="Graphics Options" explanation="title" max="20" comment=""></string>
-    <string english="Adjust screen settings" explanation="" max="38*5" comment=""></string>
+    <string english="Adjust screen settings." explanation="" max="38*5" comment=""></string>
     <string english="audio" explanation="options menu option" comment=""></string>
     <string english="Audio Options" explanation="title" max="20" comment=""></string>
-    <string english="Adjust volume settings and soundtrack" explanation="" max="38*5" comment=""></string>
-    <string english="Adjust volume settings" explanation="" max="38*5" comment=""></string>
+    <string english="Adjust volume settings and soundtrack." explanation="" max="38*5" comment=""></string>
+    <string english="Adjust volume settings." explanation="" max="38*5" comment=""></string>
     <string english="continue" explanation="menu option" comment="">continuar</string>
     <string english="continue from teleporter" explanation="menu option, game save that was made at a teleporter" comment="">continuar desde teletransportador</string>
     <string english="Tele Save" explanation="title, game save that was made at a teleporter" max="20" comment="">Tele guardado</string>
@@ -37,14 +37,14 @@
     <string english="ERROR: This level has no start point!" explanation="" max="38*5" comment="">ERROR: Este nivel no tiene punto de inicio</string>
     <string english="unlock play modes" explanation="menu option" comment="">liberar modos</string>
     <string english="Unlock Play Modes" explanation="title" max="20" comment="">Liberar Modos</string>
-    <string english="Unlock parts of the game normally unlocked as you progress" explanation="" max="38*5" comment="">Desbloquea partes del juego, normalmente desbloqueadas al completar el juego</string>
+    <string english="Unlock parts of the game normally unlocked as you progress." explanation="" max="38*5" comment="">Desbloquea partes del juego, normalmente desbloqueadas al completar el juego.</string>
     <string english="From here, you may unlock parts of the game that are normally unlocked as you play." explanation="" max="38*5" comment="">Desde aquí podras liberar partes del juego que normalmente se desbloquean al progresar.</string>
     <string english="unlock ship jukebox" explanation="menu option" comment="">desbloquear caja de musica en la nave</string>
     <string english="unlock secret lab" explanation="menu option" comment="">desbloquear laboratorio secreto</string>
     <string english="game pad" explanation="menu option" comment=""></string>
     <string english="Game Pad Options" explanation="title" max="20" comment="">Opciones de mando</string>
     <string english="Game Pad" explanation="title" max="20" comment="">Mando</string>
-    <string english="Rebind your controller&apos;s buttons and adjust sensitivity" explanation="" max="38*5" comment="">Restablece los botones del mando y ajusta le sensibilidad</string>
+    <string english="Rebind your controller&apos;s buttons and adjust sensitivity." explanation="" max="38*5" comment="">Restablece los botones del mando y ajusta le sensibilidad.</string>
     <string english="Change controller options." explanation="" max="38*2" comment="">Cambiar opciones de mando.</string>
     <string english="language" explanation="menu option" comment="">idioma</string>
     <string english="Language" explanation="title" max="20" comment="">Idioma</string>
@@ -58,7 +58,7 @@
     <string english="yes, delete everything" explanation="menu option" comment="">si, borrar todo</string>
     <string english="soundtrack" explanation="menu option" comment="">banda sonora</string>
     <string english="Soundtrack" explanation="title" max="20" comment="">Banda Sonora</string>
-    <string english="Toggle between MMMMMM and PPPPPP" explanation="" max="38*2" comment="">Cambiar entre MMMMMM y PPPPPP</string>
+    <string english="Toggle between MMMMMM and PPPPPP." explanation="" max="38*2" comment="">Cambiar entre MMMMMM y PPPPPP.</string>
     <string english="Current soundtrack: %s" explanation="" max="38*3" comment="">Banda sonora actual: %s</string>
     <string english="toggle fullscreen" explanation="menu option" comment="">pantalla completa</string>
     <string english="Toggle Fullscreen" explanation="title" max="20" comment="">Pantalla Completa</string>
@@ -90,7 +90,7 @@
     <string english="Current mode: Over 30 FPS" explanation="" max="38*2" comment="">Modo actual: Mas de 30 FPS</string>
     <string english="toggle vsync" explanation="menu option" comment="">alternar sincronizacion vertical</string>
     <string english="Toggle VSync" explanation="title" max="20" comment="">Alternar VSync</string>
-    <string english="Turn VSync on or off." explanation="" max="38*3" comment="">Acitvar o desactivar VSync.</string>
+    <string english="Turn VSync on or off." explanation="" max="38*2" comment="">Acitvar o desactivar VSync.</string>
     <string english="Current mode: VSYNC OFF" explanation="" max="38*2" comment="">Modo actual: VSYNC DESACTIVADO</string>
     <string english="Current mode: VSYNC ON" explanation="" max="38*2" comment="">Modo actual: VSYNC ACTIVADO</string>
     <string english="music volume" explanation="audio menu option" comment=""></string>
@@ -170,7 +170,7 @@
     <string english="Room name background is OPAQUE" explanation="" max="38*2" comment="">El nombre de la habitación es OPACO</string>
     <string english="speedrun options" explanation="menu option" comment=""></string>
     <string english="Speedrunner Options" explanation="title" max="20" comment=""></string>
-    <string english="Access some advanced settings that might be of interest to speedrunners" explanation="description for speedrunner options" max="38*5" comment=""></string>
+    <string english="Access some advanced settings that might be of interest to speedrunners." explanation="description for speedrunner options" max="38*5" comment=""></string>
     <string english="glitchrunner mode" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" comment=""></string>
     <string english="Glitchrunner Mode" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20" comment=""></string>
     <string english="Re-enable glitches that existed in previous versions of the game." explanation="glitchrunner mode" max="38*3" comment=""></string>
@@ -183,7 +183,7 @@
     <string english="Input delay is OFF" explanation="" max="38*2" comment=""></string>
     <string english="accessibility" explanation="menu option" comment=""></string>
     <string english="Accessibility" explanation="title" max="20" comment="">Acesibilidad</string>
-    <string english="Disable screen effects, enable slowdown modes or invincibility" explanation="" max="38*5" comment="">Desactivar efectos de pantalla, activar desaceleración o invicibilidad</string>
+    <string english="Disable screen effects, enable slowdown modes or invincibility." explanation="" max="38*5" comment="">Desactivar efectos de pantalla, activar desaceleración o invicibilidad.</string>
     <string english="animated backgrounds" explanation="menu option" comment="">fondos animados</string>
     <string english="Backgrounds" explanation="title" max="20" comment="">Fondos</string>
     <string english="Backgrounds are ON." explanation="" max="38*5" comment="">Los fondos están ACTIVADOS.</string>
@@ -209,8 +209,8 @@
     <string english="slowdown" explanation="menu option" comment="">aceleracion</string>
     <string english="Slowdown" explanation="title" max="20" comment=""></string>
     <string english="Game Speed" explanation="title" max="20" comment="">Velocidad del juego</string>
-    <string english="Reduce the game speed." explanation="" max="38*3" comment=""></string>
-    <string english="Select a new game speed below." explanation="" max="38*3" comment="">Selecciona la velocidad del juego abajo.</string>
+    <string english="Reduce the game speed." explanation="" max="38*2" comment=""></string>
+    <string english="Select a new game speed below." explanation="" max="38*2" comment="">Selecciona la velocidad del juego abajo.</string>
     <string english="Game speed is normal." explanation="" max="38*2" comment="">La velocidad esta normal.</string>
     <string english="Game speed is at 80%" explanation="" max="38*2" comment="">La velocidad esta al 80%</string>
     <string english="Game speed is at 60%" explanation="" max="38*2" comment="">La velocidad esta al 60%</string>

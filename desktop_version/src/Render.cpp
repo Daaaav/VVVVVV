@@ -37,16 +37,16 @@ static inline void drawslowdowntext(void)
     switch (game.slowdown)
     {
     case 30:
-        graphics.PrintWrap( -1, 105, loc::gettext("Game speed is normal."), tr/2, tg/2, tb/2, true);
+        graphics.PrintWrap( -1, 85, loc::gettext("Game speed is normal."), tr/2, tg/2, tb/2, true);
         break;
     case 24:
-        graphics.PrintWrap( -1, 105, loc::gettext("Game speed is at 80%"), tr, tg, tb, true);
+        graphics.PrintWrap( -1, 85, loc::gettext("Game speed is at 80%"), tr, tg, tb, true);
         break;
     case 18:
-        graphics.PrintWrap( -1, 105, loc::gettext("Game speed is at 60%"), tr, tg, tb, true);
+        graphics.PrintWrap( -1, 85, loc::gettext("Game speed is at 60%"), tr, tg, tb, true);
         break;
     case 12:
-        graphics.PrintWrap( -1, 105, loc::gettext("Game speed is at 40%"), tr, tg, tb, true);
+        graphics.PrintWrap( -1, 85, loc::gettext("Game speed is at 40%"), tr, tg, tb, true);
         break;
     }
 }
@@ -173,8 +173,9 @@ static void menurender(void)
       }
       int tmp=game.currentmenuoption+(game.levelpage*8);
       if(INBOUNDS_VEC(tmp, ed.ListOfMetaData)){
+        const bool nextlastoptions = ed.ListOfMetaData.size() > 8;
         //Don't show next/previous page or return to menu options here!
-        if(game.menuoptions.size() - game.currentmenuoption<=3){
+        if(nextlastoptions && game.menuoptions.size() - game.currentmenuoption<=3){
 
         }else{
           graphics.bigprint( -1, 15, ed.ListOfMetaData[tmp].title, tr, tg, tb, true);
@@ -239,19 +240,24 @@ static void menurender(void)
         {
             //Speedrunner options
             graphics.bigprint(-1, 30, loc::gettext("Speedrunner Options"), tr, tg, tb, true);
-            graphics.PrintWrap(-1, 65, loc::gettext("Access some advanced settings that might be of interest to speedrunners"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Access some advanced settings that might be of interest to speedrunners."), tr, tg, tb, true);
         }
         else if (game.currentmenuoption == gameplayoptionsoffset + 2)
         {
             //Advanced options
-            graphics.bigprint( -1, 30, loc::gettext("Advanced Options"), tr, tg, tb, true);
-            graphics.PrintWrap( -1, 65, loc::gettext("All other settings"), tr, tg, tb, true);
+            graphics.bigprint(-1, 30, loc::gettext("Advanced Options"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("All other gameplay settings."), tr, tg, tb, true);
         }
         else if (game.currentmenuoption == gameplayoptionsoffset + 3)
         {
             //Clear Data
             graphics.bigprint(-1, 30, loc::gettext("Clear Data"), tr, tg, tb, true);
-            graphics.PrintWrap(-1, 65, loc::gettext("Delete your save data and unlocked play modes"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Delete your main game save data and unlocked play modes."), tr, tg, tb, true);
+        }
+        else if (game.currentmenuoption == gameplayoptionsoffset + 4)
+        {
+            graphics.bigprint(-1, 30, loc::gettext("Clear Data"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Delete your custom level save data and completion stars."), tr, tg, tb, true);
         }
 
         break;
@@ -261,30 +267,30 @@ static void menurender(void)
         {
         case 0:
             graphics.bigprint(-1, 30, loc::gettext("Gameplay Options"), tr, tg, tb, true);
-            graphics.PrintWrap(-1, 65, loc::gettext("Adjust various gameplay options"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Adjust various gameplay settings."), tr, tg, tb, true);
             break;
         case 1:
             graphics.bigprint(-1, 30, loc::gettext("Graphics Options"), tr, tg, tb, true);
-            graphics.PrintWrap(-1, 65, loc::gettext("Adjust screen settings"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Adjust screen settings."), tr, tg, tb, true);
             break;
         case 2:
             graphics.bigprint(-1, 30, loc::gettext("Audio Options"), tr, tg, tb, true);
             if (music.mmmmmm)
             {
-                graphics.PrintWrap(-1, 65, loc::gettext("Adjust volume settings and soundtrack"), tr, tg, tb, true);
+                graphics.PrintWrap(-1, 65, loc::gettext("Adjust volume settings and soundtrack."), tr, tg, tb, true);
             }
             else
             {
-                graphics.PrintWrap(-1, 65, loc::gettext("Adjust volume settings"), tr, tg, tb, true);
+                graphics.PrintWrap(-1, 65, loc::gettext("Adjust volume settings."), tr, tg, tb, true);
             }
             break;
         case 3:
             graphics.bigprint(-1, 30, loc::gettext("Game Pad Options"), tr, tg, tb, true);
-            graphics.PrintWrap(-1, 65, loc::gettext("Rebind your controller's buttons and adjust sensitivity"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Rebind your controller's buttons and adjust sensitivity."), tr, tg, tb, true);
             break;
         case 4:
-            graphics.bigprint( -1, 30, loc::gettext("Accessibility"), tr, tg, tb, true);
-            graphics.PrintWrap( -1, 65, loc::gettext("Disable screen effects, enable slowdown modes or invincibility"), tr, tg, tb, true);
+            graphics.bigprint(-1, 30, loc::gettext("Accessibility"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Disable screen effects, enable slowdown modes or invincibility."), tr, tg, tb, true);
             break;
         case 5:
             graphics.bigprint( -1, 30, loc::gettext("Language"), tr, tg, tb, true);
@@ -367,11 +373,11 @@ static void menurender(void)
 
             if (!graphics.screenbuffer->vsync)
             {
-                graphics.PrintWrap(-1, 95, loc::gettext("Current mode: VSYNC OFF"), tr/2, tg/2, tb/2, true);
+                graphics.PrintWrap(-1, 85, loc::gettext("Current mode: VSYNC OFF"), tr/2, tg/2, tb/2, true);
             }
             else
             {
-                graphics.PrintWrap(-1, 95, loc::gettext("Current mode: VSYNC ON"), tr, tg, tb, true);
+                graphics.PrintWrap(-1, 85, loc::gettext("Current mode: VSYNC ON"), tr, tg, tb, true);
             }
             break;
         }
@@ -411,7 +417,7 @@ static void menurender(void)
             SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Current soundtrack: %s").c_str(), soundtrack);
 
             graphics.bigprint(-1, 30, loc::gettext("Soundtrack"), tr, tg, tb, true);
-            graphics.PrintWrap(-1, 65, loc::gettext("Toggle between MMMMMM and PPPPPP"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Toggle between MMMMMM and PPPPPP."), tr, tg, tb, true);
             graphics.PrintWrap(-1, 85, buffer, tr, tg, tb, true);
             break;
         }
@@ -529,15 +535,20 @@ static void menurender(void)
         graphics.PrintWrap( -1, 100, loc::gettext("Are you sure you want to enable invincibility?"), tr, tg, tb, true);
         break;
     case Menu::setslowdown:
-        graphics.bigprint( -1, 40, loc::gettext("Game Speed"), tr, tg, tb, true);
-        graphics.PrintWrap( -1, 75, loc::gettext("Select a new game speed below."), tr, tg, tb, true);
+        graphics.bigprint( -1, 30, loc::gettext("Game Speed"), tr, tg, tb, true);
+        graphics.PrintWrap( -1, 65, loc::gettext("Select a new game speed below."), tr, tg, tb, true);
         drawslowdowntext();
         break;
     case Menu::newgamewarning:
         graphics.PrintWrap( -1, 100, loc::gettext("Are you sure? This will delete your current saves..."), tr, tg, tb, true);
         break;
     case Menu::cleardatamenu:
+    case Menu::clearcustomdatamenu:
         graphics.PrintWrap( -1, 100, loc::gettext("Are you sure you want to delete all your saved data?"), tr, tg, tb, true);
+        break;
+    case Menu::deletequicklevel:
+        graphics.Print(-1, 100, "Are you sure you want to", tr, tg, tb, true);
+        graphics.Print(-1, 110, "delete your quicksave?", tr, tg, tb, true);
         break;
     case Menu::startnodeathmode:
         graphics.PrintWrap( -1, 45, loc::gettext("Good luck!"), tr, tg, tb, true);
@@ -667,20 +678,22 @@ static void menurender(void)
         }
         case 3:
             graphics.bigprint(-1, 30, loc::gettext("Fake Load Screen"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Disable the fake loading screen which appears on game launch."), tr, tg, tb, true);
             if (game.skipfakeload)
-                graphics.PrintWrap(-1, 65, loc::gettext("Fake loading screen is OFF"), tr / 2, tg / 2, tb / 2, true);
+                graphics.PrintWrap(-1, 95, loc::gettext("Fake loading screen is OFF"), tr / 2, tg / 2, tb / 2, true);
             else
-                graphics.PrintWrap(-1, 65, loc::gettext("Fake loading screen is ON"), tr, tg, tb, true);
+                graphics.PrintWrap(-1, 95, loc::gettext("Fake loading screen is ON"), tr, tg, tb, true);
             break;
         case 4:
-            graphics.bigprint(-1, 30, loc::gettext("In Game Timer"), tr, tg, tb, true);
+            graphics.bigprint(-1, 30, loc::gettext("In-Game Timer"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Toggle the in-game timer outside of time trials."), tr, tg, tb, true);
             if (game.showingametimer)
             {
-                graphics.PrintWrap(-1, 65, loc::gettext("In Game Timer is ON"), tr, tg, tb, true);
+                graphics.PrintWrap(-1, 95, loc::gettext("In-Game Timer is ON"), tr, tg, tb, true);
             }
             else
             {
-                graphics.PrintWrap(-1, 65, loc::gettext("In Game Timer is OFF"), tr / 2, tg / 2, tb / 2, true);
+                graphics.PrintWrap(-1, 95, loc::gettext("In-Game Timer is OFF"), tr / 2, tg / 2, tb / 2, true);
             }
             break;
         }
@@ -740,40 +753,41 @@ static void menurender(void)
 #if !defined(MAKEANDPLAY)
         case 0:
             graphics.bigprint(-1, 30, loc::gettext("Unlock Play Modes"), tr, tg, tb, true);
-            graphics.PrintWrap(-1, 65, loc::gettext("Unlock parts of the game normally unlocked as you progress"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Unlock parts of the game normally unlocked as you progress."), tr, tg, tb, true);
             break;
 #endif
         case OFFSET+0:
-            graphics.bigprint(-1, 40, loc::gettext("Invincibility"), tr, tg, tb, true);
-            graphics.PrintWrap(-1, 75, loc::gettext("Explore the game freely without dying. (Can cause glitches.)"), tr, tg, tb, true);
+            graphics.bigprint(-1, 30, loc::gettext("Invincibility"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Explore the game freely without dying. (Can cause glitches.)"), tr, tg, tb, true);
             if (map.invincibility)
             {
-                graphics.PrintWrap(-1, 105, loc::gettext("Invincibility is ON."), tr, tg, tb, true);
+                graphics.PrintWrap(-1, 95, loc::gettext("Invincibility is ON."), tr, tg, tb, true);
             }
             else
             {
-                graphics.PrintWrap(-1, 105, loc::gettext("Invincibility is OFF."), tr / 2, tg / 2, tb / 2, true);
+                graphics.PrintWrap(-1, 95, loc::gettext("Invincibility is OFF."), tr / 2, tg / 2, tb / 2, true);
             }
             break;
         case OFFSET+1:
-            graphics.bigprint(-1, 40, loc::gettext("Slowdown"), tr, tg, tb, true);
-            graphics.PrintWrap(-1, 75, loc::gettext("Reduce the game speed."), tr, tg, tb, true);
+            graphics.bigprint(-1, 30, loc::gettext("Slowdown"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Reduce the game speed."), tr, tg, tb, true);
             drawslowdowntext();
             break;
         case OFFSET+2:
-            graphics.bigprint(-1, 40, loc::gettext("Backgrounds"), tr, tg, tb, true);
+            graphics.bigprint(-1, 30, loc::gettext("Backgrounds"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Disable animated backgrounds in menus and during gameplay."), tr, tg, tb, true);
             if (!game.colourblindmode)
             {
-                graphics.PrintWrap(-1, 75, loc::gettext("Backgrounds are ON."), tr, tg, tb, true);
+                graphics.PrintWrap(-1, 95, loc::gettext("Backgrounds are ON."), tr, tg, tb, true);
             }
             else
             {
-                graphics.PrintWrap(-1, 75, loc::gettext("Backgrounds are OFF."), tr / 2, tg / 2, tb / 2, true);
+                graphics.PrintWrap(-1, 95, loc::gettext("Backgrounds are OFF."), tr / 2, tg / 2, tb / 2, true);
             }
             break;
         case OFFSET+3:
-            graphics.bigprint(-1, 40, loc::gettext("Screen Effects"), tr, tg, tb, true);
-            graphics.PrintWrap(-1, 75, loc::gettext("Disables screen shakes and flashes."), tr, tg, tb, true);
+            graphics.bigprint(-1, 30, loc::gettext("Screen Effects"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Disables screen shakes and flashes."), tr, tg, tb, true);
             if (!game.noflashingmode)
             {
                 graphics.PrintWrap(-1, 95, loc::gettext("Screen Effects are ON."), tr, tg, tb, true);
@@ -787,8 +801,8 @@ static void menurender(void)
         {
             std::string text;
 
-            graphics.bigprint(-1, 40, loc::gettext("Text Outline"), tr, tg, tb, true);
-            graphics.PrintWrap(-1, 75, loc::gettext("Disables outline on game text."), tr, tg, tb, true);
+            graphics.bigprint(-1, 30, loc::gettext("Text Outline"), tr, tg, tb, true);
+            graphics.PrintWrap(-1, 65, loc::gettext("Disables outline on game text."), tr, tg, tb, true);
 
             FillRect(graphics.backBuffer, 0, 84, 320, 10, tr, tg, tb);
 
@@ -1343,9 +1357,9 @@ static void menurender(void)
         graphics.PrintWrap( -1, 110, loc::gettext("If you want to keep exploring the game, select CONTINUE from the play menu."), tr, tg, tb, true);
         break;
     case Menu::unlockmenu:
-        graphics.bigprint( -1, 25, loc::gettext("Unlock Play Modes"), tr, tg, tb, true, 2);
+        graphics.bigprint( -1, 30, loc::gettext("Unlock Play Modes"), tr, tg, tb, true, 2);
 
-        graphics.PrintWrap( -1, 55, loc::gettext("From here, you may unlock parts of the game that are normally unlocked as you play."), tr, tg, tb, true);
+        graphics.PrintWrap( -1, 65, loc::gettext("From here, you may unlock parts of the game that are normally unlocked as you play."), tr, tg, tb, true);
         break;
     case Menu::unlocktimetrial:
         graphics.bigprint( -1, 45, loc::gettext("Congratulations!"), tr, tg, tb, true, 2);
@@ -1394,9 +1408,20 @@ static void menurender(void)
         graphics.PrintWrap( -1, 95, loc::gettext("ERROR: Could not save settings file!"), tr, tg, tb, true);
         break;
     case Menu::errorloadinglevel:
+    {
+        const char* str;
+        if (FILESYSTEM_levelDirHasError())
+        {
+            str = FILESYSTEM_getLevelDirError();
+        }
+        else
+        {
+            str = graphics.error;
+        }
         graphics.bigprint(-1, 45, loc::gettext("ERROR"), tr, tg, tb, true);
-        graphics.PrintWrap(-1, 65, graphics.error, tr, tg, tb, true, 10, 304);
+        graphics.PrintWrap(-1, 65, str, tr, tg, tb, true);
         break;
+    }
     case Menu::warninglevellist:
         graphics.bigprint(-1, 45, loc::gettext("WARNING"), tr, tg, tb, true);
         graphics.PrintWrap(-1, 65, FILESYSTEM_getLevelDirError(), tr, tg, tb, true, 10, 304);

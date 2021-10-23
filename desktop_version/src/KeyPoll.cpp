@@ -327,7 +327,7 @@ void KeyPoll::Poll(void)
 				if (!game.disablepause)
 				{
 					isActive = true;
-					if (!game.disableaudiopause)
+					if ((!game.disableaudiopause || !game.disabletemporaryaudiopause) && music.currentsong != -1)
 					{
 						music.resume();
 						music.resumeef();
@@ -350,7 +350,7 @@ void KeyPoll::Poll(void)
 				if (!game.disablepause)
 				{
 					isActive = false;
-					if (!game.disableaudiopause)
+					if (!game.disableaudiopause || !game.disabletemporaryaudiopause)
 					{
 						music.pause();
 						music.pauseef();

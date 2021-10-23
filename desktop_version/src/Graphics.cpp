@@ -1751,9 +1751,19 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
         int x = i*game.menuspacing + game.menuxoff;
         int y = 140 + i*12 + game.menuyoff;
 
+#ifndef NO_CUSTOM_LEVELS
         if (levelmenu)
         {
-            if (game.menuoptions.size() - i <= 3)
+            size_t separator;
+            if (ed.ListOfMetaData.size() > 8)
+            {
+                separator = 3;
+            }
+            else
+            {
+                separator = 1;
+            }
+            if (game.menuoptions.size() - i <= separator)
             {
                 // We're on "next page", "previous page", or "return to menu". Draw them separated by a bit
                 y += 8;
@@ -1764,6 +1774,7 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
                 y += 4;
             }
         }
+#endif
 
         char buffer[MENU_TEXT_BYTES];
         if ((int) i == game.currentmenuoption && game.slidermode == SLIDER_NONE)

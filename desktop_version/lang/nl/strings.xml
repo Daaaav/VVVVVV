@@ -17,11 +17,11 @@
     <string english="Adjust various gameplay options" explanation="" max="38*5" comment="">Pas diverse spelopties aan</string>
     <string english="graphics" explanation="options menu option" comment="">grafisch</string>
     <string english="Graphics Options" explanation="title" max="20" comment="">Grafische opties</string>
-    <string english="Adjust screen settings" explanation="" max="38*5" comment="">Pas beeldinstellingen aan</string>
+    <string english="Adjust screen settings" explanation="" max="38*5" comment="">Pas beeldinstellingen aan.</string>
     <string english="audio" explanation="options menu option" comment="">audio</string>
     <string english="Audio Options" explanation="title" max="20" comment="">Audio-opties</string>
-    <string english="Adjust volume settings and soundtrack" explanation="" max="38*5" comment="">Pas het volume of de soundtrack aan</string>
-    <string english="Adjust volume settings" explanation="" max="38*5" comment="">Pas het volume aan</string>
+    <string english="Adjust volume settings and soundtrack." explanation="" max="38*5" comment="">Pas het volume of de soundtrack aan.</string>
+    <string english="Adjust volume settings." explanation="" max="38*5" comment="">Pas het volume aan.</string>
     <string english="continue" explanation="menu option" comment="">hervatten</string>
     <string english="continue from teleporter" explanation="menu option, game save that was made at a teleporter" comment="">hervatten vanaf teleporter</string>
     <string english="Tele Save" explanation="title, game save that was made at a teleporter" max="20" comment="">Telesave</string>
@@ -37,14 +37,14 @@
     <string english="ERROR: This level has no start point!" explanation="" max="38*5" comment="">FOUT: Dit level heeft geen startpunt!</string>
     <string english="unlock play modes" explanation="menu option" comment="">spelmodi ontgrendelen</string>
     <string english="Unlock Play Modes" explanation="title" max="20" comment="">Ontgrendel spelmodi</string>
-    <string english="Unlock parts of the game normally unlocked as you progress" explanation="" max="38*5" comment="">Ontgrendel delen van het spel die normaal tijdens je voortgang worden ontgrendeld</string>
+    <string english="Unlock parts of the game normally unlocked as you progress." explanation="" max="38*5" comment="">Ontgrendel delen van het spel die normaal tijdens je voortgang worden ontgrendeld.</string>
     <string english="From here, you may unlock parts of the game that are normally unlocked as you play." explanation="" max="38*5" comment="">Hier kun je delen van het spel ontgrendelen die normaal tijdens het spelen worden ontgrendeld.</string>
     <string english="unlock ship jukebox" explanation="menu option" comment="">schipjukebox ontgrendelen</string>
     <string english="unlock secret lab" explanation="menu option" comment="">geheim lab ontgrendelen</string>
     <string english="game pad" explanation="menu option" comment="">gamepad</string>
     <string english="Game Pad Options" explanation="title" max="20" comment="">Gamepadopties</string>
     <string english="Game Pad" explanation="title" max="20" comment="">Gamepad</string>
-    <string english="Rebind your controller&apos;s buttons and adjust sensitivity" explanation="" max="38*5" comment="">Wijzig de knoppen van je controller en pas de gevoeligheid aan</string>
+    <string english="Rebind your controller&apos;s buttons and adjust sensitivity." explanation="" max="38*5" comment="">Wijzig de knoppen van je controller en pas de gevoeligheid aan.</string>
     <string english="Change controller options." explanation="" max="38*2" comment="">Wijzig controlleropties.</string>
     <string english="language" explanation="menu option" comment="">taal</string>
     <string english="Language" explanation="title" max="20" comment="">Taal</string>
@@ -58,7 +58,7 @@
     <string english="yes, delete everything" explanation="menu option" comment="">ja, alles verwijderen</string>
     <string english="soundtrack" explanation="menu option" comment="">soundtrack</string>
     <string english="Soundtrack" explanation="title" max="20" comment="">Soundtrack</string>
-    <string english="Toggle between MMMMMM and PPPPPP" explanation="" max="38*2" comment="">Schakel tussen MMMMMM en PPPPPP</string>
+    <string english="Toggle between MMMMMM and PPPPPP." explanation="" max="38*2" comment="">Schakel tussen MMMMMM en PPPPPP.</string>
     <string english="Current soundtrack: %s" explanation="" max="38*3" comment="">Huidige soundtrack: %s</string>
     <string english="toggle fullscreen" explanation="menu option" comment="">volledig scherm</string>
     <string english="Toggle Fullscreen" explanation="title" max="20" comment="">Volledig scherm</string>
@@ -90,7 +90,7 @@
     <string english="Current mode: Over 30 FPS" explanation="" max="38*2" comment="">Huidige modus: meer dan 30 FPS</string>
     <string english="toggle vsync" explanation="menu option" comment="">vsync aan/uit</string>
     <string english="Toggle VSync" explanation="title" max="20" comment="">VSync aan/uit</string>
-    <string english="Turn VSync on or off." explanation="" max="38*3" comment="">Schakel VSync in of uit.</string>
+    <string english="Turn VSync on or off." explanation="" max="38*2" comment="">Schakel VSync in of uit.</string>
     <string english="Current mode: VSYNC OFF" explanation="" max="38*2" comment="">Huidige modus: VSYNC UIT</string>
     <string english="Current mode: VSYNC ON" explanation="" max="38*2" comment="">Huidige modus: VSYNC AAN</string>
     <string english="music volume" explanation="audio menu option" comment="">muziekvolume</string>
@@ -170,7 +170,7 @@
     <string english="Room name background is OPAQUE" explanation="" max="38*2" comment="">Kamernaamachtergrond is ONDOORZICHTIG</string>
     <string english="speedrun options" explanation="menu option" comment="">speedrunopties</string>
     <string english="Speedrunner Options" explanation="title" max="20" comment="">Speedrunneropties</string>
-    <string english="Access some advanced settings that might be of interest to speedrunners" explanation="description for speedrunner options" max="38*5" comment="">Bekijk een aantal geavanceerde instellingen die interessant kunnen zijn voor speedrunners</string>
+    <string english="Access some advanced settings that might be of interest to speedrunners" explanation="description for speedrunner options" max="38*5" comment="">Bekijk een aantal geavanceerde instellingen die interessant kunnen zijn voor speedrunners.</string>
     <string english="glitchrunner mode" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" comment="">glitchrunnermodus</string>
     <string english="Glitchrunner Mode" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20" comment="">Glitchrunnermodus</string>
     <string english="Re-enable glitches that existed in previous versions of the game." explanation="glitchrunner mode" max="38*3" comment="">Herstel glitches die bestonden in vorige versies van het spel.</string>
@@ -183,7 +183,7 @@
     <string english="Input delay is OFF" explanation="" max="38*2" comment="">Invoervertraging staat UIT</string>
     <string english="accessibility" explanation="menu option" comment="">toegankelijkheid</string>
     <string english="Accessibility" explanation="title" max="20" comment="">Toegankelijkheid</string>
-    <string english="Disable screen effects, enable slowdown modes or invincibility" explanation="" max="38*5" comment="">Schakel schermeffecten uit, schakel vertraging of onkwetsbaarheid in</string>
+    <string english="Disable screen effects, enable slowdown modes or invincibility." explanation="" max="38*5" comment="">Schakel schermeffecten uit, schakel vertraging of onkwetsbaarheid in.</string>
     <string english="animated backgrounds" explanation="menu option" comment="">geanimeerde achtergronden</string>
     <string english="Backgrounds" explanation="title" max="20" comment="">Achtergronden</string>
     <string english="Backgrounds are ON." explanation="" max="38*5" comment="">Achtergronden staan AAN.</string>
@@ -209,8 +209,8 @@
     <string english="slowdown" explanation="menu option" comment="">vertraging</string>
     <string english="Slowdown" explanation="title" max="20" comment="">Vertraging</string>
     <string english="Game Speed" explanation="title" max="20" comment="">Spelsnelheid</string>
-    <string english="Reduce the game speed." explanation="" max="38*3" comment="">Verlaag de spelsnelheid.</string>
-    <string english="Select a new game speed below." explanation="" max="38*3" comment="">Kies hieronder een nieuwe spelsnelheid.</string>
+    <string english="Reduce the game speed." explanation="" max="38*2" comment="">Verlaag de spelsnelheid.</string>
+    <string english="Select a new game speed below." explanation="" max="38*2" comment="">Kies hieronder een nieuwe spelsnelheid.</string>
     <string english="Game speed is normal." explanation="" max="38*2" comment="">Snelheid is normaal.</string>
     <string english="Game speed is at 80%" explanation="" max="38*2" comment="">Snelheid is 80%</string>
     <string english="Game speed is at 60%" explanation="" max="38*2" comment="">Snelheid is 60%</string>

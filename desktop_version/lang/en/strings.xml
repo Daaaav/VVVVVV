@@ -14,14 +14,14 @@
     <string english="quit" explanation="main menu option" comment=""></string>
     <string english="gameplay" explanation="options menu option" comment=""></string>
     <string english="Gameplay Options" explanation="title" max="20" comment=""></string>
-    <string english="Adjust various gameplay options" explanation="" max="38*5" comment=""></string>
+    <string english="Adjust various gameplay settings." explanation="" max="38*5" comment=""></string>
     <string english="graphics" explanation="options menu option" comment=""></string>
     <string english="Graphics Options" explanation="title" max="20" comment=""></string>
-    <string english="Adjust screen settings" explanation="" max="38*5" comment=""></string>
+    <string english="Adjust screen settings." explanation="" max="38*5" comment=""></string>
     <string english="audio" explanation="options menu option" comment=""></string>
     <string english="Audio Options" explanation="title" max="20" comment=""></string>
-    <string english="Adjust volume settings and soundtrack" explanation="" max="38*5" comment=""></string>
-    <string english="Adjust volume settings" explanation="" max="38*5" comment=""></string>
+    <string english="Adjust volume settings and soundtrack." explanation="" max="38*5" comment=""></string>
+    <string english="Adjust volume settings." explanation="" max="38*5" comment=""></string>
     <string english="continue" explanation="menu option" comment=""></string>
     <string english="continue from teleporter" explanation="menu option, game save that was made at a teleporter" comment=""></string>
     <string english="Tele Save" explanation="title, game save that was made at a teleporter" max="20" comment=""></string>
@@ -39,28 +39,30 @@
     <string english="WARNING" explanation="title" max="20" comment=""></string>
     <string english="unlock play modes" explanation="menu option" comment=""></string>
     <string english="Unlock Play Modes" explanation="title" max="20" comment=""></string>
-    <string english="Unlock parts of the game normally unlocked as you progress" explanation="" max="38*5" comment=""></string>
+    <string english="Unlock parts of the game normally unlocked as you progress." explanation="" max="38*5" comment=""></string>
     <string english="From here, you may unlock parts of the game that are normally unlocked as you play." explanation="" max="38*5" comment=""></string>
     <string english="unlock ship jukebox" explanation="menu option" comment=""></string>
     <string english="unlock secret lab" explanation="menu option" comment=""></string>
     <string english="game pad" explanation="menu option" comment=""></string>
     <string english="Game Pad Options" explanation="title" max="20" comment=""></string>
     <string english="Game Pad" explanation="title" max="20" comment=""></string>
-    <string english="Rebind your controller&apos;s buttons and adjust sensitivity" explanation="" max="38*5" comment=""></string>
+    <string english="Rebind your controller&apos;s buttons and adjust sensitivity." explanation="" max="38*5" comment=""></string>
     <string english="Change controller options." explanation="" max="38*2" comment=""></string>
     <string english="language" explanation="menu option" comment=""></string>
     <string english="Language" explanation="title" max="20" comment=""></string>
     <string english="Change the language" explanation="" max="38*5" comment=""></string>
-    <string english="clear data" explanation="menu option" comment=""></string>
+    <string english="clear main game data" explanation="menu option" comment=""></string>
+    <string english="clear custom level data" explanation="menu option" comment=""></string>
     <string english="Clear Data" explanation="title" max="20" comment=""></string>
-    <string english="Delete your save data and unlocked play modes" explanation="" max="38*5" comment=""></string>
+    <string english="Delete your main game save data and unlocked play modes." explanation="" max="38*5" comment=""></string>
+    <string english="Delete your custom level save data and completion stars." explanation="" max="38*5" comment=""></string>
     <string english="Are you sure? This will delete your current saves..." explanation="" max="38*7" comment=""></string>
     <string english="Are you sure you want to delete all your saved data?" explanation="" max="38*7" comment=""></string>
     <string english="no! don&apos;t delete" explanation="menu option" comment=""></string>
     <string english="yes, delete everything" explanation="menu option" comment=""></string>
     <string english="soundtrack" explanation="menu option" comment=""></string>
     <string english="Soundtrack" explanation="title" max="20" comment=""></string>
-    <string english="Toggle between MMMMMM and PPPPPP" explanation="" max="38*2" comment=""></string>
+    <string english="Toggle between MMMMMM and PPPPPP." explanation="" max="38*2" comment=""></string>
     <string english="Current soundtrack: %s" explanation="" max="38*3" comment=""></string>
     <string english="toggle fullscreen" explanation="menu option" comment=""></string>
     <string english="Toggle Fullscreen" explanation="title" max="20" comment=""></string>
@@ -92,7 +94,7 @@
     <string english="Current mode: Over 30 FPS" explanation="" max="38*2" comment=""></string>
     <string english="toggle vsync" explanation="menu option" comment=""></string>
     <string english="Toggle VSync" explanation="title" max="20" comment=""></string>
-    <string english="Turn VSync on or off." explanation="" max="38*3" comment=""></string>
+    <string english="Turn VSync on or off." explanation="" max="38*2" comment=""></string>
     <string english="Current mode: VSYNC OFF" explanation="" max="38*2" comment=""></string>
     <string english="Current mode: VSYNC ON" explanation="" max="38*2" comment=""></string>
     <string english="music volume" explanation="audio menu option" comment=""></string>
@@ -157,7 +159,7 @@
     <string english="If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Only languages that are in the VVVVVV folder can be updated. Make a backup, just in case." explanation="translation maintenance menu" max="38*12" comment=""></string>
     <string english="advanced options" explanation="menu option" comment=""></string>
     <string english="Advanced Options" explanation="title" max="20" comment=""></string>
-    <string english="All other settings" explanation="description for advanced options" max="38*5" comment=""></string>
+    <string english="All other gameplay settings." explanation="description for advanced options" max="38*5" comment=""></string>
     <string english="unfocus pause" explanation="menu option. Turns the pause screen on/off, which shows up when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto pause screen" comment=""></string>
     <string english="Unfocus Pause" explanation="title. Turns the pause screen on/off, which shows up when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto pause screen" max="20" comment=""></string>
     <string english="Toggle if the game will pause when the window is unfocused." explanation="" max="38*3" comment=""></string>
@@ -168,10 +170,11 @@
     <string english="Toggle if the audio will pause when the window is unfocused." explanation="" max="38*3" comment=""></string>
     <string english="Unfocus audio pause is OFF" explanation="Making another window active will leave the music keep playing." max="38*2" comment=""></string>
     <string english="Unfocus audio pause is ON" explanation="Making another window active will pause the music." max="38*2" comment=""></string>
-    <string english="toggle in game timer" explanation="menu option" comment=""></string>
-    <string english="In Game Timer" explanation="title" max="20" comment=""></string>
-    <string english="In Game Timer is ON" explanation="" max="38*2" comment=""></string>
-    <string english="In Game Timer is OFF" explanation="" max="38*2" comment=""></string>
+    <string english="toggle in-game timer" explanation="menu option" comment=""></string>
+    <string english="In-Game Timer" explanation="title" max="20" comment=""></string>
+    <string english="Toggle the in-game timer outside of time trials." explanation="" max="38*3" comment=""></string>
+    <string english="In-Game Timer is ON" explanation="" max="38*2" comment=""></string>
+    <string english="In-Game Timer is OFF" explanation="" max="38*2" comment=""></string>
     <string english="interact button" explanation="menu option" comment=""></string>
     <string english="Interact Button" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20" comment=""></string>
     <string english="Toggle whether you interact with prompts using ENTER or E." explanation="" max="38*5" comment=""></string>
@@ -180,8 +183,9 @@
     <string english="Interact button: %s" explanation="keyboard key (E or ENTER) is filled in for %s" comment=""></string>
     <string english="fake load screen" explanation="menu option" comment=""></string>
     <string english="Fake Load Screen" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20" comment=""></string>
-    <string english="Fake loading screen is OFF" explanation="allows the loading screen which counts to 100% to be turned off" max="38*5" comment=""></string>
-    <string english="Fake loading screen is ON" explanation="allows the loading screen which counts to 100% to be turned off" max="38*5" comment=""></string>
+    <string english="Disable the fake loading screen which appears on game launch." explanation="" max="38*3" comment=""></string>
+    <string english="Fake loading screen is OFF" explanation="allows the loading screen which counts to 100% to be turned off" max="38*3" comment=""></string>
+    <string english="Fake loading screen is ON" explanation="allows the loading screen which counts to 100% to be turned off" max="38*3" comment=""></string>
     <string english="room name background" explanation="menu option, background behind room names" comment=""></string>
     <string english="Room Name BG" explanation="title, background behind room names" max="20" comment=""></string>
     <string english="Lets you see through what is behind the name at the bottom of the screen." explanation="" max="38*3" comment=""></string>
@@ -189,7 +193,7 @@
     <string english="Room name background is OPAQUE" explanation="" max="38*2" comment=""></string>
     <string english="speedrun options" explanation="menu option" comment=""></string>
     <string english="Speedrunner Options" explanation="title" max="20" comment=""></string>
-    <string english="Access some advanced settings that might be of interest to speedrunners" explanation="description for speedrunner options" max="38*5" comment=""></string>
+    <string english="Access some advanced settings that might be of interest to speedrunners." explanation="description for speedrunner options" max="38*5" comment=""></string>
     <string english="glitchrunner mode" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" comment=""></string>
     <string english="Glitchrunner Mode" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20" comment=""></string>
     <string english="Re-enable glitches that existed in previous versions of the game." explanation="glitchrunner mode" max="38*3" comment=""></string>
@@ -206,11 +210,12 @@
     <string english="Input delay is OFF" explanation="" max="38*2" comment=""></string>
     <string english="accessibility" explanation="menu option" comment=""></string>
     <string english="Accessibility" explanation="title" max="20" comment=""></string>
-    <string english="Disable screen effects, enable slowdown modes or invincibility" explanation="" max="38*5" comment=""></string>
+    <string english="Disable screen effects, enable slowdown modes or invincibility." explanation="" max="38*5" comment=""></string>
     <string english="animated backgrounds" explanation="menu option" comment=""></string>
     <string english="Backgrounds" explanation="title" max="20" comment=""></string>
-    <string english="Backgrounds are ON." explanation="" max="38*5" comment=""></string>
-    <string english="Backgrounds are OFF." explanation="" max="38*5" comment=""></string>
+    <string english="Disable animated backgrounds in menus and during gameplay." explanation="" max="38*3" comment=""></string>
+    <string english="Backgrounds are ON." explanation="" max="38*2" comment=""></string>
+    <string english="Backgrounds are OFF." explanation="" max="38*2" comment=""></string>
     <string english="screen effects" explanation="menu option" comment=""></string>
     <string english="Screen Effects" explanation="title" max="20" comment=""></string>
     <string english="Disables screen shakes and flashes." explanation="" max="38*2" comment=""></string>
@@ -232,8 +237,8 @@
     <string english="slowdown" explanation="menu option" comment=""></string>
     <string english="Slowdown" explanation="title" max="20" comment=""></string>
     <string english="Game Speed" explanation="title" max="20" comment=""></string>
-    <string english="Reduce the game speed." explanation="" max="38*3" comment=""></string>
-    <string english="Select a new game speed below." explanation="" max="38*3" comment=""></string>
+    <string english="Reduce the game speed." explanation="" max="38*2" comment=""></string>
+    <string english="Select a new game speed below." explanation="" max="38*2" comment=""></string>
     <string english="Game speed is normal." explanation="" max="38*2" comment=""></string>
     <string english="Game speed is at 80%" explanation="" max="38*2" comment=""></string>
     <string english="Game speed is at 60%" explanation="" max="38*2" comment=""></string>
@@ -319,6 +324,7 @@
     <string english="silence" explanation="menu option, silence error message - do not show this message again" comment=""></string>
     <string english="continue from save" explanation="menu option" comment=""></string>
     <string english="start from beginning" explanation="menu option" comment=""></string>
+    <string english="delete save" explanation="menu option" comment=""></string>
     <string english="back to levels" explanation="menu option" comment=""></string>
     <string english="To install new player levels, copy the .vvvvvv files to this folder:" explanation="" max="38*3" comment=""></string>
     <string english="[ Press ACTION to Start ]" explanation="title screen" max="38*2" comment=""></string>

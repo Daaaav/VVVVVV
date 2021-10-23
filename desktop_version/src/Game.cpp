@@ -391,6 +391,7 @@ void Game::init(void)
 
     disablepause = false;
     disableaudiopause = false;
+    disabletemporaryaudiopause = true;
     inputdelay = false;
 }
 
@@ -454,6 +455,16 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
         customlevelstats.push_back(levelstat);
     }
     savecustomlevelstats();
+}
+
+void Game::deletecustomlevelstats(void)
+{
+    customlevelstats.clear();
+
+    if (!FILESYSTEM_delete("saves/levelstats.vvv"))
+    {
+        puts("Error deleting levelstats.vvv");
+    }
 }
 
 #define LOAD_ARRAY_RENAME(ARRAY_NAME, DEST) \
@@ -1955,7 +1966,7 @@ void Game::updatestate(void)
             if(ed.numcrewmates()-crewmates()==0)
             {
                 //Finished level
-                if(ed.numtrinkets()-trinkets()==0)
+                if (trinkets() >= ed.numtrinkets())
                 {
                     //and got all the trinkets!
                     updatecustomlevelstats(customlevelfilename, 3);
@@ -5200,6 +5211,14 @@ void Game::customloadquick(std::string savfile)
         {
             map.customshowmm = help.Int(pText);
         }
+        else if (SDL_strcmp(pKey, "disabletemporaryaudiopause") == 0)
+        {
+            disabletemporaryaudiopause = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "showtrinkets") == 0)
+        {
+            map.showtrinkets = help.Int(pText);
+        }
 
     }
 
@@ -5681,6 +5700,10 @@ bool Game::customsavequick(std::string savfile)
 
     xml::update_tag(msgs, "showminimap", (int) map.customshowmm);
 
+    xml::update_tag(msgs, "disabletemporaryaudiopause", (int) disabletemporaryaudiopause);
+
+    xml::update_tag(msgs, "showtrinkets", (int) map.showtrinkets);
+
     std::string summary = savearea + ", " + timestring();
     xml::update_tag(msgs, "summary", summary.c_str());
 
@@ -5997,21 +6020,24 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                     option(text);
                 }
             }
-            if((size_t) ((levelpage*8)+8) <ed.ListOfMetaData.size())
+            if (ed.ListOfMetaData.size() > 8)
             {
-                option(loc::gettext("next page"));
-            }
-            else
-            {
-                option(loc::gettext("first page"));
-            }
-            if (levelpage == 0)
-            {
-                option(loc::gettext("last page"));
-            }
-            else
-            {
-                option(loc::gettext("previous page"));
+                if((size_t) ((levelpage*8)+8) <ed.ListOfMetaData.size())
+                {
+                    option(loc::gettext("next page"));
+                }
+                else
+                {
+                    option(loc::gettext("first page"));
+                }
+                if (levelpage == 0)
+                {
+                    option(loc::gettext("last page"));
+                }
+                else
+                {
+                    option(loc::gettext("previous page"));
+                }
             }
             option(loc::gettext("return"));
 
@@ -6025,8 +6051,14 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::quickloadlevel:
         option(loc::gettext("continue from save"));
         option(loc::gettext("start from beginning"));
+        option(loc::gettext("delete save"));
         option(loc::gettext("back to levels"));
         menuyoff = -30;
+        break;
+    case Menu::deletequicklevel:
+        option("no! don't delete");
+        option("yes, delete save");
+        menuyoff = 64;
         break;
     case Menu::youwannaquit:
         option(loc::gettext("yes, quit"));
@@ -6047,7 +6079,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("toggle fps"));
         option(loc::gettext("speedrun options"));
         option(loc::gettext("advanced options"));
-        option(loc::gettext("clear data"));
+        option(loc::gettext("clear main game data"));
+        option(loc::gettext("clear custom level data"));
         option(loc::gettext("return"));
         menuyoff = -10;
         maxspacing = 15;
@@ -6116,7 +6149,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("input delay"));
         option(loc::gettext("interact button"));
         option(loc::gettext("fake load screen"));
-        option(loc::gettext("toggle in game timer"));
+        option(loc::gettext("toggle in-game timer"));
         option(loc::gettext("return"));
         menuyoff = 0;
         maxspacing = 15;
@@ -6211,6 +6244,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = 64;
         break;
     case Menu::cleardatamenu:
+    case Menu::clearcustomdatamenu:
         option(loc::gettext("no! don't delete"));
         option(loc::gettext("yes, delete everything"));
         menuyoff = 64;
@@ -6542,6 +6576,16 @@ void Game::deletetele(void)
         puts("Error deleting saves/tsave.vvv");
     else
         telesummary = "";
+}
+
+void Game::customdeletequick(const std::string& file)
+{
+    const std::string path = "saves/" + file.substr(7) + ".vvv";
+
+    if (!FILESYSTEM_delete(path.c_str()))
+    {
+        printf("Error deleting %s\n", path.c_str());
+    }
 }
 
 void Game::swnpenalty(void)

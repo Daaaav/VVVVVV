@@ -39,6 +39,8 @@ void scriptclass::clearcustom(void)
 	customscripts.clear();
 }
 
+static bool argexists[NUM_SCRIPT_ARGS];
+
 void scriptclass::tokenize( const std::string& t )
 {
 	j = 0;
@@ -75,6 +77,13 @@ void scriptclass::tokenize( const std::string& t )
 	if (tempword != "" && j < (int) SDL_arraysize(words))
 	{
 		words[j] = tempword;
+	}
+
+	SDL_zeroa(argexists);
+
+	for (size_t ii = 0; ii < NUM_SCRIPT_ARGS; ++ii)
+	{
+		argexists[ii] = words[ii] != "";
 	}
 }
 
@@ -326,6 +335,17 @@ void scriptclass::run(void)
 			if (words[0] == "endcutscene")
 			{
 				graphics.showcutscenebars = false;
+			}
+			if (words[0] == "audiopause")
+			{
+				if (words[1] == "on")
+				{
+					game.disabletemporaryaudiopause = false;
+				}
+				else if (words[1] == "off")
+				{
+					game.disabletemporaryaudiopause = true;
+				}
 			}
 			if (words[0] == "untilbars")
 			{
@@ -748,10 +768,10 @@ void scriptclass::run(void)
 				std::string word7 = words[7];
 				std::string word8 = words[8];
 				std::string word9 = words[9];
-				if (words[6] == "") words[6] = "0";
-				if (words[7] == "") words[7] = "0";
-				if (words[8] == "") words[8] = "320";
-				if (words[9] == "") words[9] = "240";
+				if (!argexists[6]) words[6] = "0";
+				if (!argexists[7]) words[7] = "0";
+				if (!argexists[8]) words[8] = "320";
+				if (!argexists[9]) words[9] = "240";
 				obj.createentity(
 					ss_toi(words[1]),
 					ss_toi(words[2]),
@@ -2673,6 +2693,7 @@ void scriptclass::resetgametomenu(void)
 static void gotoerrorloadinglevel(void)
 {
 	game.createmenu(Menu::errorloadinglevel);
+	map.nexttowercolour();
 	graphics.fademode = 4; /* start fade in */
 	music.currentsong = -1; /* otherwise music.play won't work */
 	music.play(6); /* title screen music */
@@ -3500,6 +3521,8 @@ void scriptclass::hardreset(void)
 
 	game.activeactivity = -1;
 	game.act_fade = 5;
+
+	game.disabletemporaryaudiopause = true;
 
 	//dwgraphicsclass
 	graphics.backgrounddrawn = false;

@@ -279,6 +279,41 @@ static void generateVirtualMountPath(char* path, const size_t path_size)
 	);
 }
 
+static char levelDirError[256] = {'\0'};
+
+static bool levelDirHasError = false;
+
+bool FILESYSTEM_levelDirHasError(void)
+{
+	return levelDirHasError;
+}
+
+void FILESYSTEM_clearLevelDirError(void)
+{
+	levelDirHasError = false;
+}
+
+const char* FILESYSTEM_getLevelDirError(void)
+{
+	return levelDirError;
+}
+
+static int setLevelDirError(const char* text, ...)
+{
+	va_list list;
+	int retval;
+
+	levelDirHasError = true;
+
+	va_start(list, text);
+	retval = SDL_vsnprintf(levelDirError, sizeof(levelDirError), text, list);
+	va_end(list);
+
+	puts(levelDirError);
+
+	return retval;
+}
+
 static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 {
 	const char* real_dir = PHYSFS_getRealDir(fname);
@@ -286,8 +321,8 @@ static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 
 	if (real_dir == NULL)
 	{
-		printf(
-			"Could not mount %s: real directory doesn't exist\n",
+		setLevelDirError(
+			"Could not mount %s: real directory doesn't exist",
 			fname
 		);
 		return false;
@@ -345,41 +380,6 @@ static PHYSFS_EnumerateCallbackResult zipCheckCallback(
 		return PHYSFS_ENUM_STOP;
 	}
 	return PHYSFS_ENUM_OK;
-}
-
-static char levelDirError[256] = {'\0'};
-
-static bool levelDirHasError = false;
-
-bool FILESYSTEM_levelDirHasError(void)
-{
-	return levelDirHasError;
-}
-
-void FILESYSTEM_clearLevelDirError(void)
-{
-	levelDirHasError = false;
-}
-
-const char* FILESYSTEM_getLevelDirError(void)
-{
-	return levelDirError;
-}
-
-static int setLevelDirError(const char* text, ...)
-{
-	va_list list;
-	int retval;
-
-	levelDirHasError = true;
-
-	va_start(list, text);
-	retval = SDL_vsnprintf(levelDirError, sizeof(levelDirError), text, list);
-	va_end(list);
-
-	puts(levelDirError);
-
-	return retval;
 }
 
 /* For technical reasons, the level file inside a zip named LEVELNAME.zip must
@@ -512,55 +512,22 @@ void FILESYSTEM_unmountAssets(void);
 bool FILESYSTEM_mountAssets(const char* path)
 {
 	char filename[MAX_PATH];
-	char zip_data[MAX_PATH];
-	const char* zip_normal;
-	char dir[MAX_PATH];
+	char virtual_path[MAX_PATH];
 
 	VVV_between(path, "levels/", filename, ".vvvvvv");
 
+	/* Check for a zipped up pack only containing assets first */
 	SDL_snprintf(
-		zip_data,
-		sizeof(zip_data),
+		virtual_path,
+		sizeof(virtual_path),
 		"levels/%s.data.zip",
 		filename
 	);
-
-	zip_normal = PHYSFS_getRealDir(path);
-
-	SDL_snprintf(
-		dir,
-		sizeof(dir),
-		"levels/%s/",
-		filename
-	);
-
-	if (FILESYSTEM_exists(zip_data))
+	if (FILESYSTEM_exists(virtual_path))
 	{
-		printf("Custom asset directory is .data.zip at %s\n", zip_data);
+		printf("Asset directory is .data.zip at %s\n", virtual_path);
 
-		if (!FILESYSTEM_mountAssetsFrom(zip_data))
-		{
-			return false;
-		}
-
-		MAYBE_FAIL(graphics.reloadresources());
-	}
-	else if (zip_normal != NULL && endsWith(zip_normal, ".zip"))
-	{
-		printf("Custom asset directory is .zip at %s\n", zip_normal);
-
-		if (!FILESYSTEM_mountAssetsFrom(zip_normal))
-		{
-			return false;
-		}
-
-		MAYBE_FAIL(graphics.reloadresources());
-	}
-	else if (FILESYSTEM_exists(dir))
-	{
-		printf("Custom asset directory exists at %s\n", dir);
-
-		if (!FILESYSTEM_mountAssetsFrom(dir))
+		if (!FILESYSTEM_mountAssetsFrom(virtual_path))
 		{
 			return false;
 		}
@@ -569,7 +536,52 @@ bool FILESYSTEM_mountAssets(const char* path)
 	}
 	else
 	{
-		puts("Custom asset directory does not exist");
+		SDL_snprintf(
+			virtual_path,
+			sizeof(virtual_path),
+			"levels/%s.zip",
+			filename
+		);
+		if (FILESYSTEM_exists(virtual_path))
+		{
+			/* This is a full zipped-up level including assets */
+			printf("Asset directory is .zip at %s\n", virtual_path);
+
+			if (!FILESYSTEM_mountAssetsFrom(virtual_path))
+			{
+				return false;
+			}
+
+			MAYBE_FAIL(graphics.reloadresources());
+		}
+		else
+		{
+			/* If it's not a level or base zip, look for a level folder */
+			SDL_snprintf(
+				virtual_path,
+				sizeof(virtual_path),
+				"levels/%s/",
+				filename
+			);
+			if (FILESYSTEM_exists(virtual_path))
+			{
+				printf("Asset directory exists at %s\n", virtual_path);
+
+				if (!FILESYSTEM_mountAssetsFrom(virtual_path))
+				{
+					return false;
+				}
+
+				MAYBE_FAIL(graphics.reloadresources());
+			}
+#if 0 /* flibit removed this because it was noisy, maybe keep for debug? */
+			else
+			{
+				/* Wasn't a level zip, base zip, or folder! */
+				puts("Asset directory does not exist");
+			}
+#endif
+		}
 	}
 
 	return true;
@@ -588,10 +600,12 @@ void FILESYSTEM_unmountAssets(void)
 		assetDir[0] = '\0';
 		graphics.reloadresources();
 	}
+#if 0 /* flibit removed this because it was noisy, maybe keep for debug? */
 	else
 	{
 		printf("Cannot unmount when no asset directory is mounted\n");
 	}
+#endif
 }
 
 static void getMountedPath(
@@ -882,12 +896,18 @@ bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 	return true;
 }
 
+struct CallbackWrapper
+{
+	void (*callback)(const char* filename);
+};
+
 static PHYSFS_EnumerateCallbackResult enumerateCallback(
 	void* data,
 	const char* origdir,
 	const char* filename
 ) {
-	void (*callback)(const char*) = (void (*)(const char*)) data;
+	struct CallbackWrapper* wrapper = (struct CallbackWrapper*) data;
+	void (*callback)(const char*) = wrapper->callback;
 	char builtLocation[MAX_PATH];
 
 	SDL_snprintf(
@@ -907,8 +927,9 @@ void FILESYSTEM_enumerateLevelDirFileNames(
 	void (*callback)(const char* filename)
 ) {
 	int success;
+	struct CallbackWrapper wrapper = {callback};
 
-	success = PHYSFS_enumerate("levels", enumerateCallback, (void*) callback);
+	success = PHYSFS_enumerate("levels", enumerateCallback, (void*) &wrapper);
 
 	if (success == 0)
 	{
@@ -1195,4 +1216,35 @@ bool FILESYSTEM_openDirectory(const char *dname)
 bool FILESYSTEM_delete(const char *name)
 {
 	return PHYSFS_delete(name) != 0;
+}
+
+static void levelSaveCallback(const char* filename)
+{
+	if (endsWith(filename, ".vvvvvv.vvv"))
+	{
+		if (!FILESYSTEM_delete(filename))
+		{
+			printf("Error deleting %s\n", filename);
+		}
+	}
+}
+
+void FILESYSTEM_deleteLevelSaves(void)
+{
+	int success;
+	struct CallbackWrapper wrapper = {levelSaveCallback};
+
+	success = PHYSFS_enumerate(
+		"saves",
+		enumerateCallback,
+		(void*) &wrapper
+	);
+
+	if (success == 0)
+	{
+		printf(
+			"Could not enumerate saves/: %s\n",
+			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+		);
+	}
 }

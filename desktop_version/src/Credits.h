@@ -88,7 +88,6 @@ static const char* githubfriends[] = {
     "",
     "and",
     "",
-    "Matt \"Fussmatte\" Aaldenberg", // TODO: Change to "Fußmatte" if/when UTF-8 support is added
     "AlexApps99",
     "AllyTally",
     "Christoph B{hmwalder",
@@ -102,7 +101,9 @@ static const char* githubfriends[] = {
     "MAO3J1m0Op",
     "Nichole Mattera",
     "Matt Penny",
+    "mothbeanie",
     "Tynan Richards",
+    "Reese Rivers",
     "Elliott Saltar",
     "Marvin Scholz",
     "Keith Stellyes",

@@ -413,12 +413,14 @@ static void menuactionpress(void)
         break;
 #if !defined(NO_CUSTOM_LEVELS)
     case Menu::levellist:
+    {
+        const bool nextlastoptions = ed.ListOfMetaData.size() > 8;
         if(game.currentmenuoption==(int)game.menuoptions.size()-1){
             //go back to menu
             music.playef(11);
             game.returnmenu();
             map.nexttowercolour();
-        }else if(game.currentmenuoption==(int)game.menuoptions.size()-2){
+        }else if(nextlastoptions && game.currentmenuoption==(int)game.menuoptions.size()-2){
             //previous page
             music.playef(11);
             if(game.levelpage==0){
@@ -429,7 +431,7 @@ static void menuactionpress(void)
             game.createmenu(Menu::levellist, true);
             game.currentmenuoption=game.menuoptions.size()-2;
             map.nexttowercolour();
-        }else if(game.currentmenuoption==(int)game.menuoptions.size()-3){
+        }else if(nextlastoptions && game.currentmenuoption==(int)game.menuoptions.size()-3){
             //next page
             music.playef(11);
             if((size_t) ((game.levelpage*8)+8) >= ed.ListOfMetaData.size()){
@@ -458,6 +460,7 @@ static void menuactionpress(void)
             }
         }
         break;
+    }
 #endif
     case Menu::quickloadlevel:
         switch (game.currentmenuoption)
@@ -472,12 +475,34 @@ static void menuactionpress(void)
             break;
         case 2:
             music.playef(11);
+            game.createmenu(Menu::deletequicklevel);
+            map.nexttowercolour();
+            break;
+        default:
+            music.playef(11);
             game.returnmenu();
             map.nexttowercolour();
             break;
         }
         break;
 #if !defined(NO_CUSTOM_LEVELS)
+    case Menu::deletequicklevel:
+        switch (game.currentmenuoption)
+        {
+        default:
+            music.playef(11);
+            game.returnmenu();
+            break;
+        case 1:
+            game.customdeletequick(ed.ListOfMetaData[game.playcustomlevel].filename);
+            game.returntomenu(Menu::levellist);
+            game.flashlight = 5;
+            game.screenshake = 15;
+            music.playef(23);
+            break;
+        }
+        map.nexttowercolour();
+        break;
     case Menu::playerworlds:
  #if defined(NO_EDITOR)
   #define OFFSET -1
@@ -881,7 +906,13 @@ static void menuactionpress(void)
             game.createmenu(Menu::cleardatamenu);
             map.nexttowercolour();
         }
-        else if (game.currentmenuoption == gameplayoptionsoffset + 4) {
+        else if (game.currentmenuoption == gameplayoptionsoffset + 4)
+        {
+            music.playef(11);
+            game.createmenu(Menu::clearcustomdatamenu);
+            map.nexttowercolour();
+        }
+        else if (game.currentmenuoption == gameplayoptionsoffset + 5) {
             //return to previous menu
             music.playef(11);
             game.returnmenu();
@@ -1524,6 +1555,23 @@ static void menuactionpress(void)
             map.nexttowercolour();
             break;
         }
+        break;
+    case Menu::clearcustomdatamenu:
+        switch (game.currentmenuoption)
+        {
+        default:
+            music.playef(11);
+            break;
+        case 1:
+            game.deletecustomlevelstats();
+            FILESYSTEM_deleteLevelSaves();
+            music.playef(23);
+            game.flashlight = 5;
+            game.screenshake = 15;
+            break;
+        }
+        game.returnmenu();
+        map.nexttowercolour();
         break;
     case Menu::playmodes:
         if (game.currentmenuoption == 0 && !game.nocompetitive())   //go to the time trial menu

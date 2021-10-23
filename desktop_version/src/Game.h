@@ -32,6 +32,7 @@ namespace Menu
         playerworlds,
         levellist,
         quickloadlevel,
+        deletequicklevel,
         youwannaquit,
         errornostart,
         errorsavingsettings,
@@ -54,6 +55,7 @@ namespace Menu
         language_maint,
         language_maint_sync,
         cleardatamenu,
+        clearcustomdatamenu,
         setinvincibility,
         setslowdown,
         unlockmenu,
@@ -199,6 +201,8 @@ public:
 
     void customloadquick(std::string savfile);
     void loadquick(void);
+
+    void customdeletequick(const std::string& file);
 
     void loadsummary(void);
 
@@ -428,6 +432,7 @@ public:
     void loadcustomlevelstats(void);
     void savecustomlevelstats(void);
     void updatecustomlevelstats(std::string clevel, int cscore);
+    void deletecustomlevelstats(void);
 
     std::vector<CustomLevelStat> customlevelstats;
 
@@ -483,6 +488,7 @@ public:
 
     bool disablepause;
     bool disableaudiopause;
+    bool disabletemporaryaudiopause;
     bool inputdelay;
 };
 
