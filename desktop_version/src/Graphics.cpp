@@ -699,31 +699,30 @@ int Graphics::len(std::string t)
     return bfontpos;
 }
 
-std::string Graphics::string_wordwrap(const std::string& _s, int maxwidth, short *lines /*= NULL*/)
+std::string Graphics::string_wordwrap(const std::string& s, int maxwidth, short *lines /*= NULL*/)
 {
     // Return a string wordwrapped to a maximum limit by adding newlines.
-    // Assumes a language that uses spaces, so won't work well with CJK.
+    // CJK will need to have autowordwrap disabled and have manually inserted newlines.
 
     if (lines != NULL)
         *lines = 1;
 
-    const char* orig = _s.c_str();
+    const char* orig = s.c_str();
 
-    std::string s;
+    std::string result;
     size_t start = 0;
     bool first = true;
 
     while (true)
     {
         size_t len = 0;
-
         const char* part = &orig[start];
 
         const bool retval = next_wrap(&start, &len, part, maxwidth);
 
         if (!retval)
         {
-            return s;
+            return result;
         }
 
         if (first)
@@ -732,34 +731,34 @@ std::string Graphics::string_wordwrap(const std::string& _s, int maxwidth, short
         }
         else
         {
-            s.push_back('\n');
+            result.push_back('\n');
 
             if (lines != NULL)
             {
                 (*lines)++;
             }
         }
-        s.append(part, len);
+        result.append(part, len);
     }
 }
 
-std::string Graphics::string_wordwrap_balanced(const std::string& _s, int minwidth, int maxwidth)
+std::string Graphics::string_wordwrap_balanced(const std::string& s, int minwidth, int maxwidth)
 {
     // Return a string wordwrapped to a limit between minwidth and maxwidth by adding newlines.
     // Within these bounds, try to fill the lines as far as possible, and return result where lines are most filled.
     // Goal is to have all lines in textboxes be about as long and to avoid wrapping just one word to a new line.
-    // Assumes a language that uses spaces, so won't work well with CJK.
+    // CJK will need to have autowordwrap disabled and have manually inserted newlines.
 
     if (!loc::langmeta.autowordwrap)
     {
-        return _s;
+        return s;
     }
 
     int bestwidth = maxwidth; // "Best" value for wordwrap maxwidth
     double bestwidth_linefill = 0; // What fraction of the area of the "best" textbox is filled with text (0-1)
     for (int curlimit = minwidth; curlimit <= maxwidth; curlimit += 8)
     {
-        std::string curstring = string_wordwrap(_s, curlimit);
+        std::string curstring = string_wordwrap(s, curlimit);
 
         // We need to know how much all the lines are filled, on average
         int total_lines = 1;
@@ -803,22 +802,22 @@ std::string Graphics::string_wordwrap_balanced(const std::string& _s, int minwid
         }
     }
 
-    return string_wordwrap(_s, bestwidth);
+    return string_wordwrap(s, bestwidth);
 }
 
-std::string Graphics::string_unwordwrap(const std::string& _s)
+std::string Graphics::string_unwordwrap(const std::string& s)
 {
     // Takes a string wordwrapped by newlines, and turns it into a single line, undoing the wrapping.
     // Also trims any leading/trailing whitespace and collapses multiple spaces into one (to undo manual centering)
     // Only applied to English, so langmeta.autowordwrap isn't used here (it'd break looking up strings)
 
-    std::string s = std::string();
-    std::back_insert_iterator<std::string> inserter = std::back_inserter(s);
-    std::string::const_iterator iter = _s.begin();
+    std::string result = std::string();
+    std::back_insert_iterator<std::string> inserter = std::back_inserter(result);
+    std::string::const_iterator iter = s.begin();
     uint32_t ch;
     bool lastspace = true; // last character was a space (or the beginning, don't want leading whitespace)
     int consecutive_newlines = 0; // number of newlines currently encountered in a row (multiple newlines should stay!)
-    while (iter != _s.end())
+    while (iter != s.end())
     {
         ch = utf8::unchecked::next(iter);
 
@@ -831,7 +830,7 @@ std::string Graphics::string_unwordwrap(const std::string& _s)
             else if (consecutive_newlines == 1)
             {
                 // The last character was already a newline, so change it back from the space we thought it should have become.
-                s[s.size()-1] = '\n';
+                result[result.size()-1] = '\n';
             }
             consecutive_newlines++;
         }
@@ -849,12 +848,12 @@ std::string Graphics::string_unwordwrap(const std::string& _s)
     }
 
     // We could have one trailing space
-    if (!s.empty() && s[s.size()-1] == ' ')
+    if (!result.empty() && result[result.size()-1] == ' ')
     {
-        s.erase(s.end()-1);
+        result.erase(result.end()-1);
     }
 
-    return s;
+    return result;
 }
 
 void Graphics::PrintOffAlpha( int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen /*= false*/ )

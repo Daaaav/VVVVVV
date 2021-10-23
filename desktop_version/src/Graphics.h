@@ -149,9 +149,9 @@ public:
 	void bprintalpha(int x, int y, std::string t, int r, int g, int b, int a, bool cen = false);
 
 	int len(std::string t);
-	std::string string_wordwrap(const std::string& _s, int maxwidth, short *lines = NULL);
-	std::string string_wordwrap_balanced(const std::string& _s, int minwidth, int maxwidth);
-	std::string string_unwordwrap(const std::string& _s);
+	std::string string_wordwrap(const std::string& s, int maxwidth, short *lines = NULL);
+	std::string string_wordwrap_balanced(const std::string& s, int minwidth, int maxwidth);
+	std::string string_unwordwrap(const std::string& s);
 
 	void bigprint( int _x, int _y, std::string _s, int r, int g, int b, bool cen = false, int sc = 2 );
 	void bigbprint(int x, int y, std::string s, int r, int g, int b, bool cen = false, int sc = 2);
