@@ -7,6 +7,7 @@
 #include "FileSystemUtils.h"
 //#include "Graphics.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
 
 namespace loc
 {
@@ -27,7 +28,7 @@ namespace loc
 	{
 		if (!FILESYSTEM_loadTiXml2Document(("lang/" + langcode + "/" + cat + ".xml").c_str(), doc))
 		{
-			printf("Could not load language file %s/%s.\n", langcode.c_str(), cat.c_str());
+			vlog_info("Could not load language file %s/%s.", langcode.c_str(), cat.c_str());
 			return false;
 		}
 		return true;
@@ -126,7 +127,7 @@ namespace loc
 				std::string eng = std::string(pElem->Attribute("english"));
 				if (translation.count(eng) != 0)
 				{
-					printf("Warning: \"%s\" appears in language file multiple times\n", eng.c_str());
+					vlog_warn("\"%s\" appears in language file multiple times", eng.c_str());
 				}
 				translation[eng] = std::string(pText);
 			}
@@ -159,7 +160,7 @@ namespace loc
 				std::string script_id = std::string(pElem->Attribute("id"));
 				if (translation_cutscenes.count(script_id) != 0)
 				{
-					printf("Warning: cutscene \"%s\" appears in language file multiple times\n", script_id.c_str());
+					vlog_warn("Cutscene \"%s\" appears in language file multiple times", script_id.c_str());
 				}
 				translation_cutscenes[script_id] = std::map<std::string, std::string>();
 
@@ -262,7 +263,7 @@ namespace loc
 	{
 		// Update translation files for the given language with new strings from template.
 		// This basically takes the template, fills in existing translations, and saves.
-		printf("Syncing %s with templates...\n", langcode.c_str());
+		vlog_info("Syncing %s with templates...", langcode.c_str());
 
 		lang = langcode;
 		loadtext();
