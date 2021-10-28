@@ -317,6 +317,10 @@ void editorlogic(void);
 void editorinput(void);
 #endif
 
+std::string translate_title(std::string& title);
+
+std::string translate_creator(std::string& creator);
+
 #ifndef ED_DEFINITION
 extern editorclass ed;
 #endif
