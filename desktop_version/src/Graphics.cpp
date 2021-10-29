@@ -872,41 +872,6 @@ std::string Graphics::string_unwordwrap(const std::string& s)
     return result;
 }
 
-void Graphics::PrintOffAlpha( int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen /*= false*/ )
-{
-    std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
-
-    r = clamp(r,0,255);
-    g = clamp(g,0,255);
-    b = clamp(b,0,255);
-    a = clamp(a,0,255);
-
-    ct.colour = getRGB(r, g, b);
-
-    if (cen)
-        _x = ((160) - (len(_s) / 2))+_x;
-    int bfontpos = 0;
-    int idx;
-    std::string::iterator iter = _s.begin();
-    while (iter != _s.end()) {
-        int curr = utf8::unchecked::next(iter);
-        point tpoint;
-        tpoint.x = _x + bfontpos;
-        tpoint.y = _y;
-
-        SDL_Rect fontRect = bfont_rect;
-        fontRect.x = tpoint.x ;
-        fontRect.y = tpoint.y ;
-
-        idx = font_idx(curr);
-        if (INBOUNDS_VEC(idx, font))
-        {
-            BlitSurfaceColoured( font[idx], NULL, backBuffer, &fontRect , ct);
-        }
-        bfontpos+=bfontlen(curr) ;
-    }
-}
-
 void Graphics::bprint( int x, int y, const std::string& t, int r, int g, int b, bool cen /*= false*/ ) {
     bprintalpha(x,y,t,r,g,b,255,cen);
 }
