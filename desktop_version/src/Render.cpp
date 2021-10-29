@@ -180,7 +180,7 @@ static void menurender(void)
 
         }else{
           graphics.bigprint( -1, 15, cl.ListOfMetaData[tmp].title, tr, tg, tb, true);
-          char creatorline[161]; // ouch, but translators may need to add something after the name
+          char creatorline[SCREEN_WIDTH_CHARS + 1];
           SDL_snprintf(
             creatorline, sizeof(creatorline),
             loc::gettext("by %s").c_str(),
@@ -1010,7 +1010,7 @@ static void menurender(void)
             graphics.Print(220, 90+20, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
-        char tempstring_c[161];
+        char tempstring_c[SCREEN_WIDTH_CHARS + 1];
         SDL_snprintf(
             tempstring_c, sizeof(tempstring_c),
             loc::gettext("%d of %d").c_str(),
@@ -1976,7 +1976,7 @@ void gamerender(void)
             {
                 graphics.bprint(8+label_len, 30,help.String(game.deathcounts),  196, 196, 196);
             }
-            char tempstring_c[161];
+            char tempstring_c[SCREEN_WIDTH_CHARS + 1];
             SDL_snprintf(
                 tempstring_c, sizeof(tempstring_c),
                 loc::gettext("%d of %d").c_str(),
@@ -2410,7 +2410,7 @@ void maprender(void)
             LevelMetaData& meta = cl.ListOfMetaData[game.playcustomlevel];
 
             graphics.bigprint( -1, FLIP(45), meta.title, 196, 196, 255 - help.glow, true);
-            char creatorline[161];
+            char creatorline[SCREEN_WIDTH_CHARS + 1];
             SDL_snprintf(
                 creatorline, sizeof(creatorline),
                 loc::gettext("by %s").c_str(),

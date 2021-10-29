@@ -6,6 +6,7 @@
 #include <string>
 #include <utf8/unchecked.h>
 
+#include "Constants.h"
 #include "CustomLevels.h"
 #include "DeferCallbacks.h"
 #include "Entity.h"
@@ -341,7 +342,7 @@ static void editormenurender(int tr, int tg, int tb)
         {
             creator = translate_creator(cl.creator);
         }
-        char creatorline[161];
+        char creatorline[SCREEN_WIDTH_CHARS + 1];
         SDL_snprintf(
             creatorline, sizeof(creatorline),
             loc::gettext("by %s").c_str(),
@@ -1200,7 +1201,7 @@ void editorrender(void)
         {
             //Current scriptname
             FillRect(graphics.backBuffer, 14,226,292,12, graphics.getRGB(61, 48, 162));
-            char namebuffer[161];
+            char namebuffer[SCREEN_WIDTH_CHARS + 1];
             SDL_snprintf(
                 namebuffer, sizeof(namebuffer),
                 loc::gettext("CURRENT SCRIPT: %s").c_str(),
@@ -2369,7 +2370,7 @@ void editorinput(void)
                 if (cl.load(loadstring))
                 {
                     // don't use filename, it has the full path
-                    char buffer[481];
+                    char buffer[3*SCREEN_WIDTH_CHARS + 1];
                     SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Loaded map: %s.vvvvvv").c_str(), ed.filename.c_str());
                     ed.note = buffer;
                 }
@@ -2385,7 +2386,7 @@ void editorinput(void)
                 std::string savestring = ed.filename + ".vvvvvv";
                 if (cl.save(savestring))
                 {
-                    char buffer[64];
+                    char buffer[3*SCREEN_WIDTH_CHARS + 1];
                     SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Saved map: %s.vvvvvv").c_str(), ed.filename.c_str());
                     ed.note = buffer;
                 }
@@ -2631,7 +2632,7 @@ void editorinput(void)
                 if(cl.mapheight<1) cl.mapheight=1;
                 if(cl.mapwidth>=cl.maxwidth) cl.mapwidth=cl.maxwidth;
                 if(cl.mapheight>=cl.maxheight) cl.mapheight=cl.maxheight;
-                char buffer[481];
+                char buffer[3*SCREEN_WIDTH_CHARS + 1];
                 SDL_snprintf(
                     buffer, sizeof(buffer),
                     loc::gettext("Mapsize is now [%d,%d]").c_str(),
@@ -4239,7 +4240,7 @@ void editorclass::switch_tileset(const bool reversed)
 
     clamp_tilecol(levx, levy, false);
 
-    char buffer[481];
+    char buffer[3*SCREEN_WIDTH_CHARS + 1];
     SDL_snprintf(
         buffer, sizeof(buffer),
         loc::gettext("Now using %s Tileset").c_str(),
