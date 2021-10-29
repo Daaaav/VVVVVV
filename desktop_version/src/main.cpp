@@ -1,4 +1,8 @@
 #include <SDL.h>
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#include <emscripten/html5.h>
+#endif
 
 #include "CustomLevels.h"
 #include "DeferCallbacks.h"
@@ -24,11 +28,6 @@
 #include "SoundSystem.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
-
-#ifdef __EMSCRIPTEN__
-#include <emscripten.h>
-#include <emscripten/html5.h>
-#endif
 
 scriptclass script;
 
@@ -240,6 +239,10 @@ static void unfocused_run(void);
 static const struct ImplFunc unfocused_func_list[] = {
     {
         Func_input, /* we still need polling when unfocused */
+        NULL
+    },
+    {
+        Func_delta,
         unfocused_run
     }
 };
@@ -353,7 +356,7 @@ static void inline deltaloop(void);
 static void cleanup(void);
 
 #ifdef __EMSCRIPTEN__
-void emscriptenloop(void)
+static void emscriptenloop(void)
 {
     timePrev = time_;
     time_ = SDL_GetTicks();
@@ -709,7 +712,7 @@ static void cleanup(void)
     FILESYSTEM_deinit();
 }
 
-void VVV_exit(const int exit_code)
+VVV_NORETURN void VVV_exit(const int exit_code)
 {
     cleanup();
     exit(exit_code);
@@ -789,7 +792,6 @@ static void unfocused_run(void)
 #undef FLIP
     }
     graphics.render();
-    gameScreen.FlipScreen(graphics.flipmode);
     //We are minimised, so lets put a bit of a delay to save CPU
 #ifndef __EMSCRIPTEN__
     SDL_Delay(100);

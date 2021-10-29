@@ -1,16 +1,15 @@
 #include "Tower.h"
 
+#include <SDL_stdinc.h>
+#include <stddef.h>
+
+#include "Constants.h"
 #include "MakeAndPlay.h"
 #include "UtilityClass.h"
 
 towerclass::towerclass(void)
 {
     minitowermode = false;
-    //We init the lookup table:
-    for (size_t i = 0; i < SDL_arraysize(vmult); i++)
-    {
-        vmult[i] = i * 40;
-    }
     //We create a blank map
     SDL_memset(contents, 0, sizeof(contents));
     SDL_memset(back, 0, sizeof(back));
@@ -22,16 +21,12 @@ towerclass::towerclass(void)
 
 int towerclass::backat(int xp, int yp, int yoff)
 {
-    yp = yp * 8;
-    yp += yoff;
-    yoff = yp % 8;
-    yp = (yp - yoff) / 8;
+    yp = (yp*8 + yoff) / 8;
 
     if (xp >= 0 && xp < 40)
     {
-        while (yp < 0) yp += 120;
-        while (yp >= 120) yp -= 120;
-        return back[xp + vmult[yp]];
+        yp = POS_MOD(yp, 120);
+        return back[TILE_IDX(xp, yp)];
     }
     return 0;
 }
@@ -44,24 +39,20 @@ int towerclass::at(int xp, int yp, int yoff)
     }
     else
     {
-        yp = yp * 8;
-        yp += yoff;
-        yoff = yp % 8;
-        yp = (yp - yoff) / 8;
+        yp = (yp*8 + yoff) / 8;
 
-        while (yp < 0) yp += 700;
-        while (yp >= 700) yp -= 700;
+        yp = POS_MOD(yp, 700);
         if (xp >= 0 && xp < 40)
         {
-            return contents[xp + vmult[yp]];
+            return contents[TILE_IDX(xp, yp)];
         }
         else if (xp == -1)
         {
-            return contents[vmult[yp]];
+            return contents[TILE_IDX(0, yp)];
         }
         else if (xp == 40)
         {
-            return contents[39 + vmult[yp]];
+            return contents[TILE_IDX(39, yp)];
         }
         return 0;
     }
@@ -69,24 +60,20 @@ int towerclass::at(int xp, int yp, int yoff)
 
 int towerclass::miniat(int xp, int yp, int yoff)
 {
-    yp = yp * 8;
-    yp += yoff;
-    yoff = yp % 8;
-    yp = (yp - yoff) / 8;
+    yp = (yp*8 + yoff) / 8;
 
-    while (yp < 0) yp += 100;
-    while (yp >= 100) yp -= 100;
+    yp = POS_MOD(yp, 100);
     if (xp >= 0 && xp < 40)
     {
-        return minitower[xp + vmult[yp]];
+        return minitower[TILE_IDX(xp, yp)];
     }
     else if (xp == -1)
     {
-        return minitower[vmult[yp]];
+        return minitower[TILE_IDX(0, yp)];
     }
     else if (xp == 40)
     {
-        return minitower[39 + vmult[yp]];
+        return minitower[TILE_IDX(39, yp)];
     }
     return 0;
 }

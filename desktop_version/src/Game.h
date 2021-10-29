@@ -313,7 +313,7 @@ public:
     int  swnrecord, swnbestrank, swnrank, swnmessage;
 
     //SuperCrewMate Stuff
-    bool supercrewmate, scmhurt, scmmoveme;
+    bool supercrewmate, scmhurt;
     int scmprogress;
 
     //Accessibility Options

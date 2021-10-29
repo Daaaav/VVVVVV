@@ -9,6 +9,7 @@
 #include <tinyxml2.h>
 #include <utf8/unchecked.h>
 
+#include "Constants.h"
 #include "Editor.h"
 #include "Enums.h"
 #include "FileSystemUtils.h"
@@ -36,6 +37,9 @@
 #include <inttypes.h>
 #endif
 
+#define VMULT(y) (y * SCREEN_WIDTH_TILES * maxwidth)
+#define Y_INBOUNDS(y) (y >= 0 && y < SCREEN_HEIGHT_TILES * maxheight)
+
 RoomProperty::RoomProperty(void)
 {
     tileset=0;
@@ -56,11 +60,6 @@ RoomProperty::RoomProperty(void)
 
 customlevelclass::customlevelclass(void)
 {
-    for (size_t i = 0; i < SDL_arraysize(vmult); i++)
-    {
-        vmult[i] = i * 40 * maxwidth;
-    }
-
     reset();
 }
 
@@ -731,9 +730,9 @@ int customlevelclass::gettileidx(
     int mult;
     int idx;
 
-    if (INBOUNDS_ARR(yoff, vmult))
+    if (Y_INBOUNDS(yoff))
     {
-        mult = vmult[yoff];
+        mult = VMULT(yoff);
     }
     else
     {
@@ -783,9 +782,9 @@ int customlevelclass::getabstile(const int x, const int y)
     int idx;
     int yoff;
 
-    if (INBOUNDS_ARR(y, vmult))
+    if (Y_INBOUNDS(y))
     {
-        yoff = vmult[y];
+        yoff = VMULT(y);
     }
     else
     {
@@ -894,8 +893,8 @@ void customlevelclass::findstartpoint(void)
     else
     {
         //Start point spawn
-        int tx=(customentities[testeditor].x-(customentities[testeditor].x%40))/40;
-        int ty=(customentities[testeditor].y-(customentities[testeditor].y%30))/30;
+        int tx=customentities[testeditor].x/40;
+        int ty=customentities[testeditor].y/30;
         game.edsavex = ((customentities[testeditor].x%40)*8)-4;
         game.edsavey = (customentities[testeditor].y%30)*8;
         game.edsaverx = 100+tx;
@@ -1388,7 +1387,10 @@ bool customlevelclass::save(const std::string& _path)
     msg = xml::update_element_delete_contents(data, "levelMetaData");
 
     int temp_platv[numrooms];
-    SDL_memset(temp_platv, 4 /* default */, sizeof(temp_platv));
+    for (size_t i = 0; i < SDL_arraysize(temp_platv); ++i)
+    {
+        temp_platv[i] = 4; /* default */
+    }
 
     if (mapwidth < maxwidth)
     {

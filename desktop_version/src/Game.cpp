@@ -6,6 +6,7 @@
 #include <string.h>
 #include <tinyxml2.h>
 
+#include "Constants.h"
 #include "CustomLevels.h"
 #include "DeferCallbacks.h"
 #include "Editor.h"
@@ -307,7 +308,6 @@ void Game::init(void)
     supercrewmate = false;
     scmhurt = false;
     scmprogress = 0;
-    scmmoveme = false;
     swncolstate = 0;
     swncoldelay = 0;
     swnrecord = 0;
@@ -659,7 +659,7 @@ void Game::remaining_textbox(void)
 {
     const int remaining = 6 - crewrescued();
     const char* string;
-    char buffer[161]; /* 4 bytes per 40 chars (whole screen) plus 1 for null terminator */
+    char buffer[SCREEN_WIDTH_CHARS + 1];
     if (remaining == 1)
     {
         string = "  One remains  ";
@@ -670,7 +670,7 @@ void Game::remaining_textbox(void)
             buffer,
             sizeof(buffer),
             "  %s remain  ",
-            help.number(remaining).c_str()
+            help.number_words(remaining).c_str()
         );
         string = buffer;
     }
@@ -1842,13 +1842,13 @@ void Game::updatestate(void)
 #if !defined(NO_CUSTOM_LEVELS)
             if(map.custommode)
             {
-                graphics.createtextboxflipme(" " + help.number(trinkets()) + " out of " + help.number(cl.numtrinkets())+ " ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme(" " + help.number_words(trinkets()) + " out of " + help.number_words(cl.numtrinkets())+ " ", 50, 135, 174, 174, 174);
                 graphics.textboxcenterx();
             }
             else
 #endif
             {
-                graphics.createtextboxflipme(" " + help.number(trinkets()) + " out of Twenty ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme(" " + help.number_words(trinkets()) + " out of Twenty ", 50, 135, 174, 174, 174);
                 graphics.textboxcenterx();
             }
             break;
@@ -1865,7 +1865,10 @@ void Game::updatestate(void)
             advancetext = false;
             completestop = false;
             state = 0;
-            if(!muted && music.currentsong>-1) music.fadeMusicVolumeIn(3000);
+            if (music.currentsong > -1)
+            {
+                music.fadeMusicVolumeIn(3000);
+            }
             graphics.showcutscenebars = false;
             break;
 
@@ -1892,11 +1895,11 @@ void Game::updatestate(void)
             }
             else if(cl.numcrewmates()-crewmates()==1)
             {
-                graphics.createtextboxflipme("    " + help.number(cl.numcrewmates()-crewmates())+ " remains    ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme("    " + help.number_words(cl.numcrewmates()-crewmates())+ " remains    ", 50, 135, 174, 174, 174);
             }
             else
             {
-                graphics.createtextboxflipme("     " + help.number(cl.numcrewmates()-crewmates())+ " remain    ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme("     " + help.number_words(cl.numcrewmates()-crewmates())+ " remain    ", 50, 135, 174, 174, 174);
             }
             graphics.textboxcenterx();
             break;
@@ -1919,22 +1922,21 @@ void Game::updatestate(void)
                 if(map.custommodeforreal)
                 {
                     graphics.fademode = 2;
-                    if(!muted && cl.levmusic>0) music.fadeMusicVolumeIn(3000);
-                    if(cl.levmusic>0) music.fadeout();
                     state=1014;
                 }
 #ifndef NO_EDITOR
                 else
                 {
                     returntoeditor();
-                    if(!muted && cl.levmusic>0) music.fadeMusicVolumeIn(3000);
-                    if(cl.levmusic>0) music.fadeout();
                 }
 #endif
             }
             else
             {
-                if(!muted && cl.levmusic>0) music.fadeMusicVolumeIn(3000);
+                if (cl.levmusic > 0)
+                {
+                    music.fadeMusicVolumeIn(3000);
+                }
             }
             graphics.showcutscenebars = false;
             break;
@@ -2612,7 +2614,7 @@ void Game::updatestate(void)
             state++;
             statedelay = 45;
 
-            std::string tempstring = help.number(trinkets());
+            std::string tempstring = help.number_words(trinkets());
             graphics.createtextboxflipme("Trinkets Found:", 48, 84, 0,0,0);
             graphics.createtextboxflipme(tempstring, 180, 84, 0, 0, 0);
             break;
@@ -3933,7 +3935,7 @@ void Game::gethardestroom(void)
     {
         hardestroomdeaths = currentroomdeaths;
         hardestroom = map.roomname;
-        if (map.roomname == "glitch")
+        if (SDL_strcmp(map.roomname, "glitch") == 0)
         {
             if (roomx == 42 && roomy == 51)
             {
@@ -3948,7 +3950,7 @@ void Game::gethardestroom(void)
                 hardestroom = "The Untouchavles";
             }
         }
-        else if (map.roomname == "change")
+        else if (SDL_strcmp(map.roomname, "change") == 0)
         {
             if (roomx == 45 && roomy == 51) hardestroom =map.specialnames[3];
             if (roomx == 46 && roomy == 51) hardestroom =map.specialnames[4];
@@ -3956,7 +3958,7 @@ void Game::gethardestroom(void)
             if (roomx == 50 && roomy == 53) hardestroom =map.specialnames[6];
             if (roomx == 50 && roomy == 54) hardestroom = map.specialnames[7];
         }
-        else if (map.roomname == "")
+        else if (map.roomname[0] == '\0')
         {
             hardestroom = map.hiddenname;
         }
@@ -3984,6 +3986,9 @@ void Game::deletestats(void)
             bestlives[i] = -1;
             bestrank[i] = -1;
         }
+        swnrecord = 0;
+        swnbestrank = 0;
+        bestgamedeaths = 0;
 #ifndef MAKEANDPLAY
         graphics.setflipmode = false;
 #endif
@@ -4948,10 +4953,6 @@ void Game::readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc)
         {
             scmprogress = help.Int(pText);
         }
-        else if (SDL_strcmp(pKey, "scmmoveme") == 0)
-        {
-            scmmoveme = help.Int(pText);
-        }
         else if (SDL_strcmp(pKey, "frames") == 0)
         {
             frames = help.Int(pText);
@@ -5153,10 +5154,6 @@ void Game::customloadquick(const std::string& savfile)
         else if (SDL_strcmp(pKey, "scmprogress") == 0)
         {
             scmprogress = help.Int(pText);
-        }
-        else if (SDL_strcmp(pKey, "scmmoveme") == 0)
-        {
-            scmmoveme = help.Int(pText);
         }
         else if (SDL_strcmp(pKey, "frames") == 0)
         {
@@ -5527,7 +5524,6 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
     xml::update_tag(msgs, "supercrewmate", (int) supercrewmate);
 
     xml::update_tag(msgs, "scmprogress", scmprogress);
-    xml::update_tag(msgs, "scmmoveme", (int) scmmoveme);
 
 
     xml::update_tag(msgs, "frames", frames);
@@ -5663,7 +5659,6 @@ bool Game::customsavequick(const std::string& savfile)
     xml::update_tag(msgs, "supercrewmate", (int) supercrewmate);
 
     xml::update_tag(msgs, "scmprogress", scmprogress);
-    xml::update_tag(msgs, "scmmoveme", (int) scmmoveme);
 
 
     xml::update_tag(msgs, "frames", frames);
@@ -5792,7 +5787,7 @@ std::string Game::partimestring(void)
     std::string tempstring = "";
     if (timetrialpar >= 60)
     {
-        tempstring = help.twodigits(int((timetrialpar - (timetrialpar % 60)) / 60)) + ":" + help.twodigits(timetrialpar % 60);
+        tempstring = help.twodigits(timetrialpar / 60) + ":" + help.twodigits(timetrialpar % 60);
     }
     else
     {
@@ -5807,7 +5802,7 @@ std::string Game::resulttimestring(void)
     std::string tempstring = "";
     if (timetrialresulttime >= 60)
     {
-        tempstring = help.twodigits(int((timetrialresulttime - (timetrialresulttime % 60)) / 60)) + ":"
+        tempstring = help.twodigits(timetrialresulttime / 60) + ":"
                      + help.twodigits(timetrialresulttime % 60);
     }
     else
@@ -5824,7 +5819,7 @@ std::string Game::timetstring( int t )
     std::string tempstring = "";
     if (t >= 60)
     {
-        tempstring = help.twodigits(int((t - (t % 60)) / 60)) + ":" + help.twodigits(t % 60);
+        tempstring = help.twodigits(t / 60) + ":" + help.twodigits(t % 60);
     }
     else
     {
@@ -5839,6 +5834,12 @@ void Game::returnmenu(void)
     {
         vlog_error("Error: returning to previous menu frame on empty stack!");
         return;
+    }
+
+    /* FIXME: Super bad kludge, don't hardcode this! */
+    if (currentmenuname == Menu::ed_music)
+    {
+        music.fadeout();
     }
 
     MenuStackFrame& frame = menustack[menustack.size()-1];
@@ -6801,7 +6802,7 @@ void Game::returntoeditor(void)
 {
     gamestate = EDITORMODE;
 
-    graphics.textbox.clear();
+    graphics.textboxes.clear();
     hascontrol = true;
     advancetext = false;
     completestop = false;

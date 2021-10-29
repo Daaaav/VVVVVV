@@ -1078,7 +1078,7 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
 
     if (customactivitycolour != "")
     {
-        block.setblockcolour(customactivitycolour);
+        block.setblockcolour(customactivitycolour.c_str());
         customactivitycolour = "";
     }
 
@@ -1106,6 +1106,7 @@ bool entityclass::disableentity(int t)
     entities[t].size = -1;
     entities[t].type = -1;
     entities[t].rule = -1;
+    entities[t].isplatform = false;
 
     return true;
 }
@@ -1223,7 +1224,8 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         if (entities[i].invis
         && entities[i].size == -1
         && entities[i].type == -1
-        && entities[i].rule == -1)
+        && entities[i].rule == -1
+        && !entities[i].isplatform)
         {
             reuse = true;
             entptr = &entities[i];
@@ -4074,8 +4076,7 @@ int entityclass::checkactivity(void)
 
 int entityclass::getgridpoint( int t )
 {
-    t = (t - (t % 8)) / 8;
-    return t;
+    return t / 8;
 }
 
 bool entityclass::checkplatform(const SDL_Rect& temprect, int* px, int* py)

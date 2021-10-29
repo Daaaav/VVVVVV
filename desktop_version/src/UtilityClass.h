@@ -88,6 +88,11 @@ void _VVV_between(
     } \
     while (false)
 
+/* Positive modulo, because C/C++'s modulo operator sucks and is negative given
+ * negative divisors.
+ * WARNING! This double- and triple- evaluates. */
+#define POS_MOD(a, b) (((a) % (b) + (b)) % (b))
+
 //helperClass
 class UtilityClass
 {
@@ -104,7 +109,7 @@ public:
 
     std::string timestring(int t);
 
-    std::string number(int _t);
+    std::string number_words(int _t);
 
 
     static bool intersects( SDL_Rect A, SDL_Rect B );
@@ -114,7 +119,6 @@ public:
     int glow;
     int slowsine;
     int glowdir;
-    int splitseconds[30];
 };
 
 #ifndef HELP_DEFINITION

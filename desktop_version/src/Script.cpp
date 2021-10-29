@@ -1713,14 +1713,14 @@ void scriptclass::run(void)
 #if !defined(NO_CUSTOM_LEVELS)
                 if (map.custommode)
                 {
-                    usethisnum = help.number(cl.numtrinkets());
+                    usethisnum = help.number_words(cl.numtrinkets());
                 }
                 else
 #endif
                 {
                     usethisnum = "Twenty";
                 }
-                graphics.createtextboxflipme(" " + help.number(game.trinkets()) + " out of " + usethisnum + " ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme(" " + help.number_words(game.trinkets()) + " out of " + usethisnum + " ", 50, 135, 174, 174, 174);
                 graphics.textboxcenterx();
 
                 if (!game.backgroundtext)
@@ -3191,7 +3191,6 @@ void scriptclass::hardreset(void)
     game.supercrewmate = false;
     game.scmhurt = false;
     game.scmprogress = 0;
-    game.scmmoveme = false;
     game.swncolstate = 0;
     game.swncoldelay = 0;
     game.swnrank = 0;
@@ -3227,7 +3226,7 @@ void scriptclass::hardreset(void)
 
     //dwgraphicsclass
     graphics.backgrounddrawn = false;
-    graphics.textbox.clear();
+    graphics.textboxes.clear();
     graphics.flipmode = false; //This will be reset if needs be elsewhere
     graphics.showcutscenebars = false;
     graphics.setbars(0);

@@ -3,6 +3,7 @@
 
 #include <utf8/unchecked.h>
 
+#include "Constants.h"
 #include "CustomLevels.h"
 #include "Entity.h"
 #include "Exit.h"
@@ -20,8 +21,6 @@ void Graphics::init(void)
     flipmode = false;
     setRect(tiles_rect, 0,0,8,8);
     setRect(sprites_rect, 0,0,32,32);
-    setRect(bfont_rect, 0,0,8,8);
-    setRect(bg_rect, 0,0,320,240);
     setRect(footerrect, 0, 230, 320, 10);
     setRect(prect, 0, 0, 4, 4);
     setRect(line_rect, 0,0,0,0);
@@ -104,11 +103,9 @@ void Graphics::init(void)
     // initialize everything else to zero
     backBuffer = NULL;
     ct = colourTransform();
-    foot_rect = SDL_Rect();
     foregrounddrawn = false;
     foregroundBuffer = NULL;
     backgrounddrawn = false;
-    images_rect = SDL_Rect();
     m = 0;
     linedelay = 0;
     menubuffer = NULL;
@@ -884,8 +881,8 @@ void Graphics::bprintalpha( int x, int y, const std::string& t, int r, int g, in
         if (cen)
         {
             const int x_cen = 160 - len(t)/2;
-            PrintAlpha(x_cen - 1, y, t, 0, 0, 0, a, cen);
-            PrintAlpha(x_cen + 1, y, t, 0, 0, 0, a, cen);
+            PrintAlpha(x_cen - 1, y, t, 0, 0, 0, a, false);
+            PrintAlpha(x_cen + 1, y, t, 0, 0, 0, a, false);
         }
         else
         {
@@ -1122,58 +1119,58 @@ void Graphics::drawgui(void)
     }
 
     //Draw all the textboxes to the screen
-    for (i = 0; i<textbox.size(); i++)
+    for (i = 0; i<textboxes.size(); i++)
     {
         int text_yoff;
         int yp;
         bool opaque;
         if (flipmode)
         {
-            text_yoff = textbox[i].line.size() * 8;
+            text_yoff = textboxes[i].lines.size() * 8;
         }
         else
         {
             text_yoff = 8;
         }
 
-        yp = textbox[i].yp;
-        if (flipmode && textbox[i].flipme)
+        yp = textboxes[i].yp;
+        if (flipmode && textboxes[i].flipme)
         {
-            yp += 2 * (120 - yp) - 8 * (textbox[i].line.size() + 2);
+            yp += 2 * (120 - yp) - 8 * (textboxes[i].lines.size() + 2);
         }
 
-        if (textbox[i].r == 0 && textbox[i].g == 0 && textbox[i].b == 0)
+        if (textboxes[i].r == 0 && textboxes[i].g == 0 && textboxes[i].b == 0)
         {
             size_t j;
-            for (j = 0; j < textbox[i].line.size(); j++)
+            for (j = 0; j < textboxes[i].lines.size(); j++)
             {
-                bprint(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
+                bprint(textboxes[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textboxes[i].lines[j], 196, 196, 255 - help.glow);
             }
         }
         else
         {
-            const float tl_lerp = lerp(textbox[i].prev_tl, textbox[i].tl);
-            const int r = textbox[i].r * tl_lerp;
-            const int g = textbox[i].g * tl_lerp;
-            const int b = textbox[i].b * tl_lerp;
+            const float tl_lerp = lerp(textboxes[i].prev_tl, textboxes[i].tl);
+            const int r = textboxes[i].r * tl_lerp;
+            const int g = textboxes[i].g * tl_lerp;
+            const int b = textboxes[i].b * tl_lerp;
             size_t j;
 
-            drawtextbox(textbox[i].xp, yp, textbox[i].w/8, textbox[i].h/8, r, g, b);
+            drawtextbox(textboxes[i].xp, yp, textboxes[i].w/8, textboxes[i].h/8, r, g, b);
 
-            for (j = 0; j < textbox[i].line.size(); j++)
+            for (j = 0; j < textboxes[i].lines.size(); j++)
             {
-                Print(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], r, g, b);
+                Print(textboxes[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textboxes[i].lines[j], r, g, b);
             }
         }
 
-        opaque = textbox[i].tl >= 1.0;
+        opaque = textboxes[i].tl >= 1.0;
 
         if (!opaque)
         {
             continue;
         }
 
-        if (textbox[i].yp == 12 && textbox[i].r == 165)
+        if (textboxes[i].yp == 12 && textboxes[i].r == 165)
         {
             if (flipmode)
             {
@@ -1184,7 +1181,7 @@ void Graphics::drawgui(void)
                 drawimage(0, 0, 12, true);
             }
         }
-        else if (textbox[i].yp == 12 && textbox[i].g == 165)
+        else if (textboxes[i].yp == 12 && textboxes[i].g == 165)
         {
             if (flipmode)
             {
@@ -1195,70 +1192,66 @@ void Graphics::drawgui(void)
                 drawimage(4, 0, 12, true);
             }
         }
-        if (textbox[i].r == 175 && textbox[i].g == 175)
+        if (textboxes[i].r == 175 && textboxes[i].g == 175)
         {
             //purple guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textbox[i].rand, 120- help.glow/4, 210 - help.glow/4);
+            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textboxes[i].rand, 120- help.glow/4, 210 - help.glow/4);
         }
-        else if (textbox[i].r == 175 && textbox[i].b == 175)
+        else if (textboxes[i].r == 175 && textboxes[i].b == 175)
         {
             //red guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
         }
-        else if (textbox[i].r == 175)
+        else if (textboxes[i].r == 175)
         {
             //green guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 120 - help.glow / 4 - textbox[i].rand, 220 - help.glow / 4, 120 - help.glow / 4);
+            drawsprite(80 - 6, crew_yp, crew_sprite, 120 - help.glow / 4 - textboxes[i].rand, 220 - help.glow / 4, 120 - help.glow / 4);
         }
-        else if (textbox[i].g == 175)
+        else if (textboxes[i].g == 175)
         {
             //yellow guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textbox[i].rand, 210 - help.glow/4, 120- help.glow/4);
+            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textboxes[i].rand, 210 - help.glow/4, 120- help.glow/4);
         }
-        else if (textbox[i].b == 175)
+        else if (textboxes[i].b == 175)
         {
             //blue guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - textbox[i].rand);
+            drawsprite(80 - 6, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - textboxes[i].rand);
         }
     }
 }
 
 void Graphics::updatetextboxes(void)
 {
-    for (size_t i = 0; i < textbox.size(); i++)
+    for (size_t i = 0; i < textboxes.size(); i++)
     {
-        textbox[i].update();
+        textboxes[i].update();
 
-        if (textbox[i].tm == 2 && textbox[i].tl <= 0.5)
+        if (textboxes[i].tm == 2 && textboxes[i].tl <= 0.5)
         {
-            textbox.erase(textbox.begin() + i);
+            textboxes.erase(textboxes.begin() + i);
             i--;
             continue;
         }
 
-        if (textbox[i].tl >= 1.0f
-        && ((textbox[i].r == 175 && textbox[i].g == 175)
-        || textbox[i].r == 175
-        || textbox[i].g == 175
-        || textbox[i].b == 175)
-        && (textbox[i].r != 175 || textbox[i].b != 175))
+        if (textboxes[i].tl >= 1.0f
+        && ((textboxes[i].r == 175 && textboxes[i].g == 175)
+        || textboxes[i].r == 175
+        || textboxes[i].g == 175
+        || textboxes[i].b == 175)
+        && (textboxes[i].r != 175 || textboxes[i].b != 175))
         {
-            textbox[i].rand = fRandom() * 20;
+            textboxes[i].rand = fRandom() * 20;
         }
     }
 }
 
-void Graphics::drawimagecol( int t, int xp, int yp, int r = 0, int g = 0, int b = 0, bool cent/*= false*/ )
+void Graphics::drawimagecol( int t, int xp, int yp, bool cent/*= false*/ )
 {
     if (!INBOUNDS_VEC(t, images))
     {
         return;
     }
     SDL_Rect trect;
-    if(r+g+b != 0)
-    {
-        RGBf(r,g,b);
-    }
 
     point tpoint;
     if (cent)
@@ -1493,61 +1486,61 @@ void Graphics::drawtextbox(
 void Graphics::textboxactive(void)
 {
     //Remove all but the most recent textbox
-    for (int i = 0; i < (int) textbox.size(); i++)
+    for (int i = 0; i < (int) textboxes.size(); i++)
     {
-        if (m != i) textbox[i].remove();
+        if (m != i) textboxes[i].remove();
     }
 }
 
 void Graphics::textboxremovefast(void)
 {
     //Remove all textboxes
-    for (size_t i = 0; i < textbox.size(); i++)
+    for (size_t i = 0; i < textboxes.size(); i++)
     {
-        textbox[i].removefast();
+        textboxes[i].removefast();
     }
 }
 
 void Graphics::textboxremove(void)
 {
     //Remove all textboxes
-    for (size_t i = 0; i < textbox.size(); i++)
+    for (size_t i = 0; i < textboxes.size(); i++)
     {
-        textbox[i].remove();
+        textboxes[i].remove();
     }
 }
 
 void Graphics::textboxtimer( int t )
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxtimer() out-of-bounds!");
         return;
     }
 
-    textbox[m].timer=t;
+    textboxes[m].timer=t;
 }
 
 void Graphics::addline( const std::string& t )
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("addline() out-of-bounds!");
         return;
     }
 
-    textbox[m].addline(t);
+    textboxes[m].addline(t);
 }
 
 void Graphics::textboxadjust(void)
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxadjust() out-of-bounds!");
         return;
     }
 
-    textbox[m].adjust();
+    textboxes[m].adjust();
 }
 
 
@@ -1560,12 +1553,12 @@ void Graphics::createtextboxreal(
     int b,
     bool flipme
 ) {
-    m = textbox.size();
+    m = textboxes.size();
 
     if(m<20)
     {
         textboxclass text;
-        text.line.push_back(t);
+        text.lines.push_back(t);
         text.xp = xp;
         int length = utf8::unchecked::distance(t.begin(), t.end());
         if (xp == -1) text.xp = 160 - (((length / 2) + 1) * 8);
@@ -1573,7 +1566,7 @@ void Graphics::createtextboxreal(
         text.initcol(r, g, b);
         text.flipme = flipme;
         text.resize();
-        textbox.push_back(text);
+        textboxes.push_back(text);
     }
 }
 
@@ -1832,28 +1825,28 @@ void Graphics::drawgravityline( int t )
             FillRect(backBuffer,line_rect, getRGB(200-20, 200-20, 200-20));
             break;
         case 1:
-            FillRect(backBuffer,line_rect, getRGB(225-30, 245-30, 245-30));
-            break;
-        case 2:
             FillRect(backBuffer,line_rect, getRGB(245-30, 245-30, 225-30));
             break;
+        case 2:
+            FillRect(backBuffer,line_rect, getRGB(225-30, 245-30, 245-30));
+            break;
         case 3:
-            FillRect(backBuffer,line_rect, getRGB(164-10, 200-20, 200-20));
+            FillRect(backBuffer,line_rect, getRGB(200-20, 200-20, 164-10));
             break;
         case 4:
-            FillRect(backBuffer,line_rect, getRGB(224-20, 255-30, 196-20));
+            FillRect(backBuffer,line_rect, getRGB(196-20, 255-30, 224-20));
             break;
         case 5:
-            FillRect(backBuffer,line_rect, getRGB(205-20, 235-30, 196-20));
+            FillRect(backBuffer,line_rect, getRGB(196-20, 235-30, 205-20));
             break;
         case 6:
             FillRect(backBuffer,line_rect, getRGB(164-10, 164-10, 164-10));
             break;
         case 7:
-            FillRect(backBuffer,line_rect, getRGB(225-30, 245-30, 205-20));
+            FillRect(backBuffer,line_rect, getRGB(205-20, 245-30, 225-30));
             break;
         case 8:
-            FillRect(backBuffer,line_rect, getRGB(205-20, 255-30, 225-30));
+            FillRect(backBuffer,line_rect, getRGB(225-30, 255-30, 205-20));
             break;
         case 9:
             FillRect(backBuffer,line_rect, getRGB(245-30, 245-30, 245-30));
@@ -2365,62 +2358,62 @@ void Graphics::drawbackground( int t )
             {
                 //Akward ordering to match tileset
             case 0:
-                bcol2 = RGBflip(0, 16*backboxint[0], 16*backboxint[0]);
+                bcol2 = getRGB(0, 16*backboxint[0], 16*backboxint[0]);
                 break; //Cyan
             case 1:
-                bcol2 = RGBflip(16*backboxint[0], 0, 0);
+                bcol2 = getRGB(16*backboxint[0], 0, 0);
                 break;  //Red
             case 2:
-                bcol2 = RGBflip(16*backboxint[0], 0, 16*backboxint[0]);
+                bcol2 = getRGB(16*backboxint[0], 0, 16*backboxint[0]);
                 break; //Purple
             case 3:
-                bcol2 = RGBflip(0, 0, 16*backboxint[0]);
+                bcol2 = getRGB(0, 0, 16*backboxint[0]);
                 break;  //Blue
             case 4:
-                bcol2 = RGBflip(16*backboxint[0], 16*backboxint[0], 0);
+                bcol2 = getRGB(16*backboxint[0], 16*backboxint[0], 0);
                 break; //Yellow
             case 5:
-                bcol2 = RGBflip(0, 16 * backboxint[0], 0);
+                bcol2 = getRGB(0, 16 * backboxint[0], 0);
                 break;  //Green
             case 6:
                 //crazy case
                 switch(spcol)
                 {
                 case 0:
-                    bcol2 = RGBflip(0, 16*backboxint[0], 16*backboxint[0]);
+                    bcol2 = getRGB(0, 16*backboxint[0], 16*backboxint[0]);
                     break; //Cyan
                 case 1:
-                    bcol2 = RGBflip(0, (spcoldel+1)*backboxint[0], 16*backboxint[0]);
+                    bcol2 = getRGB(0, (spcoldel+1)*backboxint[0], 16*backboxint[0]);
                     break; //Cyan
                 case 2:
-                    bcol2 = RGBflip(0, 0, 16*backboxint[0]);
+                    bcol2 = getRGB(0, 0, 16*backboxint[0]);
                     break;  //Blue
                 case 3:
-                    bcol2 = RGBflip((16-spcoldel)*backboxint[0], 0, 16*backboxint[0]);
+                    bcol2 = getRGB((16-spcoldel)*backboxint[0], 0, 16*backboxint[0]);
                     break;  //Blue
                 case 4:
-                    bcol2 = RGBflip(16*backboxint[0], 0, 16*backboxint[0]);
+                    bcol2 = getRGB(16*backboxint[0], 0, 16*backboxint[0]);
                     break; //Purple
                 case 5:
-                    bcol2 = RGBflip(16*backboxint[0], 0, (spcoldel+1)*backboxint[0]);
+                    bcol2 = getRGB(16*backboxint[0], 0, (spcoldel+1)*backboxint[0]);
                     break; //Purple
                 case 6:
-                    bcol2 = RGBflip(16*backboxint[0], 0, 0);
+                    bcol2 = getRGB(16*backboxint[0], 0, 0);
                     break;  //Red
                 case 7:
-                    bcol2 = RGBflip(16*backboxint[0], (16-spcoldel)*backboxint[0], 0);
+                    bcol2 = getRGB(16*backboxint[0], (16-spcoldel)*backboxint[0], 0);
                     break;  //Red
                 case 8:
-                    bcol2 = RGBflip(16*backboxint[0], 16*backboxint[0], 0);
+                    bcol2 = getRGB(16*backboxint[0], 16*backboxint[0], 0);
                     break; //Yellow
                 case 9:
-                    bcol2 = RGBflip((spcoldel+1)*backboxint[0], 16*backboxint[0], 0);
+                    bcol2 = getRGB((spcoldel+1)*backboxint[0], 16*backboxint[0], 0);
                     break; //Yellow
                 case 10:
-                    bcol2 = RGBflip(0, 16 * backboxint[0], 0);
+                    bcol2 = getRGB(0, 16 * backboxint[0], 0);
                     break;  //Green
                 case 11:
-                    bcol2 = RGBflip(0, 16 * backboxint[0], (16-spcoldel)*backboxint[0]);
+                    bcol2 = getRGB(0, 16 * backboxint[0], (16-spcoldel)*backboxint[0]);
                     break;  //Green
                 }
             break;
@@ -2433,62 +2426,62 @@ void Graphics::drawbackground( int t )
             {
                 //Akward ordering to match tileset
             case 0:
-                bcol = RGBflip(16, 128*backboxint[0], 128*backboxint[0]);
+                bcol = getRGB(16, 128*backboxint[0], 128*backboxint[0]);
                 break; //Cyan
             case 1:
-                bcol = RGBflip(128*backboxint[0], 16, 16);
+                bcol = getRGB(128*backboxint[0], 16, 16);
                 break;  //Red
             case 2:
-                bcol = RGBflip(128*backboxint[0], 16, 128*backboxint[0]);
+                bcol = getRGB(128*backboxint[0], 16, 128*backboxint[0]);
                 break; //Purple
             case 3:
-                bcol = RGBflip(16, 16, 128*backboxint[0]);
+                bcol = getRGB(16, 16, 128*backboxint[0]);
                 break;  //Blue
             case 4:
-                bcol = RGBflip(128*backboxint[0], 128*backboxint[0], 16);
+                bcol = getRGB(128*backboxint[0], 128*backboxint[0], 16);
                 break; //Yellow
             case 5:
-                bcol = RGBflip(16, 128 * backboxint[0], 16);
+                bcol = getRGB(16, 128 * backboxint[0], 16);
                 break;  //Green
             case 6:
                 //crazy case
                 switch(spcol)
                 {
                 case 0:
-                    bcol = RGBflip(16, 128*backboxint[0], 128*backboxint[0]);
+                    bcol = getRGB(16, 128*backboxint[0], 128*backboxint[0]);
                     break; //Cyan
                 case 1:
-                    bcol = RGBflip(16, ((spcoldel+1)*8)*backboxint[0], 128*backboxint[0]);
+                    bcol = getRGB(16, ((spcoldel+1)*8)*backboxint[0], 128*backboxint[0]);
                     break; //Cyan
                 case 2:
-                    bcol = RGBflip(16, 16, 128*backboxint[0]);
+                    bcol = getRGB(16, 16, 128*backboxint[0]);
                     break;  //Blue
                 case 3:
-                    bcol = RGBflip((128-(spcoldel*8))*backboxint[0], 16, 128*backboxint[0]);
+                    bcol = getRGB((128-(spcoldel*8))*backboxint[0], 16, 128*backboxint[0]);
                     break;  //Blue
                 case 4:
-                    bcol = RGBflip(128*backboxint[0], 16, 128*backboxint[0]);
+                    bcol = getRGB(128*backboxint[0], 16, 128*backboxint[0]);
                     break; //Purple
                 case 5:
-                    bcol = RGBflip(128*backboxint[0], 16, ((spcoldel+1)*8)*backboxint[0]);
+                    bcol = getRGB(128*backboxint[0], 16, ((spcoldel+1)*8)*backboxint[0]);
                     break; //Purple
                 case 6:
-                    bcol = RGBflip(128*backboxint[0], 16, 16);
+                    bcol = getRGB(128*backboxint[0], 16, 16);
                     break;  //Red
                 case 7:
-                    bcol = RGBflip(128*backboxint[0], (128-(spcoldel*8))*backboxint[0], 16);
+                    bcol = getRGB(128*backboxint[0], (128-(spcoldel*8))*backboxint[0], 16);
                     break;  //Red
                 case 8:
-                    bcol = RGBflip(128*backboxint[0], 128*backboxint[0], 16);
+                    bcol = getRGB(128*backboxint[0], 128*backboxint[0], 16);
                     break; //Yellow
                 case 9:
-                    bcol = RGBflip(((spcoldel+1)*8)*backboxint[0], 128*backboxint[0], 16);
+                    bcol = getRGB(((spcoldel+1)*8)*backboxint[0], 128*backboxint[0], 16);
                     break; //Yellow
                 case 10:
-                    bcol = RGBflip(16, 128 * backboxint[0], 16);
+                    bcol = getRGB(16, 128 * backboxint[0], 16);
                     break;  //Green
                 case 11:
-                    bcol = RGBflip(16, 128 * backboxint[0], (128-(spcoldel*8))*backboxint[0]);
+                    bcol = getRGB(16, 128 * backboxint[0], (128-(spcoldel*8))*backboxint[0]);
                     break;  //Green
                 }
                 break;
@@ -2525,36 +2518,36 @@ void Graphics::drawbackground( int t )
         {
             //Akward ordering to match tileset
         case 0:
-            warpbcol = RGBflip(0x0A, 0x10, 0x0E);
-            warpfcol = RGBflip(0x10, 0x22, 0x21);
+            warpbcol = getRGB(0x0A, 0x10, 0x0E);
+            warpfcol = getRGB(0x10, 0x22, 0x21);
             break; //Cyan
         case 1:
-            warpbcol = RGBflip(0x11, 0x09, 0x0B);
-            warpfcol = RGBflip(0x22, 0x10, 0x11);
+            warpbcol = getRGB(0x11, 0x09, 0x0B);
+            warpfcol = getRGB(0x22, 0x10, 0x11);
             break; //Red
         case 2:
-            warpbcol = RGBflip(0x0F, 0x0A, 0x10);
-            warpfcol = RGBflip(0x22,0x10,0x22);
+            warpbcol = getRGB(0x0F, 0x0A, 0x10);
+            warpfcol = getRGB(0x22,0x10,0x22);
             break; //Purple
         case 3:
-            warpbcol = RGBflip(0x0A, 0x0B, 0x10);
-            warpfcol = RGBflip(0x10, 0x10, 0x22);
+            warpbcol = getRGB(0x0A, 0x0B, 0x10);
+            warpfcol = getRGB(0x10, 0x10, 0x22);
             break; //Blue
         case 4:
-            warpbcol = RGBflip(0x10, 0x0D, 0x0A);
-            warpfcol = RGBflip(0x22, 0x1E, 0x10);
+            warpbcol = getRGB(0x10, 0x0D, 0x0A);
+            warpfcol = getRGB(0x22, 0x1E, 0x10);
             break; //Yellow
         case 5:
-            warpbcol = RGBflip(0x0D, 0x10, 0x0A);
-            warpfcol = RGBflip(0x14, 0x22, 0x10);
+            warpbcol = getRGB(0x0D, 0x10, 0x0A);
+            warpfcol = getRGB(0x14, 0x22, 0x10);
             break; //Green
         case 6:
-            warpbcol = RGBflip(0x0A, 0x0A, 0x0A);
-            warpfcol = RGBflip(0x12, 0x12, 0x12);
+            warpbcol = getRGB(0x0A, 0x0A, 0x0A);
+            warpfcol = getRGB(0x12, 0x12, 0x12);
             break; //Gray
         default:
-            warpbcol = RGBflip(0xFF, 0xFF, 0xFF);
-            warpfcol = RGBflip(0xFF, 0xFF, 0xFF);
+            warpbcol = getRGB(0xFF, 0xFF, 0xFF);
+            warpfcol = getRGB(0xFF, 0xFF, 0xFF);
         }
 
         for (int i = 10 ; i >= 0; i--)
@@ -2803,7 +2796,8 @@ void Graphics::drawmap(void)
             {
                 for (int i = 0; i < 40; i++)
                 {
-                    if(map.contents[i + map.vmult[j]]>0) drawforetile(i * 8, j * 8, map.contents[i + map.vmult[j]]);
+                    const int tile = map.contents[TILE_IDX(i, j)];
+                    if(tile>0) drawforetile(i * 8, j * 8, tile);
                 }
             }
         }
@@ -2813,7 +2807,8 @@ void Graphics::drawmap(void)
             {
                 for (int it = 0; it < 40; it++)
                 {
-                    if(map.contents[it + map.vmult[jt]]>0) drawforetile2(it * 8, jt * 8, map.contents[it + map.vmult[jt]]);
+                    const int tile = map.contents[TILE_IDX(it, jt)];
+                    if(tile>0) drawforetile2(it * 8, jt * 8, tile);
                 }
             }
         }
@@ -2823,7 +2818,8 @@ void Graphics::drawmap(void)
             {
                 for (int i = 0; i < 40; i++)
                 {
-                    if(map.contents[i + map.vmult[j]]>0) drawforetile3(i * 8, j * 8, map.contents[i + map.vmult[j]],map.rcol);
+                    const int tile = map.contents[TILE_IDX(i, j)];
+                    if(tile>0) drawforetile3(i * 8, j * 8, tile,map.rcol);
                 }
             }
         }
@@ -2840,14 +2836,14 @@ void Graphics::drawfinalmap(void)
         if(map.tileset==0){
             for (int j = 0; j < 30; j++) {
                 for (int i = 0; i < 40; i++) {
-                    if((map.contents[i + map.vmult[j]])>0)
+                    if((map.contents[TILE_IDX(i, j)])>0)
                         drawforetile(i * 8, j * 8, map.finalat(i,j));
                 }
             }
         }else if (map.tileset == 1) {
             for (int j = 0; j < 30; j++) {
                 for (int i = 0; i < 40; i++) {
-                    if((map.contents[i + map.vmult[j]])>0)
+                    if((map.contents[TILE_IDX(i, j)])>0)
                         drawforetile2(i * 8, j * 8, map.finalat(i,j));
                 }
             }
@@ -3195,9 +3191,9 @@ Uint32 Graphics::bigchunkygetcol(int t)
     switch (t)
     {
     case 1:
-        return getBGR((fRandom() * 64), 10, 10);
+        return getRGB((fRandom() * 64), 10, 10);
     case 2:
-        return getBGR(int(160- help.glow/2 - (fRandom()*20)),  200- help.glow/2, 220 - help.glow);
+        return getRGB(int(160- help.glow/2 - (fRandom()*20)),  200- help.glow/2, 220 - help.glow);
     }
     return 0x00000000;
 }
@@ -3212,46 +3208,46 @@ void Graphics::setwarprect( int a, int b, int c, int d )
 
 void Graphics::textboxcenterx(void)
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxcenterx() out-of-bounds!");
         return;
     }
 
-    textbox[m].centerx();
+    textboxes[m].centerx();
 }
 
 int Graphics::textboxwidth(void)
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxwidth() out-of-bounds!");
         return 0;
     }
 
-    return textbox[m].w;
+    return textboxes[m].w;
 }
 
 void Graphics::textboxmoveto(int xo)
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxmoveto() out-of-bounds!");
         return;
     }
 
-    textbox[m].xp = xo;
+    textboxes[m].xp = xo;
 }
 
 void Graphics::textboxcentery(void)
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxcentery() out-of-bounds!");
         return;
     }
 
-    textbox[m].centery();
+    textboxes[m].centery();
 }
 
 int Graphics::crewcolour(const int t)
@@ -3404,15 +3400,10 @@ void Graphics::drawtele(int x, int y, int t, Uint32 c)
 
 Uint32 Graphics::getRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
-    return SDL_MapRGBA(backBuffer->format, b, g, r, a);
+    return SDL_MapRGBA(backBuffer->format, r, g, b, a);
 }
 
 Uint32 Graphics::getRGB(Uint8 r, Uint8 g, Uint8 b)
-{
-    return SDL_MapRGB(backBuffer->format, b, g, r);
-}
-
-Uint32 Graphics::getBGR(Uint8 r, Uint8 g, Uint8 b)
 {
     return SDL_MapRGB(backBuffer->format, r, g, b);
 }
@@ -3420,11 +3411,6 @@ Uint32 Graphics::getBGR(Uint8 r, Uint8 g, Uint8 b)
 Uint32 Graphics::getRGB(Uint32 _col)
 {
     return ( _col);
-}
-
-Uint32 Graphics::RGBflip(Uint8  r, Uint8  g, Uint8  b)
-{
-    return SDL_MapRGB(backBuffer->format, r, g, b);
 }
 
 Uint32 Graphics::RGBf(int r, int g, int b)
@@ -3509,21 +3495,21 @@ void Graphics::drawrect(int x, int y, int w, int h, int r, int g, int b)
     madrect.y = y;
     madrect.w = w;
     madrect.h = 1;
-    FillRect(backBuffer, madrect, getRGB(b,g,r));
+    FillRect(backBuffer, madrect, getRGB(r, g, b));
 
     madrect.w = 1;
     madrect.h = h;
-    FillRect(backBuffer, madrect, getRGB(b,g,r));
+    FillRect(backBuffer, madrect, getRGB(r, g, b));
 
     madrect.x = x + w - 1;
     madrect.w = 1;
     madrect.h = h;
-    FillRect(backBuffer, madrect, getRGB(b,g,r));
+    FillRect(backBuffer, madrect, getRGB(r, g, b));
     madrect.x = x;
     madrect.y = y + h - 1;
     madrect.w = w;
     madrect.h = 1;
-    FillRect(backBuffer, madrect, getRGB(b,g,r));
+    FillRect(backBuffer, madrect, getRGB(r, g, b));
 }
 
 bool Graphics::onscreen(int t)

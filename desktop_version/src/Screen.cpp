@@ -135,16 +135,13 @@ void Screen::LoadIcon(void)
     FILESYSTEM_loadAssetToMemory("VVVVVV.png", &fileIn, &length, false);
     lodepng_decode24(&data, &width, &height, fileIn, length);
     FILESYSTEM_freeMemory(&fileIn);
-    SDL_Surface *icon = SDL_CreateRGBSurfaceFrom(
+    SDL_Surface *icon = SDL_CreateRGBSurfaceWithFormatFrom(
         data,
         width,
         height,
         24,
         width * 3,
-        0x000000FF,
-        0x0000FF00,
-        0x00FF0000,
-        0x00000000
+        SDL_PIXELFORMAT_RGB24
     );
     SDL_SetWindowIcon(m_window, icon);
     SDL_FreeSurface(icon);
@@ -374,48 +371,10 @@ void Screen::toggleLinearFilter(void)
     );
 }
 
-void Screen::resetRendererWorkaround(void)
+void Screen::toggleVSync(void)
 {
-    SDL_SetHintWithPriority(
-        SDL_HINT_RENDER_VSYNC,
-        vsync ? "1" : "0",
-        SDL_HINT_OVERRIDE
-    );
-
-    /* FIXME: This exists because SDL_HINT_RENDER_VSYNC is not dynamic!
-     * As a result, our only workaround is to tear down the renderer
-     * and recreate everything so that it can process the variable.
-     * -flibit
-     */
-
-    if (m_renderer == NULL)
-    {
-        /* We haven't made it to init yet, don't worry about it */
-        return;
-    }
-
-    SDL_RendererInfo renderInfo;
-    SDL_GetRendererInfo(m_renderer, &renderInfo);
-    bool curVsync = (renderInfo.flags & SDL_RENDERER_PRESENTVSYNC) != 0;
-    if (vsync == curVsync)
-    {
-        return;
-    }
-
-    SDL_DestroyTexture(m_screenTexture);
-    SDL_DestroyRenderer(m_renderer);
-
-    m_renderer = SDL_CreateRenderer(m_window, -1, 0);
-    m_screenTexture = SDL_CreateTexture(
-        m_renderer,
-        SDL_PIXELFORMAT_ARGB8888,
-        SDL_TEXTUREACCESS_STREAMING,
-        320,
-        240
-    );
-
-    /* Ugh, have to make sure to re-apply graphics options after doing the
-     * above, otherwise letterbox/integer won't be applied...
-     */
-    ResizeScreen(-1, -1);
+#if SDL_VERSION_ATLEAST(2, 0, 17)
+    vsync = !vsync;
+    SDL_RenderSetVSync(m_renderer, (int) vsync);
+#endif
 }

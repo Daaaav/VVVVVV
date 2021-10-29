@@ -1,5 +1,6 @@
 #include <SDL.h>
 
+#include "Constants.h"
 #include "Credits.h"
 #include "CustomLevels.h"
 #include "Editor.h"
@@ -114,8 +115,7 @@ static void inline drawglitchrunnertext(void)
     int tempg = tg;
     int tempb = tb;
 
-    /* Screen width 40 chars, 4 per char */
-    char buffer[160 + 1];
+    char buffer[SCREEN_WIDTH_CHARS + 1];
 
     const enum GlitchrunnerMode mode = GlitchrunnerMode_get();
 
@@ -366,10 +366,12 @@ static void menurender(void)
             break;
         case 5:
             graphics.bigprint(-1, 30, loc::gettext("Toggle VSync"), tr, tg, tb, true);
-#ifdef __HAIKU__ // FIXME: Remove after SDL VSync bug is fixed! -flibit
-            graphics.Print(-1, 65, "Edit the config file on Haiku!", tr, tg, tb, true);
-#else
+            /* FIXME: Upgrade to SDL 2.0.18 and remove this ifdef when it releases! */
+#if SDL_VERSION_ATLEAST(2, 0, 17)
             graphics.PrintWrap(-1, 65, loc::gettext("Turn VSync on or off."), tr, tg, tb, true);
+#else
+            graphics.Print(-1, 65, "Your SDL version is too old!", tr, tg, tb, true);
+            graphics.Print(-1, 75, "Edit the config file.", tr, tg, tb, true);
 #endif
 
             if (!graphics.screenbuffer->vsync)
@@ -402,8 +404,7 @@ static void menurender(void)
                 break;
             }
         {
-            /* Screen width 40 chars, 4 per char */
-            char buffer[160 + 1];
+            char buffer[SCREEN_WIDTH_CHARS + 1];
             char soundtrack[6 + 1];
             char letter;
             if (music.usingmmmmmm)
@@ -429,16 +430,16 @@ static void menurender(void)
         graphics.Print( -1, 50, loc::gettext("VVVVVV is a game by"), tr, tg, tb, true);
         graphics.bigprint( 40, 65, loc::gettext("Terry Cavanagh"), tr, tg, tb, true, 2);
 
-        graphics.drawimagecol(7, -1, 86, tr *0.75, tg *0.75, tb *0.75, true);
+        graphics.drawimagecol(7, -1, 86, true);
 
         graphics.Print( -1, 120, loc::gettext("and features music by"), tr, tg, tb, true);
         graphics.bigprint( 40, 135, loc::gettext("Magnus P~lsson"), tr, tg, tb, true, 2);
-        graphics.drawimagecol(8, -1, 156, tr *0.75, tg *0.75, tb *0.75, true);
+        graphics.drawimagecol(8, -1, 156, true);
         break;
     case Menu::credits2:
         graphics.Print( -1, 50, loc::gettext("Roomnames are by"), tr, tg, tb, true);
         graphics.bigprint( 40, 65, loc::gettext("Bennett Foddy"), tr, tg, tb, true);
-        graphics.drawimagecol(9, -1, 86, tr*0.75, tg *0.75, tb *0.75, true);
+        graphics.drawimagecol(9, -1, 86, true);
         graphics.Print( -1, 110, loc::gettext("C++ version by"), tr, tg, tb, true);
         graphics.bigprint( 40, 125, loc::gettext("Simon Roth"), tr, tg, tb, true);
         graphics.bigprint( 40, 145, loc::gettext("Ethan Lee"), tr, tg, tb, true);
@@ -647,8 +648,7 @@ static void menurender(void)
             break;
         case 2:
         {
-            /* Screen width 40 chars, 4 per char */
-            char buffer[160 + 1];
+            char buffer[SCREEN_WIDTH_CHARS + 1];
             std::string button;
 
             graphics.bigprint(-1, 30, loc::gettext("Interact Button"), tr, tg, tb, true);
@@ -894,7 +894,7 @@ static void menurender(void)
                 graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.tele_crewstats[i], true);
             }
             graphics.Print(59, 132-20, game.tele_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-            const std::string& trinketcount = help.number(game.tele_trinkets);
+            const std::string& trinketcount = help.number_words(game.tele_trinkets);
             graphics.Print(262-graphics.len(trinketcount), 132-20, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
             graphics.drawsprite(34, 126-20, 50, graphics.col_clock);
@@ -913,7 +913,7 @@ static void menurender(void)
                 graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.quick_crewstats[i], true);
             }
             graphics.Print(59, 132-20, game.quick_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-            const std::string& trinketcount = help.number(game.quick_trinkets);
+            const std::string& trinketcount = help.number_words(game.quick_trinkets);
             graphics.Print(262-graphics.len(trinketcount), 132-20, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
             graphics.drawsprite(34, 126-20, 50, graphics.col_clock);
@@ -932,10 +932,10 @@ static void menurender(void)
             graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.ndmresultcrewstats[i], true);
         }
         std::string tempstring; // TODO LOC, plural forms
-        tempstring = "You rescued " + help.number(game.ndmresultcrewrescued) + (game.ndmresultcrewrescued == 1 ? " crewmate" : " crewmates");
+        tempstring = "You rescued " + help.number_words(game.ndmresultcrewrescued) + (game.ndmresultcrewrescued == 1 ? " crewmate" : " crewmates");
         graphics.Print(0, 100, tempstring, tr, tg, tb, true);
 
-        tempstring = "and found " + help.number(game.ndmresulttrinkets) + (game.ndmresulttrinkets == 1 ? " trinket." : " trinkets.");
+        tempstring = "and found " + help.number_words(game.ndmresulttrinkets) + (game.ndmresulttrinkets == 1 ? " trinket." : " trinkets.");
         graphics.Print(0, 110, tempstring, tr, tg, tb, true);
 
         tempstring = loc::gettext("You managed to reach:");
@@ -979,7 +979,7 @@ static void menurender(void)
         std::string tempstring = loc::gettext("You rescued all the crewmates!");
         graphics.Print(0, 100, tempstring, tr, tg, tb, true);
 
-        tempstring = "And you found " + help.number(game.ndmresulttrinkets) + " trinkets."; // TODO LOC
+        tempstring = "And you found " + help.number_words(game.ndmresulttrinkets) + " trinkets."; // TODO LOC
         graphics.Print(0, 110, tempstring, tr, tg, tb, true);
 
         graphics.PrintWrap(0, 160, loc::gettext("A new trophy has been awarded and placed in the secret lab to acknowledge your achievement!"), tr, tg, tb, true);
@@ -1739,7 +1739,7 @@ void gamerender(void)
         graphics.bprint(46, 6, game.timestring(),  196, 196, 196);
     }
 
-    if(map.extrarow==0 || (map.custommode && map.roomname!=""))
+    if(map.extrarow==0 || (map.custommode && map.roomname[0] != '\0'))
     {
         graphics.footerrect.y = 230;
         if (graphics.translucentroomname)
@@ -1793,8 +1793,7 @@ void gamerender(void)
 
     if (game.readytotele > 100 || game.oldreadytotele > 100)
     {
-        /* Screen width 40 chars, 4 per char */
-        char buffer[160 + 1];
+        char buffer[SCREEN_WIDTH_CHARS + 1];
         const char* final_string = interact_prompt(
             buffer,
             sizeof(buffer),
@@ -2010,8 +2009,7 @@ void gamerender(void)
     float act_alpha = graphics.lerp(game.prev_act_fade, game.act_fade) / 10.0f;
     if(game.act_fade>5 || game.prev_act_fade>5)
     {
-        /* Screen width 40 chars, 4 per char */
-        char buffer[160 + 1];
+        char buffer[SCREEN_WIDTH_CHARS + 1];
         const char* final_string = interact_prompt(
             buffer,
             sizeof(buffer),
@@ -2037,7 +2035,7 @@ void maprender(void)
 
     //draw screen alliteration
     //Roomname:
-    if (map.hiddenname != "")
+    if (map.hiddenname[0] != '\0')
     {
         graphics.Print(5, 2, map.hiddenname, 196, 196, 255 - help.glow, true);
     }
@@ -2427,9 +2425,9 @@ void maprender(void)
             int remaining = cl.numcrewmates() - game.crewmates();
 
             if(remaining==1){ // TODO LOC
-                graphics.Print(1,FLIP(165), help.number(remaining)+ " crewmate remains", 196, 196, 255 - help.glow, true);
+                graphics.Print(1,FLIP(165), help.number_words(remaining)+ " crewmate remains", 196, 196, 255 - help.glow, true);
             }else if(remaining>0){
-                graphics.Print(1,FLIP(165), help.number(remaining)+ " crewmates remain", 196, 196, 255 - help.glow, true);
+                graphics.Print(1,FLIP(165), help.number_words(remaining)+ " crewmates remain", 196, 196, 255 - help.glow, true);
             }
         }
 #endif
@@ -2502,7 +2500,7 @@ void maprender(void)
           if (graphics.flipmode)
           {
               graphics.Print(0, 164, loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 152, help.number(game.trinkets()) + " out of " + help.number(cl.numtrinkets()), 96,96,96, true); // TODO LOC
+              graphics.Print(0, 152, help.number_words(game.trinkets()) + " out of " + help.number_words(cl.numtrinkets()), 96,96,96, true); // TODO LOC
 
               graphics.Print(0, 114, loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow, true);
               graphics.Print(0, 102,help.String(game.deathcounts),  96,96,96, true);
@@ -2513,7 +2511,7 @@ void maprender(void)
           else
           {
               graphics.Print(0, 52, loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 64, help.number(game.trinkets()) + " out of "+help.number(cl.numtrinkets()), 96,96,96, true); // TODO LOC
+              graphics.Print(0, 64, help.number_words(game.trinkets()) + " out of "+help.number_words(cl.numtrinkets()), 96,96,96, true); // TODO LOC
 
               graphics.Print(0, 102, loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow, true);
               graphics.Print(0, 114,help.String(game.deathcounts),  96,96,96, true);
@@ -2528,7 +2526,7 @@ void maprender(void)
           if (graphics.flipmode)
           {
               graphics.Print(0, 164, loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 152, help.number(game.trinkets()) + " out of Twenty", 96,96,96, true);
+              graphics.Print(0, 152, help.number_words(game.trinkets()) + " out of Twenty", 96,96,96, true);
 
               graphics.Print(0, 114, loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow, true);
               graphics.Print(0, 102,help.String(game.deathcounts),  96,96,96, true);
@@ -2539,7 +2537,7 @@ void maprender(void)
           else
           {
               graphics.Print(0, 52, loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 64, help.number(game.trinkets()) + " out of Twenty", 96,96,96, true);
+              graphics.Print(0, 64, help.number_words(game.trinkets()) + " out of Twenty", 96,96,96, true);
 
               graphics.Print(0, 102, loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow, true);
               graphics.Print(0, 114,help.String(game.deathcounts),  96,96,96, true);
@@ -2582,7 +2580,7 @@ void maprender(void)
                 {
                     graphics.Print(0, 122, game.customleveltitle, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
                     graphics.Print(59, 78, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    const std::string& trinketcount = help.number(game.savetrinkets);
+                    const std::string& trinketcount = help.number_words(game.savetrinkets);
                     graphics.Print(262-graphics.len(trinketcount), 78, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
                     graphics.drawsprite(34, 74, 50, graphics.col_clock);
@@ -2592,7 +2590,7 @@ void maprender(void)
                 {
                     graphics.Print(0, 90, game.customleveltitle, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
                     graphics.Print(59, 132, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    const std::string& trinketcount = help.number(game.savetrinkets);
+                    const std::string& trinketcount = help.number_words(game.savetrinkets);
                     graphics.Print(262-graphics.len(trinketcount), 132, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
                     graphics.drawsprite(34, 126, 50, graphics.col_clock);
@@ -2629,7 +2627,7 @@ void maprender(void)
                         graphics.drawcrewman(169-(3*42)+(i*42), 98, i, game.crewstats[i], true);
                     }
                     graphics.Print(59, 78, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    const std::string& trinketcount = help.number(game.savetrinkets);
+                    const std::string& trinketcount = help.number_words(game.savetrinkets);
                     graphics.Print(262-graphics.len(trinketcount), 78, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
                     graphics.drawsprite(34, 74, 50, graphics.col_clock);
@@ -2643,7 +2641,7 @@ void maprender(void)
                         graphics.drawcrewman(169-(3*42)+(i*42), 95, i, game.crewstats[i], true);
                     }
                     graphics.Print(59, 132, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    const std::string& trinketcount = help.number(game.savetrinkets);
+                    const std::string& trinketcount = help.number_words(game.savetrinkets);
                     graphics.Print(262-graphics.len(trinketcount), 132, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
                     graphics.drawsprite(34, 126, 50, graphics.col_clock);
@@ -2898,8 +2896,7 @@ void teleporterrender(void)
 
     if (game.useteleporter)
     {
-        /* Screen width 40 chars, 4 per char */
-        char buffer[160 + 1];
+        char buffer[SCREEN_WIDTH_CHARS + 1];
         const char* final_string = interact_prompt(
             buffer,
             sizeof(buffer),

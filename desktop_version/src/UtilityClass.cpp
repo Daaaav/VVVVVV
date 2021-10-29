@@ -135,11 +135,6 @@ UtilityClass::UtilityClass(void) :
 glow(0),
     glowdir(0)
 {
-    for (size_t i = 0; i < SDL_arraysize(splitseconds); i++)
-    {
-        splitseconds[i] = (i * 100) / 30;
-    }
-
     slowsine = 0;
 }
 
@@ -191,23 +186,23 @@ std::string UtilityClass::timestring( int t )
 {
     //given a time t in frames, return a time in seconds
     std::string tempstring = "";
-    int temp = (t - (t % 30)) / 30;
+    int temp = t / 30;
     if (temp < 60)   //less than one minute
     {
         t = t % 30;
-        tempstring = String(temp) + ":" + twodigits(splitseconds[t]);
+        tempstring = String(temp) + ":" + twodigits(t * 100 / 30);
     }
     else
     {
-        int temp2 = (temp - (temp % 60)) / 60;
+        int temp2 = temp / 60;
         temp = temp % 60;
         t = t % 30;
-        tempstring = String(temp2) + ":" + twodigits(temp) + ":" + twodigits(splitseconds[t]);
+        tempstring = String(temp2) + ":" + twodigits(temp) + ":" + twodigits(t * 100 / 30);
     }
     return tempstring;
 }
 
-std::string UtilityClass::number( int _t )
+std::string UtilityClass::number_words( int _t )
 {
     if (loc::lang != "en")
     {
@@ -295,13 +290,6 @@ bool is_number(const char* str)
     return true;
 }
 
-static bool VVV_isxdigit(const unsigned char digit)
-{
-    return (digit >= 'a' && digit <= 'f')
-    || (digit >= 'A' && digit <= 'F')
-    || SDL_isdigit(digit);
-}
-
 bool is_positive_num(const char* str, const bool hex)
 {
     if (str[0] == '\0')
@@ -313,7 +301,7 @@ bool is_positive_num(const char* str, const bool hex)
     {
         if (hex)
         {
-            if (!VVV_isxdigit(str[i]))
+            if (!SDL_isxdigit(str[i]))
             {
                 return false;
             }

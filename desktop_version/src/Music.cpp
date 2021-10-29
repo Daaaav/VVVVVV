@@ -310,6 +310,8 @@ void musicclass::haltdasmusik(void)
 void musicclass::silencedasmusik(void)
 {
     musicVolume = 0;
+    m_doFadeInVol = false;
+    m_doFadeOutVol = false;
 }
 
 struct FadeState
@@ -355,6 +357,11 @@ static enum FadeCode processmusicfade(struct FadeState* state, int* volume)
 
 void musicclass::fadeMusicVolumeIn(int ms)
 {
+    if (halted())
+    {
+        return;
+    }
+
     m_doFadeInVol = true;
     m_doFadeOutVol = false;
 
@@ -372,6 +379,11 @@ void musicclass::fadeMusicVolumeIn(int ms)
 
 void musicclass::fadeMusicVolumeOut(const int fadeout_ms)
 {
+    if (halted())
+    {
+        return;
+    }
+
     m_doFadeInVol = false;
     m_doFadeOutVol = true;
 
@@ -426,7 +438,7 @@ void musicclass::processmusic(void)
     }
 
     /* This needs to come after processing fades */
-    if (nicefade && Mix_PausedMusic() == 1)
+    if (nicefade && halted())
     {
         play(nicechange);
         nicechange = -1;
@@ -551,4 +563,9 @@ void musicclass::pauseef(void)
 void musicclass::resumeef(void)
 {
     Mix_Resume(-1);
+}
+
+bool musicclass::halted(void)
+{
+    return Mix_PausedMusic() == 1;
 }

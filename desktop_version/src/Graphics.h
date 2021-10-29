@@ -113,7 +113,7 @@ public:
 
     void drawimage(int t, int xp, int yp, bool cent=false);
 
-    void drawimagecol(int t, int xp, int yp, int r, int g, int b, bool cent= false);
+    void drawimagecol(int t, int xp, int yp, bool cent= false);
 
     void updatetextboxes(void);
     void drawgui(void);
@@ -187,11 +187,7 @@ public:
 
     Uint32 getRGB(Uint8 r, Uint8 g, Uint8 b);
 
-    Uint32 getBGR(Uint8 r, Uint8 g, Uint8 b);
-
     Uint32 getRGB(Uint32 _col);
-
-    Uint32 RGBflip(Uint8  r, Uint8  g, Uint8  b);
 
 
     Uint32 RGBf(int r, int g, int b);
@@ -276,16 +272,12 @@ public:
     TowerBG towerbg;
     TowerBG titlebg;
 
-    SDL_Rect bfont_rect;
     SDL_Rect tiles_rect;
     SDL_Rect sprites_rect;
-    SDL_Rect images_rect;
-    SDL_Rect bg_rect;
     SDL_Rect line_rect;
     SDL_Rect tele_rect;
     SDL_Rect towerbuffer_rect;
 
-    SDL_Rect foot_rect;
     SDL_Rect prect;
     SDL_Rect footerrect;
     SDL_Surface* footerbuffer;
@@ -312,7 +304,7 @@ public:
     bool trinketcolset;
     int trinketr, trinketg, trinketb;
 
-    std::vector <textboxclass> textbox;
+    std::vector <textboxclass> textboxes;
 
     bool showcutscenebars;
     int cutscenebarspos;
