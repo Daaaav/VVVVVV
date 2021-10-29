@@ -1918,7 +1918,7 @@ void gamerender(void)
                 graphics.bprint( 240, 190, loc::gettext("Best Time"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
                 graphics.bigbrprint( 300, 205, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
             }
-            else	if (int(game.swndelay / 10) % 2 == 1)
+            else    if (int(game.swndelay / 10) % 2 == 1)
             {
                 graphics.bigbprint( -1, 20, loc::gettext("SUPER GRAVITRON"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
                 graphics.bigbprint( -1, 200, loc::gettext("GO!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 3);
@@ -2327,7 +2327,7 @@ void maprender(void)
                     {
                         int temp = 1086;
                         if (graphics.flipmode) temp += 3;
-                        graphics.drawtile(40 + 3 + (map.shinytrinkets[i].x * 12), 22 + (map.shinytrinkets[i].y * 9),	temp);
+                        graphics.drawtile(40 + 3 + (map.shinytrinkets[i].x * 12), 22 + (map.shinytrinkets[i].y * 9),    temp);
                     }
                 }
             }
@@ -2878,7 +2878,7 @@ void teleporterrender(void)
             {
                 temp = 1086;
                 if (graphics.flipmode) temp += 3;
-                graphics.drawtile(40 + 3 + (map.shinytrinkets[i].x * 12), 22 + (map.shinytrinkets[i].y * 9),	temp);
+                graphics.drawtile(40 + 3 + (map.shinytrinkets[i].x * 12), 22 + (map.shinytrinkets[i].y * 9),    temp);
             }
         }
     }
