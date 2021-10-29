@@ -367,7 +367,7 @@
     <string english="Missing..." explanation="" max="15" comment=""></string>
     <string english="Cannot Save in Level Replay" explanation="" max="38*7" comment=""></string>
     <string english="Cannot Save in No Death Mode" explanation="" max="38*7" comment=""></string>
-    <string english="Cannot Save in Time Trial" explanation="" max="38*7" comment=""></string>
+    <string english="How'd you get here?" explanation="" max="38*7" comment=""></string>
     <string english="Cannot Save in Secret Lab" explanation="" max="38*7" comment=""></string>
     <string english="ERROR: Could not save game!" explanation="" max="38*7" comment=""></string>
     <string english="ERROR: Could not save settings file!" explanation="" max="38*4" comment=""></string>
