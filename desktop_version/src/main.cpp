@@ -1,7 +1,8 @@
 #include <SDL.h>
 
+#include "CustomLevels.h"
 #include "DeferCallbacks.h"
-#include "editor.h"
+#include "Editor.h"
 #include "Enums.h"
 #include "Entity.h"
 #include "Exit.h"
@@ -31,9 +32,12 @@
 
 scriptclass script;
 
-#if !defined(NO_CUSTOM_LEVELS)
+#ifndef NO_CUSTOM_LEVELS
 std::vector<edentities> edentity;
+customlevelclass cl;
+# ifndef NO_EDITOR
 editorclass ed;
+# endif
 #endif
 
 UtilityClass help;
@@ -623,14 +627,14 @@ int main(int argc, char *argv[])
         game.menustart = true;
 
         LevelMetaData meta;
-        if (ed.getLevelMetaData(playtestname, meta)) {
-            ed.ListOfMetaData.clear();
-            ed.ListOfMetaData.push_back(meta);
+        if (cl.getLevelMetaData(playtestname, meta)) {
+            cl.ListOfMetaData.clear();
+            cl.ListOfMetaData.push_back(meta);
         } else {
-            ed.loadZips();
-            if (ed.getLevelMetaData(playtestname, meta)) {
-                ed.ListOfMetaData.clear();
-                ed.ListOfMetaData.push_back(meta);
+            cl.loadZips();
+            if (cl.getLevelMetaData(playtestname, meta)) {
+                cl.ListOfMetaData.clear();
+                cl.ListOfMetaData.push_back(meta);
             } else {
                 vlog_error("Level not found");
                 VVV_exit(1);
@@ -638,8 +642,8 @@ int main(int argc, char *argv[])
         }
 
         game.loadcustomlevelstats();
-        game.customleveltitle=ed.ListOfMetaData[game.playcustomlevel].title;
-        game.customlevelfilename=ed.ListOfMetaData[game.playcustomlevel].filename;
+        game.customleveltitle=cl.ListOfMetaData[game.playcustomlevel].title;
+        game.customlevelfilename=cl.ListOfMetaData[game.playcustomlevel].filename;
         if (savefileplaytest) {
             game.playx = savex;
             game.playy = savey;
