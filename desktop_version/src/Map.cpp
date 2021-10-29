@@ -451,9 +451,9 @@ void mapclass::initcustommapdata(void)
 	shinytrinkets.clear();
 
 #if !defined(NO_CUSTOM_LEVELS)
-	for (size_t i = 0; i < edentity.size(); i++)
+	for (size_t i = 0; i < customentities.size(); i++)
 	{
-		const edentities& ent = edentity[i];
+		const CustomEntity& ent = customentities[i];
 		if (ent.t != 9)
 		{
 			continue;
@@ -833,7 +833,7 @@ void mapclass::resetplayer(const bool player_died)
 		obj.entities[i].newyp = obj.entities[i].yp;
 
 		obj.entities[i].dir = game.savedir;
-		obj.entities[i].colour = 0;
+		obj.entities[i].colour = game.savecolour;
 		if (player_died)
 		{
 			game.lifeseq = 10;
@@ -1562,7 +1562,7 @@ void mapclass::loadlevel(int rx, int ry)
 #if !defined(NO_CUSTOM_LEVELS)
 	case 12: //Custom level
 	{
-		const edlevelclass* const room = cl.getroomprop(rx - 100, ry - 100);
+		const RoomProperty* const room = cl.getroomprop(rx - 100, ry - 100);
 		game.customcol = cl.getlevelcol(room->tileset, room->tilecol) + 1;
 		obj.customplatformtile = game.customcol * 12;
 
@@ -1634,10 +1634,10 @@ void mapclass::loadlevel(int rx, int ry)
 		// Entities have to be created HERE, akwardly
 		int tempcheckpoints = 0;
 		int tempscriptbox = 0;
-		for (size_t edi = 0; edi < edentity.size(); edi++)
+		for (size_t edi = 0; edi < customentities.size(); edi++)
 		{
 			// If entity is in this room, create it
-			const edentities& ent = edentity[edi];
+			const CustomEntity& ent = customentities[edi];
 			const int tsx = ent.x / 40;
 			const int tsy = ent.y / 30;
 

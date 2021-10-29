@@ -885,7 +885,7 @@ static void menurender(void)
         case 0:
         {
             //Show teleporter save info
-            graphics.drawpixeltextbox(17, 65-20, 286, 90, 36,12, 65, 185, 207,0,4);
+            graphics.drawpixeltextbox(17, 65-20, 286, 90, 65, 185, 207);
 
             graphics.bigprint(-1, 20, loc::gettext("Tele Save"), tr, tg, tb, true);
             graphics.Print(0, 80-20, game.tele_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true); // TODO LOC. Should translate only at presentation (here), not save to save file, to accomodate language changes. Repeat below
@@ -904,7 +904,7 @@ static void menurender(void)
         case 1:
         {
             //Show quick save info
-            graphics.drawpixeltextbox(17, 65-20, 286, 90, 36,12, 65, 185, 207,0,4);
+            graphics.drawpixeltextbox(17, 65-20, 286, 90, 65, 185, 207);
 
             graphics.bigprint(-1, 20, loc::gettext("Quick Save"), tr, tg, tb, true);
             graphics.Print(0, 80-20, game.quick_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
@@ -2115,7 +2115,7 @@ void maprender(void)
         if (map.finalmode || (map.custommode&&!map.customshowmm))
         {
             //draw the map image
-            graphics.drawpixeltextbox(35, 16, 250, 190, 32,24, 65, 185, 207,4,0);
+            graphics.drawpixeltextbox(35, 16, 250, 190, 65, 185, 207);
             graphics.drawimage(1, 40, 21, false);
             for (int j = 0; j < 20; j++)
             {
@@ -2130,7 +2130,7 @@ void maprender(void)
         else if(map.custommode)
         {
           //draw the map image
-          graphics.drawcustompixeltextbox(35+map.custommmxoff, 16+map.custommmyoff, map.custommmxsize+10, map.custommmysize+10, (map.custommmxsize+10)/8, (map.custommmysize+10)/8, 65, 185, 207,4,0);
+          graphics.drawpixeltextbox(35+map.custommmxoff, 16+map.custommmyoff, map.custommmxsize+10, map.custommmysize+10, 65, 185, 207);
           if (graphics.minimap_mounted)
           {
             graphics.drawpartimage(1, 40+map.custommmxoff, 21+map.custommmyoff, map.custommmxsize, map.custommmysize);
@@ -2247,7 +2247,7 @@ void maprender(void)
         else
         {
             //draw the map image
-            graphics.drawpixeltextbox(35, 16, 250, 190, 32,24, 65, 185, 207,4,0);
+            graphics.drawpixeltextbox(35, 16, 250, 190, 65, 185, 207);
             graphics.drawimage(1, 40, 21, false);
 
             //black out areas we can't see yet
@@ -2576,7 +2576,7 @@ void maprender(void)
             {
                 graphics.PrintWrap(0, 36, loc::gettext("Game saved ok!"), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2), true);
 
-                graphics.drawpixeltextbox(17, 65, 286, 90, 36,12, 65, 185, 207,0,4);
+                graphics.drawpixeltextbox(17, 65, 286, 90, 65, 185, 207);
 
                 if (graphics.flipmode)
                 {
@@ -2619,7 +2619,7 @@ void maprender(void)
             {
                 graphics.PrintWrap(0, 36, loc::gettext("Game saved ok!"), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2), true);
 
-                graphics.drawpixeltextbox(17, 65, 286, 90, 36,12, 65, 185, 207,0,4);
+                graphics.drawpixeltextbox(17, 65, 286, 90, 65, 185, 207);
 
                 if (graphics.flipmode)
                 {
@@ -2817,7 +2817,7 @@ void teleporterrender(void)
     FillRect(graphics.backBuffer, 0, 12, 320, 240, 10, 24, 26);
 
     //draw the map image
-    graphics.drawpixeltextbox(35, 16, 250, 190, 32,24, 65, 185, 207,4,0);
+    graphics.drawpixeltextbox(35, 16, 250, 190, 65, 185, 207);
     graphics.drawimage(1, 40, 21, false);
     //black out areas we can't see yet
     for (int j = 0; j < 20; j++)

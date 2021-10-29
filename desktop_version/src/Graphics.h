@@ -52,7 +52,7 @@ public:
 	void setwarprect(int a, int b, int c, int d);
 
 	void createtextboxreal(
-		std::string t,
+		const std::string& t,
 		int xp,
 		int yp,
 		int r,
@@ -61,7 +61,7 @@ public:
 		bool flipme
 	);
 	void createtextbox(
-		std::string t,
+		const std::string& t,
 		int xp,
 		int yp,
 		int r,
@@ -69,7 +69,7 @@ public:
 		int b
 	);
 	void createtextboxflipme(
-		std::string t,
+		const std::string& t,
 		int xp,
 		int yp,
 		int r,
@@ -87,7 +87,7 @@ public:
 
 	void textboxadjust(void);
 
-	void addline(std::string t);
+	void addline(const std::string& t);
 
 	void textboxtimer(int t);
 
@@ -99,8 +99,7 @@ public:
 
 	void drawtextbox(int x, int y, int w, int h, int r, int g, int b);
 
-	void drawpixeltextbox(int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo);
-	void drawcustompixeltextbox(int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo);
+	void drawpixeltextbox(int x, int y, int w, int h, int r, int g, int b);
 
 	void drawcrewman(int x, int y, int t, bool act, bool noshift =false);
 
@@ -132,9 +131,11 @@ public:
 
 	void map_option(int opt, int num_opts, const std::string& text, bool selected = false);
 
-	void Print(int _x, int _y, std::string _s, int r, int g, int b, bool cen = false);
+	void do_print(int x, int y, const std::string& text, int r, int g, int b, int a, int scale);
 
-	void PrintAlpha(int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen = false);
+	void Print(int _x, int _y, const std::string& _s, int r, int g, int b, bool cen = false);
+
+	void PrintAlpha(int _x, int _y, const std::string& _s, int r, int g, int b, int a, bool cen = false);
 
 	bool next_wrap(size_t* start, size_t* len, const char* str, int maxwidth);
 
@@ -142,19 +143,17 @@ public:
 
 	void PrintWrap(int x, int y, std::string s, int r, int g, int b, bool cen = false, int linespacing = 10, int maxwidth = 304);
 
-	void PrintOffAlpha(int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen = false);
+	void bprint(int x, int y, const std::string& t, int r, int g, int b, bool cen = false);
 
-	void bprint(int x, int y, std::string t, int r, int g, int b, bool cen = false);
+	void bprintalpha(int x, int y, const std::string& t, int r, int g, int b, int a, bool cen = false);
 
-	void bprintalpha(int x, int y, std::string t, int r, int g, int b, int a, bool cen = false);
-
-	int len(std::string t);
+	int len(const std::string& t);
 	std::string string_wordwrap(const std::string& s, int maxwidth, short *lines = NULL);
 	std::string string_wordwrap_balanced(const std::string& s, int minwidth, int maxwidth);
 	std::string string_unwordwrap(const std::string& s);
 
-	void bigprint( int _x, int _y, std::string _s, int r, int g, int b, bool cen = false, int sc = 2 );
-	void bigbprint(int x, int y, std::string s, int r, int g, int b, bool cen = false, int sc = 2);
+	void bigprint( int _x, int _y, const std::string& _s, int r, int g, int b, bool cen = false, int sc = 2 );
+	void bigbprint(int x, int y, const std::string& s, int r, int g, int b, bool cen = false, int sc = 2);
 	void drawspritesetcol(int x, int y, int t, int c);
 
 
@@ -178,8 +177,8 @@ public:
 
 	void drawtrophytext(void);
 
-	void bigrprint(int x, int y, std::string& t, int r, int g, int b, bool cen = false, float sc = 2);
-	void bigbrprint(int x, int y, std::string& t, int r, int g, int b, bool cen = false, float sc = 2);
+	void bigrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen = false, float sc = 2);
+	void bigbrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen = false, float sc = 2);
 
 
 	void drawtele(int x, int y, int t, Uint32 c);

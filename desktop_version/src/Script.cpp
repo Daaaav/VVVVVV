@@ -160,7 +160,7 @@ void scriptclass::run(void)
 			{
 				int temprx=ss_toi(words[1])-1;
 				int tempry=ss_toi(words[2])-1;
-				const edlevelclass* room;
+				const RoomProperty* room;
 				cl.setroomwarpdir(temprx, tempry, ss_toi(words[3]));
 
 				room = cl.getroomprop(temprx, tempry);
@@ -198,7 +198,7 @@ void scriptclass::run(void)
 			}
 			if (words[0] == "ifwarp")
 			{
-				const edlevelclass* const room = cl.getroomprop(ss_toi(words[1])-1, ss_toi(words[2])-1);
+				const RoomProperty* const room = cl.getroomprop(ss_toi(words[1])-1, ss_toi(words[2])-1);
 				if (room->warpdir == ss_toi(words[3]))
 				{
 					load("custom_"+words[4]);
@@ -1118,7 +1118,8 @@ void scriptclass::run(void)
 			{
 				if (words[1] == "teleporter")
 				{
-					game.mapmenuchange(TELEPORTERMODE);
+					game.gamestate = GAMEMODE; /* to set prevgamestate */
+					game.mapmenuchange(TELEPORTERMODE, false);
 
 					game.useteleporter = false; //good heavens don't actually use it
 				}
@@ -1673,6 +1674,10 @@ void scriptclass::run(void)
 				{
 					obj.entities[i].colour = getcolorfromname(words[1]);
 				}
+			}
+			else if (words[0] == "changerespawncolour")
+			{
+				game.savecolour = getcolorfromname(words[1]);
 			}
 			else if (words[0] == "altstates")
 			{
@@ -2881,7 +2886,7 @@ void scriptclass::startgamemode( int t )
 		{
 			for (int i = 0; i < cl.maxwidth; i++)
 			{
-				ed.kludgewarpdir[i+(j*cl.maxwidth)]=cl.level[i+(j*cl.maxwidth)].warpdir;
+				ed.kludgewarpdir[i+(j*cl.maxwidth)]=cl.roomproperties[i+(j*cl.maxwidth)].warpdir;
 			}
 		}
 		game.customstart();
@@ -3161,6 +3166,7 @@ void scriptclass::hardreset(void)
 		game.saverx = 0;
 		game.savery = 0;
 	}
+	game.savecolour = 0;
 
 	game.intimetrial = false;
 	game.timetrialcountdown = 0;

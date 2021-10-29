@@ -157,6 +157,7 @@ void Game::init(void)
     prevroomy = 0;
     saverx = 0;
     savery = 0;
+    savecolour = 0;
 
     mutebutton = 0;
     muted = false;
@@ -789,6 +790,10 @@ void Game::updatestate(void)
             if (!map.custommode && nocompetitive())
             {
                 returntolab();
+
+                startscript = true;
+                newscript = "disableaccessibility";
+
                 state = 0;
                 break;
             }
@@ -4317,7 +4322,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
     }
 }
 
-bool Game::savestats(void)
+bool Game::savestats(bool sync /*= true*/)
 {
     if (graphics.screenbuffer == NULL)
     {
@@ -4327,10 +4332,10 @@ bool Game::savestats(void)
     ScreenSettings screen_settings;
     graphics.screenbuffer->GetSettings(&screen_settings);
 
-    return savestats(&screen_settings);
+    return savestats(&screen_settings, sync);
 }
 
-bool Game::savestats(const ScreenSettings* screen_settings)
+bool Game::savestats(const ScreenSettings* screen_settings, bool sync /*= true*/)
 {
     tinyxml2::XMLDocument doc;
     bool already_exists = FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc);
@@ -4411,12 +4416,12 @@ bool Game::savestats(const ScreenSettings* screen_settings)
 
     serializesettings(dataNode, screen_settings);
 
-    return FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc);
+    return FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc, sync);
 }
 
 bool Game::savestatsandsettings(void)
 {
-    const bool stats_saved = savestats();
+    const bool stats_saved = savestats(false);
 
     const bool settings_saved = savesettings();
 
@@ -5015,7 +5020,7 @@ void Game::readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc)
 
 }
 
-void Game::customloadquick(std::string savfile)
+void Game::customloadquick(const std::string& savfile)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -5124,6 +5129,10 @@ void Game::customloadquick(std::string savfile)
         else if (SDL_strcmp(pKey, "savepoint") == 0)
         {
             savepoint = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "savecolour") == 0)
+        {
+            savecolour = help.Int(pText);
         }
         else if (SDL_strcmp(pKey, "companion") == 0)
         {
@@ -5544,7 +5553,7 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
 }
 
 
-bool Game::customsavequick(std::string savfile)
+bool Game::customsavequick(const std::string& savfile)
 {
     const std::string levelfile = savfile.substr(7);
 
@@ -5628,6 +5637,8 @@ bool Game::customsavequick(std::string savfile)
     xml::update_tag(msgs, "savedir", savedir);
 
     xml::update_tag(msgs, "savepoint", savepoint);
+
+    xml::update_tag(msgs, "savecolour", savecolour);
 
     xml::update_tag(msgs, "trinkets", trinkets());
 
@@ -6811,7 +6822,7 @@ void Game::returntoeditor(void)
     {
         for (int i = 0; i < cl.maxwidth; i++)
         {
-           cl.level[i+(j*cl.maxwidth)].warpdir=ed.kludgewarpdir[i+(j*cl.maxwidth)];
+           cl.roomproperties[i+(j*cl.maxwidth)].warpdir=ed.kludgewarpdir[i+(j*cl.maxwidth)];
         }
     }
     graphics.titlebg.scrolldir = 0;
@@ -6880,8 +6891,13 @@ void Game::unlockAchievement(const char *name) {
 #endif
 }
 
-void Game::mapmenuchange(const int newgamestate)
+void Game::mapmenuchange(const int newgamestate, const bool user_initiated)
 {
+    if (user_initiated && graphics.resumegamemode)
+    {
+        return;
+    }
+
     prevgamestate = gamestate;
     gamestate = newgamestate;
     graphics.resumegamemode = false;
@@ -6890,10 +6906,6 @@ void Game::mapmenuchange(const int newgamestate)
     if (prevgamestate == GAMEMODE)
     {
         graphics.menuoffset = 240;
-        if (map.extrarow)
-        {
-            graphics.menuoffset -= 10;
-        }
     }
     else
     {

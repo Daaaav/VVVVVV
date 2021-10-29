@@ -474,44 +474,84 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
     }
 }
 
-void Graphics::Print( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ ) {
-    return PrintAlpha(_x,_y,_s,r,g,b,255,cen);
+static void print_char(
+    SDL_Surface* const buffer,
+    SDL_Surface* const font,
+    const int x,
+    const int y,
+    const int scale,
+    colourTransform& ct
+) {
+    SDL_Rect font_rect = {x, y, 8*scale, 8*scale};
+    SDL_Surface* surface;
+
+    if (scale > 1)
+    {
+        surface = ScaleSurface(font, 8 * scale, 8 * scale);
+        if (surface == NULL)
+        {
+            return;
+        }
+    }
+    else
+    {
+        surface = font;
+    }
+
+    BlitSurfaceColoured(surface, NULL, buffer, &font_rect, ct);
+
+    if (scale > 1)
+    {
+        SDL_FreeSurface(surface);
+    }
 }
 
-void Graphics::PrintAlpha( int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen /*= false*/ )
-{
+void Graphics::do_print(
+    const int x,
+    const int y,
+    const std::string& text,
+    int r,
+    int g,
+    int b,
+    int a,
+    const int scale
+) {
     std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
 
-    r = clamp(r,0,255);
-    g = clamp(g,0,255);
-    b = clamp(b,0,255);
-    a = clamp(a,0,255);
+    int position = 0;
+    std::string::const_iterator iter = text.begin();
+
+    r = clamp(r, 0, 255);
+    g = clamp(g, 0, 255);
+    b = clamp(b, 0, 255);
+    a = clamp(a, 0, 255);
 
     ct.colour = getRGBA(r, g, b, a);
 
-    if (cen)
-        _x = ((160 ) - ((len(_s)) / 2));
-    int bfontpos = 0;
-    int curr;
-    int idx;
-    std::string::iterator iter = _s.begin();
-    while (iter != _s.end()) {
-        curr = utf8::unchecked::next(iter);
-        point tpoint;
-        tpoint.x = _x + bfontpos;
-        tpoint.y = _y;
+    while (iter != text.end())
+    {
+        const uint32_t character = utf8::unchecked::next(iter);
+        const int idx = font_idx(character);
 
-        SDL_Rect fontRect = bfont_rect;
-        fontRect.x = tpoint.x ;
-        fontRect.y = tpoint.y ;
-
-        idx = font_idx(curr);
         if (INBOUNDS_VEC(idx, font))
         {
-            BlitSurfaceColoured( font[idx], NULL, backBuffer, &fontRect , ct);
+            print_char(backBuffer, font[idx], x + position, y, scale, ct);
         }
-        bfontpos+=bfontlen(curr) ;
+
+        position += bfontlen(character) * scale;
     }
+}
+
+void Graphics::Print( int _x, int _y, const std::string& _s, int r, int g, int b, bool cen /*= false*/ ) {
+    return PrintAlpha(_x,_y,_s,r,g,b,255,cen);
+}
+
+void Graphics::PrintAlpha( int _x, int _y, const std::string& _s, int r, int g, int b, int a, bool cen /*= false*/ )
+{
+    if (cen)
+        _x = ((160 ) - ((len(_s)) / 2));
+
+    return do_print(_x, _y, _s, r, g, b, a, 1);
 }
 
 bool Graphics::next_wrap(
@@ -632,41 +672,17 @@ void Graphics::PrintWrap(
 }
 
 
-void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, bool cen, int sc )
+void Graphics::bigprint(  int _x, int _y, const std::string& _s, int r, int g, int b, bool cen, int sc )
 {
-    std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
-
-    r = clamp(r,0,255);
-    g = clamp(g,0,255);
-    b = clamp(b,0,255);
-
-    ct.colour = getRGB(r, g, b);
-
     if (cen)
     {
         _x = VVV_max(160 - (int((len(_s)/ 2.0)*sc)), 0 );
     }
 
-    int bfontpos = 0;
-    int curr;
-    int idx;
-    std::string::iterator iter = _s.begin();
-    while (iter != _s.end()) {
-        curr = utf8::unchecked::next(iter);
-
-        idx = font_idx(curr);
-        if (INBOUNDS_VEC(idx, font))
-        {
-            SDL_Surface* tempPrint = ScaleSurface(font[idx], font[idx]->w *sc,font[idx]->h *sc);
-            SDL_Rect printrect = {_x + bfontpos, _y, bfont_rect.w*sc + 1, bfont_rect.h*sc + 1};
-            BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
-            SDL_FreeSurface(tempPrint);
-        }
-        bfontpos+=bfontlen(curr) *sc;
-    }
+    return do_print(_x, _y, _s, r, g, b, 255, sc);
 }
 
-void Graphics::bigbprint(int x, int y, std::string s, int r, int g, int b, bool cen, int sc)
+void Graphics::bigbprint(int x, int y, const std::string& s, int r, int g, int b, bool cen, int sc)
 {
     if (!notextoutline)
     {
@@ -688,10 +704,10 @@ void Graphics::bigbprint(int x, int y, std::string s, int r, int g, int b, bool 
     bigprint(x, y, s, r, g, b, cen, sc);
 }
 
-int Graphics::len(std::string t)
+int Graphics::len(const std::string& t)
 {
     int bfontpos = 0;
-    std::string::iterator iter = t.begin();
+    std::string::const_iterator iter = t.begin();
     while (iter != t.end()) {
         int cur = utf8::unchecked::next(iter);
         bfontpos += bfontlen(cur);
@@ -891,19 +907,20 @@ void Graphics::PrintOffAlpha( int _x, int _y, std::string _s, int r, int g, int 
     }
 }
 
-void Graphics::bprint( int x, int y, std::string t, int r, int g, int b, bool cen /*= false*/ ) {
+void Graphics::bprint( int x, int y, const std::string& t, int r, int g, int b, bool cen /*= false*/ ) {
     bprintalpha(x,y,t,r,g,b,255,cen);
 }
 
-void Graphics::bprintalpha( int x, int y, std::string t, int r, int g, int b, int a, bool cen /*= false*/ )
+void Graphics::bprintalpha( int x, int y, const std::string& t, int r, int g, int b, int a, bool cen /*= false*/ )
 {
     if (!notextoutline)
     {
         PrintAlpha(x, y - 1, t, 0, 0, 0, a, cen);
         if (cen)
         {
-            PrintOffAlpha(-1, y, t, 0, 0, 0, a, cen);
-            PrintOffAlpha(1, y, t, 0, 0, 0, a, cen);
+            const int x_cen = 160 - len(t)/2;
+            PrintAlpha(x_cen - 1, y, t, 0, 0, 0, a, cen);
+            PrintAlpha(x_cen + 1, y, t, 0, 0, 0, a, cen);
         }
         else
         {
@@ -1124,6 +1141,8 @@ void Graphics::drawgui(void)
     int text_sign;
     int crew_yp;
     int crew_sprite;
+    size_t i;
+
     if (flipmode)
     {
         text_sign = -1;
@@ -1138,7 +1157,7 @@ void Graphics::drawgui(void)
     }
 
     //Draw all the textboxes to the screen
-    for (size_t i = 0; i<textbox.size(); i++)
+    for (i = 0; i<textbox.size(); i++)
     {
         int text_yoff;
         int yp;
@@ -1158,41 +1177,27 @@ void Graphics::drawgui(void)
             yp += 2 * (120 - yp) - 8 * (textbox[i].line.size() + 2);
         }
 
-        //This routine also updates textbox colors
-        float tl_lerp = lerp(textbox[i].prev_tl, textbox[i].tl);
-        textbox[i].setcol(textbox[i].tr * tl_lerp, textbox[i].tg * tl_lerp, textbox[i].tb * tl_lerp);
-
-        if (textbox[i].tr == 0 && textbox[i].tg == 0 && textbox[i].tb == 0)
+        if (textbox[i].r == 0 && textbox[i].g == 0 && textbox[i].b == 0)
         {
-            for (size_t j = 0; j < textbox[i].line.size(); j++)
+            size_t j;
+            for (j = 0; j < textbox[i].line.size(); j++)
             {
                 bprint(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
             }
         }
         else
         {
-            SDL_Rect textrect = {textbox[i].xp, yp, textbox[i].w, textbox[i].h};
+            const float tl_lerp = lerp(textbox[i].prev_tl, textbox[i].tl);
+            const int r = textbox[i].r * tl_lerp;
+            const int g = textbox[i].g * tl_lerp;
+            const int b = textbox[i].b * tl_lerp;
+            size_t j;
 
-            FillRect(backBuffer, textrect, textbox[i].r/6, textbox[i].g/6, textbox[i].b / 6 );
+            drawtextbox(textbox[i].xp, yp, textbox[i].w/8, textbox[i].h/8, r, g, b);
 
-            drawcoloredtile(textbox[i].xp, yp, 40, textbox[i].r, textbox[i].g, textbox[i].b);
-            drawcoloredtile(textbox[i].xp+textbox[i].w-8, yp, 42, textbox[i].r, textbox[i].g, textbox[i].b);
-            drawcoloredtile(textbox[i].xp, yp+textbox[i].h-8, 45, textbox[i].r, textbox[i].g, textbox[i].b);
-            drawcoloredtile(textbox[i].xp+textbox[i].w-8, yp+textbox[i].h-8, 47, textbox[i].r, textbox[i].g, textbox[i].b);
-            for (int k = 0; k < textbox[i].lw; k++)
+            for (j = 0; j < textbox[i].line.size(); j++)
             {
-                drawcoloredtile(textbox[i].xp + 8 + (k * 8), yp, 41, textbox[i].r, textbox[i].g, textbox[i].b);
-                drawcoloredtile(textbox[i].xp + 8 + (k * 8), yp+textbox[i].h-8, 46, textbox[i].r, textbox[i].g, textbox[i].b);
-            }
-            for (size_t k = 0; k < textbox[i].line.size(); k++)
-            {
-                drawcoloredtile(textbox[i].xp, yp + 8 + (k * 8), 43, textbox[i].r, textbox[i].g, textbox[i].b);
-                drawcoloredtile(textbox[i].xp + textbox[i].w-8, yp + 8 + (k * 8), 44, textbox[i].r, textbox[i].g, textbox[i].b);
-            }
-
-            for (size_t j = 0; j < textbox[i].line.size(); j++)
-            {
-                Print(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
+                Print(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], r, g, b);
             }
         }
 
@@ -1203,7 +1208,7 @@ void Graphics::drawgui(void)
             continue;
         }
 
-        if (textbox[i].yp == 12 && textbox[i].tr == 165)
+        if (textbox[i].yp == 12 && textbox[i].r == 165)
         {
             if (flipmode)
             {
@@ -1214,7 +1219,7 @@ void Graphics::drawgui(void)
                 drawimage(0, 0, 12, true);
             }
         }
-        else if (textbox[i].yp == 12 && textbox[i].tg == 165)
+        else if (textbox[i].yp == 12 && textbox[i].g == 165)
         {
             if (flipmode)
             {
@@ -1225,27 +1230,27 @@ void Graphics::drawgui(void)
                 drawimage(4, 0, 12, true);
             }
         }
-        if (textbox[i].tr == 175 && textbox[i].tg == 175)
+        if (textbox[i].r == 175 && textbox[i].g == 175)
         {
             //purple guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textbox[i].rand, 120- help.glow/4, 210 - help.glow/4);
         }
-        else if (textbox[i].tr == 175 && textbox[i].tb == 175)
+        else if (textbox[i].r == 175 && textbox[i].b == 175)
         {
             //red guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
         }
-        else if (textbox[i].tr == 175)
+        else if (textbox[i].r == 175)
         {
             //green guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 120 - help.glow / 4 - textbox[i].rand, 220 - help.glow / 4, 120 - help.glow / 4);
         }
-        else if (textbox[i].tg == 175)
+        else if (textbox[i].g == 175)
         {
             //yellow guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textbox[i].rand, 210 - help.glow/4, 120- help.glow/4);
         }
-        else if (textbox[i].tb == 175)
+        else if (textbox[i].b == 175)
         {
             //blue guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - textbox[i].rand);
@@ -1267,11 +1272,11 @@ void Graphics::updatetextboxes(void)
         }
 
         if (textbox[i].tl >= 1.0f
-        && ((textbox[i].tr == 175 && textbox[i].tg == 175)
-        || textbox[i].tr == 175
-        || textbox[i].tg == 175
-        || textbox[i].tb == 175)
-        && (textbox[i].tr != 175 || textbox[i].tb != 175))
+        && ((textbox[i].r == 175 && textbox[i].g == 175)
+        || textbox[i].r == 175
+        || textbox[i].g == 175
+        || textbox[i].b == 175)
+        && (textbox[i].r != 175 || textbox[i].b != 175))
         {
             textbox[i].rand = fRandom() * 20;
         }
@@ -1460,87 +1465,64 @@ void Graphics::drawcrewman( int x, int y, int t, bool act, bool noshift /*=false
     }
 }
 
-void Graphics::drawpixeltextbox( int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo )
-{
-    //given these parameters, draw a textbox with a pixel width
+void Graphics::drawpixeltextbox(
+    const int x,
+    const int y,
+    const int w,
+    const int h,
+    const int r,
+    const int g,
+    const int b
+) {
+    int k;
 
-    //madrect.x = x; madrect.y = y; madrect.w = w; madrect.h = h;
-    FillRect(backBuffer,x,y,w,h, r/6, g/6, b/6 );
+    FillRect(backBuffer, x, y, w, h, r/6, g/6, b/6);
 
-    for (int k = 0; k < w2-2; k++)
+    /* Horizontal tiles */
+    for (k = 0; k < w/8 - 2; ++k)
     {
-        drawcoloredtile(x + 8-xo + (k * 8), y, 41, r, g, b);
-        drawcoloredtile(x + 8-xo + (k * 8), y + (h) - 8, 46, r, g, b);
+        drawcoloredtile(x + 8 + k*8, y, 41, r, g, b);
+        drawcoloredtile(x + 8 + k*8, y + h - 8, 46, r, g, b);
     }
 
-    for (int k = 0; k < h2-2; k++)
+    if (w % 8 != 0)
     {
-        drawcoloredtile(x, y + 8-yo + (k * 8), 43, r, g, b);
-        drawcoloredtile(x + (w) - 8, y + 8-yo + (k * 8), 44, r, g, b);
+        /* Fill in horizontal gap */
+        drawcoloredtile(x + w - 16, y, 41, r, g, b);
+        drawcoloredtile(x + w - 16, y + h - 8, 46, r, g, b);
     }
 
+    /* Vertical tiles */
+    for (k = 0; k < h/8 - 2; ++k)
+    {
+        drawcoloredtile(x, y + 8 + k*8, 43, r, g, b);
+        drawcoloredtile(x + w - 8, y + 8 + k*8, 44, r, g, b);
+    }
+
+    if (h % 8 != 0)
+    {
+        /* Fill in vertical gap */
+        drawcoloredtile(x, y + h - 16, 43, r, g, b);
+        drawcoloredtile(x + w - 8, y + h - 16, 44, r, g, b);
+    }
+
+    /* Corners */
     drawcoloredtile(x, y, 40, r, g, b);
-    drawcoloredtile(x + (w) - 8, y, 42, r, g, b);
-    drawcoloredtile(x, y + (h) - 8, 45, r, g, b);
-    drawcoloredtile(x + (w) - 8, y + (h) - 8, 47, r, g, b);
+    drawcoloredtile(x + w - 8, y, 42, r, g, b);
+    drawcoloredtile(x, y + h - 8, 45, r, g, b);
+    drawcoloredtile(x + w - 8, y + h - 8, 47, r, g, b);
 }
 
-void Graphics::drawcustompixeltextbox( int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo )
-{
-    //given these parameters, draw a textbox with a pixel width
-
-    FillRect(backBuffer,x,y,w,h, r/6, g/6, b/6 );
-
-    for (int k = 0; k < w2-2; k++)
-    {
-        drawcoloredtile(x + 8-xo + (k * 8), y, 41, r, g, b);
-        drawcoloredtile(x + 8-xo + (k * 8), y + (h) - 8, 46, r, g, b);
-    }
-
-
-    drawcoloredtile(x+ (w) - 16, y, 41, r, g, b);
-    drawcoloredtile(x+ (w) - 16, y + (h) - 8, 46, r, g, b);
-    drawcoloredtile(x+ (w) - 24, y, 41, r, g, b);
-    drawcoloredtile(x+ (w) - 24, y + (h) - 8, 46, r, g, b);
-
-    for (int k = 0; k < h2-2; k++)
-    {
-        drawcoloredtile(x, y + 8-yo + (k * 8), 43, r, g, b);
-        drawcoloredtile(x + (w) - 8, y + 8-yo + (k * 8), 44, r, g, b);
-    }
-
-    drawcoloredtile(x, y + (h) - 16, 43, r, g, b);
-    drawcoloredtile(x + (w) - 8, y + (h) - 16, 44, r, g, b);
-    drawcoloredtile(x, y + (h) - 24, 43, r, g, b);
-    drawcoloredtile(x + (w) - 8, y + (h) - 24, 44, r, g, b);
-
-    drawcoloredtile(x, y, 40, r, g, b);
-    drawcoloredtile(x + (w) - 8, y, 42, r, g, b);
-    drawcoloredtile(x, y + (h) - 8, 45, r, g, b);
-    drawcoloredtile(x + (w) - 8, y + (h) - 8, 47, r, g, b);
-}
-
-void Graphics::drawtextbox( int x, int y, int w, int h, int r, int g, int b )
-{
-    //given these parameters, draw a textbox
-    FillRect(backBuffer,x,y,w*8,h*8, r/6, g/6, b/6 );
-
-    drawcoloredtile(x, y, 40, r, g, b);
-    drawcoloredtile(x + (w*8) - 8, y, 42, r, g, b);
-    drawcoloredtile(x, y + (h*8) - 8, 45, r, g, b);
-    drawcoloredtile(x + (w*8) - 8, y + (h*8) - 8, 47, r, g, b);
-
-    for (int k = 0; k < w-2; k++)
-    {
-        drawcoloredtile(x + 8 + (k * 8), y, 41, r, g, b);
-        drawcoloredtile(x + 8 + (k * 8), y + (h * 8) - 8, 46, r, g, b);
-    }
-
-    for (int k = 0; k < h-2; k++)
-    {
-        drawcoloredtile(x, y + 8 + (k * 8), 43, r, g, b);
-        drawcoloredtile(x + (w * 8) - 8, y + 8 + (k * 8), 44, r, g, b);
-    }
+void Graphics::drawtextbox(
+    const int x,
+    const int y,
+    const int w,
+    const int h,
+    const int r,
+    const int g,
+    const int b
+) {
+    return drawpixeltextbox(x, y, w*8, h*8, r, g, b);
 }
 
 void Graphics::textboxactive(void)
@@ -1581,7 +1563,7 @@ void Graphics::textboxtimer( int t )
     textbox[m].timer=t;
 }
 
-void Graphics::addline( std::string t )
+void Graphics::addline( const std::string& t )
 {
     if (!INBOUNDS_VEC(m, textbox))
     {
@@ -1605,7 +1587,7 @@ void Graphics::textboxadjust(void)
 
 
 void Graphics::createtextboxreal(
-    std::string t,
+    const std::string& t,
     int xp,
     int yp,
     int r,
@@ -1631,7 +1613,7 @@ void Graphics::createtextboxreal(
 }
 
 void Graphics::createtextbox(
-    std::string t,
+    const std::string& t,
     int xp,
     int yp,
     int r,
@@ -1642,7 +1624,7 @@ void Graphics::createtextbox(
 }
 
 void Graphics::createtextboxflipme(
-    std::string t,
+    const std::string& t,
     int xp,
     int yp,
     int r,
@@ -1804,17 +1786,24 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
 }
 
 
-void Graphics::drawcoloredtile( int x, int y, int t, int r, int g, int b )
-{
+void Graphics::drawcoloredtile(
+    const int x,
+    const int y,
+    const int t,
+    const int r,
+    const int g,
+    const int b
+) {
+    SDL_Rect rect;
+
     if (!INBOUNDS_VEC(t, tiles))
     {
         return;
     }
-    setcolreal(getRGB(r,g,b));
 
-    SDL_Rect rect;
-    setRect(rect,x,y,tiles_rect.w,tiles_rect.h);
-    BlitSurfaceColoured(tiles[t],NULL, backBuffer, &rect, ct );
+    setcolreal(getRGB(r, g, b));
+    setRect(rect, x, y, tiles_rect.w, tiles_rect.h);
+    BlitSurfaceColoured(tiles[t], NULL, backBuffer, &rect, ct);
 }
 
 
@@ -2050,7 +2039,7 @@ void Graphics::drawentity(const int i, const int yoff)
 
 #if !defined(NO_CUSTOM_LEVELS)
     // Special case for gray Warp Zone tileset!
-    const edlevelclass* const room = cl.getroomprop(game.roomx - 100, game.roomy - 100);
+    const RoomProperty* const room = cl.getroomprop(game.roomx - 100, game.roomy - 100);
     const bool custom_gray = room->tileset == 3 && room->tilecol == 6;
 #else
     const bool custom_gray = false;
@@ -3384,15 +3373,8 @@ void Graphics::renderfixedpost(void)
 	}
 }
 
-void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool cen, float sc)
+void Graphics::bigrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen, float sc)
 {
-	std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
-
-	r = clamp(r, 0, 255);
-	g = clamp(g, 0, 255);
-	b = clamp(b, 0, 255);
-	ct.colour = getRGB(r, g, b);
-
 	x = x /  (sc);
 
 	x -= (len(t));
@@ -3406,25 +3388,10 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 		x *=  (sc);
 	}
 
-	int bfontpos = 0;
-	int cur;
-	int idx;
-	std::string::iterator iter = t.begin();
-	while (iter != t.end()) {
-		cur = utf8::unchecked::next(iter);
-		idx = font_idx(cur);
-		if (INBOUNDS_VEC(idx, font))
-		{
-			SDL_Surface* tempPrint = ScaleSurface(font[idx], font[idx]->w *sc,font[idx]->h *sc);
-			SDL_Rect printrect = {x + bfontpos, y, (int) (bfont_rect.w * sc), (int) (bfont_rect.h * sc)};
-			BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
-			SDL_FreeSurface(tempPrint);
-		}
-		bfontpos+=bfontlen(cur)* sc;
-	}
+	return do_print(x, y, t, r, g, b, 255, sc);
 }
 
-void Graphics::bigbrprint(int x, int y, std::string& s, int r, int g, int b, bool cen, float sc)
+void Graphics::bigbrprint(int x, int y, const std::string& s, int r, int g, int b, bool cen, float sc)
 {
 	if (!notextoutline)
 	{

@@ -6725,6 +6725,26 @@ void scriptclass::load(const std::string& name)
         };
         filllines(lines);
     }
+    else if (SDL_strcmp(t, "disableaccessibility") == 0)
+    {
+        static const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+
+        "squeak(terminal)",
+        "text(gray,0,114,3)",
+        "Please disable invincibility",
+        "and/or slowdown before entering",
+        "the Super Gravitron.",
+        "position(center)",
+        "speak",
+
+        "endtext",
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
+    }
     else
     {
         loadother(t);

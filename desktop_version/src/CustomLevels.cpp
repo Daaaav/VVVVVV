@@ -36,7 +36,7 @@
 #include <inttypes.h>
 #endif
 
-edlevelclass::edlevelclass(void)
+RoomProperty::RoomProperty(void)
 {
     tileset=0;
     tilecol=0;
@@ -268,7 +268,7 @@ void customlevelclass::getDirectoryData(void)
     }
 
 }
-bool customlevelclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
+bool customlevelclass::getLevelMetaData(const std::string& _path, LevelMetaData& _data )
 {
     unsigned char *uMem;
     FILESYSTEM_loadFileToMemory(_path.c_str(), &uMem, NULL, true);
@@ -307,33 +307,33 @@ void customlevelclass::reset(void)
     mapwidth=5;
     mapheight=5;
 
-    EditorData::GetInstance().title="Untitled Level"; // Already translatable
-    EditorData::GetInstance().creator="Unknown";
+    title="Untitled Level"; // Already translatable
+    creator="Unknown";
 
     levmusic=0;
 
-    edentity.clear();
+    customentities.clear();
     levmusic=0;
 
     for (int j = 0; j < maxheight; j++)
     {
         for (int i = 0; i < maxwidth; i++)
         {
-            level[i+(j*maxwidth)].tileset=0;
-            level[i+(j*maxwidth)].tilecol=(i+j)%32;
-            level[i+(j*maxwidth)].roomname="";
-            level[i+(j*maxwidth)].warpdir=0;
-            level[i+(j*maxwidth)].platx1=0;
-            level[i+(j*maxwidth)].platy1=0;
-            level[i+(j*maxwidth)].platx2=320;
-            level[i+(j*maxwidth)].platy2=240;
-            level[i+(j*maxwidth)].platv=4;
-            level[i+(j*maxwidth)].enemyx1=0;
-            level[i+(j*maxwidth)].enemyy1=0;
-            level[i+(j*maxwidth)].enemyx2=320;
-            level[i+(j*maxwidth)].enemyy2=240;
-            level[i+(j*maxwidth)].enemytype=0;
-            level[i+(j*maxwidth)].directmode=0;
+            roomproperties[i+(j*maxwidth)].tileset=0;
+            roomproperties[i+(j*maxwidth)].tilecol=(i+j)%32;
+            roomproperties[i+(j*maxwidth)].roomname="";
+            roomproperties[i+(j*maxwidth)].warpdir=0;
+            roomproperties[i+(j*maxwidth)].platx1=0;
+            roomproperties[i+(j*maxwidth)].platy1=0;
+            roomproperties[i+(j*maxwidth)].platx2=320;
+            roomproperties[i+(j*maxwidth)].platy2=240;
+            roomproperties[i+(j*maxwidth)].platv=4;
+            roomproperties[i+(j*maxwidth)].enemyx1=0;
+            roomproperties[i+(j*maxwidth)].enemyy1=0;
+            roomproperties[i+(j*maxwidth)].enemyx2=320;
+            roomproperties[i+(j*maxwidth)].enemyy2=240;
+            roomproperties[i+(j*maxwidth)].enemytype=0;
+            roomproperties[i+(j*maxwidth)].directmode=0;
         }
     }
 
@@ -486,7 +486,7 @@ int customlevelclass::getenemycol(int t)
 
 int customlevelclass::getwarpbackground(int rx, int ry)
 {
-    const edlevelclass* const room = getroomprop(rx, ry);
+    const RoomProperty* const room = getroomprop(rx, ry);
     switch(room->tileset)
     {
     case 0: //Space Station
@@ -808,16 +808,16 @@ int customlevelclass::getroompropidx(const int rx, const int ry)
     return rx + ry*maxwidth;
 }
 
-const edlevelclass* customlevelclass::getroomprop(const int rx, const int ry)
+const RoomProperty* customlevelclass::getroomprop(const int rx, const int ry)
 {
     const int idx = getroompropidx(rx, ry);
 
-    if (INBOUNDS_ARR(idx, level))
+    if (INBOUNDS_ARR(idx, roomproperties))
     {
-        return &level[idx];
+        return &roomproperties[idx];
     }
 
-    static edlevelclass blank;
+    static RoomProperty blank;
     blank.tileset = 1;
     blank.directmode = 1;
     blank.roomname.clear();
@@ -830,12 +830,12 @@ void customlevelclass::setroom##NAME(const int rx, const int ry, const TYPE NAME
 { \
     const int idx = getroompropidx(rx, ry); \
     \
-    if (!INBOUNDS_ARR(idx, level)) \
+    if (!INBOUNDS_ARR(idx, roomproperties)) \
     { \
         return; \
     } \
     \
-    level[idx].NAME = NAME; \
+    roomproperties[idx].NAME = NAME; \
 }
 
 ROOM_PROPERTIES
@@ -872,10 +872,10 @@ void customlevelclass::findstartpoint(void)
     //Ok! Scan the room for the closest checkpoint
     int testeditor=-1;
     //First up; is there a start point on this screen?
-    for(size_t i=0; i<edentity.size(); i++)
+    for(size_t i=0; i<customentities.size(); i++)
     {
         //if() on screen
-        if(edentity[i].t==16 && testeditor==-1)
+        if(customentities[i].t==16 && testeditor==-1)
         {
             testeditor=i;
         }
@@ -894,25 +894,25 @@ void customlevelclass::findstartpoint(void)
     else
     {
         //Start point spawn
-        int tx=(edentity[testeditor].x-(edentity[testeditor].x%40))/40;
-        int ty=(edentity[testeditor].y-(edentity[testeditor].y%30))/30;
-        game.edsavex = ((edentity[testeditor].x%40)*8)-4;
-        game.edsavey = (edentity[testeditor].y%30)*8;
+        int tx=(customentities[testeditor].x-(customentities[testeditor].x%40))/40;
+        int ty=(customentities[testeditor].y-(customentities[testeditor].y%30))/30;
+        game.edsavex = ((customentities[testeditor].x%40)*8)-4;
+        game.edsavey = (customentities[testeditor].y%30)*8;
         game.edsaverx = 100+tx;
         game.edsavery = 100+ty;
         game.edsavegc = 0;
         game.edsavey++;
-        game.edsavedir=1-edentity[testeditor].p1;
+        game.edsavedir=1-customentities[testeditor].p1;
     }
 }
 
 int customlevelclass::findtrinket(int t)
 {
     int ttrinket=0;
-    for(int i=0; i<(int)edentity.size(); i++)
+    for(int i=0; i<(int)customentities.size(); i++)
     {
         if(i==t) return ttrinket;
-        if(edentity[i].t==9) ttrinket++;
+        if(customentities[i].t==9) ttrinket++;
     }
     return 0;
 }
@@ -920,10 +920,10 @@ int customlevelclass::findtrinket(int t)
 int customlevelclass::findcrewmate(int t)
 {
     int ttrinket=0;
-    for(int i=0; i<(int)edentity.size(); i++)
+    for(int i=0; i<(int)customentities.size(); i++)
     {
         if(i==t) return ttrinket;
-        if(edentity[i].t==15) ttrinket++;
+        if(customentities[i].t==15) ttrinket++;
     }
     return 0;
 }
@@ -931,10 +931,10 @@ int customlevelclass::findcrewmate(int t)
 int customlevelclass::findwarptoken(int t)
 {
     int ttrinket=0;
-    for(int i=0; i<(int)edentity.size(); i++)
+    for(int i=0; i<(int)customentities.size(); i++)
     {
         if(i==t) return ttrinket;
-        if(edentity[i].t==13) ttrinket++;
+        if(customentities[i].t==13) ttrinket++;
     }
     return 0;
 }
@@ -1014,12 +1014,12 @@ bool customlevelclass::load(std::string& _path)
 
                 if(SDL_strcmp(pKey_, "Creator") == 0)
                 {
-                    EditorData::GetInstance().creator = pText_;
+                    creator = pText_;
                 }
 
                 if(SDL_strcmp(pKey_, "Title") == 0)
                 {
-                    EditorData::GetInstance().title = pText_;
+                    title = pText_;
                 }
 
                 if(SDL_strcmp(pKey_, "Desc1") == 0)
@@ -1095,7 +1095,7 @@ bool customlevelclass::load(std::string& _path)
         {
             for( tinyxml2::XMLElement* edEntityEl = pElem->FirstChildElement(); edEntityEl; edEntityEl=edEntityEl->NextSiblingElement())
             {
-                edentities entity = edentities();
+                CustomEntity entity = CustomEntity();
                 const char* text = edEntityEl->GetText();
 
                 if (text != NULL)
@@ -1152,7 +1152,7 @@ bool customlevelclass::load(std::string& _path)
                 edEntityEl->QueryIntAttribute("p5", &entity.p5);
                 edEntityEl->QueryIntAttribute("p6", &entity.p6);
 
-                edentity.push_back(entity);
+                customentities.push_back(entity);
             }
         }
 
@@ -1161,31 +1161,31 @@ bool customlevelclass::load(std::string& _path)
             int i = 0;
             for( tinyxml2::XMLElement* edLevelClassElement = pElem->FirstChildElement(); edLevelClassElement; edLevelClassElement=edLevelClassElement->NextSiblingElement())
             {
-                if (!INBOUNDS_ARR(i, level))
+                if (!INBOUNDS_ARR(i, roomproperties))
                 {
                     continue;
                 }
 
                 if(edLevelClassElement->GetText() != NULL)
                 {
-                    level[i].roomname = std::string(edLevelClassElement->GetText()) ;
+                    roomproperties[i].roomname = std::string(edLevelClassElement->GetText()) ;
                 }
 
-                edLevelClassElement->QueryIntAttribute("tileset", &level[i].tileset);
-                edLevelClassElement->QueryIntAttribute("tilecol", &level[i].tilecol);
-                edLevelClassElement->QueryIntAttribute("platx1", &level[i].platx1);
-                edLevelClassElement->QueryIntAttribute("platy1", &level[i].platy1);
-                edLevelClassElement->QueryIntAttribute("platx2", &level[i].platx2);
-                edLevelClassElement->QueryIntAttribute("platy2", &level[i].platy2);
-                edLevelClassElement->QueryIntAttribute("platv", &level[i].platv);
-                edLevelClassElement->QueryIntAttribute("enemyx1", &level[i].enemyx1);
-                edLevelClassElement->QueryIntAttribute("enemyy1", &level[i].enemyy1);
-                edLevelClassElement->QueryIntAttribute("enemyx2", &level[i].enemyx2);
-                edLevelClassElement->QueryIntAttribute("enemyy2", &level[i].enemyy2);
-                edLevelClassElement->QueryIntAttribute("enemytype", &level[i].enemytype);
-                edLevelClassElement->QueryIntAttribute("directmode", &level[i].directmode);
+                edLevelClassElement->QueryIntAttribute("tileset", &roomproperties[i].tileset);
+                edLevelClassElement->QueryIntAttribute("tilecol", &roomproperties[i].tilecol);
+                edLevelClassElement->QueryIntAttribute("platx1", &roomproperties[i].platx1);
+                edLevelClassElement->QueryIntAttribute("platy1", &roomproperties[i].platy1);
+                edLevelClassElement->QueryIntAttribute("platx2", &roomproperties[i].platx2);
+                edLevelClassElement->QueryIntAttribute("platy2", &roomproperties[i].platy2);
+                edLevelClassElement->QueryIntAttribute("platv", &roomproperties[i].platv);
+                edLevelClassElement->QueryIntAttribute("enemyx1", &roomproperties[i].enemyx1);
+                edLevelClassElement->QueryIntAttribute("enemyy1", &roomproperties[i].enemyy1);
+                edLevelClassElement->QueryIntAttribute("enemyx2", &roomproperties[i].enemyx2);
+                edLevelClassElement->QueryIntAttribute("enemyy2", &roomproperties[i].enemyy2);
+                edLevelClassElement->QueryIntAttribute("enemytype", &roomproperties[i].enemytype);
+                edLevelClassElement->QueryIntAttribute("directmode", &roomproperties[i].directmode);
 
-                edLevelClassElement->QueryIntAttribute("warpdir", &level[i].warpdir);
+                edLevelClassElement->QueryIntAttribute("warpdir", &roomproperties[i].warpdir);
 
                 i++;
 
@@ -1245,7 +1245,7 @@ next:
 
         for (i = 0; i < numrooms; ++i)
         {
-            temp_platv[i] = level[i].platv;
+            temp_platv[i] = roomproperties[i].platv;
         }
 
         for (i = 0; i < numrooms; ++i)
@@ -1255,12 +1255,12 @@ next:
                 const int platv_idx = x + y * mapwidth;
                 if (INBOUNDS_ARR(platv_idx, temp_platv))
                 {
-                    level[i].platv = temp_platv[platv_idx];
+                    roomproperties[i].platv = temp_platv[platv_idx];
                 }
             }
             else
             {
-                level[i].platv = 4; /* default */
+                roomproperties[i].platv = 4; /* default */
             }
 
             ++x;
@@ -1286,7 +1286,7 @@ fail:
 }
 
 #ifndef NO_EDITOR
-bool customlevelclass::save(std::string& _path)
+bool customlevelclass::save(const std::string& _path)
 {
     tinyxml2::XMLDocument doc;
 
@@ -1316,13 +1316,13 @@ bool customlevelclass::save(std::string& _path)
     msg = xml::update_element(data, "MetaData");
 
     //getUser
-    xml::update_tag(msg, "Creator", EditorData::GetInstance().creator.c_str());
+    xml::update_tag(msg, "Creator", creator.c_str());
 
-    xml::update_tag(msg, "Title", EditorData::GetInstance().title.c_str());
+    xml::update_tag(msg, "Title", title.c_str());
 
     xml::update_tag(msg, "Created", version);
 
-    xml::update_tag(msg, "Modified", EditorData::GetInstance().modifier.c_str());
+    xml::update_tag(msg, "Modified", modifier.c_str());
 
     xml::update_tag(msg, "Modifiers", version);
 
@@ -1369,19 +1369,19 @@ bool customlevelclass::save(std::string& _path)
 
 
     msg = xml::update_element_delete_contents(data, "edEntities");
-    for(size_t i = 0; i < edentity.size(); i++)
+    for(size_t i = 0; i < customentities.size(); i++)
     {
         tinyxml2::XMLElement *edentityElement = doc.NewElement( "edentity" );
-        edentityElement->SetAttribute( "x", edentity[i].x);
-        edentityElement->SetAttribute(  "y", edentity[i].y);
-        edentityElement->SetAttribute(  "t", edentity[i].t);
-        edentityElement->SetAttribute(  "p1", edentity[i].p1);
-        edentityElement->SetAttribute(  "p2", edentity[i].p2);
-        edentityElement->SetAttribute(  "p3", edentity[i].p3);
-        edentityElement->SetAttribute( "p4", edentity[i].p4);
-        edentityElement->SetAttribute( "p5", edentity[i].p5);
-        edentityElement->SetAttribute(  "p6", edentity[i].p6);
-        edentityElement->LinkEndChild( doc.NewText( edentity[i].scriptname.c_str() )) ;
+        edentityElement->SetAttribute( "x", customentities[i].x);
+        edentityElement->SetAttribute(  "y", customentities[i].y);
+        edentityElement->SetAttribute(  "t", customentities[i].t);
+        edentityElement->SetAttribute(  "p1", customentities[i].p1);
+        edentityElement->SetAttribute(  "p2", customentities[i].p2);
+        edentityElement->SetAttribute(  "p3", customentities[i].p3);
+        edentityElement->SetAttribute( "p4", customentities[i].p4);
+        edentityElement->SetAttribute( "p5", customentities[i].p5);
+        edentityElement->SetAttribute(  "p6", customentities[i].p6);
+        edentityElement->LinkEndChild( doc.NewText( customentities[i].scriptname.c_str() )) ;
         msg->LinkEndChild( edentityElement );
     }
 
@@ -1404,7 +1404,7 @@ bool customlevelclass::save(std::string& _path)
                 const int platv_idx = x + y * mapwidth;
                 if (INBOUNDS_ARR(platv_idx, temp_platv))
                 {
-                    temp_platv[platv_idx] = level[i].platv;
+                    temp_platv[platv_idx] = roomproperties[i].platv;
                 }
             }
 
@@ -1420,26 +1420,26 @@ bool customlevelclass::save(std::string& _path)
         }
     }
 
-    for(size_t i = 0; i < SDL_arraysize(level); i++)
+    for(size_t i = 0; i < SDL_arraysize(roomproperties); i++)
     {
-        tinyxml2::XMLElement *edlevelclassElement = doc.NewElement( "edLevelClass" );
-        edlevelclassElement->SetAttribute( "tileset", level[i].tileset);
-        edlevelclassElement->SetAttribute(  "tilecol", level[i].tilecol);
-        edlevelclassElement->SetAttribute(  "platx1", level[i].platx1);
-        edlevelclassElement->SetAttribute(  "platy1", level[i].platy1);
-        edlevelclassElement->SetAttribute(  "platx2", level[i].platx2);
-        edlevelclassElement->SetAttribute( "platy2", level[i].platy2);
-        edlevelclassElement->SetAttribute( "platv", temp_platv[i]);
-        edlevelclassElement->SetAttribute(  "enemyx1", level[i].enemyx1);
-        edlevelclassElement->SetAttribute(  "enemyy1", level[i].enemyy1);
-        edlevelclassElement->SetAttribute(  "enemyx2", level[i].enemyx2);
-        edlevelclassElement->SetAttribute(  "enemyy2", level[i].enemyy2);
-        edlevelclassElement->SetAttribute(  "enemytype", level[i].enemytype);
-        edlevelclassElement->SetAttribute(  "directmode", level[i].directmode);
-        edlevelclassElement->SetAttribute(  "warpdir", level[i].warpdir);
+        tinyxml2::XMLElement *roompropertyElement = doc.NewElement( "edLevelClass" );
+        roompropertyElement->SetAttribute( "tileset", roomproperties[i].tileset);
+        roompropertyElement->SetAttribute(  "tilecol", roomproperties[i].tilecol);
+        roompropertyElement->SetAttribute(  "platx1", roomproperties[i].platx1);
+        roompropertyElement->SetAttribute(  "platy1", roomproperties[i].platy1);
+        roompropertyElement->SetAttribute(  "platx2", roomproperties[i].platx2);
+        roompropertyElement->SetAttribute( "platy2", roomproperties[i].platy2);
+        roompropertyElement->SetAttribute( "platv", temp_platv[i]);
+        roompropertyElement->SetAttribute(  "enemyx1", roomproperties[i].enemyx1);
+        roompropertyElement->SetAttribute(  "enemyy1", roomproperties[i].enemyy1);
+        roompropertyElement->SetAttribute(  "enemyx2", roomproperties[i].enemyx2);
+        roompropertyElement->SetAttribute(  "enemyy2", roomproperties[i].enemyy2);
+        roompropertyElement->SetAttribute(  "enemytype", roomproperties[i].enemytype);
+        roompropertyElement->SetAttribute(  "directmode", roomproperties[i].directmode);
+        roompropertyElement->SetAttribute(  "warpdir", roomproperties[i].warpdir);
 
-        edlevelclassElement->LinkEndChild( doc.NewText( level[i].roomname.c_str() )) ;
-        msg->LinkEndChild( edlevelclassElement );
+        roompropertyElement->LinkEndChild( doc.NewText( roomproperties[i].roomname.c_str() )) ;
+        msg->LinkEndChild( roompropertyElement );
     }
 
     std::string scriptString;
@@ -1591,7 +1591,7 @@ void customlevelclass::generatecustomminimap(void)
 // Much kudos to Dav999 for saving me a lot of work, because I stole these colors from const.lua in Ved! -Info Teddy
 Uint32 customlevelclass::getonewaycol(const int rx, const int ry)
 {
-    const edlevelclass* const room = getroomprop(rx, ry);
+    const RoomProperty* const room = getroomprop(rx, ry);
     switch (room->tileset) {
 
     case 0: // Space Station
@@ -1769,9 +1769,9 @@ Uint32 customlevelclass::getonewaycol(void)
 int customlevelclass::numtrinkets(void)
 {
     int temp = 0;
-    for (size_t i = 0; i < edentity.size(); i++)
+    for (size_t i = 0; i < customentities.size(); i++)
     {
-        if (edentity[i].t == 9)
+        if (customentities[i].t == 9)
         {
             temp++;
         }
@@ -1782,9 +1782,9 @@ int customlevelclass::numtrinkets(void)
 int customlevelclass::numcrewmates(void)
 {
     int temp = 0;
-    for (size_t i = 0; i < edentity.size(); i++)
+    for (size_t i = 0; i < customentities.size(); i++)
     {
-        if (edentity[i].t == 15)
+        if (customentities[i].t == 15)
         {
             temp++;
         }

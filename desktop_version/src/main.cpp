@@ -33,7 +33,7 @@
 scriptclass script;
 
 #ifndef NO_CUSTOM_LEVELS
-std::vector<edentities> edentity;
+std::vector<CustomEntity> customentities;
 customlevelclass cl;
 # ifndef NO_EDITOR
 editorclass ed;
@@ -156,7 +156,7 @@ static const inline struct ImplFunc* get_gamestate_funcs(
     FUNC_LIST_END
 
     FUNC_LIST_BEGIN(TELEPORTERMODE)
-        {Func_fixed, maprenderfixed},
+        {Func_fixed, teleporterrenderfixed},
         {Func_delta, teleporterrender},
         {Func_input, teleportermodeinput},
         {Func_fixed, maplogic},

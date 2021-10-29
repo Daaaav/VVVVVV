@@ -2196,7 +2196,7 @@ void gameinput(void)
                             else if (game.companion == 0)
                             {
                                 //Alright, normal teleporting
-                                game.mapmenuchange(TELEPORTERMODE);
+                                game.mapmenuchange(TELEPORTERMODE, true);
 
                                 game.useteleporter = true;
                                 game.initteleportermode();
@@ -2306,54 +2306,56 @@ void gameinput(void)
         game.tapright = 0;
     }
 
-    if (!game.press_action)
+    if (has_control)
     {
-        game.jumppressed = 0;
-        game.jumpheld = false;
-    }
-
-    if (game.press_action && !game.jumpheld)
-    {
-        game.jumppressed = 5;
-        game.jumpheld = true;
-    }
-
-    if (game.jumppressed > 0)
-    {
-        game.jumppressed--;
-        if (any_onground && game.gravitycontrol == 0)
+        if (!game.press_action)
         {
-            game.gravitycontrol = 1;
-            for (size_t ie = 0; ie < obj.entities.size(); ++ie)
-            {
-                if (obj.entities[ie].rule == 0)
-                {
-                    obj.entities[ie].vy = -4;
-                    obj.entities[ie].ay = -3;
-                }
-            }
-            music.playef(0);
             game.jumppressed = 0;
-            game.totalflips++;
+            game.jumpheld = false;
         }
-        if (any_onroof && game.gravitycontrol == 1)
+
+        if (game.press_action && !game.jumpheld)
         {
-            game.gravitycontrol = 0;
-            for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+            game.jumppressed = 5;
+            game.jumpheld = true;
+        }
+
+        if (game.jumppressed > 0)
+        {
+            game.jumppressed--;
+            if (any_onground && game.gravitycontrol == 0)
             {
-                if (obj.entities[ie].rule == 0)
+                game.gravitycontrol = 1;
+                for (size_t ie = 0; ie < obj.entities.size(); ++ie)
                 {
-                    obj.entities[ie].vy = 4;
-                    obj.entities[ie].ay = 3;
+                    if (obj.entities[ie].rule == 0 && (obj.entities[ie].onground > 0 || obj.entities[ie].onroof > 0))
+                    {
+                        obj.entities[ie].vy = -4;
+                        obj.entities[ie].ay = -3;
+                    }
                 }
+                music.playef(0);
+                game.jumppressed = 0;
+                game.totalflips++;
             }
-            music.playef(1);
-            game.jumppressed = 0;
-            game.totalflips++;
+            if (any_onroof && game.gravitycontrol == 1)
+            {
+                game.gravitycontrol = 0;
+                for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+                {
+                    if (obj.entities[ie].rule == 0 && (obj.entities[ie].onground > 0 || obj.entities[ie].onroof > 0))
+                    {
+                        obj.entities[ie].vy = 4;
+                        obj.entities[ie].ay = 3;
+                    }
+                }
+                music.playef(1);
+                game.jumppressed = 0;
+                game.totalflips++;
+            }
         }
     }
-
-    if (!has_control)
+    else
     {
         //Simple detection of keypresses outside player control, will probably scrap this (expand on
         //advance text function)
@@ -2383,7 +2385,7 @@ void gameinput(void)
         //quitting the super gravitron
         game.mapheld = true;
         //Quit menu, same conditions as in game menu
-        game.mapmenuchange(MAPMODE);
+        game.mapmenuchange(MAPMODE, true);
         game.gamesaved = false;
         game.gamesavefailed = false;
         game.menupage = 20; // The Map Page
@@ -2403,7 +2405,7 @@ void gameinput(void)
     else
     {
         //Normal map screen, do transition later
-        game.mapmenuchange(MAPMODE);
+        game.mapmenuchange(MAPMODE, true);
         map.cursordelay = 0;
         map.cursorstate = 0;
         game.gamesaved = false;
@@ -2424,7 +2426,7 @@ void gameinput(void)
     {
         game.mapheld = true;
         //Quit menu, same conditions as in game menu
-        game.mapmenuchange(MAPMODE);
+        game.mapmenuchange(MAPMODE, true);
         game.gamesaved = false;
         game.gamesavefailed = false;
         game.menupage = 30; // Pause screen

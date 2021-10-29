@@ -6,7 +6,6 @@ textboxclass::textboxclass(void)
 {
     w = 0;
     h = 0;
-    lw = 0;
     tl = 0;
     prev_tl = 0;
     tm = 0;
@@ -17,10 +16,6 @@ textboxclass::textboxclass(void)
     r = 0;
     g = 0;
     b = 0;
-    tr = 0;
-    tg = 0;
-    tb = 0;
-    max = 0;
 
     flipme = false;
 
@@ -52,20 +47,10 @@ void textboxclass::adjust(void)
 
 void textboxclass::initcol(int rr, int gg, int bb)
 {
-    tr = rr;
-    tg = gg;
-    tb = bb;
-    r = 0;
-    g = 0;
-    b = 0;
-    tl = 0.5;
-}
-
-void textboxclass::setcol(int rr, int gg, int bb)
-{
     r = rr;
     g = gg;
     b = bb;
+    tl = 0.5;
 }
 
 void textboxclass::update(void)
@@ -111,19 +96,18 @@ void textboxclass::removefast(void)
 void textboxclass::resize(void)
 {
     //Set the width and height to the correct sizes
-    max = 0;
+    int max = 0;
     for (size_t iter = 0; iter < line.size(); iter++)
     {
         unsigned int len = utf8::unchecked::distance(line[iter].begin(), line[iter].end());
         if (len > (unsigned int)max) max = len;
     }
 
-    lw = max;
     w = (max +2) * 8;
     h = (line.size() + 2) * 8;
 }
 
-void textboxclass::addline(std::string t)
+void textboxclass::addline(const std::string& t)
 {
     line.push_back(t);
     resize();

@@ -123,7 +123,7 @@ void editorclass::gethooks(void)
     }
 }
 
-void editorclass::loadhookineditor(std::string t)
+void editorclass::loadhookineditor(const std::string& t)
 {
     //Find hook t in the scriptclass, then load it into the editor
     clearscriptbuffer();
@@ -146,7 +146,7 @@ void editorclass::loadhookineditor(std::string t)
     }
 }
 
-void editorclass::addhooktoscript(std::string t)
+void editorclass::addhooktoscript(const std::string& t)
 {
     //Adds hook+the scriptbuffer to the end of the scriptclass
     removehookfromscript(t);
@@ -156,7 +156,7 @@ void editorclass::addhooktoscript(std::string t)
     script.customscripts.push_back(script_);
 }
 
-void editorclass::removehookfromscript(std::string t)
+void editorclass::removehookfromscript(const std::string& t)
 {
     /* Find hook t in the scriptclass, then removes it (and any other code with it)
      * When this loop reaches the end, it wraps to SIZE_MAX; SIZE_MAX + 1 is 0 */
@@ -170,7 +170,7 @@ void editorclass::removehookfromscript(std::string t)
     }
 }
 
-void editorclass::removehook(std::string t)
+void editorclass::removehook(const std::string& t)
 {
     //Check the hooklist for the hook t. If it's there, remove it from here and the script
     size_t i;
@@ -185,7 +185,7 @@ void editorclass::removehook(std::string t)
     }
 }
 
-void editorclass::addhook(std::string t)
+void editorclass::addhook(const std::string& t)
 {
     //Add an empty function to the list in both editor and script
     removehook(t);
@@ -193,7 +193,7 @@ void editorclass::addhook(std::string t)
     addhooktoscript(t);
 }
 
-bool editorclass::checkhook(std::string t)
+bool editorclass::checkhook(const std::string& t)
 {
     //returns true if hook t already is in the list
     for(size_t i=0; i<hooklist.size(); i++)
@@ -246,7 +246,7 @@ void editorclass::getlin(const enum textmode mode, const std::string& prompt, st
 
 static void addedentity( int xp, int yp, int tp, int p1 = 0, int p2 = 0, int p3 = 0, int p4 = 0, int p5 = 320, int p6 = 240)
 {
-    edentities entity;
+    CustomEntity entity;
 
     entity.x=xp;
     entity.y=yp;
@@ -259,19 +259,19 @@ static void addedentity( int xp, int yp, int tp, int p1 = 0, int p2 = 0, int p3 
     entity.p6=p6;
     entity.scriptname="";
 
-    edentity.push_back(entity);
+    customentities.push_back(entity);
 }
 
 static void removeedentity( int t )
 {
-    edentity.erase(edentity.begin() + t);
+    customentities.erase(customentities.begin() + t);
 }
 
 static int edentat( int xp, int yp )
 {
-    for(size_t i=0; i<edentity.size(); i++)
+    for(size_t i=0; i<customentities.size(); i++)
     {
-        if(edentity[i].x==xp && edentity[i].y==yp) return i;
+        if(customentities[i].x==xp && customentities[i].y==yp) return i;
     }
     return -1;
 }
@@ -323,7 +323,7 @@ static void editormenurender(int tr, int tg, int tb)
         }
         else
         {
-            graphics.bigprint( -1, 35, translate_title(EditorData::GetInstance().title), tr, tg, tb, true);
+            graphics.bigprint( -1, 35, translate_title(cl.title), tr, tg, tb, true);
         }
         std::string creator;
         if(ed.creatormod)
@@ -339,7 +339,7 @@ static void editormenurender(int tr, int tg, int tb)
         }
         else
         {
-            creator = translate_creator(EditorData::GetInstance().creator);
+            creator = translate_creator(cl.creator);
         }
         char creatorline[161];
         SDL_snprintf(
@@ -485,7 +485,7 @@ static void editormenurender(int tr, int tg, int tb)
 void editorrender(void)
 {
     extern editorclass ed;
-    const edlevelclass* const room = cl.getroomprop(ed.levx, ed.levy);
+    const RoomProperty* const room = cl.getroomprop(ed.levx, ed.levy);
 
     //Draw grid
 
@@ -598,35 +598,35 @@ void editorrender(void)
     gray_ct.colour = 0xFFFFFFFF;
 
     // Draw entities backward to remain accurate with ingame
-    for (int i = edentity.size() - 1; i >= 0; i--)
+    for (int i = customentities.size() - 1; i >= 0; i--)
     {
         point tpoint;
         SDL_Rect drawRect;
 
         //if() on screen
-        if(edentity[i].x / 40 == ed.levx && edentity[i].y / 30 == ed.levy)
+        if(customentities[i].x / 40 == ed.levx && customentities[i].y / 30 == ed.levy)
         {
-            switch(edentity[i].t)
+            switch(customentities[i].t)
             {
             case 1: //Entities
                 if (custom_gray) {
                     graphics.setcol(18);
                     ed.entcolreal = graphics.ct.colour;
                 }
-                graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),ed.getenemyframe(room->enemytype),ed.entcolreal);
-                if(edentity[i].p1==0) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "V", 255, 255, 255 - help.glow, false);
-                if(edentity[i].p1==1) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "^", 255, 255, 255 - help.glow, false);
-                if(edentity[i].p1==2) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "<", 255, 255, 255 - help.glow, false);
-                if(edentity[i].p1==3) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, ">", 255, 255, 255 - help.glow, false);
-                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,graphics.getBGR(255,164,255));
+                graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),ed.getenemyframe(room->enemytype),ed.entcolreal);
+                if(customentities[i].p1==0) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, "V", 255, 255, 255 - help.glow, false);
+                if(customentities[i].p1==1) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, "^", 255, 255, 255 - help.glow, false);
+                if(customentities[i].p1==2) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, "<", 255, 255, 255 - help.glow, false);
+                if(customentities[i].p1==3) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, ">", 255, 255, 255 - help.glow, false);
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getBGR(255,164,255));
                 break;
             case 2: //Threadmills & platforms
                 if (!INBOUNDS_VEC(obj.customplatformtile, graphics.entcolours))
                 {
                     continue;
                 }
-                tpoint.x = (edentity[i].x*8)- (ed.levx*40*8);
-                tpoint.y = (edentity[i].y*8)- (ed.levy*30*8);
+                tpoint.x = (customentities[i].x*8)- (ed.levx*40*8);
+                tpoint.y = (customentities[i].y*8)- (ed.levy*30*8);
                 drawRect = graphics.tiles_rect;
                 drawRect.x += tpoint.x;
                 drawRect.y += tpoint.y;
@@ -636,30 +636,30 @@ void editorrender(void)
                     drawRect.x += 8;
                 }
 
-                if(edentity[i].p1<=4)
+                if(customentities[i].p1<=4)
                 {
-                    if(edentity[i].p1==0) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+12,(edentity[i].y*8)- (ed.levy*30*8), "V", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    if(edentity[i].p1==1) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+12,(edentity[i].y*8)- (ed.levy*30*8), "^", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    if(edentity[i].p1==2) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+12,(edentity[i].y*8)- (ed.levy*30*8), "<", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    if(edentity[i].p1==3) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+12,(edentity[i].y*8)- (ed.levy*30*8), ">", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
+                    if(customentities[i].p1==0) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), "V", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    if(customentities[i].p1==1) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), "^", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    if(customentities[i].p1==2) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), "<", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    if(customentities[i].p1==3) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), ">", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
                 }
 
-                if(edentity[i].p1==5)
+                if(customentities[i].p1==5)
                 {
-                    graphics.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), ">>>>", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
+                    graphics.Print((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), ">>>>", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
                 }
-                else if(edentity[i].p1==6)
+                else if(customentities[i].p1==6)
                 {
-                    graphics.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), "<<<<", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
+                    graphics.Print((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), "<<<<", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
                 }
 
-                if(edentity[i].p1>=7)
+                if(customentities[i].p1>=7)
                 {
-                    tpoint.x = (edentity[i].x*8)- (ed.levx*40*8)+32;
-                    tpoint.y = (edentity[i].y*8)- (ed.levy*30*8);
+                    tpoint.x = (customentities[i].x*8)- (ed.levx*40*8)+32;
+                    tpoint.y = (customentities[i].y*8)- (ed.levy*30*8);
                     drawRect = graphics.tiles_rect;
                     drawRect.x += tpoint.x;
                     drawRect.y += tpoint.y;
@@ -670,15 +670,15 @@ void editorrender(void)
                     }
                 }
 
-                if(edentity[i].p1==7)
+                if(customentities[i].p1==7)
                 {
-                    graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8), "> > > > ", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),64,8,graphics.getBGR(255,255,255));
+                    graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8), "> > > > ", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),64,8,graphics.getBGR(255,255,255));
                 }
-                else if(edentity[i].p1==8)
+                else if(customentities[i].p1==8)
                 {
-                    graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8), "< < < < ", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),64,8,graphics.getBGR(255,255,255));
+                    graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8), "< < < < ", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),64,8,graphics.getBGR(255,255,255));
                 }
                 break;
             case 3: //Disappearing Platform
@@ -686,8 +686,8 @@ void editorrender(void)
                 {
                     continue;
                 }
-                tpoint.x = (edentity[i].x*8)- (ed.levx*40*8);
-                tpoint.y = (edentity[i].y*8)- (ed.levy*30*8);
+                tpoint.x = (customentities[i].x*8)- (ed.levx*40*8);
+                tpoint.y = (customentities[i].y*8)- (ed.levy*30*8);
                 drawRect = graphics.tiles_rect;
                 drawRect.x += tpoint.x;
                 drawRect.y += tpoint.y;
@@ -697,89 +697,89 @@ void editorrender(void)
                     drawRect.x += 8;
                 }
 
-                graphics.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), "////", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
+                graphics.Print((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), "////", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
                 break;
             case 9: //Shiny Trinket
-                graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),22,196,196,196);
-                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
+                graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),22,196,196,196);
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
                 break;
             case 10: //Checkpoints
-                graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),20 + edentity[i].p1,196,196,196);
-                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
+                graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),20 + customentities[i].p1,196,196,196);
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
                 break;
             case 11: //Gravity lines
-                if(edentity[i].p1==0)  //Horizontal
+                if(customentities[i].p1==0)  //Horizontal
                 {
-                    int tx = edentity[i].p2;
-                    int tx2 = tx + edentity[i].p3/8;
-                    int ty = edentity[i].y % 30;
+                    int tx = customentities[i].p2;
+                    int tx2 = tx + customentities[i].p3/8;
+                    int ty = customentities[i].y % 30;
                     FillRect(graphics.backBuffer, (tx*8),(ty*8)+4, (tx2-tx)*8,1, graphics.getRGB(194,194,194));
-                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(164,255,164));
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(164,255,164));
                 }
                 else  //Vertical
                 {
-                    int tx = edentity[i].x % 40;
-                    int ty = edentity[i].p2;
-                    int ty2 = ty + edentity[i].p3/8;
+                    int tx = customentities[i].x % 40;
+                    int ty = customentities[i].p2;
+                    int ty2 = ty + customentities[i].p3/8;
                     FillRect(graphics.backBuffer, (tx*8)+3,(ty*8), 1,(ty2-ty)*8, graphics.getRGB(194,194,194));
-                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(164,255,164));
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(164,255,164));
                 }
                 break;
             case 13://Warp tokens
-                graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),18+(ed.entframe%2),196,196,196);
-                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
+                graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),18+(ed.entframe%2),196,196,196);
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
                 if(temp2==i)
                 {
-                    graphics.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,
-                                "("+help.String(((edentity[i].p1-int(edentity[i].p1%40))/40)+1)+","+help.String(((edentity[i].p2-int(edentity[i].p2%30))/30)+1)+")",210,210,255);
+                    graphics.bprint((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,
+                                "("+help.String(((customentities[i].p1-int(customentities[i].p1%40))/40)+1)+","+help.String(((customentities[i].p2-int(customentities[i].p2%30))/30)+1)+")",210,210,255);
                 }
                 else
                 {
-                    graphics.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,help.String(cl.findwarptoken(i)),210,210,255);
+                    graphics.bprint((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,help.String(cl.findwarptoken(i)),210,210,255);
                 }
                 break;
             case 15: //Crewmates
-                graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),144,graphics.crewcolourreal(edentity[i].p1));
-                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,164,164));
+                graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8)-4,(customentities[i].y*8)- (ed.levy*30*8),144,graphics.crewcolourreal(customentities[i].p1));
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,164,164));
                 break;
             case 16: //Start
             {
-                if(edentity[i].p1==0)  //Left
+                if(customentities[i].p1==0)  //Left
                 {
-                    graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),0,graphics.col_crewcyan);
+                    graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8)-4,(customentities[i].y*8)- (ed.levy*30*8),0,graphics.col_crewcyan);
                 }
-                else if(edentity[i].p1==1)
+                else if(customentities[i].p1==1)
                 {
-                    graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),3,graphics.col_crewcyan);
+                    graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8)-4,(customentities[i].y*8)- (ed.levy*30*8),3,graphics.col_crewcyan);
                 }
-                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,255,255));
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,255,255));
                 short labelcol = ed.entframe<2 ? 255 : 196;
                 short startlen = graphics.len(loc::gettext("START"));
                 graphics.bprint(
-                    (edentity[i].x*8) - (ed.levx*40*8) + 8 - startlen/2,
-                    (edentity[i].y*8) - (ed.levy*30*8) - 8,
+                    (customentities[i].x*8) - (ed.levx*40*8) + 8 - startlen/2,
+                    (customentities[i].y*8) - (ed.levy*30*8) - 8,
                     loc::gettext("START"),
                     labelcol,labelcol,labelcol
                 );
                 break;
             }
             case 17: //Roomtext
-                if(edentity[i].scriptname.length()<1)
+                if(customentities[i].scriptname.length()<1)
                 {
-                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(96,96,96));
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(96,96,96));
                 }
                 else
                 {
-                    int length = utf8::unchecked::distance(edentity[i].scriptname.begin(), edentity[i].scriptname.end());
-                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),length*8,8,graphics.getRGB(96,96,96));
+                    int length = utf8::unchecked::distance(customentities[i].scriptname.begin(), customentities[i].scriptname.end());
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),length*8,8,graphics.getRGB(96,96,96));
                 }
-                graphics.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), edentity[i].scriptname, 196, 196, 255 - help.glow);
+                graphics.Print((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), customentities[i].scriptname, 196, 196, 255 - help.glow);
                 break;
             case 18: //Terminals
             {
-                int usethistile = edentity[i].p1;
-                int usethisy = (edentity[i].y % 30) * 8;
+                int usethistile = customentities[i].p1;
+                int usethisy = (customentities[i].y % 30) * 8;
                 // Not a boolean: just swapping 0 and 1, leaving the rest alone
                 if (usethistile == 0)
                 {
@@ -790,88 +790,88 @@ void editorrender(void)
                     usethistile = 0; // Flipped;
                     usethisy -= 8;
                 }
-                graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8), usethisy + 8, usethistile + 16, 96,96,96);
-                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,164,164));
+                graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8), usethisy + 8, usethistile + 16, 96,96,96);
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,164,164));
                 if(temp2==i)
                 {
-                    graphics.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,edentity[i].scriptname,210,210,255);
+                    graphics.bprint((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,customentities[i].scriptname,210,210,255);
                 }
                 break;
             }
             case 19: //Script Triggers
-                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),edentity[i].p1*8,edentity[i].p2*8,graphics.getRGB(255,164,255));
-                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,255));
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),customentities[i].p1*8,customentities[i].p2*8,graphics.getRGB(255,164,255));
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,255));
                 if(temp2==i)
                 {
-                    graphics.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,edentity[i].scriptname,210,210,255);
+                    graphics.bprint((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,customentities[i].scriptname,210,210,255);
                 }
                 break;
             case 50: //Warp lines
-                if(edentity[i].p1>=2)  //Horizontal
+                if(customentities[i].p1>=2)  //Horizontal
                 {
-                    int tx=edentity[i].x-(ed.levx*40);
-                    int tx2=edentity[i].x-(ed.levx*40);
-                    int ty=edentity[i].y-(ed.levy*30);
-                    if (edentity[i].p4 != 1)
+                    int tx=customentities[i].x-(ed.levx*40);
+                    int tx2=customentities[i].x-(ed.levx*40);
+                    int ty=customentities[i].y-(ed.levy*30);
+                    if (customentities[i].p4 != 1)
                     {
                         // Unlocked
                         while(ed.free(tx,ty)==0) tx--;
                         while(ed.free(tx2,ty)==0) tx2++;
                         tx++;
-                        edentity[i].p2=tx;
-                        edentity[i].p3=(tx2-tx)*8;
+                        customentities[i].p2=tx;
+                        customentities[i].p3=(tx2-tx)*8;
                     }
                     else
                     {
                         // Locked
-                        tx = edentity[i].p2;
-                        tx2 = tx + edentity[i].p3/8;
+                        tx = customentities[i].p2;
+                        tx2 = tx + customentities[i].p3/8;
                     }
                     fillboxabs((tx*8),(ty*8)+1, (tx2-tx)*8,6, graphics.getRGB(255,255,194));
-                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,164));
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,164));
                 }
                 else  //Vertical
                 {
-                    int tx=edentity[i].x-(ed.levx*40);
-                    int ty=edentity[i].y-(ed.levy*30);
-                    int ty2=edentity[i].y-(ed.levy*30);
-                    if (edentity[i].p4 != 1)
+                    int tx=customentities[i].x-(ed.levx*40);
+                    int ty=customentities[i].y-(ed.levy*30);
+                    int ty2=customentities[i].y-(ed.levy*30);
+                    if (customentities[i].p4 != 1)
                     {
                         // Unlocked
                         while(ed.free(tx,ty)==0) ty--;
                         while(ed.free(tx,ty2)==0) ty2++;
                         ty++;
-                        edentity[i].p2=ty;
-                        edentity[i].p3=(ty2-ty)*8;
+                        customentities[i].p2=ty;
+                        customentities[i].p3=(ty2-ty)*8;
                     }
                     else
                     {
                         // Locked
-                        ty = edentity[i].p2;
-                        ty2 = ty + edentity[i].p3/8;
+                        ty = customentities[i].p2;
+                        ty2 = ty + customentities[i].p3/8;
                     }
                     fillboxabs((tx*8)+1,(ty*8), 6,(ty2-ty)*8, graphics.getRGB(255,255,194));
-                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,164));
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,164));
                 }
                 break;
             }
         }
 
         //Need to also check warp point destinations
-        if(edentity[i].t==13 && ed.warpent!=i)
+        if(customentities[i].t==13 && ed.warpent!=i)
         {
-            if (edentity[i].p1 / 40 == ed.levx && edentity[i].p2 / 30 == ed.levy)
+            if (customentities[i].p1 / 40 == ed.levx && customentities[i].p2 / 30 == ed.levy)
             {
-                graphics.drawsprite((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8),18+(ed.entframe%2),64,64,64);
-                fillboxabs((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8),16,16,graphics.getRGB(64,64,96));
-                if(ed.tilex+(ed.levx*40)==edentity[i].p1 && ed.tiley+(ed.levy*30)==edentity[i].p2)
+                graphics.drawsprite((customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8),18+(ed.entframe%2),64,64,64);
+                fillboxabs((customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8),16,16,graphics.getRGB(64,64,96));
+                if(ed.tilex+(ed.levx*40)==customentities[i].p1 && ed.tiley+(ed.levy*30)==customentities[i].p2)
                 {
-                    graphics.bprint((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8)-8,
-                                "("+help.String(((edentity[i].x-int(edentity[i].x%40))/40)+1)+","+help.String(((edentity[i].y-int(edentity[i].y%30))/30)+1)+")",190,190,225);
+                    graphics.bprint((customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8)-8,
+                                "("+help.String(((customentities[i].x-int(customentities[i].x%40))/40)+1)+","+help.String(((customentities[i].y-int(customentities[i].y%30))/30)+1)+")",190,190,225);
                 }
                 else
                 {
-                    graphics.bprint((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8)-8,help.String(cl.findwarptoken(i)),190,190,225);
+                    graphics.bprint((customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8)-8,help.String(cl.findwarptoken(i)),190,190,225);
                 }
             }
         }
@@ -1598,7 +1598,7 @@ void editorrender(void)
 void editorrenderfixed(void)
 {
     extern editorclass ed;
-    const edlevelclass* const room = cl.getroomprop(ed.levx, ed.levy);
+    const RoomProperty* const room = cl.getroomprop(ed.levx, ed.levy);
     graphics.updatetitlecolours();
 
     game.customcol=cl.getlevelcol(room->tileset, room->tilecol)+1;
@@ -1656,23 +1656,23 @@ void editorrenderfixed(void)
     }
 
     /* Correct gravity lines */
-    for (size_t i = 0; i < edentity.size(); ++i)
+    for (size_t i = 0; i < customentities.size(); ++i)
     {
-        if (edentity[i].x / 40 != ed.levx
-        || edentity[i].y / 30 != ed.levy
-        || edentity[i].t != 11
+        if (customentities[i].x / 40 != ed.levx
+        || customentities[i].y / 30 != ed.levy
+        || customentities[i].t != 11
         /* Is the gravity line locked? */
-        || edentity[i].p4 == 1)
+        || customentities[i].p4 == 1)
         {
             continue;
         }
 
-        if (edentity[i].p1 == 0)
+        if (customentities[i].p1 == 0)
         {
             /* Horizontal */
-            int tx = edentity[i].x % 40;
+            int tx = customentities[i].x % 40;
             int tx2 = tx;
-            int ty = edentity[i].y % 30;
+            int ty = customentities[i].y % 30;
             while (!ed.spikefree(tx, ty))
             {
                 --tx;
@@ -1682,14 +1682,14 @@ void editorrenderfixed(void)
                 ++tx2;
             }
             ++tx;
-            edentity[i].p2 = tx;
-            edentity[i].p3 = (tx2 - tx) * 8;
+            customentities[i].p2 = tx;
+            customentities[i].p3 = (tx2 - tx) * 8;
         }
         else
         {
             /* Vertical */
-            int tx = edentity[i].x % 40;
-            int ty = edentity[i].y % 30;
+            int tx = customentities[i].x % 40;
+            int ty = customentities[i].y % 30;
             int ty2 = ty;
             /* Unlocked */
             while (!ed.spikefree(tx, ty))
@@ -1701,8 +1701,8 @@ void editorrenderfixed(void)
                 ++ty2;
             }
             ++ty;
-            edentity[i].p2 = ty;
-            edentity[i].p3 = (ty2 - ty) * 8;
+            customentities[i].p2 = ty;
+            customentities[i].p3 = (ty2 - ty) * 8;
         }
     }
 
@@ -1802,12 +1802,12 @@ static void editormenuactionpress(void)
         case 0:
             ed.titlemod=true;
             key.enabletextentry();
-            key.keybuffer=translate_title(EditorData::GetInstance().title);
+            key.keybuffer=translate_title(cl.title);
             break;
         case 1:
             ed.creatormod=true;
             key.enabletextentry();
-            key.keybuffer=translate_creator(EditorData::GetInstance().creator);
+            key.keybuffer=translate_creator(cl.creator);
             break;
         case 2:
             ed.desc1mod=true;
@@ -2422,11 +2422,11 @@ void editorinput(void)
     {
         if(ed.titlemod)
         {
-            EditorData::GetInstance().title=key.keybuffer;
+            cl.title=key.keybuffer;
         }
         else if(ed.creatormod)
         {
-            EditorData::GetInstance().creator=key.keybuffer;
+            cl.creator=key.keybuffer;
         }
         else if(ed.websitemod)
         {
@@ -2453,12 +2453,12 @@ void editorinput(void)
                 game.mapheld=true;
                 if(ed.titlemod)
                 {
-                    EditorData::GetInstance().title=key.keybuffer;
+                    cl.title=key.keybuffer;
                     ed.titlemod=false;
                 }
                 else if(ed.creatormod)
                 {
-                    EditorData::GetInstance().creator=key.keybuffer;
+                    cl.creator=key.keybuffer;
                     ed.creatormod=false;
                 }
                 else if(ed.websitemod)
@@ -2774,13 +2774,13 @@ void editorinput(void)
                     int testeditor=-1;
                     int startpoint=0;
                     //First up; is there a start point on this screen?
-                    for(size_t i=0; i<edentity.size(); i++)
+                    for(size_t i=0; i<customentities.size(); i++)
                     {
                         //if() on screen
-                        if(edentity[i].t==16 && testeditor==-1)
+                        if(customentities[i].t==16 && testeditor==-1)
                         {
-                            int tx=(edentity[i].x-(edentity[i].x%40))/40;
-                            int ty=(edentity[i].y-(edentity[i].y%30))/30;
+                            int tx=(customentities[i].x-(customentities[i].x%40))/40;
+                            int ty=(customentities[i].y-(customentities[i].y%30))/30;
                             if(tx==ed.levx && ty==ed.levy)
                             {
                                 testeditor=i;
@@ -2791,13 +2791,13 @@ void editorinput(void)
                     if(testeditor==-1)
                     {
                         //Ok, settle for a check point
-                        for(size_t i=0; i<edentity.size(); i++)
+                        for(size_t i=0; i<customentities.size(); i++)
                         {
                             //if() on screen
-                            if(edentity[i].t==10 && testeditor==-1)
+                            if(customentities[i].t==10 && testeditor==-1)
                             {
-                                int tx=(edentity[i].x-(edentity[i].x%40))/40;
-                                int ty=(edentity[i].y-(edentity[i].y%30))/30;
+                                int tx=(customentities[i].x-(customentities[i].x%40))/40;
+                                int ty=(customentities[i].y-(customentities[i].y%30))/30;
                                 if(tx==ed.levx && ty==ed.levy)
                                 {
                                     testeditor=i;
@@ -2817,13 +2817,13 @@ void editorinput(void)
                         if(startpoint==0)
                         {
                             //Checkpoint spawn
-                            int tx=(edentity[testeditor].x-(edentity[testeditor].x%40))/40;
-                            int ty=(edentity[testeditor].y-(edentity[testeditor].y%30))/30;
-                            game.edsavex = (edentity[testeditor].x%40)*8 - 4;
-                            game.edsavey = (edentity[testeditor].y%30)*8;
+                            int tx=(customentities[testeditor].x-(customentities[testeditor].x%40))/40;
+                            int ty=(customentities[testeditor].y-(customentities[testeditor].y%30))/30;
+                            game.edsavex = (customentities[testeditor].x%40)*8 - 4;
+                            game.edsavey = (customentities[testeditor].y%30)*8;
                             game.edsaverx = 100+tx;
                             game.edsavery = 100+ty;
-                            if (edentity[testeditor].p1 == 0) // NOT a bool check!
+                            if (customentities[testeditor].p1 == 0) // NOT a bool check!
                             {
                                 game.edsavegc = 1;
                                 game.edsavey -= 2;
@@ -2838,15 +2838,15 @@ void editorinput(void)
                         else
                         {
                             //Start point spawn
-                            int tx=(edentity[testeditor].x-(edentity[testeditor].x%40))/40;
-                            int ty=(edentity[testeditor].y-(edentity[testeditor].y%30))/30;
-                            game.edsavex = (edentity[testeditor].x%40)*8 - 4;
-                            game.edsavey = (edentity[testeditor].y%30)*8;
+                            int tx=(customentities[testeditor].x-(customentities[testeditor].x%40))/40;
+                            int ty=(customentities[testeditor].y-(customentities[testeditor].y%30))/30;
+                            game.edsavex = (customentities[testeditor].x%40)*8 - 4;
+                            game.edsavey = (customentities[testeditor].y%30)*8;
                             game.edsaverx = 100+tx;
                             game.edsavery = 100+ty;
                             game.edsavegc = 0;
                             game.edsavey++;
-                            game.edsavedir=1-edentity[testeditor].p1;
+                            game.edsavedir=1-customentities[testeditor].p1;
                         }
 
                         music.haltdasmusik();
@@ -2966,10 +2966,10 @@ void editorinput(void)
                             {
                                 //Script trigger
                                 ed.lclickdelay=1;
-                                ed.textent=edentity.size();
+                                ed.textent=customentities.size();
                                 addedentity((ed.boundx1/8)+(ed.levx*40),(ed.boundy1/8)+ (ed.levy*30),19,
                                             (ed.boundx2-ed.boundx1)/8, (ed.boundy2-ed.boundy1)/8);
-                                ed.getlin(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(edentity[ed.textent].scriptname));
+                                ed.getlin(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.textent].scriptname));
                                 ed.lclickdelay=1;
                             }
                             else if(ed.boundarytype==1)
@@ -3015,8 +3015,8 @@ void editorinput(void)
                     {
                         if(ed.free(ed.tilex, ed.tiley)==0)
                         {
-                            edentity[ed.warpent].p1=ed.tilex+(ed.levx*40);
-                            edentity[ed.warpent].p2=ed.tiley+(ed.levy*30);
+                            customentities[ed.warpent].p1=ed.tilex+(ed.levx*40);
+                            customentities[ed.warpent].p2=ed.tiley+(ed.levy*30);
                             ed.warpmod=false;
                             ed.warpent=-1;
                             ed.lclickdelay=1;
@@ -3244,9 +3244,9 @@ void editorinput(void)
                             if(ed.drawmode==10)
                             {
                                 ed.lclickdelay=1;
-                                ed.textent=edentity.size();
+                                ed.textent=customentities.size();
                                 addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),17);
-                                ed.getlin(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(edentity[ed.textent].scriptname));
+                                ed.getlin(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(customentities[ed.textent].scriptname));
                             }
                             else if(ed.drawmode==12)   //Script Trigger
                             {
@@ -3305,14 +3305,14 @@ void editorinput(void)
                             else if(ed.drawmode==11)
                             {
                                 ed.lclickdelay=1;
-                                ed.textent=edentity.size();
+                                ed.textent=customentities.size();
                                 addedentity(ed.tilex+(ed.levx*40),ed.tiley+ (ed.levy*30),18,0);
-                                ed.getlin(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(edentity[ed.textent].scriptname));
+                                ed.getlin(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.textent].scriptname));
                             }
                             else if(ed.drawmode==13)
                             {
                                 ed.warpmod=true;
-                                ed.warpent=edentity.size();
+                                ed.warpent=customentities.size();
                                 addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),13);
                                 ed.lclickdelay=1;
                             }
@@ -3358,9 +3358,9 @@ void editorinput(void)
                             else if(ed.drawmode==16)  //Start Point
                             {
                                 //If there is another start point, destroy it
-                                for(size_t i=0; i<edentity.size(); i++)
+                                for(size_t i=0; i<customentities.size(); i++)
                                 {
-                                    if(edentity[i].t==16)
+                                    if(customentities[i].t==16)
                                     {
                                         removeedentity(i);
                                         i--;
@@ -3374,64 +3374,64 @@ void editorinput(void)
                         {
                             //Important! Do nothing, or else Undefined Behavior will happen
                         }
-                        else if(edentity[tmp].t==1)
+                        else if(customentities[tmp].t==1)
                         {
-                            edentity[tmp].p1=(edentity[tmp].p1+1)%4;
+                            customentities[tmp].p1=(customentities[tmp].p1+1)%4;
                             ed.lclickdelay=1;
                         }
-                        else if(edentity[tmp].t==2)
+                        else if(customentities[tmp].t==2)
                         {
-                            if(edentity[tmp].p1>=5)
+                            if(customentities[tmp].p1>=5)
                             {
-                                edentity[tmp].p1=(edentity[tmp].p1+1)%9;
-                                if(edentity[tmp].p1<5) edentity[tmp].p1=5;
+                                customentities[tmp].p1=(customentities[tmp].p1+1)%9;
+                                if(customentities[tmp].p1<5) customentities[tmp].p1=5;
                             }
                             else
                             {
-                                edentity[tmp].p1=(edentity[tmp].p1+1)%4;
+                                customentities[tmp].p1=(customentities[tmp].p1+1)%4;
                             }
                             ed.lclickdelay=1;
                         }
-                        else if(edentity[tmp].t==10)
+                        else if(customentities[tmp].t==10)
                         {
                             // If it's not textured as a checkpoint, leave it alone
-                            if (edentity[tmp].p1 == 0 || edentity[tmp].p1 == 1)
+                            if (customentities[tmp].p1 == 0 || customentities[tmp].p1 == 1)
                             {
-                                edentity[tmp].p1=(edentity[tmp].p1+1)%2;
+                                customentities[tmp].p1=(customentities[tmp].p1+1)%2;
                             }
                             ed.lclickdelay=1;
                         }
-                        else if(edentity[tmp].t==11)
+                        else if(customentities[tmp].t==11)
                         {
-                            edentity[tmp].p1=(edentity[tmp].p1+1)%2;
+                            customentities[tmp].p1=(customentities[tmp].p1+1)%2;
                             ed.lclickdelay=1;
                         }
-                        else if(edentity[tmp].t==15)
+                        else if(customentities[tmp].t==15)
                         {
-                            edentity[tmp].p1=(edentity[tmp].p1+1)%6;
+                            customentities[tmp].p1=(customentities[tmp].p1+1)%6;
                             ed.lclickdelay=1;
                         }
-                        else if(edentity[tmp].t==16)
+                        else if(customentities[tmp].t==16)
                         {
-                            edentity[tmp].p1=(edentity[tmp].p1+1)%2;
+                            customentities[tmp].p1=(customentities[tmp].p1+1)%2;
                             ed.lclickdelay=1;
                         }
-                        else if(edentity[tmp].t==17)
+                        else if(customentities[tmp].t==17)
                         {
-                            ed.getlin(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(edentity[tmp].scriptname));
+                            ed.getlin(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(customentities[tmp].scriptname));
                             ed.textent=tmp;
                             ed.lclickdelay=1;
                         }
-                        else if(edentity[tmp].t==18 || edentity[tmp].t==19)
+                        else if(customentities[tmp].t==18 || customentities[tmp].t==19)
                         {
                             ed.lclickdelay=1;
                             ed.textent=tmp;
-                            ed.getlin(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(edentity[ed.textent].scriptname));
-                            if (edentity[tmp].t == 18
-                            && (edentity[tmp].p1 == 0 || edentity[tmp].p1 == 1))
+                            ed.getlin(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.textent].scriptname));
+                            if (customentities[tmp].t == 18
+                            && (customentities[tmp].p1 == 0 || customentities[tmp].p1 == 1))
                             {
                                 // Flip the terminal, but if it's not textured as a terminal leave it alone
-                                edentity[tmp].p1 = (edentity[tmp].p1 + 1) % 2;
+                                customentities[tmp].p1 = (customentities[tmp].p1 + 1) % 2;
                             }
                         }
                     }
@@ -3508,9 +3508,9 @@ void editorinput(void)
                     {
                         ed.placetilelocal(ed.tilex, ed.tiley, 0);
                     }
-                    for(size_t i=0; i<edentity.size(); i++)
+                    for(size_t i=0; i<customentities.size(); i++)
                     {
-                        if(edentity[i].x==ed.tilex + (ed.levx*40)&& edentity[i].y==ed.tiley+ (ed.levy*30))
+                        if(customentities[i].x==ed.tilex + (ed.levx*40)&& customentities[i].y==ed.tiley+ (ed.levy*30))
                         {
                             removeedentity(i);
                         }
@@ -3775,7 +3775,7 @@ void editorclass::placetilelocal( int x, int y, int t )
 int editorclass::base( int x, int y )
 {
     //Return the base tile for the given tileset and colour
-    const edlevelclass* const room = cl.getroomprop(x, y);
+    const RoomProperty* const room = cl.getroomprop(x, y);
     if(room->tileset==0)  //Space Station
     {
         if(room->tilecol>=22)
@@ -3813,7 +3813,7 @@ int editorclass::base( int x, int y )
 int editorclass::backbase( int x, int y )
 {
     //Return the base tile for the background of the given tileset and colour
-    const edlevelclass* const room = cl.getroomprop(x, y);
+    const RoomProperty* const room = cl.getroomprop(x, y);
     if(room->tileset==0)  //Space Station
     {
         //Pick depending on tilecol
@@ -4275,7 +4275,7 @@ void editorclass::switch_tilecol(const bool reversed)
 
 void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap)
 {
-    const edlevelclass* const room = cl.getroomprop(rx, ry);
+    const RoomProperty* const room = cl.getroomprop(rx, ry);
     const int tileset = room->tileset;
     int tilecol = room->tilecol;
 
@@ -4319,7 +4319,7 @@ void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap)
 
 void editorclass::switch_enemy(const bool reversed)
 {
-    const edlevelclass* const room = cl.getroomprop(levx, levy);
+    const RoomProperty* const room = cl.getroomprop(levx, levy);
 
     int enemy = room->enemytype;
 
@@ -4343,7 +4343,7 @@ void editorclass::switch_enemy(const bool reversed)
 void editorclass::switch_warpdir(const bool reversed)
 {
     static const int modulus = 4;
-    const edlevelclass* const room = cl.getroomprop(levx, levy);
+    const RoomProperty* const room = cl.getroomprop(levx, levy);
 
     int warpdir = room->warpdir;
 

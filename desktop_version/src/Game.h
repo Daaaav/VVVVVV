@@ -124,7 +124,7 @@ public:
 
     void resetgameclock(void);
 
-    bool customsavequick(std::string savfile);
+    bool customsavequick(const std::string& savfile);
     bool savequick(void);
 
     void gameclock(void);
@@ -159,8 +159,8 @@ public:
 
     void loadstats(ScreenSettings* screen_settings);
 
-    bool savestats(const ScreenSettings* screen_settings);
-    bool savestats(void);
+    bool savestats(const ScreenSettings* screen_settings, bool sync = true);
+    bool savestats(bool sync = true);
 
     void deletestats(void);
 
@@ -199,7 +199,7 @@ public:
 
     void deathsequence(void);
 
-    void customloadquick(std::string savfile);
+    void customloadquick(const std::string& savfile);
     void loadquick(void);
 
     void customdeletequick(const std::string& file);
@@ -223,6 +223,7 @@ public:
 
     int savex, savey, saverx, savery;
     int savegc, savedir;
+    int savecolour;
 
     //Added for port
     int edsavex, edsavey, edsaverx, edsavery;
@@ -248,7 +249,7 @@ public:
     int tapleft, tapright;
 
     //Menu interaction stuff
-    void mapmenuchange(const int newgamestate);
+    void mapmenuchange(const int newgamestate, const bool user_initiated);
     bool mapheld;
     int menupage;
     int lastsaved;
