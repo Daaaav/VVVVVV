@@ -919,4 +919,7 @@ Are you really sure you want to do this?">Serioze! La tuta dimensio povus kolaps
     <cutscene id="alreadyvisited" explanation="">
         <dialogue speaker="cyan" english="...oh, I&apos;ve already found this.">...Ho, mi jam trovis tion.</dialogue>
     </cutscene>
+    <cutscene id="disableaccessibility" explanation="">
+        <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron."></dialogue>
+    </cutscene>
 </cutscenes>
