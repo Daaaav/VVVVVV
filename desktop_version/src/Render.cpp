@@ -23,17 +23,6 @@ static int tr;
 static int tg;
 static int tb;
 
-// Macro-like inline function used in maprender()
-// Used to keep some text positions the same in Flip Mode
-static int inline FLIP(int ypos)
-{
-    if (graphics.flipmode)
-    {
-        return 220 - ypos;
-    }
-    return ypos;
-}
-
 static inline void drawslowdowntext(void)
 {
     switch (game.slowdown)
@@ -979,7 +968,7 @@ static void menurender(void)
         std::string tempstring = loc::gettext("You rescued all the crewmates!");
         graphics.Print(0, 100, tempstring, tr, tg, tb, true);
 
-        tempstring = "And you found " + help.number_words(game.ndmresulttrinkets) + " trinkets."; // TODO LOC
+        tempstring = "And you found " + help.number_words(game.ndmresulttrinkets) + " trinket" + (game.ndmresulttrinkets == 1 ? "" : "s") + "."; // TODO LOC
         graphics.Print(0, 110, tempstring, tr, tg, tb, true);
 
         graphics.PrintWrap(0, 160, loc::gettext("A new trophy has been awarded and placed in the secret lab to acknowledge your achievement!"), tr, tg, tb, true);
@@ -2029,6 +2018,10 @@ void gamerender(void)
     graphics.renderwithscreeneffects();
 }
 
+/* Used to keep some graphics positions on the map screen
+ * the same in Flip Mode. */
+#define FLIP(y, h) (graphics.flipmode ? 220 - (y) - (h) : (y))
+
 void maprender(void)
 {
     ClearSurface(graphics.backBuffer);
@@ -2409,25 +2402,25 @@ void maprender(void)
         else if(map.custommode){
             LevelMetaData& meta = cl.ListOfMetaData[game.playcustomlevel];
 
-            graphics.bigprint( -1, FLIP(45), meta.title, 196, 196, 255 - help.glow, true);
+            graphics.bigprint(-1, FLIP(45, 8), meta.title, 196, 196, 255 - help.glow, true);
             char creatorline[SCREEN_WIDTH_CHARS + 1];
             SDL_snprintf(
                 creatorline, sizeof(creatorline),
                 loc::gettext("by %s").c_str(),
                 meta.creator.c_str()
             );
-            graphics.Print( -1, FLIP(70), creatorline, 196, 196, 255 - help.glow, true);
-            graphics.Print( -1, FLIP(80), meta.website, 196, 196, 255 - help.glow, true);
-            graphics.Print( -1, FLIP(100), meta.Desc1, 196, 196, 255 - help.glow, true);
-            graphics.Print( -1, FLIP(110), meta.Desc2, 196, 196, 255 - help.glow, true);
-            graphics.Print( -1, FLIP(120), meta.Desc3, 196, 196, 255 - help.glow, true);
+            graphics.Print(-1, FLIP(70, 8), creatorline, 196, 196, 255 - help.glow, true);
+            graphics.Print(-1, FLIP(80, 8), meta.website, 196, 196, 255 - help.glow, true);
+            graphics.Print(-1, FLIP(100, 8), meta.Desc1, 196, 196, 255 - help.glow, true);
+            graphics.Print(-1, FLIP(110, 8), meta.Desc2, 196, 196, 255 - help.glow, true);
+            graphics.Print(-1, FLIP(120, 8), meta.Desc3, 196, 196, 255 - help.glow, true);
 
             int remaining = cl.numcrewmates() - game.crewmates();
 
             if(remaining==1){ // TODO LOC
-                graphics.Print(1,FLIP(165), help.number_words(remaining)+ " crewmate remains", 196, 196, 255 - help.glow, true);
+                graphics.Print(1, FLIP(165, 8), help.number_words(remaining) + " crewmate remains", 196, 196, 255 - help.glow, true);
             }else if(remaining>0){
-                graphics.Print(1,FLIP(165), help.number_words(remaining)+ " crewmates remain", 196, 196, 255 - help.glow, true);
+                graphics.Print(1, FLIP(165, 8), help.number_words(remaining) + " crewmates remain", 196, 196, 255 - help.glow, true);
             }
         }
 #endif
@@ -2494,59 +2487,30 @@ void maprender(void)
         }
         break;
     case 2:
-#if !defined(NO_CUSTOM_LEVELS)
-        if(map.custommode)
+    {
+        int total;
+#ifndef NO_CUSTOM_LEVELS
+        if (map.custommode)
         {
-          if (graphics.flipmode)
-          {
-              graphics.Print(0, 164, loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 152, help.number_words(game.trinkets()) + " out of " + help.number_words(cl.numtrinkets()), 96,96,96, true); // TODO LOC
-
-              graphics.Print(0, 114, loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 102,help.String(game.deathcounts),  96,96,96, true);
-
-              graphics.Print(0, 64, loc::gettext("[Time Taken]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 52, game.timestring(),  96, 96, 96, true);
-          }
-          else
-          {
-              graphics.Print(0, 52, loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 64, help.number_words(game.trinkets()) + " out of "+help.number_words(cl.numtrinkets()), 96,96,96, true); // TODO LOC
-
-              graphics.Print(0, 102, loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 114,help.String(game.deathcounts),  96,96,96, true);
-
-              graphics.Print(0, 152, loc::gettext("[Time Taken]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 164, game.timestring(),  96, 96, 96, true);
-          }
+            total = cl.numtrinkets();
         }
         else
 #endif
         {
-          if (graphics.flipmode)
-          {
-              graphics.Print(0, 164, loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 152, help.number_words(game.trinkets()) + " out of Twenty", 96,96,96, true);
-
-              graphics.Print(0, 114, loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 102,help.String(game.deathcounts),  96,96,96, true);
-
-              graphics.Print(0, 64, loc::gettext("[Time Taken]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 52, game.timestring(),  96, 96, 96, true);
-          }
-          else
-          {
-              graphics.Print(0, 52, loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 64, help.number_words(game.trinkets()) + " out of Twenty", 96,96,96, true);
-
-              graphics.Print(0, 102, loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 114,help.String(game.deathcounts),  96,96,96, true);
-
-              graphics.Print(0, 152, loc::gettext("[Time Taken]"), 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 164, game.timestring(),  96, 96, 96, true);
-          }
+            total = 20;
         }
+
+        /* Stats. */
+        graphics.Print(0, FLIP(52, 8), loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow, true);
+        graphics.Print(0, FLIP(64, 8), help.number_words(game.trinkets()) + " out of " + help.number_words(total), 96, 96, 96, true); // TODO LOC
+
+        graphics.Print(0, FLIP(102, 8), loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow, true);
+        graphics.Print(0, FLIP(114, 8), help.String(game.deathcounts), 96, 96, 96, true);
+
+        graphics.Print(0, FLIP(152, 8), loc::gettext("[Time Taken]"), 196, 196, 255 - help.glow, true);
+        graphics.Print(0, FLIP(164, 8), game.timestring(), 96, 96, 96, true);
         break;
+    }
     case 3:
         if (game.inintermission)
         {

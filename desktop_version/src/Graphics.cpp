@@ -653,6 +653,18 @@ void Graphics::PrintWrap(
     char buffer[54*4 + 1];
     size_t start = 0;
 
+    if (flipmode)
+    {
+        /* Correct for the height of the resulting print. */
+        size_t len = 0;
+        while (next_wrap(&start, &len, &str[start], maxwidth))
+        {
+            y += linespacing;
+        }
+        y -= linespacing;
+        start = 0;
+    }
+
     while (next_wrap_s(buffer, sizeof(buffer), &start, str, maxwidth))
     {
         Print(x, y, buffer, r, g, b, cen);
@@ -1136,7 +1148,7 @@ void Graphics::drawgui(void)
         yp = textboxes[i].yp;
         if (flipmode && textboxes[i].flipme)
         {
-            yp += 2 * (120 - yp) - 8 * (textboxes[i].lines.size() + 2);
+            yp = SCREEN_HEIGHT_PIXELS - yp - 8 * (textboxes[i].lines.size() + 2);
         }
 
         if (textboxes[i].r == 0 && textboxes[i].g == 0 && textboxes[i].b == 0)
