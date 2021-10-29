@@ -149,9 +149,9 @@ public:
     bool onewaycol_override;
 };
 
-std::string translate_title(std::string& title);
+std::string translate_title(const std::string& title);
 
-std::string translate_creator(std::string& creator);
+std::string translate_creator(const std::string& creator);
 
 #ifndef CL_DEFINITION
 extern customlevelclass cl;

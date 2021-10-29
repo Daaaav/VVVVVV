@@ -86,14 +86,14 @@ static bool compare_nocase (std::string first, std::string second)
 // as being translated, while they're actually stored in English in the level file.
 // This way we translate "Untitled Level" and "Unknown" without
 // spreading around translations in level files posted online!
-std::string translate_title(std::string& title)
+std::string translate_title(const std::string& title)
 {
     if (title == "Untitled Level")
         return loc::gettext("Untitled Level");
     return title;
 }
 
-std::string translate_creator(std::string& creator)
+std::string translate_creator(const std::string& creator)
 {
     if (creator == "Unknown")
         return loc::gettext("Unknown");

@@ -24,7 +24,7 @@ namespace loc
 	std::map<std::string, std::map<std::string, std::string> > translation_cutscenes;
 	std::string number[102];
 
-	bool load_doc(std::string cat, tinyxml2::XMLDocument& doc, std::string langcode = lang)
+	bool load_doc(const std::string& cat, tinyxml2::XMLDocument& doc, const std::string& langcode = lang)
 	{
 		if (!FILESYSTEM_loadTiXml2Document(("lang/" + langcode + "/" + cat + ".xml").c_str(), doc))
 		{
@@ -34,7 +34,7 @@ namespace loc
 		return true;
 	}
 
-	void loadmeta(LangMeta& meta, std::string langcode = lang)
+	void loadmeta(LangMeta& meta, const std::string& langcode = lang)
 	{
 		meta.active = true;
 		meta.code = langcode;
@@ -259,7 +259,7 @@ namespace loc
 		}
 	}
 
-	void sync_lang_file(std::string langcode)
+	void sync_lang_file(const std::string& langcode)
 	{
 		// Update translation files for the given language with new strings from template.
 		// This basically takes the template, fills in existing translations, and saves.
