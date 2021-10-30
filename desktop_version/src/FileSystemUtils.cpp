@@ -160,9 +160,10 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
     {
         /* Try to detect the language dir, it's next to data.zip in distributed builds */
         bool lang_dir_found = false;
-        SDL_snprintf(output, sizeof(output), "%s%s",
+        SDL_snprintf(output, sizeof(output), "%s%s%s",
             basePath,
-            "lang/"
+            "lang",
+            pathSep
         );
         if (PHYSFS_mount(output, "lang/", 1))
         {
@@ -173,7 +174,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
             /* If you're a developer, you probably want to use the language files
              * from the repo, otherwise it's a pain to keep everything in sync.
              * And who knows how deep in build folders our binary is. */
-            SDL_strlcpy(output, basePath, sizeof(output)-6);
+            SDL_strlcpy(output, basePath, sizeof(output)-5);
 
             char needle[32];
             SDL_snprintf(needle, sizeof(needle), "%sdesktop_version%s",
@@ -193,8 +194,9 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
             if (match_last != NULL)
             {
                 /* strstr only gives us a pointer and not a remaining buffer length, but
-                 * that's why we pretended the buffer was 6 chars shorter than it was! */
-                SDL_strlcpy(&match_last[strlen(needle)], "lang/", 6);
+                 * that's why we pretended the buffer was 5 chars shorter than it was! */
+                SDL_strlcpy(&match_last[strlen(needle)], "lang", 5);
+                SDL_strlcat(output, pathSep, sizeof(output));
 
                 if (PHYSFS_mount(output, "lang/", 1))
                 {
