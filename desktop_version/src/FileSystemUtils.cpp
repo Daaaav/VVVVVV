@@ -7,6 +7,7 @@
 #include "BinaryBlob.h"
 #include "Exit.h"
 #include "Graphics.h"
+#include "Localization.h"
 #include "Maths.h"
 #include "Unused.h"
 #include "UtilityClass.h"
@@ -35,6 +36,7 @@ static int mkdir(char* path, int mode)
 
 static char saveDir[MAX_PATH] = {'\0'};
 static char levelDir[MAX_PATH] = {'\0'};
+static char mainLangDir[MAX_PATH] = {'\0'};
 
 static char assetDir[MAX_PATH] = {'\0'};
 static char virtualMountPath[MAX_PATH] = {'\0'};
@@ -59,7 +61,7 @@ static const PHYSFS_Allocator allocator = {
     SDL_free
 };
 
-int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
+int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langDir)
 {
     char output[MAX_PATH];
     int retval;
@@ -142,6 +144,78 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
         basePath = SDL_strdup("./");
     }
 
+    /* Mount the main language directory before data.zip */
+    if (langDir)
+    {
+        if (PHYSFS_mount(langDir, "lang/", 1))
+        {
+            SDL_strlcpy(mainLangDir, langDir, sizeof(mainLangDir));
+        }
+        else
+        {
+            vlog_warn("-langdir is invalid!");
+        }
+    }
+    else
+    {
+        /* Try to detect the language dir, it's next to data.zip in distributed builds */
+        bool lang_dir_found = false;
+        SDL_snprintf(output, sizeof(output), "%s%s",
+            basePath,
+            "lang/"
+        );
+        if (PHYSFS_mount(output, "lang/", 1))
+        {
+            lang_dir_found = true;
+        }
+        else
+        {
+            /* If you're a developer, you probably want to use the language files
+             * from the repo, otherwise it's a pain to keep everything in sync.
+             * And who knows how deep in build folders our binary is. */
+            SDL_strlcpy(output, basePath, sizeof(output)-6);
+
+            char needle[32];
+            SDL_snprintf(needle, sizeof(needle), "%sdesktop_version%s",
+                pathSep,
+                pathSep
+            );
+
+            /* We want the last match */
+            char* match_last = NULL;
+            char* match = output;
+            while (match = SDL_strstr(match, needle))
+            {
+                match_last = match;
+                match = &match[1];
+            }
+
+            if (match_last != NULL)
+            {
+                /* strstr only gives us a pointer and not a remaining buffer length, but
+                 * that's why we pretended the buffer was 6 chars shorter than it was! */
+                SDL_strlcpy(&match_last[strlen(needle)], "lang/", 6);
+
+                if (PHYSFS_mount(output, "lang/", 1))
+                {
+                    lang_dir_found = true;
+                    loc::show_lang_maint_menu = true;
+                }
+            }
+        }
+
+        if (lang_dir_found)
+        {
+            SDL_strlcpy(mainLangDir, output, sizeof(mainLangDir));
+        }
+        else
+        {
+            vlog_warn("Cannot find the lang directory anywhere!");
+        }
+    }
+
+    vlog_info("Languages directory: %s", mainLangDir);
+
     /* Mount the stock content last */
     if (assetsPath)
     {
@@ -209,6 +283,11 @@ char *FILESYSTEM_getUserSaveDirectory(void)
 char *FILESYSTEM_getUserLevelDirectory(void)
 {
     return levelDir;
+}
+
+char *FILESYSTEM_getUserMainLangDirectory(void)
+{
+    return mainLangDir;
 }
 
 bool FILESYSTEM_isFile(const char* filename)
@@ -1013,15 +1092,6 @@ std::vector<std::string> FILESYSTEM_getLanguageCodes(void)
     PHYSFS_freeList(fileList);
 
     return list;
-}
-
-bool FILESYSTEM_langsAreModded(void)
-{
-    const char *langdir_c = PHYSFS_getRealDir("lang");
-    if (langdir_c == NULL)
-        return false;
-    std::string langdir = std::string(langdir_c);
-    return langdir.compare(langdir.size()-4, 4, ".zip") != 0;
 }
 
 static int PLATFORM_getOSDirectory(char* output, const size_t output_size)

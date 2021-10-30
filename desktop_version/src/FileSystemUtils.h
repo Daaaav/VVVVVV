@@ -11,7 +11,7 @@ class binaryBlob;
 // Forward declaration, including the entirety of tinyxml2.h across all files this file is included in is unnecessary
 namespace tinyxml2 { class XMLDocument; }
 
-int FILESYSTEM_init(char *argvZero, char* baseDir, char* assetsPath);
+int FILESYSTEM_init(char *argvZero, char* baseDir, char* assetsPath, char* langDir);
 void FILESYSTEM_deinit(void);
 
 char *FILESYSTEM_getUserSaveDirectory(void);
@@ -43,7 +43,6 @@ bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 void FILESYSTEM_enumerateLevelDirFileNames(void (*callback)(const char* filename));
 
 std::vector<std::string> FILESYSTEM_getLanguageCodes(void);
-bool FILESYSTEM_langsAreModded(void);
 
 bool FILESYSTEM_levelDirHasError(void);
 void FILESYSTEM_clearLevelDirError(void);

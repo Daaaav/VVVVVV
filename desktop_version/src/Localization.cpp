@@ -222,8 +222,6 @@ namespace loc
 
     void loadtext(void)
     {
-        show_lang_maint_menu = FILESYSTEM_langsAreModded();
-
         resettext();
         loadmeta(langmeta);
 

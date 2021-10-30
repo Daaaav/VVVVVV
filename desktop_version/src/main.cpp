@@ -368,6 +368,7 @@ int main(int argc, char *argv[])
 {
     char* baseDir = NULL;
     char* assetsPath = NULL;
+    char* langDir = NULL;
 
     vlog_init();
 
@@ -404,6 +405,13 @@ int main(int argc, char *argv[])
             ARG_INNER({
                 i++;
                 assetsPath = argv[i];
+            })
+        }
+        else if (ARG("-langdir"))
+        {
+            ARG_INNER({
+                i++;
+                langDir = argv[i];
             })
         }
         else if (ARG("-playing") || ARG("-p"))
@@ -468,6 +476,10 @@ int main(int argc, char *argv[])
         {
             vlog_toggle_error(0);
         }
+        else if (ARG("-translator"))
+        {
+            loc::show_lang_maint_menu = true;
+        }
 #undef ARG_INNER
 #undef ARG
         else
@@ -477,7 +489,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    if(!FILESYSTEM_init(argv[0], baseDir, assetsPath))
+    if(!FILESYSTEM_init(argv[0], baseDir, assetsPath, langDir))
     {
         vlog_error("Unable to initialize filesystem!");
         VVV_exit(1);
