@@ -295,14 +295,19 @@ char *FILESYSTEM_getUserMainLangDirectory(void)
     return mainLangDir;
 }
 
-bool FILESYSTEM_setLangWriteDir(void)
-{
-    return PHYSFS_setWriteDir(mainLangDir);
-}
-
 bool FILESYSTEM_restoreWriteDir(void)
 {
     return PHYSFS_setWriteDir(writeDir);
+}
+
+bool FILESYSTEM_setLangWriteDir(void)
+{
+    if (!PHYSFS_setWriteDir(mainLangDir))
+    {
+        FILESYSTEM_restoreWriteDir();
+        return false;
+    }
+    return true;
 }
 
 bool FILESYSTEM_isFile(const char* filename)

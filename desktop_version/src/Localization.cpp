@@ -299,7 +299,11 @@ namespace loc
     void sync_lang_files(void)
     {
         std::string oldlang = lang;
-        FILESYSTEM_setLangWriteDir();
+        if (!FILESYSTEM_setLangWriteDir())
+        {
+            vlog_error("Cannot set write dir to lang dir, not syncing language files");
+            return;
+        }
 
         for (size_t i = 0; i < languagelist.size(); i++)
         {
