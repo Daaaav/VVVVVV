@@ -262,6 +262,7 @@ void Game::init(void)
     SDL_memset(unlocknotify, false, sizeof(unlock));
 
     currentmenuoption = 0;
+    menutestmode = false;
     current_credits_list_index = 0;
     menuxoff = 0;
     menuyoff = 0;
@@ -5888,7 +5889,7 @@ void Game::returntomenu(enum Menu::MenuName t)
 
 void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 {
-    if (t == Menu::mainmenu)
+    if (t == Menu::mainmenu && !menutestmode)
     {
         //Either we've just booted up the game or returned from gamemode
         //Whichever it is, we shouldn't have a stack,
@@ -6225,7 +6226,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::translator_options:
         option(loc::gettext("language statistics"), false);
         option(loc::gettext("translate room names"), false);
-        option(loc::gettext("menu test"), false);
+        option(loc::gettext("menu test"));
         option(loc::gettext("limits check"), false);
         option(loc::gettext("return"));
         menuyoff = 0;

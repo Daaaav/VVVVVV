@@ -632,7 +632,7 @@ static void menurender(void)
             break;
         case 2:
             graphics.bigprint( -1, 30, loc::gettext("Menu test"), tr, tg, tb, true);
-            graphics.PrintWrap( -1, 65, loc::gettext("Cycle through all menus in the game. ALL options will not take their normal actions, and will go to the next menu instead. Press Escape to stop."), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop."), tr, tg, tb, true);
             break;
         case 3:
             graphics.bigprint( -1, 30, loc::gettext("Limits check"), tr, tg, tb, true);

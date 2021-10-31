@@ -162,7 +162,7 @@
     <string english="Enable room name translation mode, so you can translate room names in context." explanation="" max="38*6" comment=""></string>
     <string english="menu test" explanation="menu option" comment=""></string>
     <string english="Menu test" explanation="title" max="20" comment=""></string>
-    <string english="Cycle through all menus in the game. ALL options will not take their normal actions, and will go to the next menu instead. Press Escape to stop." explanation="" max="38*6" comment=""></string>
+    <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." explanation="" max="38*6" comment=""></string>
     <string english="limits check" explanation="menu option" comment=""></string>
     <string english="Limits check" explanation="title" max="20" comment=""></string>
     <string english="Find translations that don't fit within their defined bounds." explanation="" max="38*6" comment=""></string>

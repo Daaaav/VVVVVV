@@ -278,6 +278,7 @@ public:
     //Main Menu Variables
     std::vector<MenuOption> menuoptions;
     int currentmenuoption ;
+    bool menutestmode;
     enum Menu::MenuName currentmenuname;
     enum Menu::MenuName kludge_ingametemp;
     enum SLIDERMODE slidermode;

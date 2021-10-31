@@ -341,6 +341,15 @@ static void slidermodeinput(void)
 
 static void menuactionpress(void)
 {
+    if (game.menutestmode)
+    {
+        music.playef(6);
+        Menu::MenuName nextmenu = (Menu::MenuName) (game.currentmenuname + 1);
+        game.returnmenu();
+        game.createmenu(nextmenu);
+        return;
+    }
+
     switch (game.currentmenuname)
     {
     case Menu::mainmenu:
@@ -1076,31 +1085,36 @@ static void menuactionpress(void)
         }
         break;
     case Menu::translator_options:
-        music.playef(11);
         switch (game.currentmenuoption)
         {
         case 0:
             // language statistics
             // TODO
+            music.playef(11);
             map.nexttowercolour();
             break;
         case 1:
             // translate room names
             // TODO
+            music.playef(11);
             map.nexttowercolour();
             break;
         case 2:
             // menu test
-            // TODO
+            music.playef(18);
+            game.menutestmode = true;
+            game.createmenu((Menu::MenuName) 0);
             map.nexttowercolour();
             break;
         case 3:
             // limits check
             // TODO
+            music.playef(11);
             map.nexttowercolour();
             break;
         case 4:
             // return
+            music.playef(11);
             game.returnmenu();
             map.nexttowercolour();
             break;
@@ -1971,7 +1985,13 @@ void titleinput(void)
         && (key.isDown(27) || key.isDown(game.controllerButton_esc)))
         {
             music.playef(11);
-            if (game.currentmenuname == Menu::mainmenu)
+            if (game.menutestmode)
+            {
+                game.menutestmode = false;
+                game.returnmenu();
+                map.nexttowercolour();
+            }
+            else if (game.currentmenuname == Menu::mainmenu)
             {
                 game.createmenu(Menu::youwannaquit);
                 map.nexttowercolour();
