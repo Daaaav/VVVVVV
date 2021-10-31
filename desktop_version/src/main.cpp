@@ -478,7 +478,7 @@ int main(int argc, char *argv[])
         }
         else if (ARG("-translator"))
         {
-            loc::show_lang_maint_menu = true;
+            loc::show_translator_menu = true;
         }
 #undef ARG_INNER
 #undef ARG

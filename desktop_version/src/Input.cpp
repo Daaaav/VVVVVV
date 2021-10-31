@@ -344,21 +344,35 @@ static void menuactionpress(void)
     switch (game.currentmenuname)
     {
     case Menu::mainmenu:
-#if defined(MAKEANDPLAY)
-#define MPOFFSET -1
-#else
-#define MPOFFSET 0
+    {
+        int option_id = -1;
+        int option_seq = 0; /* option number in YOUR configuration */
+#define OPTION_ID(id) \
+        if (option_seq == game.currentmenuoption) \
+        { \
+            option_id = id; \
+        } \
+        option_seq++;
+#if !defined(MAKEANDPLAY)
+        OPTION_ID(0) /* play */
 #endif
-
-#if defined(NO_CUSTOM_LEVELS)
-#define NOCUSTOMSOFFSET -1
-#else
-#define NOCUSTOMSOFFSET 0
+#if !defined(NO_CUSTOM_LEVELS)
+        OPTION_ID(1) /* levels */
 #endif
+        OPTION_ID(2) /* options */
+        if (loc::show_translator_menu)
+        {
+            OPTION_ID(3) /* translator */
+        }
+#if !defined(MAKEANDPLAY)
+        OPTION_ID(4) /* credits */
+#endif
+        OPTION_ID(5) /* quit */
 
-#define OFFSET (MPOFFSET+NOCUSTOMSOFFSET)
+#undef OPTION_ID
 
-        switch (game.currentmenuoption)
+
+        switch (option_id)
         {
 #if !defined(MAKEANDPLAY)
         case 0:
@@ -379,40 +393,41 @@ static void menuactionpress(void)
             break;
 #endif
 #if !defined(NO_CUSTOM_LEVELS)
-        case OFFSET+1:
+        case 1:
             //Bring you to the normal playmenu
             music.playef(11);
             game.createmenu(Menu::playerworlds);
             map.nexttowercolour();
             break;
 #endif
-        case OFFSET+2:
+        case 2:
             //Options
             music.playef(11);
             game.createmenu(Menu::options);
             map.nexttowercolour();
             break;
+        case 3:
+            //Translator
+            music.playef(11);
+            game.createmenu(Menu::translator_main);
+            map.nexttowercolour();
+            break;
 #if !defined(MAKEANDPLAY)
-        case OFFSET+3:
+        case 4:
             //Credits
             music.playef(11);
             game.createmenu(Menu::credits);
             map.nexttowercolour();
             break;
-#else
- #undef MPOFFSET
- #define MPOFFSET -2
 #endif
-        case OFFSET+4:
+        case 5:
             music.playef(11);
             game.createmenu(Menu::youwannaquit);
             map.nexttowercolour();
             break;
-#undef OFFSET
-#undef NOCUSTOMSOFFSET
-#undef MPOFFSET
         }
         break;
+    }
 #if !defined(NO_CUSTOM_LEVELS)
     case Menu::levellist:
     {
@@ -1032,10 +1047,6 @@ static void menuactionpress(void)
                 map.nexttowercolour();
                 game.returnmenu();
             }
-            else if (loc::show_lang_maint_menu)
-            {
-                game.createmenu(Menu::language_maint);
-            }
         }
         else
         {
@@ -1043,17 +1054,69 @@ static void menuactionpress(void)
             game.returnmenu();
         }
         break;
-    case Menu::language_maint:
+    case Menu::translator_main:
+        music.playef(11);
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            // translator options
+            game.createmenu(Menu::translator_options);
+            map.nexttowercolour();
+            break;
+        case 1:
+            // maintenance
+            game.createmenu(Menu::translator_maintenance);
+            map.nexttowercolour();
+            break;
+        case 2:
+            // return
+            game.returnmenu();
+            map.nexttowercolour();
+            break;
+        }
+        break;
+    case Menu::translator_options:
+        music.playef(11);
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            // language statistics
+            // TODO
+            map.nexttowercolour();
+            break;
+        case 1:
+            // translate room names
+            // TODO
+            map.nexttowercolour();
+            break;
+        case 2:
+            // menu test
+            // TODO
+            map.nexttowercolour();
+            break;
+        case 3:
+            // limits check
+            // TODO
+            map.nexttowercolour();
+            break;
+        case 4:
+            // return
+            game.returnmenu();
+            map.nexttowercolour();
+            break;
+        }
+        break;
+    case Menu::translator_maintenance:
         music.playef(11);
         switch (game.currentmenuoption)
         {
         case 0:
             // sync languages
-            game.createmenu(Menu::language_maint_sync);
+            game.createmenu(Menu::translator_maintenance_sync);
             map.nexttowercolour();
             break;
         case 1:
-            // translation statistics
+            // global statistics
             // TODO
             map.nexttowercolour();
             break;
@@ -1063,13 +1126,13 @@ static void menuactionpress(void)
             loc::loadtext();
             break;
         case 3:
-            // return. Also leave the language selection menu
-            game.returntomenu(Menu::options);
+            // return
+            game.returnmenu();
             map.nexttowercolour();
             break;
         }
         break;
-    case Menu::language_maint_sync:
+    case Menu::translator_maintenance_sync:
         music.playef(11);
         if (game.currentmenuoption == 0)
         {

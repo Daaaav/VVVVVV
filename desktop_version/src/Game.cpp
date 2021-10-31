@@ -5920,6 +5920,10 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("levels"));
 #endif
         option(loc::gettext("options"));
+        if (loc::show_translator_menu)
+        {
+            option(loc::gettext("translator"));
+        }
 #if !defined(MAKEANDPLAY)
         option(loc::gettext("credits"));
 #endif
@@ -6208,20 +6212,32 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                     option(loc::languagelist[i].nativename);
             }
 
-            if (loc::show_lang_maint_menu)
-                option(loc::gettext("translation maintenance"));
             menuyoff = 70-(menuoptions.size()*10);
             maxspacing = 5;
         }
         break;
-    case Menu::language_maint:
+    case Menu::translator_main:
+        option(loc::gettext("translator options"));
+        option(loc::gettext("maintenance"));
+        option(loc::gettext("return"));
+        menuyoff = 0;
+        break;
+    case Menu::translator_options:
+        option(loc::gettext("language statistics"), false);
+        option(loc::gettext("translate room names"), false);
+        option(loc::gettext("menu test"), false);
+        option(loc::gettext("limits check"), false);
+        option(loc::gettext("return"));
+        menuyoff = 0;
+        break;
+    case Menu::translator_maintenance:
         option(loc::gettext("sync language files"));
-        option(loc::gettext("statistics"), false);
+        option(loc::gettext("global statistics"), false);
         option(loc::gettext("toggle test mode"));
         option(loc::gettext("return"));
         menuyoff = 0;
         break;
-    case Menu::language_maint_sync:
+    case Menu::translator_maintenance_sync:
         option(loc::gettext("sync"));
         option(loc::gettext("return"));
         menuyoff = 64;

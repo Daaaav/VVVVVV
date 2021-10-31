@@ -591,12 +591,56 @@ static void menurender(void)
         {
             graphics.PrintWrap(-1, 15, loc::languagelist[game.currentmenuoption].credit, tr, tg, tb, true);
         }
-        else if (loc::show_lang_maint_menu)
+        break;
+    case Menu::translator_main:
+        switch (game.currentmenuoption)
         {
-            graphics.PrintWrap(-1, 15, loc::gettext("This menu is only shown when having a lang folder in your VVVVVV folder."), tr, tg, tb, true);
+        case 0:
+            graphics.bigprint( -1, 30, loc::gettext("Translator options"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Some options that are useful for translators and developers."), tr, tg, tb, true);
+            break;
+        case 1:
+            graphics.bigprint( -1, 30, loc::gettext("Maintenance"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Sync all language files after adding new strings, and check whether everything can be translated."), tr, tg, tb, true);
+            break;
+        }
+        {
+            if (FILESYSTEM_isMainLangDirFromRepo())
+            {
+                // Just giving manual compilers some hint as to why this menu is here!
+                graphics.Print(8, 208, loc::gettext("Repository language folder:"), tr/2, tg/2, tb/2);
+            }
+            else
+            {
+                graphics.Print(8, 208, loc::gettext("Language folder:"), tr/2, tg/2, tb/2);
+            }
+
+            char* mainLangDir = FILESYSTEM_getUserMainLangDirectory();
+            graphics.Print(316-graphics.len(mainLangDir), 224, mainLangDir, tr/2, tg/2, tb/2);
         }
         break;
-    case Menu::language_maint:
+    case Menu::translator_options:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            graphics.bigprint( -1, 30, loc::gettext("Statistics"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Count the amount of untranslated strings for this language."), tr, tg, tb, true);
+            break;
+        case 1:
+            graphics.bigprint( -1, 30, loc::gettext("Translate rooms"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Enable room name translation mode, so you can translate room names in context."), tr, tg, tb, true);
+            break;
+        case 2:
+            graphics.bigprint( -1, 30, loc::gettext("Menu test"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Cycle through all menus in the game. ALL options will not take their normal actions, and will go to the next menu instead. Press Escape to stop."), tr, tg, tb, true);
+            break;
+        case 3:
+            graphics.bigprint( -1, 30, loc::gettext("Limits check"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Find translations that don't fit within their defined bounds."), tr, tg, tb, true);
+            break;
+        }
+        break;
+    case Menu::translator_maintenance:
         switch (game.currentmenuoption)
         {
         case 0:
@@ -612,8 +656,8 @@ static void menurender(void)
             graphics.PrintWrap( -1, 65, loc::gettext("Show all translatable strings as a V or X, revealing untranslatable or forgotten strings. X means missing from file."), tr, tg, tb, true);
         }
         break;
-    case Menu::language_maint_sync:
-        graphics.PrintWrap(-1, 80, loc::gettext("If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Only languages that are in the VVVVVV folder can be updated. Make a backup, just in case."), tr, tg, tb, true);
+    case Menu::translator_maintenance_sync:
+        graphics.PrintWrap(-1, 80, loc::gettext("If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Make a backup, just in case."), tr, tg, tb, true);
         break;
     case Menu::speedrunneroptions:
         switch (game.currentmenuoption)

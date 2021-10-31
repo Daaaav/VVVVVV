@@ -18,7 +18,7 @@ namespace loc
     // language screen list
     std::vector<LangMeta> languagelist;
     int languagelist_curlang;
-    bool show_lang_maint_menu;
+    bool show_translator_menu;
 
     std::map<std::string, std::string> translation;
     std::map<std::string, std::map<std::string, std::string> > translation_cutscenes;

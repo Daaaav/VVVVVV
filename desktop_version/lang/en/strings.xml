@@ -10,6 +10,7 @@
     <string english="play" explanation="main menu option" comment=""></string>
     <string english="levels" explanation="main menu option" comment=""></string>
     <string english="options" explanation="main menu option" comment=""></string>
+    <string english="translator" explanation="main menu option" comment=""></string>
     <string english="credits" explanation="main menu option" comment=""></string>
     <string english="quit" explanation="main menu option" comment=""></string>
     <string english="gameplay" explanation="options menu option" comment=""></string>
@@ -145,19 +146,36 @@
     <string english="Restart is bound to: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc" max="32" comment=""></string>
     <string english="Interact is bound to: " explanation="controller binds, bound to A, B, X, Y, etc" max="32" comment=""></string>
     <string english="ERROR: No language files found." explanation="" max="38*3" comment=""></string>
-    <string english="This menu is only shown when having a lang folder in your VVVVVV folder." explanation="the folder is called lang. Translation maintenance menu" max="38*3" comment=""></string>
-    <string english="translation maintenance" explanation="menu option, menu that allows you to apply maintenance to translations" comment=""></string>
+    <string english="Language folder:" explanation="" max="39" comment=""></string>
+    <string english="Repository language folder:" explanation="Language folder from the Git repository" max="39" comment=""></string>
+    <string english="translator options" explanation="menu option" comment=""></string>
+    <string english="Translator options" explanation="title" max="20" comment=""></string>
+    <string english="Some options that are useful for translators and developers." explanation="" max="38*6" comment=""></string>
+    <string english="maintenance" explanation="menu option, menu that allows you to apply maintenance to translations" comment=""></string>
+    <string english="Maintenance" explanation="title" max="20" comment=""></string>
+    <string english="Sync all language files after adding new strings, and check whether everything can be translated." explanation="" max="38*6" comment=""></string>
+    <string english="language statistics" explanation="menu option" comment=""></string>
+    <string english="Count the amount of untranslated strings for this language." explanation="" max="38*6" comment=""></string>
+    <string english="Count the amount of untranslated strings for each language" explanation="translation maintenance menu" max="38*6" comment=""></string>
+    <string english="translate room names" explanation="menu option" comment=""></string>
+    <string english="Translate rooms" explanation="title" max="20" comment=""></string>
+    <string english="Enable room name translation mode, so you can translate room names in context." explanation="" max="38*6" comment=""></string>
+    <string english="menu test" explanation="menu option" comment=""></string>
+    <string english="Menu test" explanation="title" max="20" comment=""></string>
+    <string english="Cycle through all menus in the game. ALL options will not take their normal actions, and will go to the next menu instead. Press Escape to stop." explanation="" max="38*6" comment=""></string>
+    <string english="limits check" explanation="menu option" comment=""></string>
+    <string english="Limits check" explanation="title" max="20" comment=""></string>
+    <string english="Find translations that don't fit within their defined bounds." explanation="" max="38*6" comment=""></string>
     <string english="sync language files" explanation="menu option" comment=""></string>
     <string english="Sync language files" explanation="title, translation maintenance menu" max="20" comment=""></string>
     <string english="sync" explanation="menu option, verb" comment=""></string>
     <string english="Merge all new strings from the template files into the translation files, keeping existing translations" explanation="translation maintenance menu" max="38*6" comment=""></string>
-    <string english="statistics" explanation="menu option" comment=""></string>
+    <string english="global statistics" explanation="menu option" comment=""></string>
     <string english="Statistics" explanation="title, translation maintenance menu" max="20" comment=""></string>
-    <string english="Count the amount of untranslated strings for each language" explanation="translation maintenance menu" max="38*6" comment=""></string>
     <string english="toggle test mode" explanation="menu option" comment=""></string>
     <string english="Test mode" explanation="title, translation maintenance menu" max="20" comment=""></string>
     <string english="Show all translatable strings as a V or X, revealing untranslatable or forgotten strings. X means missing from file." explanation="translation maintenance menu" max="38*6" comment=""></string>
-    <string english="If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Only languages that are in the VVVVVV folder can be updated. Make a backup, just in case." explanation="translation maintenance menu" max="38*12" comment=""></string>
+    <string english="If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Make a backup, just in case." explanation="translation maintenance menu" max="38*12" comment=""></string>
     <string english="advanced options" explanation="menu option" comment=""></string>
     <string english="Advanced Options" explanation="title" max="20" comment=""></string>
     <string english="All other gameplay settings." explanation="description for advanced options" max="38*5" comment=""></string>

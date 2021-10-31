@@ -39,6 +39,7 @@ static char writeDir[MAX_PATH] = {'\0'};
 static char saveDir[MAX_PATH] = {'\0'};
 static char levelDir[MAX_PATH] = {'\0'};
 static char mainLangDir[MAX_PATH] = {'\0'};
+static bool isMainLangDirFromRepo = false;
 
 static char assetDir[MAX_PATH] = {'\0'};
 static char virtualMountPath[MAX_PATH] = {'\0'};
@@ -204,7 +205,8 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
                 if (PHYSFS_mount(output, "lang/", 1))
                 {
                     lang_dir_found = true;
-                    loc::show_lang_maint_menu = true;
+                    loc::show_translator_menu = true;
+                    isMainLangDirFromRepo = true;
                 }
             }
         }
@@ -293,6 +295,11 @@ char *FILESYSTEM_getUserLevelDirectory(void)
 char *FILESYSTEM_getUserMainLangDirectory(void)
 {
     return mainLangDir;
+}
+
+bool FILESYSTEM_isMainLangDirFromRepo(void)
+{
+    return isMainLangDirFromRepo;
 }
 
 bool FILESYSTEM_restoreWriteDir(void)
