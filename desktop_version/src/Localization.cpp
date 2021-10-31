@@ -292,12 +292,14 @@ namespace loc
             }
         }
 
-        FILESYSTEM_saveTiXml2Document(("lang/" + langcode + "/strings.xml").c_str(), doc);
+        // Writing to main lang dir
+        FILESYSTEM_saveTiXml2Document((langcode + "/strings.xml").c_str(), doc);
     }
 
     void sync_lang_files(void)
     {
         std::string oldlang = lang;
+        FILESYSTEM_setLangWriteDir();
 
         for (size_t i = 0; i < languagelist.size(); i++)
         {
@@ -305,6 +307,7 @@ namespace loc
                 sync_lang_file(languagelist[i].code);
         }
 
+        FILESYSTEM_restoreWriteDir();
         lang = oldlang;
         loadtext();
     }

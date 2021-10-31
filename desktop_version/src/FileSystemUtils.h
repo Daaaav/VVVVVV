@@ -16,6 +16,10 @@ void FILESYSTEM_deinit(void);
 
 char *FILESYSTEM_getUserSaveDirectory(void);
 char *FILESYSTEM_getUserLevelDirectory(void);
+char *FILESYSTEM_getUserMainLangDirectory(void);
+
+bool FILESYSTEM_setLangWriteDir(void);
+bool FILESYSTEM_restoreWriteDir(void);
 
 bool FILESYSTEM_isFile(const char* filename);
 bool FILESYSTEM_isMounted(const char* filename);

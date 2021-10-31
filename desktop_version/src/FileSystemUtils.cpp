@@ -34,6 +34,8 @@ static int mkdir(char* path, int mode)
 #define MAX_PATH PATH_MAX
 #endif
 
+static char writeDir[MAX_PATH] = {'\0'};
+
 static char saveDir[MAX_PATH] = {'\0'};
 static char levelDir[MAX_PATH] = {'\0'};
 static char mainLangDir[MAX_PATH] = {'\0'};
@@ -98,29 +100,30 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
     }
 
     /* Mount our base user directory */
-    if (!PHYSFS_mount(output, NULL, 0))
+    SDL_strlcpy(writeDir, output, sizeof(writeDir));
+    if (!PHYSFS_mount(writeDir, NULL, 0))
     {
         vlog_error(
             "Could not mount %s: %s",
-            output,
+            writeDir,
             PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
         );
         return 0;
     }
-    if (!PHYSFS_setWriteDir(output))
+    if (!PHYSFS_setWriteDir(writeDir))
     {
         vlog_error(
             "Could not set write dir to %s: %s",
-            output,
+            writeDir,
             PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
         );
         return 0;
     }
-    vlog_info("Base directory: %s", output);
+    vlog_info("Base directory: %s", writeDir);
 
     /* Store full save directory */
     SDL_snprintf(saveDir, sizeof(saveDir), "%s%s%s",
-        output,
+        writeDir,
         "saves",
         pathSep
     );
@@ -129,7 +132,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
 
     /* Store full level directory */
     SDL_snprintf(levelDir, sizeof(levelDir), "%s%s%s",
-        output,
+        writeDir,
         "levels",
         pathSep
     );
@@ -290,6 +293,16 @@ char *FILESYSTEM_getUserLevelDirectory(void)
 char *FILESYSTEM_getUserMainLangDirectory(void)
 {
     return mainLangDir;
+}
+
+bool FILESYSTEM_setLangWriteDir(void)
+{
+    return PHYSFS_setWriteDir(mainLangDir);
+}
+
+bool FILESYSTEM_restoreWriteDir(void)
+{
+    return PHYSFS_setWriteDir(writeDir);
 }
 
 bool FILESYSTEM_isFile(const char* filename)
