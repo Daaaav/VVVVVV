@@ -588,6 +588,7 @@ int main(int argc, char *argv[])
     graphics.screenbuffer = &gameScreen;
 
     loc::loadtext();
+    loc::loadlanguagelist();
     game.createmenu(Menu::mainmenu);
 
     graphics.create_buffers(gameScreen.GetFormat());
