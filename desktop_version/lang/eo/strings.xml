@@ -50,7 +50,7 @@
     <string english="Change controller options." explanation="" max="38*2" comment="">Ŝanĝi regilajn agordojn.</string>
     <string english="language" explanation="menu option" comment="">lingvo</string>
     <string english="Language" explanation="title" max="20" comment="">Lingvo</string>
-    <string english="Change the language" explanation="" max="38*5" comment="">Ŝanĝi la lingvon</string>
+    <string english="Change the language." explanation="" max="38*5" comment="">Ŝanĝi la lingvon.</string>
     <string english="clear main game data" explanation="menu option" comment=""></string>
     <string english="clear custom level data" explanation="menu option" comment=""></string>
     <string english="Clear Data" explanation="title" max="20" comment="">Viŝi datumojn</string>
@@ -150,10 +150,10 @@
     <string english="sync language files" explanation="menu option" comment="">sinkronigi lingvodosierojn</string>
     <string english="Sync language files" explanation="title, translation maintenance menu" max="20" comment="">Sinkronigi lingvodosierojn</string>
     <string english="sync" explanation="menu option, verb" comment="">sinkronigi</string>
-    <string english="Merge all new strings from the template files into the translation files, keeping existing translations" explanation="translation maintenance menu" max="38*6" comment="">Kunfandi ĉiujn novajn ĉenojn de la ŝablonaj dosieroj en la tradukdosierojn, konservante ekzistantajn tradukojn</string>
+    <string english="Merge all new strings from the template files into the translation files, keeping existing translations." explanation="translation maintenance menu" max="38*6" comment="">Kunfandi ĉiujn novajn ĉenojn de la ŝablonaj dosieroj en la tradukdosierojn, konservante ekzistantajn tradukojn.</string>
     <string english="statistics" explanation="menu option" comment="">statistikoj</string>
     <string english="Statistics" explanation="title, translation maintenance menu" max="20" comment="">Statistikoj</string>
-    <string english="Count the amount of untranslated strings for each language" explanation="translation maintenance menu" max="38*6" comment="">Nombrigi la kvanton da netradukitaj ĉenoj por ĉiu lingvo</string>
+    <string english="Count the amount of untranslated strings for each language." explanation="translation maintenance menu" max="38*6" comment="">Nombrigi la kvanton da netradukitaj ĉenoj por ĉiu lingvo.</string>
     <string english="toggle test mode" explanation="menu option" comment="">baskuligi testreĝimon</string>
     <string english="Test mode" explanation="title, translation maintenance menu" max="20" comment="">Testreĝimo</string>
     <string english="Show all translatable strings as a V or X, revealing untranslatable or forgotten strings. X means missing from file." explanation="translation maintenance menu" max="38*6" comment="">Montri ĉiujn tradukeblajn ĉenojn kiel V aŭ X, malkaŝante netradukeblajn aŭ forgesitajn ĉenojn. X signifas mankanta de dosiero.</string>

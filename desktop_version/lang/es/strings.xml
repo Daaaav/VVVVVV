@@ -50,7 +50,7 @@
     <string english="Change controller options." explanation="" max="38*2" comment="">Cambiar opciones de mando.</string>
     <string english="language" explanation="menu option" comment="">idioma</string>
     <string english="Language" explanation="title" max="20" comment="">Idioma</string>
-    <string english="Change the language" explanation="" max="38*5" comment="">Cambiar idioma</string>
+    <string english="Change the language." explanation="" max="38*5" comment="">Cambiar idioma.</string>
     <string english="clear main game data" explanation="menu option" comment=""></string>
     <string english="clear custom level data" explanation="menu option" comment=""></string>
     <string english="Clear Data" explanation="title" max="20" comment="">Limpiar Datos</string>
@@ -150,10 +150,10 @@
     <string english="sync language files" explanation="menu option" comment="">sincronizar archivos de idioma</string>
     <string english="Sync language files" explanation="title, translation maintenance menu" max="20" comment="">Sincronizar idiomas</string>
     <string english="sync" explanation="menu option, verb" comment="">sincronizar</string>
-    <string english="Merge all new strings from the template files into the translation files, keeping existing translations" explanation="translation maintenance menu" max="38*6" comment="">Combinar todas las cadenas de los archivos de plantilla a los archivos de traducción, dejando traducciones existentes</string>
+    <string english="Merge all new strings from the template files into the translation files, keeping existing translations." explanation="translation maintenance menu" max="38*6" comment="">Combinar todas las cadenas de los archivos de plantilla a los archivos de traducción, dejando traducciones existentes.</string>
     <string english="statistics" explanation="menu option" comment="">estadísticas</string>
     <string english="Statistics" explanation="title, translation maintenance menu" max="20" comment="">Estadísticas</string>
-    <string english="Count the amount of untranslated strings for each language" explanation="translation maintenance menu" max="38*6" comment="">Cantidad de textos sin traducir de cada idioma</string>
+    <string english="Count the amount of untranslated strings for each language." explanation="translation maintenance menu" max="38*6" comment="">Cantidad de textos sin traducir de cada idioma.</string>
     <string english="toggle test mode" explanation="menu option" comment="">alternar modo de testeo</string>
     <string english="Test mode" explanation="title, translation maintenance menu" max="20" comment="">Modo de testeo</string>
     <string english="Show all translatable strings as a V or X, revealing untranslatable or forgotten strings. X means missing from file." explanation="translation maintenance menu" max="38*6" comment="">Mostrar todas las cadenas traducibles como V o X, revelando cadenas olvidadas o no traducidas. X significa faltante en el archivo.</string>

@@ -284,7 +284,7 @@ static void menurender(void)
             break;
         case 5:
             graphics.bigprint( -1, 30, loc::gettext("Language"), tr, tg, tb, true);
-            graphics.PrintWrap( -1, 65, loc::gettext("Change the language"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Change the language."), tr, tg, tb, true);
         }
         break;
     case Menu::graphicoptions:
@@ -645,11 +645,11 @@ static void menurender(void)
         {
         case 0:
             graphics.bigprint( -1, 30, loc::gettext("Sync language files"), tr, tg, tb, true);
-            graphics.PrintWrap( -1, 65, loc::gettext("Merge all new strings from the template files into the translation files, keeping existing translations"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Merge all new strings from the template files into the translation files, keeping existing translations."), tr, tg, tb, true);
             break;
         case 1:
             graphics.bigprint( -1, 30, loc::gettext("Statistics"), tr, tg, tb, true);
-            graphics.PrintWrap( -1, 65, loc::gettext("Count the amount of untranslated strings for each language"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Count the amount of untranslated strings for each language."), tr, tg, tb, true);
             break;
         case 2:
             graphics.bigprint( -1, 30, loc::gettext("Test mode"), tr, tg, tb, true);

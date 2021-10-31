@@ -50,7 +50,7 @@
     <string english="Change controller options." explanation="" max="38*2" comment="">Wijzig controlleropties.</string>
     <string english="language" explanation="menu option" comment="">taal</string>
     <string english="Language" explanation="title" max="20" comment="">Taal</string>
-    <string english="Change the language" explanation="" max="38*5" comment="">Wijzig de taal</string>
+    <string english="Change the language." explanation="" max="38*5" comment="">Wijzig de taal.</string>
     <string english="clear main game data" explanation="menu option" comment=""></string>
     <string english="clear custom level data" explanation="menu option" comment=""></string>
     <string english="Clear Data" explanation="title" max="20" comment="">Data wissen</string>
@@ -150,10 +150,10 @@
     <string english="sync language files" explanation="menu option" comment="">sync taalbestanden</string>
     <string english="Sync language files" explanation="title, translation maintenance menu" max="20" comment="">Sync taalbestanden</string>
     <string english="sync" explanation="menu option, verb" comment="">synchroniseren</string>
-    <string english="Merge all new strings from the template files into the translation files, keeping existing translations" explanation="translation maintenance menu" max="38*6" comment="">Voeg alle nieuwe strings uit de sjabloonbestanden samen met de vertaalde bestanden, waarbij bestaande vertalingen behouden blijven</string>
+    <string english="Merge all new strings from the template files into the translation files, keeping existing translations." explanation="translation maintenance menu" max="38*6" comment="">Voeg alle nieuwe strings uit de sjabloonbestanden samen met de vertaalde bestanden, waarbij bestaande vertalingen behouden blijven.</string>
     <string english="statistics" explanation="menu option" comment="">statistieken</string>
     <string english="Statistics" explanation="title, translation maintenance menu" max="20" comment="">Statistieken</string>
-    <string english="Count the amount of untranslated strings for each language" explanation="translation maintenance menu" max="38*6" comment="">Tel het aantal onvertaalde strings voor elke taal</string>
+    <string english="Count the amount of untranslated strings for each language." explanation="translation maintenance menu" max="38*6" comment="">Tel het aantal onvertaalde strings voor elke taal.</string>
     <string english="toggle test mode" explanation="menu option" comment="">testmodus</string>
     <string english="Test mode" explanation="title, translation maintenance menu" max="20" comment="">Testmodus</string>
     <string english="Show all translatable strings as a V or X, revealing untranslatable or forgotten strings. X means missing from file." explanation="translation maintenance menu" max="38*6" comment="">Toon alle vertaalbare strings als een V of X, om onvertaalbare of vergeten strings te onthullen. X betekent: ontbreekt uit het bestand.</string>
