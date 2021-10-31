@@ -14,7 +14,7 @@
     <string english="quit" explanation="main menu option" comment=""></string>
     <string english="gameplay" explanation="options menu option" comment=""></string>
     <string english="Gameplay Options" explanation="title" max="20" comment=""></string>
-    <string english="Adjust various gameplay options" explanation="" max="38*5" comment=""></string>
+    <string english="Adjust various gameplay settings." explanation="" max="38*5" comment=""></string>
     <string english="graphics" explanation="options menu option" comment=""></string>
     <string english="Graphics Options" explanation="title" max="20" comment=""></string>
     <string english="Adjust screen settings." explanation="" max="38*5" comment=""></string>
@@ -35,6 +35,8 @@
     <string english="ERROR: No levels found." explanation="" max="38*3" comment="">ERROR: No se encontraron niveles.</string>
     <string english="by %s" explanation="%s: author of level" comment="">Por %s</string>
     <string english="ERROR: This level has no start point!" explanation="" max="38*5" comment="">ERROR: Este nivel no tiene punto de inicio</string>
+    <string english="ERROR" explanation="title" max="20" comment=""></string>
+    <string english="WARNING" explanation="title" max="20" comment=""></string>
     <string english="unlock play modes" explanation="menu option" comment="">liberar modos</string>
     <string english="Unlock Play Modes" explanation="title" max="20" comment="">Liberar Modos</string>
     <string english="Unlock parts of the game normally unlocked as you progress." explanation="" max="38*5" comment="">Desbloquea partes del juego, normalmente desbloqueadas al completar el juego.</string>
@@ -49,9 +51,11 @@
     <string english="language" explanation="menu option" comment="">idioma</string>
     <string english="Language" explanation="title" max="20" comment="">Idioma</string>
     <string english="Change the language" explanation="" max="38*5" comment="">Cambiar idioma</string>
-    <string english="clear data" explanation="menu option" comment="">limpiar datos</string>
+    <string english="clear main game data" explanation="menu option" comment=""></string>
+    <string english="clear custom level data" explanation="menu option" comment=""></string>
     <string english="Clear Data" explanation="title" max="20" comment="">Limpiar Datos</string>
-    <string english="Delete your save data and unlocked play modes" explanation="" max="38*5" comment="">Eliminar tus datos de juego y modos de juego</string>
+    <string english="Delete your main game save data and unlocked play modes." explanation="" max="38*5" comment=""></string>
+    <string english="Delete your custom level save data and completion stars." explanation="" max="38*5" comment=""></string>
     <string english="Are you sure? This will delete your current saves..." explanation="" max="38*7" comment="">Estás seguro? Esto eliminara tus datos...</string>
     <string english="Are you sure you want to delete all your saved data?" explanation="" max="38*7" comment="">Estás seguro que quieres eliminar todos tus datos?</string>
     <string english="no! don&apos;t delete" explanation="menu option" comment="">no!, no borrar</string>
@@ -108,6 +112,7 @@
     <string english="C++ version by" explanation="credits" max="40" comment="">Version de C++ por</string>
     <string english="Simon Roth" explanation="credits" max="20" comment="">Simon Roth</string>
     <string english="Ethan Lee" explanation="credits" max="20" comment="">Ethan Lee</string>
+    <string english="Misa Kai" explanation="credits" max="20" comment=""></string>
     <string english="Beta Testing by" explanation="credits" max="40" comment="">Testeo de beta por</string>
     <string english="Sam Kaplan" explanation="credits" max="20" comment="">Sam Kaplan</string>
     <string english="Pauli Kohberger" explanation="credits" max="20" comment="">Pauli Kohberger</string>
@@ -133,10 +138,12 @@
     <string english="bind enter" explanation="menu option" comment="">asociar enter</string>
     <string english="bind menu" explanation="menu option" comment="">asociar menu</string>
     <string english="bind restart" explanation="menu option. In-game death key to restart at checkpoint" comment=""></string>
+    <string english="bind interact" explanation="menu option" comment=""></string>
     <string english="Flip is bound to: " explanation="controller binds, bound to A, B, X, Y, etc" max="32" comment="">Voltear esta asociado a:</string>
     <string english="Enter is bound to: " explanation="controller binds, bound to A, B, X, Y, etc" max="32" comment="">enter esta asociado a:</string>
     <string english="Menu is bound to: " explanation="controller binds, bound to A, B, X, Y, etc" max="32" comment="">Menú esta asociado a:</string>
     <string english="Restart is bound to: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc" max="32" comment=""></string>
+    <string english="Interact is bound to: " explanation="controller binds, bound to A, B, X, Y, etc" max="32" comment=""></string>
     <string english="ERROR: No language files found." explanation="" max="38*3" comment="">ERROR: No se encontraron archivos de idioma.</string>
     <string english="This menu is only shown when having a lang folder in your VVVVVV folder." explanation="the folder is called lang. Translation maintenance menu" max="38*3" comment="">Este menú solo es visible cuando tienes una carpeta lang en tu carpeta de VVVVVV.</string>
     <string english="translation maintenance" explanation="menu option, menu that allows you to apply maintenance to translations" comment="">traduccion en mantenimiento</string>
@@ -153,16 +160,33 @@
     <string english="If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Only languages that are in the VVVVVV folder can be updated. Make a backup, just in case." explanation="translation maintenance menu" max="38*12" comment="">Si nuevos textos se añadieron a los archivos de la plantilla de Ingles, esta caracteristica los insertara en los archivos de todos los idiomas, solo los idiomas que estan en la capreta VVVVVV se pueden actualizar. Hacer un respaldo, por si acaso.</string>
     <string english="advanced options" explanation="menu option" comment=""></string>
     <string english="Advanced Options" explanation="title" max="20" comment=""></string>
-    <string english="All other settings" explanation="description for advanced options" max="38*5" comment=""></string>
+    <string english="All other gameplay settings." explanation="description for advanced options" max="38*5" comment=""></string>
     <string english="unfocus pause" explanation="menu option. Turns the pause screen on/off, which shows up when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto pause screen" comment=""></string>
     <string english="Unfocus Pause" explanation="title. Turns the pause screen on/off, which shows up when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto pause screen" max="20" comment=""></string>
     <string english="Toggle if the game will pause when the window is unfocused." explanation="" max="38*3" comment=""></string>
     <string english="Unfocus pause is OFF" explanation="Making another window active will not show the pause screen." max="38*2" comment=""></string>
     <string english="Unfocus pause is ON" explanation="Making another window active will show the pause screen." max="38*2" comment=""></string>
+    <string english="unfocus audio pause" explanation="menu option. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause" comment=""></string>
+    <string english="Unfocus Audio" explanation="title. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause" max="20" comment=""></string>
+    <string english="Toggle if the audio will pause when the window is unfocused." explanation="" max="38*3" comment=""></string>
+    <string english="Unfocus audio pause is OFF" explanation="Making another window active will leave the music keep playing." max="38*2" comment=""></string>
+    <string english="Unfocus audio pause is ON" explanation="Making another window active will pause the music." max="38*2" comment=""></string>
+    <string english="toggle in-game timer" explanation="menu option" comment=""></string>
+    <string english="In-Game Timer" explanation="title" max="20" comment=""></string>
+    <string english="Toggle the in-game timer outside of time trials." explanation="" max="38*3" comment=""></string>
+    <string english="In-Game Timer is ON" explanation="" max="38*2" comment=""></string>
+    <string english="In-Game Timer is OFF" explanation="" max="38*2" comment=""></string>
+    <string english="interact button" explanation="menu option" comment=""></string>
+    <string english="Interact Button" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20" comment=""></string>
+    <string english="Toggle whether you interact with prompts using ENTER or E." explanation="" max="38*5" comment=""></string>
+    <string english="E" explanation="keyboard key E" comment=""></string>
+    <string english="ENTER" explanation="keyboard key ENTER" comment=""></string>
+    <string english="Interact button: %s" explanation="keyboard key (E or ENTER) is filled in for %s" comment=""></string>
     <string english="fake load screen" explanation="menu option" comment=""></string>
     <string english="Fake Load Screen" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20" comment="">Carga Falsa</string>
-    <string english="Fake loading screen is OFF" explanation="allows the loading screen which counts to 100% to be turned off" max="38*5" comment="">Carga Falsa esta DESACTIVADO</string>
-    <string english="Fake loading screen is ON" explanation="allows the loading screen which counts to 100% to be turned off" max="38*5" comment="">Carga Falsa esta ACTIVADO</string>
+    <string english="Disable the fake loading screen which appears on game launch." explanation="" max="38*3" comment=""></string>
+    <string english="Fake loading screen is OFF" explanation="allows the loading screen which counts to 100% to be turned off" max="38*3" comment="">Carga Falsa esta DESACTIVADO</string>
+    <string english="Fake loading screen is ON" explanation="allows the loading screen which counts to 100% to be turned off" max="38*3" comment="">Carga Falsa esta ACTIVADO</string>
     <string english="room name background" explanation="menu option, background behind room names" comment=""></string>
     <string english="Room Name BG" explanation="title, background behind room names" max="20" comment="">Fondo del titulo</string>
     <string english="Lets you see through what is behind the name at the bottom of the screen." explanation="" max="38*3" comment="">Te deja ver a través de lo que está detrás del nombre en la base de la pantalla.</string>
@@ -174,8 +198,12 @@
     <string english="glitchrunner mode" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" comment=""></string>
     <string english="Glitchrunner Mode" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20" comment=""></string>
     <string english="Re-enable glitches that existed in previous versions of the game." explanation="glitchrunner mode" max="38*3" comment=""></string>
-    <string english="Glitchrunner mode is ON" explanation="" max="38*2" comment=""></string>
     <string english="Glitchrunner mode is OFF" explanation="" max="38*2" comment=""></string>
+    <string english="Glitchrunner mode is %s" explanation="a version number is filled in for %s, such as 2.0 or 2.2" max="38*2" comment=""></string>
+    <string english="Select a new glitchrunner version below." explanation="" max="38*3" comment=""></string>
+    <string english="none" explanation="menu option, do not emulate any older version" comment=""></string>
+    <string english="2.0" explanation="VVVVVV version number" comment=""></string>
+    <string english="2.2" explanation="VVVVVV version number" comment=""></string>
     <string english="input delay" explanation="menu option, enable 1 frame of delay after pressing input" comment=""></string>
     <string english="Input Delay" explanation="title, enable 1 frame of delay after pressing input" max="20" comment=""></string>
     <string english="Re-enable the 1-frame input delay from previous versions of the game." explanation="input delay" max="38*2" comment=""></string>
@@ -186,8 +214,9 @@
     <string english="Disable screen effects, enable slowdown modes or invincibility." explanation="" max="38*5" comment="">Desactivar efectos de pantalla, activar desaceleración o invicibilidad.</string>
     <string english="animated backgrounds" explanation="menu option" comment="">fondos animados</string>
     <string english="Backgrounds" explanation="title" max="20" comment="">Fondos</string>
-    <string english="Backgrounds are ON." explanation="" max="38*5" comment="">Los fondos están ACTIVADOS.</string>
-    <string english="Backgrounds are OFF." explanation="" max="38*5" comment="">Los fondos están DESACTIVADOS.</string>
+    <string english="Disable animated backgrounds in menus and during gameplay." explanation="" max="38*3" comment=""></string>
+    <string english="Backgrounds are ON." explanation="" max="38*2" comment="">Los fondos están ACTIVADOS.</string>
+    <string english="Backgrounds are OFF." explanation="" max="38*2" comment="">Los fondos están DESACTIVADOS.</string>
     <string english="screen effects" explanation="menu option" comment="">efectos de pantalla</string>
     <string english="Screen Effects" explanation="title" max="20" comment="">Efectos De Pantalla</string>
     <string english="Disables screen shakes and flashes." explanation="" max="38*2" comment="">Desactivar sacudido y parpadeo de pantalla.</string>
@@ -196,8 +225,8 @@
     <string english="text outline" explanation="menu option" comment="">contorno de texto</string>
     <string english="Text Outline" explanation="title" max="20" comment="">Contorno de Texto</string>
     <string english="Disables outline on game text." explanation="" max="38*2" comment="">Desactivar contorno del texto del juego.</string>
-    <string english="Text outlines are ON." explanation="" max="38*3" comment="">Contorno de texto está ACTIVADO.</string>
-    <string english="Text outlines are OFF." explanation="" max="38*3" comment="">Contorno de texto está DESACTIVADO.</string>
+    <string english="Text outlines are ON." explanation="" max="40" comment="">Contorno de texto está ACTIVADO.</string>
+    <string english="Text outlines are OFF." explanation="" max="40" comment="">Contorno de texto está DESACTIVADO.</string>
     <string english="invincibility" explanation="menu option" comment="">invicibilidad</string>
     <string english="Invincibility" explanation="title" max="20" comment="">Invincibilidad</string>
     <string english="Explore the game freely without dying. (Can cause glitches.)" explanation="invincibility mode" max="38*3" comment=""></string>
@@ -296,13 +325,14 @@
     <string english="silence" explanation="menu option, silence error message - do not show this message again" comment=""></string>
     <string english="continue from save" explanation="menu option" comment="">continuar desde guardado</string>
     <string english="start from beginning" explanation="menu option" comment="">empezar desde el principio</string>
+    <string english="delete save" explanation="menu option" comment=""></string>
     <string english="back to levels" explanation="menu option" comment="">volver a los niveles</string>
     <string english="To install new player levels, copy the .vvvvvv files to this folder:" explanation="" max="38*3" comment="">Para instalar nuevos niveles de jugadores, copia los archivos .vvvvvv a esta carpeta</string>
     <string english="[ Press ACTION to Start ]" explanation="title screen" max="38*2" comment="">[ Presiona ACCIÓN para empezar ]</string>
     <string english="ACTION = Space, Z, or V" explanation="title screen" max="38*3" comment="">ACCIÓN = Espacio, Z o V</string>
     <string english="[Press ENTER to return to editor]" explanation="`to editor` is sorta redundant" max="40" comment="">[Presiona ENTER para volver al editor]</string>
     <string english="- Press ACTION to advance text -" explanation="to dismiss a textbox" max="40" comment="">- Presiona ACCIÓN para seguir el texto -</string>
-    <string english="- Press ENTER to Teleport -" explanation="" max="40" comment="">- Presiona ENTER para trasladarte -</string>
+    <string english="- Press %s to Teleport -" explanation="keyboard key (E or ENTER) is filled in for %s" max="40" comment=""></string>
     <string english="Current Time" explanation="super gravitron, stopwatch time" max="20" comment="">Tiempo actual</string>
     <string english="Best Time" explanation="super gravitron, best stopwatch time" max="20" comment="">Mejor tiempo</string>
     <string english="Next Trophy at 5 seconds" explanation="" max="38*2" comment="">Siguiente trofeo en 5 segundos</string>
@@ -337,7 +367,7 @@
     <string english="Missing..." explanation="" max="15" comment="">Faltando...</string>
     <string english="Cannot Save in Level Replay" explanation="" max="38*7" comment="">No puedes guardar en una repeticion de nivel</string>
     <string english="Cannot Save in No Death Mode" explanation="" max="38*7" comment="">No puedes guardar en el Modo Sin Muertes</string>
-    <string english="Cannot Save in Time Trial" explanation="" max="38*7" comment="">No puedes guardar en Contrarreloj</string>
+    <string english="How&apos;d you get here?" explanation="" max="38*7" comment=""></string>
     <string english="Cannot Save in Secret Lab" explanation="" max="38*7" comment="">No puedes guardar en el Laboratorio Secreto</string>
     <string english="ERROR: Could not save game!" explanation="" max="38*7" comment=""></string>
     <string english="ERROR: Could not save settings file!" explanation="" max="38*4" comment=""></string>
@@ -359,7 +389,7 @@
     <string english="return to game" explanation="pause menu option" comment="">volver al juego</string>
     <string english="quit to menu" explanation="pause menu option" comment="">salir al menu</string>
     <string english="Press Left/Right to choose a Teleporter" explanation="tight fit, so maybe `Left/Right: choose teleporter`" max="40" comment="">Izq/Der: elegir teletransportador</string>
-    <string english="Press ENTER to Teleport" explanation="" max="40" comment="">Presiona ENTER para teletransportarte</string>
+    <string english="Press %s to Teleport" explanation="keyboard key (E or ENTER) is filled in for %s" max="40" comment=""></string>
     <string english="Map Settings" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20" comment=""></string>
     <string english="edit scripts" explanation="level editor menu option" comment="">scripts editados</string>
     <string english="change music" explanation="level editor menu option" comment="">cambiar musica</string>
@@ -481,11 +511,6 @@
     <string english="ERROR: No checkpoint to spawn at" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3" comment=""></string>
     <string english="ERROR: Max number of trinkets is 100" explanation="" max="38*3" comment=""></string>
     <string english="ERROR: Max number of crewmates is 100" explanation="" max="38*3" comment=""></string>
-    <string english="" explanation="" comment=""></string>
-    <string english="" explanation="" comment=""></string>
-    <string english="" explanation="" comment=""></string>
-    <string english="" explanation="" comment=""></string>
-    <string english="" explanation="" comment=""></string>
     <string english="" explanation="" comment=""></string>
     <string english="" explanation="" comment=""></string>
     <string english="" explanation="" comment=""></string>
