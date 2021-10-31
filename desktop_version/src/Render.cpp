@@ -1943,10 +1943,10 @@ void gamerender(void)
             int label_len = graphics.len(tempstring);
             graphics.bprint(6, 18, tempstring,  255,255,255);
             tempstring = loc::gettext("DEATH:");
-            label_len = std::max(label_len, graphics.len(tempstring));
+            label_len = VVV_max(label_len, graphics.len(tempstring));
             graphics.bprint(6, 30, tempstring,  255, 255, 255);
             tempstring = loc::gettext("SHINY:");
-            label_len = std::max(label_len, graphics.len(tempstring));
+            label_len = VVV_max(label_len, graphics.len(tempstring));
             graphics.bprint(6, 42, tempstring,  255,255,255);
 
             if(game.timetrialparlost)
