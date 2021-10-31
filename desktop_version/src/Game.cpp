@@ -6044,8 +6044,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = -30;
         break;
     case Menu::deletequicklevel:
-        option("no! don't delete");
-        option("yes, delete save");
+        option(loc::gettext("no! don't delete"));
+        option(loc::gettext("yes, delete save"));
         menuyoff = 64;
         break;
     case Menu::youwannaquit:

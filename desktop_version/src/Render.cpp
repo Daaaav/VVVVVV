@@ -528,8 +528,7 @@ static void menurender(void)
         graphics.PrintWrap( -1, 100, loc::gettext("Are you sure you want to delete all your saved data?"), tr, tg, tb, true);
         break;
     case Menu::deletequicklevel:
-        graphics.Print(-1, 100, "Are you sure you want to", tr, tg, tb, true);
-        graphics.Print(-1, 110, "delete your quicksave?", tr, tg, tb, true);
+        graphics.PrintWrap(-1, 100, loc::gettext("Are you sure you want to delete your quicksave?"), tr, tg, tb, true);
         break;
     case Menu::startnodeathmode:
         graphics.PrintWrap( -1, 45, loc::gettext("Good luck!"), tr, tg, tb, true);

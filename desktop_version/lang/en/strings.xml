@@ -59,8 +59,10 @@
     <string english="Delete your custom level save data and completion stars." explanation="" max="38*5" comment=""></string>
     <string english="Are you sure? This will delete your current saves..." explanation="" max="38*7" comment=""></string>
     <string english="Are you sure you want to delete all your saved data?" explanation="" max="38*7" comment=""></string>
+    <string english="Are you sure you want to delete your quicksave?" explanation="" max="38*7" comment=""></string>
     <string english="no! don&apos;t delete" explanation="menu option" comment=""></string>
     <string english="yes, delete everything" explanation="menu option" comment=""></string>
+    <string english="yes, delete save" explanation="menu option" comment=""></string>
     <string english="soundtrack" explanation="menu option" comment=""></string>
     <string english="Soundtrack" explanation="title" max="20" comment=""></string>
     <string english="Toggle between MMMMMM and PPPPPP." explanation="" max="38*2" comment=""></string>
