@@ -1767,8 +1767,10 @@ void gamerender(void)
 
     if (graphics.fademode==0 && !game.intimetrial && !game.isingamecompletescreen() && game.swngame != 1 && game.showingametimer)
     {
-        graphics.bprint(6, 6, loc::gettext("TIME:"),  255,255,255);
-        graphics.bprint(46, 6, game.timestring(),  196, 196, 196);
+        std::string tempstring = loc::gettext("TIME:");
+        int label_len = graphics.len(tempstring);
+        graphics.bprint(6, 6, tempstring,  255,255,255);
+        graphics.bprint(6+label_len, 6, game.timestring(),  196, 196, 196);
     }
 
     if(map.extrarow==0 || (map.custommode && map.roomname[0] != '\0'))
