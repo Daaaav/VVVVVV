@@ -1785,12 +1785,16 @@ void gamerender(void)
             FillRect(graphics.backBuffer, graphics.footerrect, 0);
         }
 
+        const char* translated_roomname;
         if (map.finalmode)
         {
-            graphics.bprint(5, 231, map.glitchname, 196, 196, 255 - help.glow, true);
-        }else{
-            graphics.bprint(5, 231, map.roomname, 196, 196, 255 - help.glow, true);
+            translated_roomname = loc::gettext_roomname(game.roomx, game.roomy, map.glitchname, map.roomname_special);
         }
+        else
+        {
+            translated_roomname = loc::gettext_roomname(game.roomx, game.roomy, map.roomname, map.roomname_special);
+        }
+        graphics.bprint(5, 231, translated_roomname, 196, 196, 255 - help.glow, true);
     }
 
     if (map.roomtexton)
@@ -2082,18 +2086,23 @@ void maprender(void)
 
     //draw screen alliteration
     //Roomname:
+    const char* translated_roomname;
     if (map.hiddenname[0] != '\0')
     {
-        graphics.Print(5, 2, map.hiddenname, 196, 196, 255 - help.glow, true);
+        translated_roomname = loc::gettext_roomname_special(map.hiddenname);
     }
     else
     {
-      if (map.finalmode){
-        graphics.Print(5, 2, map.glitchname, 196, 196, 255 - help.glow, true);
-      }else{
-        graphics.Print(5, 2, map.roomname, 196, 196, 255 - help.glow, true);
-      }
+        if (map.finalmode)
+        {
+            translated_roomname = loc::gettext_roomname(game.roomx, game.roomy, map.glitchname, map.roomname_special);
+        }
+        else
+        {
+            translated_roomname = loc::gettext_roomname(game.roomx, game.roomy, map.roomname, map.roomname_special);
+        }
     }
+    graphics.Print(5, 2, translated_roomname, 196, 196, 255 - help.glow, true);
 
     //Background color
     FillRect(graphics.backBuffer,0, 12, 320, 240, 10, 24, 26 );
@@ -2780,15 +2789,17 @@ void teleporterrender(void)
     int tempy;
     //draw screen alliteration
     //Roomname:
+    const char* translated_roomname;
     int temp = map.area(game.roomx, game.roomy);
     if (temp < 2 && !map.custommode && graphics.fademode==0)
     {
-        graphics.Print(5, 2, map.hiddenname, 196, 196, 255 - help.glow, true);
+        translated_roomname = loc::gettext_roomname_special(map.hiddenname);
     }
     else
     {
-        graphics.Print(5, 2, map.roomname, 196, 196, 255 - help.glow, true);
+        translated_roomname = loc::gettext_roomname(game.roomx, game.roomy, map.roomname, map.roomname_special);
     }
+    graphics.Print(5, 2, translated_roomname, 196, 196, 255 - help.glow, true);
 
     //Background color
     FillRect(graphics.backBuffer, 0, 12, 320, 240, 10, 24, 26);

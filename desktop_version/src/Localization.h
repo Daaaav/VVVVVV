@@ -33,6 +33,8 @@ namespace loc
     std::string gettext(const std::string& eng);
     std::string gettext_cutscene(const std::string& script_id, const std::string& eng);
     std::string getnumber(int n);
+    const char* gettext_roomname(int roomx, int roomy, const char* eng, bool special);
+    const char* gettext_roomname_special(const char* eng);
 
     bool is_cutscene_translated(const std::string& script_id);
 

@@ -4,6 +4,7 @@
 #include <tinyxml2.h>
 #include <utf8/unchecked.h>
 
+#include "Constants.h"
 #include "FileSystemUtils.h"
 //#include "Graphics.h"
 #include "UtilityClass.h"
@@ -23,6 +24,13 @@ namespace loc
     std::map<std::string, std::string> translation;
     std::map<std::string, std::map<std::string, std::string> > translation_cutscenes;
     std::string number[102];
+
+#define MAP_MAX_X 54
+#define MAP_MAX_Y 56
+    char translation_roomnames[MAP_MAX_Y+1][MAP_MAX_X+1][SCREEN_WIDTH_CHARS+1];
+    std::map<std::string, std::string> translation_roomnames_special;
+
+    char temp_roomname_buffer[SCREEN_WIDTH_CHARS+1]; // FIXME
 
     bool load_doc(const std::string& cat, tinyxml2::XMLDocument& doc, const std::string& langcode = lang)
     {
@@ -93,6 +101,14 @@ namespace loc
         for (size_t i = 0; i <= 101; i++)
         {
             number[i] = "";
+        }
+
+        for (size_t y = 0; y <= MAP_MAX_Y; y++)
+        {
+            for (size_t x = 0; x < MAP_MAX_X; x++)
+            {
+                translation_roomnames[y][x][0] = '\0';
+            }
         }
     }
 
@@ -220,6 +236,89 @@ namespace loc
         }
     }
 
+    void loadtext_roomnames(void)
+    {
+        tinyxml2::XMLDocument doc;
+        if (!load_doc("roomnames", doc))
+        {
+            return;
+        }
+
+        tinyxml2::XMLHandle hDoc(&doc);
+        tinyxml2::XMLElement* pElem;
+        tinyxml2::XMLHandle hRoot(NULL);
+
+        {
+            pElem=hDoc.FirstChildElement().ToElement();
+            hRoot=tinyxml2::XMLHandle(pElem);
+        }
+
+        for (pElem = hRoot.FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+        {
+            const char* pKey = pElem->Value();
+            const char* pText = pElem->GetText();
+            if (pText == NULL)
+            {
+                pText = "";
+            }
+
+            if (SDL_strcmp(pKey, "roomname") == 0)
+            {
+                int x = pElem->IntAttribute("x", -1);
+                int y = pElem->IntAttribute("y", -1);
+
+                if (x < 0 || y < 0 || x > MAP_MAX_X || y > MAP_MAX_Y)
+                {
+                    continue;
+                }
+
+                if (translation_roomnames[y][x][0] != '\0')
+                {
+                    vlog_warn("Roomname %d,%d appears in language file multiple times", x, y);
+                }
+                SDL_strlcpy(translation_roomnames[y][x], pText, sizeof(translation_roomnames[y][x]));
+            }
+        }
+    }
+
+    void loadtext_roomnames_special(void)
+    {
+        tinyxml2::XMLDocument doc;
+        if (!load_doc("roomnames_special", doc))
+        {
+            return;
+        }
+
+        tinyxml2::XMLHandle hDoc(&doc);
+        tinyxml2::XMLElement* pElem;
+        tinyxml2::XMLHandle hRoot(NULL);
+
+        {
+            pElem=hDoc.FirstChildElement().ToElement();
+            hRoot=tinyxml2::XMLHandle(pElem);
+        }
+
+        for (pElem = hRoot.FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+        {
+            const char* pKey = pElem->Value();
+            const char* pText = pElem->GetText();
+            if (pText == NULL)
+            {
+                pText = "";
+            }
+
+            if (SDL_strcmp(pKey, "roomname") == 0)
+            {
+                std::string eng = std::string(pElem->Attribute("english"));
+                if (translation_roomnames_special.count(eng) != 0)
+                {
+                    vlog_warn("Special roomname \"%s\" appears in language file multiple times", eng.c_str());
+                }
+                translation_roomnames_special[eng] = std::string(pText);
+            }
+        }
+    }
+
     void loadtext(void)
     {
         resettext();
@@ -233,6 +332,8 @@ namespace loc
         loadtext_strings();
         loadtext_cutscenes();
         loadtext_numbers();
+        loadtext_roomnames();
+        loadtext_roomnames_special();
     }
 
     void loadlanguagelist(void)
@@ -317,23 +418,23 @@ namespace loc
     }
 
 
-    std::string gettext(const std::string& eng)
+    std::string map_lookup(const std::string& eng, const std::map<std::string, std::string>& map)
     {
         if (test_mode)
         {
-            if (translation.count(eng) != 0)
+            if (map.count(eng) != 0)
             {
-                return "V";
+                return "✓" + eng;
             }
-            return "X";
+            return "❌" + eng;
         }
 
-        if (lang == "en" || translation.count(eng) == 0)
+        if (lang == "en" || map.count(eng) == 0)
         {
             return eng;
         }
 
-        std::string& tra = translation[eng];
+        const std::string& tra = map.at(eng);
 
         if (tra.empty())
         {
@@ -343,6 +444,11 @@ namespace loc
         return tra;
     }
 
+    std::string gettext(const std::string& eng)
+    {
+        return map_lookup(eng, translation);
+    }
+
     std::string gettext_cutscene(const std::string& script_id, const std::string& eng)
     {
         if (!is_cutscene_translated(script_id) || translation_cutscenes[script_id].count(eng) == 0)
@@ -350,14 +456,7 @@ namespace loc
             return eng;
         }
 
-        std::string& tra = translation_cutscenes[script_id][eng];
-
-        if (tra.empty())
-        {
-            return eng;
-        }
-
-        return tra;
+        return map_lookup(eng, translation_cutscenes.at(script_id));
     }
 
     std::string getnumber(int n)
@@ -377,6 +476,47 @@ namespace loc
             return help.String(n);
         }
         return number[ix];
+    }
+
+    const char* gettext_roomname(int roomx, int roomy, const char* eng, bool special)
+    {
+        if (lang == "en")
+        {
+            return eng;
+        }
+
+        if (special)
+        {
+            return gettext_roomname_special(eng);
+        }
+
+        roomx %= 100;
+        roomy %= 100;
+
+        if (roomx < 0 || roomy < 0 || roomx > MAP_MAX_X || roomy > MAP_MAX_Y)
+        {
+            return eng;
+        }
+
+        const char* tra = translation_roomnames[roomy][roomx];
+        if (tra[0] == '\0')
+        {
+            return eng;
+        }
+        return tra;
+    }
+
+    const char* gettext_roomname_special(const char* eng)
+    {
+        std::string result = map_lookup(eng, translation_roomnames_special);
+
+        // It's mainly when you try to do things the C way that C++ starts giving trouble...
+        if (SDL_strcmp(result.c_str(), eng) == 0)
+        {
+            return eng;
+        }
+        SDL_strlcpy(temp_roomname_buffer, result.c_str(), sizeof(temp_roomname_buffer));
+        return temp_roomname_buffer;
     }
 
     bool is_cutscene_translated(const std::string& script_id)
@@ -494,4 +634,8 @@ namespace loc
         }
         return s;
     }
+
+#undef MAP_MAX_X
+#undef MAP_MAX_Y
+
 }

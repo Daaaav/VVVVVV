@@ -107,6 +107,7 @@ public:
 
 
     const char* roomname;
+    bool roomname_special;
     const char* hiddenname;
 
     //Special tower stuff
