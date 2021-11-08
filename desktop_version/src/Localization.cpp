@@ -21,16 +21,18 @@ namespace loc
     int languagelist_curlang;
     bool show_translator_menu;
 
-    std::map<std::string, std::string> translation;
+    bool inited = false;
+
+    Textbook textbook_main;
+
+    hashmap* map_translation;
     std::map<std::string, std::map<std::string, std::string> > translation_cutscenes;
     std::string number[102];
 
 #define MAP_MAX_X 54
 #define MAP_MAX_Y 56
-    char translation_roomnames[MAP_MAX_Y+1][MAP_MAX_X+1][SCREEN_WIDTH_CHARS+1];
-    std::map<std::string, std::string> translation_roomnames_special;
-
-    char temp_roomname_buffer[SCREEN_WIDTH_CHARS+1]; // FIXME
+    char* translation_roomnames[MAP_MAX_Y+1][MAP_MAX_X+1];
+    hashmap* map_translation_roomnames_special;
 
     bool load_doc(const std::string& cat, tinyxml2::XMLDocument& doc, const std::string& langcode = lang)
     {
@@ -92,10 +94,141 @@ namespace loc
         }
     }
 
+    void textbook_init(Textbook& textbook)
+    {
+        textbook.pages_used = 0;
+    }
+
+    void textbook_clear(Textbook& textbook)
+    {
+        for (short p = 0; p < textbook.pages_used; p++)
+        {
+            SDL_free(textbook.page[p]);
+        }
+        textbook.pages_used = 0;
+    }
+
+    char* textbook_store(Textbook& textbook, const char* text)
+    {
+        if (text == NULL)
+        {
+            return NULL;
+        }
+
+        size_t text_len = SDL_strlen(text)+1;
+
+        if (text_len > TEXTBOOK_PAGE_SIZE)
+        {
+            vlog_warn(
+                "Cannot store string of %ld bytes in Textbook, max page size is %d",
+                text_len,
+                TEXTBOOK_PAGE_SIZE
+            );
+            return NULL;
+        }
+
+        /* Find a suitable page to place our text on */
+        short found_page = -1;
+        for (short p = 0; p < textbook.pages_used; p++)
+        {
+            size_t free = TEXTBOOK_PAGE_SIZE - textbook.page_len[p];
+
+            if (text_len <= free)
+            {
+                found_page = p;
+                break;
+            }
+        }
+
+        if (found_page == -1)
+        {
+            /* Create a new page then */
+            found_page = textbook.pages_used;
+
+            if (found_page >= TEXTBOOK_MAX_PAGES)
+            {
+                vlog_warn(
+                    "Textbook is full! %hd pages used (%d chars per page)",
+                    textbook.pages_used,
+                    TEXTBOOK_PAGE_SIZE
+                );
+                return NULL;
+            }
+
+            textbook.page[found_page] = (char*) SDL_malloc(TEXTBOOK_PAGE_SIZE);
+            if (textbook.page[found_page] == NULL)
+            {
+                return NULL;
+            }
+
+            textbook.page_len[found_page] = 0;
+            textbook.pages_used++;
+        }
+
+        size_t cursor = textbook.page_len[found_page];
+        char* added_text = &textbook.page[found_page][cursor];
+        SDL_memcpy(added_text, text, text_len);
+        textbook.page_len[found_page] += text_len;
+
+        return added_text;
+    }
+
+    void map_store_text(Textbook& textbook, hashmap* map, const char* eng, const char* tra)
+    {
+        if (eng == NULL || tra == NULL)
+        {
+            return;
+        }
+        const char* tb_eng = textbook_store(textbook, eng);
+        const char* tb_tra;
+        if (test_mode)
+        {
+            tb_tra = textbook_store(textbook, ("✓" + std::string(tra[0] == '\0' ? eng : tra)).c_str());
+        }
+        else
+        {
+            tb_tra = textbook_store(textbook, tra);
+        }
+
+        if (tb_eng == NULL || tb_tra == NULL)
+        {
+            return;
+        }
+
+        hashmap_set(map, (void*) tb_eng, SDL_strlen(tb_eng), (uintptr_t) tb_tra);
+    }
+
+    const char* map_store_404(hashmap* map, const char* eng)
+    {
+        /* Store a "string not found" translation, only called in test mode */
+        const char* tb_eng = textbook_store(textbook_main, eng);
+        const char* tb_tra = textbook_store(textbook_main, ("❌" + std::string(eng)).c_str());
+
+        if (tb_eng == NULL || tb_tra == NULL)
+        {
+            return eng;
+        }
+
+        hashmap_set(map, (void*) tb_eng, SDL_strlen(tb_eng), (uintptr_t) tb_tra);
+
+        return tb_tra;
+    }
+
     void resettext(void)
     {
         // Reset/Initialize strings
-        translation.clear();
+        if (inited)
+        {
+            hashmap_free(map_translation);
+            hashmap_free(map_translation_roomnames_special);
+
+            textbook_clear(textbook_main);
+        }
+        inited = true;
+
+        textbook_init(textbook_main);
+
+        map_translation = hashmap_create();
         translation_cutscenes.clear();
 
         for (size_t i = 0; i <= 101; i++)
@@ -107,9 +240,11 @@ namespace loc
         {
             for (size_t x = 0; x < MAP_MAX_X; x++)
             {
-                translation_roomnames[y][x][0] = '\0';
+                translation_roomnames[y][x] = NULL;
             }
         }
+
+        map_translation_roomnames_special = hashmap_create();
     }
 
     void loadtext_strings(void)
@@ -140,12 +275,7 @@ namespace loc
 
             if (SDL_strcmp(pKey, "string") == 0)
             {
-                std::string eng = std::string(pElem->Attribute("english"));
-                if (translation.count(eng) != 0)
-                {
-                    vlog_warn("\"%s\" appears in language file multiple times", eng.c_str());
-                }
-                translation[eng] = std::string(pText);
+                map_store_text(textbook_main, map_translation, pElem->Attribute("english"), pText);
             }
         }
     }
@@ -272,11 +402,7 @@ namespace loc
                     continue;
                 }
 
-                if (translation_roomnames[y][x][0] != '\0')
-                {
-                    vlog_warn("Roomname %d,%d appears in language file multiple times", x, y);
-                }
-                SDL_strlcpy(translation_roomnames[y][x], pText, sizeof(translation_roomnames[y][x]));
+                translation_roomnames[y][x] = textbook_store(textbook_main, pText);
             }
         }
     }
@@ -309,12 +435,7 @@ namespace loc
 
             if (SDL_strcmp(pKey, "roomname") == 0)
             {
-                std::string eng = std::string(pElem->Attribute("english"));
-                if (translation_roomnames_special.count(eng) != 0)
-                {
-                    vlog_warn("Special roomname \"%s\" appears in language file multiple times", eng.c_str());
-                }
-                translation_roomnames_special[eng] = std::string(pText);
+                map_store_text(textbook_main, map_translation_roomnames_special, pElem->Attribute("english"), pText);
             }
         }
     }
@@ -389,7 +510,14 @@ namespace loc
             if (SDL_strcmp(pKey, "string") == 0)
             {
                 const char* eng = pElem->Attribute("english");
-                pElem->SetText(translation[std::string(eng)].c_str());
+                uintptr_t ptr_tra;
+                bool found = hashmap_get(map_translation, (void*) eng, SDL_strlen(eng), &ptr_tra);
+                const char* tra = (const char*) ptr_tra;
+                if (!found)
+                {
+                    tra = "";
+                }
+                pElem->SetText(tra);
             }
         }
 
@@ -418,7 +546,8 @@ namespace loc
     }
 
 
-    std::string map_lookup(const std::string& eng, const std::map<std::string, std::string>& map)
+    // std::map version, to be removed
+    std::string stdmap_lookup_text(const std::map<std::string, std::string>& map, const std::string& eng)
     {
         if (test_mode)
         {
@@ -444,9 +573,33 @@ namespace loc
         return tra;
     }
 
+    const char* map_lookup_text(hashmap* map, const char* eng)
+    {
+        if (lang == "en" && !test_mode)
+        {
+            return eng;
+        }
+
+        uintptr_t ptr_tra;
+        bool found = hashmap_get(map, (void*) eng, SDL_strlen(eng), &ptr_tra);
+        const char* tra = (const char*) ptr_tra;
+
+        if (!found || tra == NULL || tra[0] == '\0')
+        {
+            if (test_mode)
+            {
+                return map_store_404(map, eng);
+            }
+            return eng;
+        }
+
+        return tra;
+    }
+
     std::string gettext(const std::string& eng)
     {
-        return map_lookup(eng, translation);
+        // TODO: take and return const char*
+        return std::string(map_lookup_text(map_translation, eng.c_str()));
     }
 
     std::string gettext_cutscene(const std::string& script_id, const std::string& eng)
@@ -456,7 +609,7 @@ namespace loc
             return eng;
         }
 
-        return map_lookup(eng, translation_cutscenes.at(script_id));
+        return stdmap_lookup_text(translation_cutscenes.at(script_id), eng);
     }
 
     std::string getnumber(int n)
@@ -499,7 +652,7 @@ namespace loc
         }
 
         const char* tra = translation_roomnames[roomy][roomx];
-        if (tra[0] == '\0')
+        if (tra == NULL || tra[0] == '\0')
         {
             return eng;
         }
@@ -508,15 +661,7 @@ namespace loc
 
     const char* gettext_roomname_special(const char* eng)
     {
-        std::string result = map_lookup(eng, translation_roomnames_special);
-
-        // It's mainly when you try to do things the C way that C++ starts giving trouble...
-        if (SDL_strcmp(result.c_str(), eng) == 0)
-        {
-            return eng;
-        }
-        SDL_strlcpy(temp_roomname_buffer, result.c_str(), sizeof(temp_roomname_buffer));
-        return temp_roomname_buffer;
+        return map_lookup_text(map_translation_roomnames_special, eng);
     }
 
     bool is_cutscene_translated(const std::string& script_id)

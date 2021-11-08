@@ -2,8 +2,20 @@
 #define LOCALIZATION_H
 
 #include <map>
+#include <stdint.h>
 #include <string>
 #include <vector>
+
+extern "C"
+{
+    /* <map.h> */
+    typedef struct hashmap hashmap;
+
+    hashmap* hashmap_create(void);
+    void hashmap_free(hashmap* map);
+    void hashmap_set(hashmap* map, void* key, size_t ksize, uintptr_t value);
+    bool hashmap_get(hashmap* map, void* key, size_t ksize, uintptr_t* out_val);
+}
 
 namespace loc
 {
@@ -17,6 +29,18 @@ namespace loc
         bool toupper; // = true; enable automatic full-caps for menu options
         bool toupper_i_dot; // = false; enable Turkish i mapping when uppercasing
         bool toupper_lower_escape_char; // = false; enable ~ to mark lowercase letters for uppercasing
+    };
+
+    /* The purpose of a Textbook is to store, potentially, a lot of text on a pile that shouldn't
+     * go anywhere until we change languages or (for example) unload an entire level's text. */
+#define TEXTBOOK_MAX_PAGES 1000
+#define TEXTBOOK_PAGE_SIZE 50000
+    struct Textbook
+    {
+        char* page[TEXTBOOK_MAX_PAGES];
+        size_t page_len[TEXTBOOK_MAX_PAGES];
+
+        short pages_used;
     };
 
     extern std::string lang;

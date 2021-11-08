@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 2.8.12)
 option(ENABLE_WARNINGS "Enable compilation warnings" ON)
 option(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
 
-option(BUNDLE_DEPENDENCIES "Use bundled TinyXML-2, PhysicsFS, and UTF8-CPP (if disabled, TinyXML-2 and PhysicsFS will be dynamically linked, LodePNG and UTF8-CPP will still be statically linked)" ON)
+option(BUNDLE_DEPENDENCIES "Use bundled TinyXML-2, PhysicsFS, and UTF8-CPP (if disabled, TinyXML-2 and PhysicsFS will be dynamically linked, LodePNG, UTF8-CPP and C-HashMap will still be statically linked)" ON)
 
 set(CUSTOM_LEVEL_SUPPORT ENABLED CACHE STRING "Optionally disable playing and/or editing of custom levels")
 set_property(CACHE CUSTOM_LEVEL_SUPPORT PROPERTY STRINGS ENABLED NO_EDITOR DISABLED)
@@ -147,6 +147,7 @@ if(BUNDLE_DEPENDENCIES)
         ../third_party/physfs/extras
         ../third_party/lodepng
         ../third_party/utfcpp/source
+        ../third_party/c-hashmap
     )
 else()
     target_include_directories(
@@ -154,6 +155,7 @@ else()
         src
         ../third_party/lodepng
         ../third_party/physfs/extras
+        ../third_party/c-hashmap
     )
 endif()
 
@@ -188,6 +190,7 @@ if(APPLE)
     set(PFS_SRC ${PFS_SRC} ../third_party/physfs/physfs_platform_apple.m)
 endif()
 set(PNG_SRC ../third_party/lodepng/lodepng.c)
+set(CHM_SRC ../third_party/c-hashmap/map.c)
 
 if(NOT OFFICIAL_BUILD)
     # Add interim commit hash and its date to the build
@@ -287,6 +290,14 @@ target_compile_definitions(lodepng-static PRIVATE
     -DLODEPNG_NO_COMPILE_ENCODER
 )
 
+add_library(c-hashmap-static STATIC ${CHM_SRC})
+
+# C-HashMap wasn't made for C older than me... -Dav
+if(${CMAKE_VERSION} VERSION_GREATER "3.1.3"
+OR ${CMAKE_VERSION} VERSION_EQUAL "3.1.3")
+	set_property(TARGET c-hashmap-static PROPERTY C_STANDARD 99)
+endif()
+
 if(BUNDLE_DEPENDENCIES)
     add_library(tinyxml2-static STATIC ${XML2_SRC})
     add_library(physfs-static STATIC ${PFS_SRC})
@@ -300,11 +311,11 @@ if(BUNDLE_DEPENDENCIES)
         set_property(TARGET physfs-static PROPERTY C_EXTENSIONS ON)
     endif()
 
-    target_link_libraries(VVVVVV physfs-static tinyxml2-static lodepng-static)
+    target_link_libraries(VVVVVV physfs-static tinyxml2-static lodepng-static c-hashmap-static)
 else()
     find_package(utf8cpp CONFIG)
 
-    target_link_libraries(VVVVVV physfs tinyxml2 utf8cpp lodepng-static)
+    target_link_libraries(VVVVVV physfs tinyxml2 utf8cpp lodepng-static c-hashmap-static)
 endif()
 
 # SDL2 Dependency (Detection pulled from FAudio)
