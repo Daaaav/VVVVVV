@@ -26,7 +26,7 @@ namespace loc
     Textbook textbook_main;
 
     hashmap* map_translation;
-    std::map<std::string, std::map<std::string, std::string> > translation_cutscenes;
+    hashmap* map_translation_cutscene;
     std::string number[102];
 
 #define MAP_MAX_X 54
@@ -214,12 +214,19 @@ namespace loc
         return tb_tra;
     }
 
+    void callback_free_map_value(void* key, size_t ksize, uintptr_t value, void* usr)
+    {
+        hashmap_free((hashmap*) value);
+    }
+
     void resettext(void)
     {
         // Reset/Initialize strings
         if (inited)
         {
             hashmap_free(map_translation);
+            hashmap_iterate(map_translation_cutscene, callback_free_map_value, NULL);
+            hashmap_free(map_translation_cutscene);
             hashmap_free(map_translation_roomnames_special);
 
             textbook_clear(textbook_main);
@@ -229,7 +236,7 @@ namespace loc
         textbook_init(textbook_main);
 
         map_translation = hashmap_create();
-        translation_cutscenes.clear();
+        map_translation_cutscene = hashmap_create();
 
         for (size_t i = 0; i <= 101; i++)
         {
@@ -303,12 +310,17 @@ namespace loc
 
             if (SDL_strcmp(pKey, "cutscene") == 0)
             {
-                std::string script_id = std::string(pElem->Attribute("id"));
-                if (translation_cutscenes.count(script_id) != 0)
-                {
-                    vlog_warn("Cutscene \"%s\" appears in language file multiple times", script_id.c_str());
-                }
-                translation_cutscenes[script_id] = std::map<std::string, std::string>();
+                const char* script_id = textbook_store(textbook_main, pElem->Attribute("id"));
+
+                hashmap* cutscene_map = hashmap_create();
+                hashmap_set_free(
+                    map_translation_cutscene,
+                    (void*) script_id,
+                    SDL_strlen(script_id),
+                    (uintptr_t) cutscene_map,
+                    callback_free_map_value,
+                    NULL
+                );
 
                 for (tinyxml2::XMLElement* subElem = pElem->FirstChildElement(); subElem; subElem=subElem->NextSiblingElement())
                 {
@@ -321,8 +333,7 @@ namespace loc
 
                     if (SDL_strcmp(pSubKey, "dialogue") == 0)
                     {
-                        std::string eng = std::string(subElem->Attribute("english"));
-                        translation_cutscenes[script_id][eng] = std::string(pSubText);
+                        map_store_text(textbook_main, cutscene_map, subElem->Attribute("english"), pSubText);
                     }
                 }
             }
@@ -546,33 +557,6 @@ namespace loc
     }
 
 
-    // std::map version, to be removed
-    std::string stdmap_lookup_text(const std::map<std::string, std::string>& map, const std::string& eng)
-    {
-        if (test_mode)
-        {
-            if (map.count(eng) != 0)
-            {
-                return "✓" + eng;
-            }
-            return "❌" + eng;
-        }
-
-        if (lang == "en" || map.count(eng) == 0)
-        {
-            return eng;
-        }
-
-        const std::string& tra = map.at(eng);
-
-        if (tra.empty())
-        {
-            return eng;
-        }
-
-        return tra;
-    }
-
     const char* map_lookup_text(hashmap* map, const char* eng)
     {
         if (lang == "en" && !test_mode)
@@ -604,12 +588,21 @@ namespace loc
 
     std::string gettext_cutscene(const std::string& script_id, const std::string& eng)
     {
-        if (!is_cutscene_translated(script_id) || translation_cutscenes[script_id].count(eng) == 0)
+        if (lang == "en" && !test_mode)
         {
             return eng;
         }
 
-        return stdmap_lookup_text(translation_cutscenes.at(script_id), eng);
+        uintptr_t ptr_cutscene_map;
+        bool found = hashmap_get(map_translation_cutscene, (void*) script_id.c_str(), script_id.size(), &ptr_cutscene_map);
+        hashmap* cutscene_map = (hashmap*) ptr_cutscene_map;
+
+        if (!found || cutscene_map == NULL)
+        {
+            return eng;
+        }
+
+        return std::string(map_lookup_text(cutscene_map, eng.c_str()));
     }
 
     std::string getnumber(int n)
@@ -666,7 +659,13 @@ namespace loc
 
     bool is_cutscene_translated(const std::string& script_id)
     {
-        return lang != "en" && translation_cutscenes.count(script_id) != 0;
+        if (lang == "en")
+        {
+            return false;
+        }
+
+        uintptr_t ptr_unused;
+        return hashmap_get(map_translation_cutscene, (void*) script_id.c_str(), script_id.size(), &ptr_unused);
     }
 
     uint32_t toupper(uint32_t ch)
