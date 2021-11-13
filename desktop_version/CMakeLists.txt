@@ -97,6 +97,7 @@ set(VVV_SRC
     src/preloader.cpp
     src/Render.cpp
     src/RenderFixed.cpp
+    src/RoomnameTranslator.cpp
     src/Screen.cpp
     src/Script.cpp
     src/Scripts.cpp

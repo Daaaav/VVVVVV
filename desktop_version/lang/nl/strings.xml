@@ -161,7 +161,7 @@
     <string english="Count the amount of untranslated strings for each language." explanation="translation maintenance menu" max="38*6" comment="">Tel het aantal onvertaalde strings voor elke taal.</string>
     <string english="translate room names" explanation="menu option" comment=""></string>
     <string english="Translate rooms" explanation="title" max="20" comment=""></string>
-    <string english="Enable room name translation mode, so you can translate room names in context." explanation="" max="38*6" comment=""></string>
+    <string english="Enable room name translation mode, so you can translate room names in context." explanation="" max="38*4" comment=""></string>
     <string english="menu test" explanation="menu option" comment=""></string>
     <string english="Menu test" explanation="title" max="20" comment=""></string>
     <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." explanation="" max="38*6" comment=""></string>
@@ -305,7 +305,7 @@
     <string english="Wow! Congratulations!" explanation="player died after saving two crewmates" max="38*2" comment="">Wauw! Gefeliciteerd!</string>
     <string english="Incredible!" explanation="player died after saving three crewmates" max="38*2" comment="">Fantastisch!</string>
     <string english="Unbelievable! Well done!" explanation="player died after saving four crewmates" max="38*2" comment="">Ongelooflijk! Goed gedaan!</string>
-    <string english="Er, how did you do that?" explanation="player died even though they were finished, lol" max="38*2" comment="">Eh, hoe heb je dat gedaan?</string>
+    <string english="Er, how did you do that?" explanation="player died even though they were finished, lol" max="38*2" comment="">Uh, hoe heb je dat voor elkaar gekregen?</string>
     <string english="WOW" explanation="even bigger title" max="10" comment="">WAUW</string>
     <string english="You rescued all the crewmates!" explanation="" max="40" comment="">Je hebt alle bemanningsleden gered!</string>
     <string english="A new trophy has been awarded and placed in the secret lab to acknowledge your achievement!" explanation="" max="38*4" comment="">Er is een nieuwe trofee voor je in het geheime lab geplaatst om je prestatie te erkennen!</string>
@@ -372,7 +372,7 @@
     <string english="TIME:" explanation="stopwatch time, not too long" comment="">TIJD:</string>
     <string english="DEATH:" explanation="number of times player died, not too long" comment="">DOOD:</string>
     <string english="SHINY:" explanation="number of shiny trinkets collected, not too long" comment="">SIERAAD:</string>
-    <string english="PAR TIME:" explanation="goal time for time trial" comment="">PARTIJD:</string>
+    <string english="PAR TIME:" explanation="goal time for time trial" comment="">PAR-TIJD:</string>
     <string english="MAP" explanation="in-game menu" max="8" comment="">KAART</string>
     <string english="GRAV" explanation="in-game menu, Gravitron" max="8" comment="">GRAV</string>
     <string english="SHIP" explanation="in-game menu, spaceship" max="8" comment="">SCHIP</string>

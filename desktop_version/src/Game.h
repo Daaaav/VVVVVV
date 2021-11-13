@@ -337,6 +337,7 @@ public:
     bool intimetrial, timetrialparlost;
     int timetrialcountdown, timetrialshinytarget, timetriallevel;
     int timetrialpar, timetrialresulttime, timetrialresultframes, timetrialrank;
+    bool timetrialcheater;
     int timetrialresultshinytarget, timetrialresulttrinkets, timetrialresultpar;
     int timetrialresultdeaths;
 
@@ -477,6 +478,9 @@ public:
     bool incompetitive(void);
 
     bool nocompetitive(void);
+    bool nocompetitive_unless_translator(void);
+
+    void sabotage_time_trial(void);
 
     bool over30mode;
     bool showingametimer;

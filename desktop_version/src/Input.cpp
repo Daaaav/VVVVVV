@@ -14,6 +14,7 @@
 #include "MakeAndPlay.h"
 #include "Map.h"
 #include "Music.h"
+#include "RoomnameTranslator.h"
 #include "Script.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -1095,9 +1096,9 @@ static void menuactionpress(void)
             break;
         case 1:
             // translate room names
-            // TODO
             music.playef(11);
-            map.nexttowercolour();
+            roomname_translator::set_enabled(!roomname_translator::enabled);
+            game.savestatsandsettings_menu();
             break;
         case 2:
             // menu test
@@ -1654,7 +1655,7 @@ static void menuactionpress(void)
         map.nexttowercolour();
         break;
     case Menu::playmodes:
-        if (game.currentmenuoption == 0 && !game.nocompetitive())   //go to the time trial menu
+        if (game.currentmenuoption == 0 && !game.nocompetitive_unless_translator())   //go to the time trial menu
         {
             music.playef(11);
             game.createmenu(Menu::timetrials);
@@ -2102,6 +2103,11 @@ void gameinput(void)
 
     if(!script.running)
     {
+        if (roomname_translator::enabled && roomname_translator::overlay_input())
+        {
+            return;
+        }
+
         game.press_left = false;
         game.press_right = false;
         game.press_action = false;

@@ -2504,7 +2504,6 @@ void scriptclass::startgamemode( int t )
         game.nocutscenes = true;
         game.intimetrial = true;
         game.timetrialcountdown = 150;
-        game.timetrialparlost = false;
         game.timetriallevel = t - 3;
 
         switch (t)
@@ -3184,6 +3183,14 @@ void scriptclass::hardreset(void)
     game.timetrialshinytarget = 0;
     game.timetrialparlost = false;
     game.timetrialpar = 0;
+    if (map.invincibility)
+    {
+        game.sabotage_time_trial();
+    }
+    else
+    {
+        game.timetrialcheater = false;
+    }
 
     game.totalflips = 0;
     game.hardestroom = "Welcome Aboard";

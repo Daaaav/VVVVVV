@@ -15,6 +15,7 @@
 #include "Map.h"
 #include "Maths.h"
 #include "Music.h"
+#include "RoomnameTranslator.h"
 #include "Script.h"
 #include "UtilityClass.h"
 #include "Version.h"
@@ -628,6 +629,15 @@ static void menurender(void)
         case 1:
             graphics.bigprint( -1, 30, loc::gettext("Translate rooms"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Enable room name translation mode, so you can translate room names in context."), tr, tg, tb, true);
+
+            if (roomname_translator::enabled)
+            {
+                graphics.PrintWrap( -1, 105, loc::gettext("Currently ENABLED!"), tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.PrintWrap( -1, 105, loc::gettext("Currently Disabled."), tr/2, tg/2, tb/2, true);
+            }
             break;
         case 2:
             graphics.bigprint( -1, 30, loc::gettext("Menu test"), tr, tg, tb, true);
@@ -1765,12 +1775,22 @@ void gamerender(void)
         }
     }
 
-    if (graphics.fademode==0 && !game.intimetrial && !game.isingamecompletescreen() && game.swngame != 1 && game.showingametimer)
+    if (graphics.fademode==0
+    && !game.intimetrial
+    && !game.isingamecompletescreen()
+    && game.swngame != 1
+    && game.showingametimer
+    && !roomname_translator::enabled)
     {
         std::string tempstring = loc::gettext("TIME:");
         int label_len = graphics.len(tempstring);
         graphics.bprint(6, 6, tempstring,  255,255,255);
         graphics.bprint(6+label_len, 6, game.timestring(),  196, 196, 196);
+    }
+
+    if (roomname_translator::enabled)
+    {
+        roomname_translator::overlay_render();
     }
 
     if(map.extrarow==0 || (map.custommode && map.roomname[0] != '\0'))
@@ -1985,7 +2005,7 @@ void gamerender(void)
                 graphics.bigbprint( -1, 100, "3", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
         }
-        else
+        else if (!roomname_translator::enabled || !roomname_translator::edit_mode)
         {
             //Draw OSD stuff
             std::string tempstring = loc::gettext("TIME:");

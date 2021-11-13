@@ -1,0 +1,19 @@
+#ifndef ROOMNAMETRANSLATOR_H
+#define ROOMNAMETRANSLATOR_H
+
+#include <SDL.h>
+
+namespace roomname_translator
+{
+    extern bool enabled;
+    extern bool edit_mode;
+
+    extern SDL_Surface* dimbuffer;
+    extern SDL_Rect fullscreen_rect;
+
+    void set_enabled(bool value);
+    void overlay_render(void);
+    bool overlay_input(void);
+}
+
+#endif /* ROOMNAMETRANSLATOR_H */

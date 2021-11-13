@@ -12,6 +12,7 @@
 #include "Localization.h"
 #include "Map.h"
 #include "Music.h"
+#include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -192,6 +193,11 @@ void Graphics::create_buffers(const SDL_PixelFormat* fmt)
     SDL_SetSurfaceBlendMode(footerbuffer, SDL_BLENDMODE_BLEND);
     SDL_SetSurfaceAlphaMod(footerbuffer, 127);
     FillRect(footerbuffer, SDL_MapRGB(fmt, 0, 0, 0));
+
+    roomname_translator::dimbuffer = CREATE_SURFACE(320, 240);
+    SDL_SetSurfaceBlendMode(roomname_translator::dimbuffer, SDL_BLENDMODE_BLEND);
+    SDL_SetSurfaceAlphaMod(roomname_translator::dimbuffer, 96);
+    FillRect(roomname_translator::dimbuffer, SDL_MapRGB(fmt, 0, 0, 0));
 
     ghostbuffer = CREATE_SURFACE(320, 240);
     SDL_SetSurfaceBlendMode(ghostbuffer, SDL_BLENDMODE_BLEND);

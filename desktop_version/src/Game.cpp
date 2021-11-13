@@ -21,6 +21,7 @@
 #include "Map.h"
 #include "Music.h"
 #include "Network.h"
+#include "RoomnameTranslator.h"
 #include "Script.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -286,6 +287,7 @@ void Game::init(void)
     timetrialshinytarget = 0;
     timetrialparlost = false;
     timetrialpar = 0;
+    timetrialcheater = false;
     timetrialresulttime = 0;
     timetrialresultframes = 0;
     timetrialresultshinytarget = 0;
@@ -1411,6 +1413,14 @@ void Game::updatestate(void)
             //Time Trial Complete!
             obj.removetrigger(82);
             hascontrol = false;
+
+            if (timetrialcheater)
+            {
+                for (size_t i = 0; i < SDL_arraysize(obj.collect); i++)
+                {
+                    obj.collect[i] = false;
+                }
+            }
 
             timetrialresulttime = seconds + (minutes * 60) + (hours * 60 * 60);
             timetrialresultframes = frames;
@@ -4306,6 +4316,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             loc::lang = std::string(pText);
         }
 
+        if (SDL_strcmp(pKey, "roomname_translator") == 0 && loc::show_translator_menu)
+        {
+            roomname_translator::set_enabled(help.Int(pText));
+        }
+
     }
 
     if (controllerButton_flip.size() < 1)
@@ -4573,6 +4588,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
     xml::update_tag(dataNode, "controllerSensitivity", key.sensitivity);
 
     xml::update_tag(dataNode, "lang", loc::lang.c_str());
+    xml::update_tag(dataNode, "roomname_translator", (int) roomname_translator::enabled);
 }
 
 void Game::loadsettings(ScreenSettings* screen_settings)
@@ -6225,7 +6241,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     case Menu::translator_options:
         option(loc::gettext("language statistics"), false);
-        option(loc::gettext("translate room names"), false);
+        option(loc::gettext("translate room names"));
         option(loc::gettext("menu test"));
         option(loc::gettext("limits check"), false);
         option(loc::gettext("return"));
@@ -6430,7 +6446,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = 64;
         break;
     case Menu::playmodes:
-        option(loc::gettext("time trials"), !nocompetitive());
+        option(loc::gettext("time trials"), !nocompetitive_unless_translator());
         option(loc::gettext("intermissions"), unlock[16]);
         option(loc::gettext("no death mode"), unlock[17] && !nocompetitive());
         option(loc::gettext("flip mode"), unlock[18]);
@@ -6986,6 +7002,19 @@ bool Game::incompetitive(void)
 bool Game::nocompetitive(void)
 {
     return slowdown < 30 || map.invincibility;
+}
+
+bool Game::nocompetitive_unless_translator(void)
+{
+    return slowdown < 30 || (map.invincibility && !roomname_translator::enabled);
+}
+
+void Game::sabotage_time_trial(void)
+{
+    timetrialcheater = true;
+    hours++;
+    deathcounts += 100;
+    timetrialparlost = true;
 }
 
 bool Game::isingamecompletescreen()
