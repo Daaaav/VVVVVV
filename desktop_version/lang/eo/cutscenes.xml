@@ -920,6 +920,6 @@ Are you really sure you want to do this?">Serioze! La tuta dimensio povus kolaps
         <dialogue speaker="cyan" english="...oh, I&apos;ve already found this.">...Ho, mi jam trovis tion.</dialogue>
     </cutscene>
     <cutscene id="disableaccessibility" explanation="">
-        <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron."></dialogue>
+        <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron.">Bonvolu malebligi nevundeblecon kaj/aŭ malrapidigon antaŭ ol eniri la Super-Gravitĉambron.</dialogue>
     </cutscene>
 </cutscenes>
