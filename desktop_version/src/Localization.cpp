@@ -377,6 +377,27 @@ namespace loc
         }
     }
 
+    bool store_roomname_translation(bool custom_level, int roomx, int roomy, const char* tra)
+    {
+        if (custom_level)
+        {
+            vlog_error("Custom level room names NYI");
+            return false;
+        }
+
+        roomx %= 100;
+        roomy %= 100;
+
+        if (roomx < 0 || roomy < 0 || roomx > MAP_MAX_X || roomy > MAP_MAX_Y)
+        {
+            return false;
+        }
+
+        translation_roomnames[roomy][roomx] = textbook_store(textbook_main, tra);
+
+        return true;
+    }
+
     void loadtext_roomnames(void)
     {
         tinyxml2::XMLDocument doc;
@@ -408,12 +429,7 @@ namespace loc
                 int x = pElem->IntAttribute("x", -1);
                 int y = pElem->IntAttribute("y", -1);
 
-                if (x < 0 || y < 0 || x > MAP_MAX_X || y > MAP_MAX_Y)
-                {
-                    continue;
-                }
-
-                translation_roomnames[y][x] = textbook_store(textbook_main, pText);
+                store_roomname_translation(false, x, y, pText);
             }
         }
     }
@@ -624,6 +640,27 @@ namespace loc
         return number[ix];
     }
 
+    const char* get_roomname_translation(int roomx, int roomy)
+    {
+        /* Only looks for the translation, doesn't return English fallback.
+         * Also used for room name translation mode. */
+
+        roomx %= 100;
+        roomy %= 100;
+
+        if (roomx < 0 || roomy < 0 || roomx > MAP_MAX_X || roomy > MAP_MAX_Y)
+        {
+            return NULL;
+        }
+
+        const char* tra = translation_roomnames[roomy][roomx];
+        if (tra == NULL)
+        {
+            return "";
+        }
+        return tra;
+    }
+
     const char* gettext_roomname(int roomx, int roomy, const char* eng, bool special)
     {
         if (lang == "en")
@@ -636,16 +673,8 @@ namespace loc
             return gettext_roomname_special(eng);
         }
 
-        roomx %= 100;
-        roomy %= 100;
-
-        if (roomx < 0 || roomy < 0 || roomx > MAP_MAX_X || roomy > MAP_MAX_Y)
-        {
-            return eng;
-        }
-
-        const char* tra = translation_roomnames[roomy][roomx];
-        if (tra == NULL || tra[0] == '\0')
+        const char* tra = get_roomname_translation(roomx, roomy);
+        if (tra[0] == '\0')
         {
             return eng;
         }

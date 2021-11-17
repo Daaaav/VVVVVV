@@ -3607,3 +3607,18 @@ Uint32 Graphics::crewcolourreal(int t)
     }
     return col_crewcyan;
 }
+
+void Graphics::render_roomname(const char* roomname, int r, int g, int b)
+{
+    footerrect.y = 230;
+    if (translucentroomname)
+    {
+        SDL_BlitSurface(footerbuffer, NULL, backBuffer, &footerrect);
+    }
+    else
+    {
+        FillRect(backBuffer, footerrect, 0);
+    }
+
+    bprint(5, 231, roomname, r, g, b, true);
+}

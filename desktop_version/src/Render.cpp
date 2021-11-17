@@ -1788,23 +1788,18 @@ void gamerender(void)
         graphics.bprint(6+label_len, 6, game.timestring(),  196, 196, 196);
     }
 
+    bool force_roomname_hidden = false;
+    int roomname_r = 196, roomname_g = 196, roomname_b = 255 - help.glow;
     if (roomname_translator::enabled)
     {
-        roomname_translator::overlay_render();
+        roomname_translator::overlay_render(
+            &force_roomname_hidden,
+            &roomname_r, &roomname_g, &roomname_b
+        );
     }
 
-    if(map.extrarow==0 || (map.custommode && map.roomname[0] != '\0'))
+    if ((map.extrarow==0 || (map.custommode && map.roomname[0] != '\0')) && !force_roomname_hidden)
     {
-        graphics.footerrect.y = 230;
-        if (graphics.translucentroomname)
-        {
-            SDL_BlitSurface(graphics.footerbuffer, NULL, graphics.backBuffer, &graphics.footerrect);
-        }
-        else
-        {
-            FillRect(graphics.backBuffer, graphics.footerrect, 0);
-        }
-
         const char* translated_roomname;
         if (map.finalmode)
         {
@@ -1814,7 +1809,8 @@ void gamerender(void)
         {
             translated_roomname = loc::gettext_roomname(game.roomx, game.roomy, map.roomname, map.roomname_special);
         }
-        graphics.bprint(5, 231, translated_roomname, 196, 196, 255 - help.glow, true);
+
+        graphics.render_roomname(translated_roomname, roomname_r, roomname_g, roomname_b);
     }
 
     if (map.roomtexton)

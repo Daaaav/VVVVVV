@@ -81,10 +81,10 @@ static bool compare_nocase (std::string first, std::string second)
         return false;
 }
 
-// translate_title and translate_creator are used to display default title/author
-// as being translated, while they're actually stored in English in the level file.
-// This way we translate "Untitled Level" and "Unknown" without
-// spreading around translations in level files posted online!
+/* translate_title and translate_creator are used to display default title/author
+ * as being translated, while they're actually stored in English in the level file.
+ * This way we translate "Untitled Level" and "Unknown" without
+ * spreading around translations in level files posted online! */
 std::string translate_title(const std::string& title)
 {
     if (title == "Untitled Level")

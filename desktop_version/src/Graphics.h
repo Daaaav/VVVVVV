@@ -353,6 +353,8 @@ public:
 
     Uint32 crewcolourreal(int t);
 
+    void render_roomname(const char* roomname, int r, int g, int b);
+
     char error[128];
     char error_title[128]; /* for SDL_ShowSimpleMessageBox */
 };

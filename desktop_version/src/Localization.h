@@ -53,6 +53,8 @@ namespace loc
     extern int languagelist_curlang;
     extern bool show_translator_menu;
 
+    bool store_roomname_translation(bool custom_level, int roomx, int roomy, const char* tra);
+
     void loadtext(void);
     void loadlanguagelist(void);
     void sync_lang_files(void);
@@ -60,6 +62,7 @@ namespace loc
     std::string gettext(const std::string& eng);
     std::string gettext_cutscene(const std::string& script_id, const std::string& eng);
     std::string getnumber(int n);
+    const char* get_roomname_translation(int roomx, int roomy);
     const char* gettext_roomname(int roomx, int roomy, const char* eng, bool special);
     const char* gettext_roomname_special(const char* eng);
 
