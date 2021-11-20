@@ -13,6 +13,7 @@ namespace roomname_translator
 {
     bool enabled = false;
     bool edit_mode = false;
+    bool expl_mode = false;
 
     int untranslated = 999;
 
@@ -30,6 +31,16 @@ namespace roomname_translator
         return enabled && edit_mode;
     }
 
+    void print_explanation(const char* explanation)
+    {
+        const char* use_explanation = explanation;
+        if (explanation == NULL || explanation[0] == '\0')
+        {
+            use_explanation = "[no explanation]";
+        }
+        graphics.PrintWrap(0, 10, use_explanation, 0,192,255, false, 8, 320);
+    }
+
     void overlay_render(bool* force_roomname_hidden, int* roomname_r, int* roomname_g, int* roomname_b)
     {
         if (edit_mode)
@@ -39,7 +50,14 @@ namespace roomname_translator
             fullscreen_rect.w = 320;
             fullscreen_rect.h = 240;
             SDL_BlitSurface(dimbuffer, NULL, graphics.backBuffer, &fullscreen_rect);
-            graphics.bprint(0, 0, "Edit mode [TAB]", 255,255,255);
+            if (expl_mode)
+            {
+                graphics.bprint(0, 0, "Expl mode [TAB]", 255,255,255);
+            }
+            else
+            {
+                graphics.bprint(0, 0, "Name mode [TAB]", 255,255,255);
+            }
         }
         else
         {
@@ -63,11 +81,12 @@ namespace roomname_translator
         {
             if (edit_mode)
             {
-                graphics.PrintWrap(0, 8, "This is a special room name, which cannot be translated in-game. Please see roomnames_special", 0,192,255, false, 8, 320);
+                print_explanation("This is a special room name, which cannot be translated in-game. Please see roomnames_special");
             }
         }
-        else
+        else if (!expl_mode)
         {
+            // Name mode affects play mode a bit as well...
             bool roomname_is_translated = loc::get_roomname_translation(game.roomx, game.roomy)[0] != '\0';
 
             if (edit_mode)
@@ -91,7 +110,7 @@ namespace roomname_translator
                 {
                     graphics.bprint(-1, 221, english_roomname, 0,192,255, true);
 
-                    graphics.PrintWrap(0, 8, "This is the first room in the space station that the player is trapped in, so WELCOME ABOARD the space station. This is a reference to the game VVVVVV.", 0,192,255, false, 8, 320);
+                    print_explanation(loc::get_roomname_explanation(game.roomx, game.roomy));
                 }
 
                 if (key.textentry())
@@ -112,6 +131,29 @@ namespace roomname_translator
                 *roomname_r = 0;
                 *roomname_g = 192;
                 *roomname_b = 255 - help.glow;
+            }
+        }
+        else
+        {
+            // Explanation mode!
+            const char* explanation = loc::get_roomname_explanation(game.roomx, game.roomy);
+            if (explanation[0] == '\0')
+            {
+                *roomname_r = 64;
+                *roomname_g = 255;
+                *roomname_b = 255 - help.glow;
+            }
+
+            if (edit_mode)
+            {
+                if (key.textentry())
+                {
+                    print_explanation((key.keybuffer + "_").c_str());
+                }
+                else
+                {
+                    print_explanation(explanation);
+                }
             }
         }
     }
@@ -156,20 +198,43 @@ namespace roomname_translator
             if (key_pressed_once(SDLK_RETURN, &held_return))
             {
                 key.disabletextentry();
-                loc::store_roomname_translation(map.custommode, game.roomx, game.roomy, key.keybuffer.c_str());
 
-                if (false)
+                if (!expl_mode)
                 {
-                    graphics.createtextboxflipme("Translation saved!", -1, 176, 174, 174, 174);
-                    graphics.textboxtimer(25);
+                    if (loc::lang == "en")
+                    {
+                        graphics.createtextboxflipme("ERROR: Can't add EN-EN translation", -1, 176, 255, 60, 60);
+                        graphics.textboxtimer(50);
+                    }
+                    else
+                    {
+                        if (loc::save_roomname_to_file(loc::lang, map.custommode, game.roomx, game.roomy, key.keybuffer.c_str(), NULL))
+                        {
+                            graphics.createtextboxflipme("Translation saved!", -1, 176, 174, 174, 174);
+                            graphics.textboxtimer(25);
+                        }
+                        else
+                        {
+                            graphics.createtextboxflipme("ERROR: Could not save!", -1, 168, 255, 60, 60);
+                            graphics.addline("");
+                            graphics.addline("Do the language files exist?");
+                            graphics.textboxcenterx();
+                            graphics.textboxtimer(50);
+                        }
+                    }
                 }
                 else
                 {
-                    graphics.createtextboxflipme("ERROR: Could not save!", -1, 168, 255, 60, 60);
-                    graphics.addline("");
-                    graphics.addline("Do the language files exist?");
-                    graphics.textboxcenterx();
-                    graphics.textboxtimer(50);
+                    if (loc::save_roomname_explanation_to_files(map.custommode, game.roomx, game.roomy, key.keybuffer.c_str()))
+                    {
+                        graphics.createtextboxflipme("Explanation saved!", -1, 176, 174, 174, 174);
+                        graphics.textboxtimer(25);
+                    }
+                    else
+                    {
+                        graphics.createtextboxflipme("ERROR: Could not save to all langs!", -1, 176, 255, 60, 60);
+                        graphics.textboxtimer(50);
+                    }
                 }
 
                 edit_mode = false;
@@ -210,19 +275,31 @@ namespace roomname_translator
                 return true;
             }
 
+            if ((key.isDown(SDLK_LCTRL) || key.isDown(SDLK_RCTRL)) && key_pressed_once(SDLK_e, &held_e))
+            {
+                expl_mode = !expl_mode;
+                return true;
+            }
+
             if (key_pressed_once(SDLK_RETURN, &held_return) || key_pressed_once(SDLK_e, &held_e))
             {
-                if (map.finalmode && map.glitchname[0] == '\0')
-                {
-                    return true;
-                }
-                else if (map.roomname[0] == '\0')
+                if (map.roomname_special
+                    || (map.finalmode && map.glitchname[0] == '\0')
+                    || (map.roomname[0] == '\0')
+                )
                 {
                     return true;
                 }
 
                 key.enabletextentry();
-                key.keybuffer = loc::get_roomname_translation(game.roomx, game.roomy);
+                if (!expl_mode)
+                {
+                    key.keybuffer = loc::get_roomname_translation(game.roomx, game.roomy);
+                }
+                else
+                {
+                    key.keybuffer = loc::get_roomname_explanation(game.roomx, game.roomy);
+                }
             }
         }
 

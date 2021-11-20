@@ -32,6 +32,7 @@ namespace loc
 #define MAP_MAX_X 54
 #define MAP_MAX_Y 56
     char* translation_roomnames[MAP_MAX_Y+1][MAP_MAX_X+1];
+    char* explanation_roomnames[MAP_MAX_Y+1][MAP_MAX_X+1];
     hashmap* map_translation_roomnames_special;
 
     bool load_doc(const std::string& cat, tinyxml2::XMLDocument& doc, const std::string& langcode = lang)
@@ -248,6 +249,7 @@ namespace loc
             for (size_t x = 0; x < MAP_MAX_X; x++)
             {
                 translation_roomnames[y][x] = NULL;
+                explanation_roomnames[y][x] = NULL;
             }
         }
 
@@ -377,7 +379,15 @@ namespace loc
         }
     }
 
-    bool store_roomname_translation(bool custom_level, int roomx, int roomy, const char* tra)
+    bool fix_room_coords(int* roomx, int* roomy)
+    {
+        *roomx %= 100;
+        *roomy %= 100;
+
+        return !(*roomx < 0 || *roomy < 0 || *roomx > MAP_MAX_X || *roomy > MAP_MAX_Y);
+    }
+
+    bool store_roomname_translation(bool custom_level, int roomx, int roomy, const char* tra, const char* explanation)
     {
         if (custom_level)
         {
@@ -385,15 +395,19 @@ namespace loc
             return false;
         }
 
-        roomx %= 100;
-        roomy %= 100;
-
-        if (roomx < 0 || roomy < 0 || roomx > MAP_MAX_X || roomy > MAP_MAX_Y)
+        if (!fix_room_coords(&roomx, &roomy))
         {
             return false;
         }
 
-        translation_roomnames[roomy][roomx] = textbook_store(textbook_main, tra);
+        if (tra != NULL)
+        {
+            translation_roomnames[roomy][roomx] = textbook_store(textbook_main, tra);
+        }
+        if (explanation != NULL)
+        {
+            explanation_roomnames[roomy][roomx] = textbook_store(textbook_main, explanation);
+        }
 
         return true;
     }
@@ -429,7 +443,13 @@ namespace loc
                 int x = pElem->IntAttribute("x", -1);
                 int y = pElem->IntAttribute("y", -1);
 
-                store_roomname_translation(false, x, y, pText);
+                store_roomname_translation(
+                    false,
+                    x,
+                    y,
+                    pText,
+                    show_translator_menu ? pElem->Attribute("explanation") : NULL
+                );
             }
         }
     }
@@ -474,6 +494,12 @@ namespace loc
 
         if (lang == "en" && !test_mode)
         {
+            if (show_translator_menu)
+            {
+                // We may still need the room name explanations
+                loadtext_roomnames();
+            }
+
             return;
         }
 
@@ -572,6 +598,92 @@ namespace loc
         loadtext();
     }
 
+    bool save_roomname_to_file(const std::string& langcode, bool custom_level, int roomx, int roomy, const char* tra, const char* explanation)
+    {
+        if (custom_level)
+        {
+            vlog_error("Custom level room names NYI");
+            return false;
+        }
+
+        if (!fix_room_coords(&roomx, &roomy))
+        {
+            return false;
+        }
+
+        tinyxml2::XMLDocument doc;
+        if (!load_doc("roomnames", doc, langcode))
+        {
+            return false;
+        }
+
+        tinyxml2::XMLHandle hDoc(&doc);
+        tinyxml2::XMLElement* pElem;
+        tinyxml2::XMLHandle hRoot(NULL);
+
+        {
+            pElem=hDoc.FirstChildElement().ToElement();
+            hRoot=tinyxml2::XMLHandle(pElem);
+        }
+
+        bool found = false;
+        for (pElem = hRoot.FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+        {
+            const char* pKey = pElem->Value();
+
+            if (SDL_strcmp(pKey, "roomname") == 0)
+            {
+                int x = pElem->IntAttribute("x", -1);
+                int y = pElem->IntAttribute("y", -1);
+
+                if (x == roomx && y == roomy)
+                {
+                    if (explanation != NULL)
+                    {
+                        pElem->SetAttribute("explanation", explanation);
+                    }
+                    if (tra != NULL)
+                    {
+                        pElem->SetText(tra);
+                    }
+                    found = true;
+                }
+            }
+        }
+
+        if (!found)
+        {
+            vlog_error("Could not find room %d,%d in language file to replace!", roomx, roomy);
+            return false;
+        }
+
+        if (!FILESYSTEM_setLangWriteDir())
+        {
+            vlog_error("Cannot set write dir to lang dir, so room name can't be saved");
+            return false;
+        }
+        FILESYSTEM_saveTiXml2Document((langcode + "/roomnames.xml").c_str(), doc);
+        FILESYSTEM_restoreWriteDir();
+        return store_roomname_translation(custom_level, roomx, roomy, tra, explanation);
+    }
+
+    bool save_roomname_explanation_to_files(bool custom_level, int roomx, int roomy, const char* explanation)
+    {
+        bool any = false;
+        bool success = true;
+        for (size_t i = 0; i < languagelist.size(); i++)
+        {
+            any = true;
+            if (!save_roomname_to_file(languagelist[i].code, custom_level, roomx, roomy, NULL, explanation))
+            {
+                success = false;
+                vlog_warn("Could not save room name explanation to language %s", languagelist[i].code.c_str());
+            }
+        }
+
+        return any && success;
+    }
+
 
     const char* map_lookup_text(hashmap* map, const char* eng)
     {
@@ -640,17 +752,32 @@ namespace loc
         return number[ix];
     }
 
+    const char* get_roomname_explanation(int roomx, int roomy)
+    {
+        /* Never returns NULL. */
+
+        if (!fix_room_coords(&roomx, &roomy))
+        {
+            return "";
+        }
+
+        const char* explanation = explanation_roomnames[roomy][roomx];
+        if (explanation == NULL)
+        {
+            return "";
+        }
+        return explanation;
+    }
+
     const char* get_roomname_translation(int roomx, int roomy)
     {
         /* Only looks for the translation, doesn't return English fallback.
+         * Never returns NULL.
          * Also used for room name translation mode. */
 
-        roomx %= 100;
-        roomy %= 100;
-
-        if (roomx < 0 || roomy < 0 || roomx > MAP_MAX_X || roomy > MAP_MAX_Y)
+        if (!fix_room_coords(&roomx, &roomy))
         {
-            return NULL;
+            return "";
         }
 
         const char* tra = translation_roomnames[roomy][roomx];
