@@ -53,6 +53,9 @@ namespace loc
     extern int languagelist_curlang;
     extern bool show_translator_menu;
 
+    extern int n_untranslated_roomnames;
+    extern int n_unexplained_roomnames;
+
     bool store_roomname_translation(bool custom_level, int roomx, int roomy, const char* tra, const char* explanation);
 
     void loadtext(void);

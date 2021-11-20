@@ -36,6 +36,10 @@ namespace roomname_translator
         const char* use_explanation = explanation;
         if (explanation == NULL || explanation[0] == '\0')
         {
+            use_explanation = "[explanation not yet set]";
+        }
+        else if (SDL_strcmp(explanation, ".") == 0)
+        {
             use_explanation = "[no explanation]";
         }
         graphics.PrintWrap(0, 10, use_explanation, 0,192,255, false, 8, 320);
@@ -66,7 +70,7 @@ namespace roomname_translator
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
 
-        SDL_snprintf(buffer, sizeof(buffer), "%3d left", untranslated);
+        SDL_snprintf(buffer, sizeof(buffer), "%3d left", expl_mode ? loc::n_unexplained_roomnames : loc::n_untranslated_roomnames);
         graphics.bprint(144, 0, buffer, 255,255,255);
 
         if (map.invincibility)
@@ -149,6 +153,8 @@ namespace roomname_translator
                 if (key.textentry())
                 {
                     print_explanation((key.keybuffer + "_").c_str());
+
+                    graphics.PrintWrap(0, 90, "Use \".\" to set no explanation", 255,255,255, false, 8, 320);
                 }
                 else
                 {
@@ -177,11 +183,43 @@ namespace roomname_translator
         return false;
     }
 
+    void save_explanation(const char* explanation, const char* success_message)
+    {
+        if (loc::save_roomname_explanation_to_files(map.custommode, game.roomx, game.roomy, explanation))
+        {
+            graphics.createtextboxflipme(success_message, -1, 176, 174, 174, 174);
+            graphics.textboxtimer(25);
+        }
+        else
+        {
+            graphics.createtextboxflipme("ERROR: Could not save to all langs!", -1, 176, 255, 60, 60);
+            graphics.textboxtimer(50);
+        }
+    }
+
+    void save_translation(const char* translation)
+    {
+        if (loc::save_roomname_to_file(loc::lang, map.custommode, game.roomx, game.roomy, translation, NULL))
+        {
+            graphics.createtextboxflipme("Translation saved!", -1, 176, 174, 174, 174);
+            graphics.textboxtimer(25);
+        }
+        else
+        {
+            graphics.createtextboxflipme("ERROR: Could not save!", -1, 168, 255, 60, 60);
+            graphics.addline("");
+            graphics.addline("Do the language files exist?");
+            graphics.textboxcenterx();
+            graphics.textboxtimer(50);
+        }
+    }
+
     bool held_tab = false;
     bool held_i = false;
     bool held_escape = false;
     bool held_return = false;
     bool held_e = false;
+    bool held_period = false;
 
     bool overlay_input(void)
     {
@@ -208,33 +246,12 @@ namespace roomname_translator
                     }
                     else
                     {
-                        if (loc::save_roomname_to_file(loc::lang, map.custommode, game.roomx, game.roomy, key.keybuffer.c_str(), NULL))
-                        {
-                            graphics.createtextboxflipme("Translation saved!", -1, 176, 174, 174, 174);
-                            graphics.textboxtimer(25);
-                        }
-                        else
-                        {
-                            graphics.createtextboxflipme("ERROR: Could not save!", -1, 168, 255, 60, 60);
-                            graphics.addline("");
-                            graphics.addline("Do the language files exist?");
-                            graphics.textboxcenterx();
-                            graphics.textboxtimer(50);
-                        }
+                        save_translation(key.keybuffer.c_str());
                     }
                 }
                 else
                 {
-                    if (loc::save_roomname_explanation_to_files(map.custommode, game.roomx, game.roomy, key.keybuffer.c_str()))
-                    {
-                        graphics.createtextboxflipme("Explanation saved!", -1, 176, 174, 174, 174);
-                        graphics.textboxtimer(25);
-                    }
-                    else
-                    {
-                        graphics.createtextboxflipme("ERROR: Could not save to all langs!", -1, 176, 255, 60, 60);
-                        graphics.textboxtimer(50);
-                    }
+                    save_explanation(key.keybuffer.c_str(), "Explanation saved!");
                 }
 
                 edit_mode = false;
@@ -299,6 +316,28 @@ namespace roomname_translator
                 else
                 {
                     key.keybuffer = loc::get_roomname_explanation(game.roomx, game.roomy);
+                }
+            }
+
+            if (expl_mode && key_pressed_once(SDLK_PERIOD, &held_period))
+            {
+                const char* old_explanation = loc::get_roomname_explanation(game.roomx, game.roomy);
+                const char* new_explanation = NULL;
+                const char* success_message;
+                if (old_explanation[0] == '\0')
+                {
+                    new_explanation = ".";
+                    success_message = "Blank explanation set!";
+                }
+                else if (SDL_strcmp(old_explanation, ".") == 0)
+                {
+                    new_explanation = "";
+                    success_message = "Blank explanation deleted!";
+                }
+
+                if (new_explanation != NULL)
+                {
+                    save_explanation(new_explanation, success_message);
                 }
             }
         }

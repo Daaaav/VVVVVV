@@ -33,6 +33,10 @@ namespace loc
 #define MAP_MAX_Y 56
     char* translation_roomnames[MAP_MAX_Y+1][MAP_MAX_X+1];
     char* explanation_roomnames[MAP_MAX_Y+1][MAP_MAX_X+1];
+
+    int n_untranslated_roomnames = 0;
+    int n_unexplained_roomnames = 0;
+
     hashmap* map_translation_roomnames_special;
 
     bool load_doc(const std::string& cat, tinyxml2::XMLDocument& doc, const std::string& langcode = lang)
@@ -253,6 +257,9 @@ namespace loc
             }
         }
 
+        n_untranslated_roomnames = 0;
+        n_unexplained_roomnames = 0;
+
         map_translation_roomnames_special = hashmap_create();
     }
 
@@ -387,6 +394,19 @@ namespace loc
         return !(*roomx < 0 || *roomy < 0 || *roomx > MAP_MAX_X || *roomy > MAP_MAX_Y);
     }
 
+    void update_left_counter(const char* old_text, const char* new_text, int* counter)
+    {
+        bool now_filled = new_text[0] != '\0';
+        if ((old_text == NULL || old_text[0] == '\0') && now_filled)
+        {
+            (*counter)--;
+        }
+        else if (old_text != NULL && old_text[0] != '\0' && !now_filled)
+        {
+            (*counter)++;
+        }
+    }
+
     bool store_roomname_translation(bool custom_level, int roomx, int roomy, const char* tra, const char* explanation)
     {
         if (custom_level)
@@ -402,10 +422,12 @@ namespace loc
 
         if (tra != NULL)
         {
+            update_left_counter(translation_roomnames[roomy][roomx], tra, &n_untranslated_roomnames);
             translation_roomnames[roomy][roomx] = textbook_store(textbook_main, tra);
         }
         if (explanation != NULL)
         {
+            update_left_counter(explanation_roomnames[roomy][roomx], explanation, &n_unexplained_roomnames);
             explanation_roomnames[roomy][roomx] = textbook_store(textbook_main, explanation);
         }
 
@@ -443,6 +465,8 @@ namespace loc
                 int x = pElem->IntAttribute("x", -1);
                 int y = pElem->IntAttribute("y", -1);
 
+                n_untranslated_roomnames++;
+                n_unexplained_roomnames++;
                 store_roomname_translation(
                     false,
                     x,
@@ -498,6 +522,7 @@ namespace loc
             {
                 // We may still need the room name explanations
                 loadtext_roomnames();
+                n_untranslated_roomnames = 0;
             }
 
             return;
