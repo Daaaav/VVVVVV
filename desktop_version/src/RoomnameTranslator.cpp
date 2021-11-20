@@ -25,6 +25,11 @@ namespace roomname_translator
         edit_mode = false;
     }
 
+    bool is_pausing(void)
+    {
+        return enabled && edit_mode;
+    }
+
     void overlay_render(bool* force_roomname_hidden, int* roomname_r, int* roomname_g, int* roomname_b)
     {
         if (edit_mode)

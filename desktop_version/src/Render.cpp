@@ -2001,7 +2001,7 @@ void gamerender(void)
                 graphics.bigbprint( -1, 100, "3", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
         }
-        else if (!roomname_translator::enabled || !roomname_translator::edit_mode)
+        else if (!roomname_translator::is_pausing())
         {
             //Draw OSD stuff
             std::string tempstring = loc::gettext("TIME:");

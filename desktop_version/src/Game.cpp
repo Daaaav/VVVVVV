@@ -6988,6 +6988,11 @@ int Game::get_timestep(void)
     }
 }
 
+bool Game::physics_frozen(void)
+{
+    return roomname_translator::is_pausing();
+}
+
 bool Game::incompetitive(void)
 {
     return (

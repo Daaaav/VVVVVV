@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "Game.h"
 #include "GraphicsResources.h"
 #include "GraphicsUtil.h"
 #include "Maths.h"
@@ -329,10 +330,16 @@ public:
 
     SDL_Surface* ghostbuffer;
 
+#ifndef GAME_DEFINITION
     float inline lerp(const float v0, const float v1)
     {
+        if (game.physics_frozen())
+        {
+            return v1;
+        }
         return v0 + alpha * (v1 - v0);
     }
+#endif
     float alpha;
 
     Uint32 col_crewred;

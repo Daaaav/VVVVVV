@@ -324,6 +324,7 @@ public:
     bool noflashingmode;
     int slowdown;
     int get_timestep(void);
+    bool physics_frozen(void);
 
     bool nodeathmode;
     int gameoverdelay;
