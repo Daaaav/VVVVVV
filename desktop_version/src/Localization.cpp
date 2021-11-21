@@ -248,9 +248,9 @@ namespace loc
             number[i] = "";
         }
 
-        for (size_t y = 0; y <= MAP_MAX_Y; y++)
+        for (size_t y = 0; y < MAP_MAX_Y+1; y++)
         {
-            for (size_t x = 0; x < MAP_MAX_X; x++)
+            for (size_t x = 0; x < MAP_MAX_X+1; x++)
             {
                 translation_roomnames[y][x] = NULL;
                 explanation_roomnames[y][x] = NULL;
@@ -473,6 +473,7 @@ namespace loc
 
                 n_untranslated_roomnames++;
                 n_unexplained_roomnames++;
+
                 store_roomname_translation(
                     false,
                     x,
