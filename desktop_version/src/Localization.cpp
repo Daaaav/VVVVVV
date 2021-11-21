@@ -391,6 +391,12 @@ namespace loc
         *roomx %= 100;
         *roomy %= 100;
 
+        if (*roomx == 9 && *roomy == 4)
+        {
+            // The Tower has two rooms, unify them
+            *roomy = 9;
+        }
+
         return !(*roomx < 0 || *roomy < 0 || *roomx > MAP_MAX_X || *roomy > MAP_MAX_Y);
     }
 

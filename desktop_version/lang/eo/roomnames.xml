@@ -45,7 +45,6 @@
     <roomname x="7" y="18" english="The Tantalizing Trinket" explanation=""/>
     <roomname x="7" y="19" english="The Bernoulli Principle" explanation=""/>
     <roomname x="8" y="9" english="Teleporter Divot" explanation=""/>
-    <roomname x="9" y="4" english="The Tower" explanation="Same as (9,9), but this is the top room"/>
     <roomname x="9" y="9" english="The Tower" explanation=""/>
     <roomname x="10" y="4" english="Seeing Red" explanation=""/>
     <roomname x="10" y="5" english="Energize" explanation=""/>
