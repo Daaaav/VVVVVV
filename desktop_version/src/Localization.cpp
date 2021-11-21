@@ -248,14 +248,8 @@ namespace loc
             number[i] = "";
         }
 
-        for (size_t y = 0; y < MAP_MAX_Y+1; y++)
-        {
-            for (size_t x = 0; x < MAP_MAX_X+1; x++)
-            {
-                translation_roomnames[y][x] = NULL;
-                explanation_roomnames[y][x] = NULL;
-            }
-        }
+        SDL_zeroa(translation_roomnames);
+        SDL_zeroa(explanation_roomnames);
 
         n_untranslated_roomnames = 0;
         n_unexplained_roomnames = 0;
