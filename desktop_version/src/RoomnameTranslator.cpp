@@ -14,6 +14,7 @@ namespace roomname_translator
     bool enabled = false;
     bool edit_mode = false;
     bool expl_mode = false;
+    bool help_screen = false;
 
     int untranslated = 999;
 
@@ -47,14 +48,56 @@ namespace roomname_translator
 
     void overlay_render(bool* force_roomname_hidden, int* roomname_r, int* roomname_g, int* roomname_b)
     {
-        if (edit_mode)
+        if (edit_mode || help_screen)
         {
             fullscreen_rect.x = 0;
             fullscreen_rect.y = 0;
             fullscreen_rect.w = 320;
             fullscreen_rect.h = 240;
             SDL_BlitSurface(dimbuffer, NULL, graphics.backBuffer, &fullscreen_rect);
-            if (expl_mode)
+            if (help_screen)
+            {
+                graphics.bprint(0, 0, "=== Room name translation mode help ===", 255,255,255);
+                if (expl_mode)
+                {
+                    graphics.bprint(0, 20, "You can currently access EXPL mode to", 255,255,255);
+                    graphics.bprint(0, 30, "set explanations for room names.", 255,255,255);
+                    graphics.bprint(0, 40, "(Use Ctrl+E to switch to NAME mode.)", 255,255,255);
+
+                    const char* first_part = "Unexplained room names are ";
+                    graphics.bprint(0, 60, first_part, 255,255,255);
+                    graphics.bprint(graphics.len(first_part), 60, "cyan.", 64, 255, 255-help.glow);
+                }
+                else
+                {
+                    graphics.bprint(0, 20, "You can currently access NAME mode to", 255,255,255);
+                    graphics.bprint(0, 30, "translate room names.", 255,255,255);
+                    graphics.bprint(0, 40, "(Use Ctrl+E to switch to EXPL mode.)", 255,255,255);
+
+                    const char* first_part = "English room names are ";
+                    graphics.bprint(0, 60, first_part, 255,255,255);
+                    graphics.bprint(graphics.len(first_part), 60, "cyan.", 0, 192, 255-help.glow);
+                }
+                graphics.bprint(0, 80, "KEYS:", 255,255,255);
+                if (expl_mode)
+                {
+                    graphics.bprint(0, 90, "Tab - switch between play/expl modes", 255,255,255);
+                    graphics.bprint(0, 100, "E/Enter - set room name explanation", 255,255,255);
+                }
+                else
+                {
+                    graphics.bprint(0, 90, "Tab - switch between play/name modes", 255,255,255);
+                    graphics.bprint(0, 100, "E/Enter - set room name translation", 255,255,255);
+                }
+                graphics.bprint(0, 110, "I - toggle invincibility", 255,255,255);
+                if (expl_mode)
+                {
+                    graphics.bprint(0, 120, ". - set blank explanation", 255,255,255);
+                }
+                *force_roomname_hidden = true;
+                return;
+            }
+            else if (expl_mode)
             {
                 graphics.bprint(0, 0, "Expl mode [TAB]", 255,255,255);
             }
@@ -66,6 +109,7 @@ namespace roomname_translator
         else
         {
             graphics.bprint(0, 0, "Play mode [TAB]", 255,255,255);
+            graphics.bprint(0, 10, "F1: Help", 192,192,192);
         }
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
@@ -220,10 +264,36 @@ namespace roomname_translator
     bool held_return = false;
     bool held_e = false;
     bool held_period = false;
+    bool held_f1 = false;
 
     bool overlay_input(void)
     {
         // Returns true if input "caught" and should not go to gameinput
+
+        if (key.isDown(SDLK_ESCAPE) && held_escape)
+        {
+            // Avoid opening the pause menu
+            return true;
+        }
+        else
+        {
+            held_escape = false;
+        }
+
+        if (help_screen)
+        {
+            if ((key.isDown(SDLK_LCTRL) || key.isDown(SDLK_RCTRL)) && key_pressed_once(SDLK_e, &held_e))
+            {
+                expl_mode = !expl_mode;
+            }
+
+            if (key_pressed_once(SDLK_ESCAPE, &held_escape) || key_pressed_once(SDLK_F1, &held_f1))
+            {
+                help_screen = false;
+            }
+
+            return true;
+        }
 
         if (key.textentry())
         {
@@ -259,6 +329,11 @@ namespace roomname_translator
             }
 
             return true;
+        }
+
+        if (key_pressed_once(SDLK_F1, &held_f1))
+        {
+            help_screen = true;
         }
 
         if (key_pressed_once(SDLK_TAB, &held_tab))
