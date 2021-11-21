@@ -109,7 +109,7 @@ namespace roomname_translator
         else
         {
             graphics.bprint(0, 0, "Play mode [TAB]", 255,255,255);
-            graphics.bprint(0, 10, "F1: Help", 192,192,192);
+            graphics.bprint(320-64, 10, "F1: Help", 192,192,192);
         }
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
@@ -132,6 +132,14 @@ namespace roomname_translator
                 print_explanation("This is a special room name, which cannot be translated in-game. Please see roomnames_special");
             }
         }
+        else if ((map.finalmode && map.glitchname[0] == '\0') || map.roomname[0] == '\0')
+        {
+            // No room name at all, so no translation/explanation interface
+            if (edit_mode)
+            {
+                graphics.bprint(-1, 221, "[no roomname]", 0,192,255, true);
+            }
+        }
         else if (!expl_mode)
         {
             // Name mode affects play mode a bit as well...
@@ -148,18 +156,9 @@ namespace roomname_translator
                 {
                     english_roomname = map.roomname;
                 }
-                bool roomname_is_blank = english_roomname[0] == '\0';
-                if (roomname_is_blank)
-                {
-                    graphics.bprint(-1, 221, "[no roomname]", 0,192,255, true);
-                    roomname_is_translated = true;
-                }
-                else
-                {
-                    graphics.bprint(-1, 221, english_roomname, 0,192,255, true);
+                graphics.bprint(-1, 221, english_roomname, 0,192,255, true);
 
-                    print_explanation(loc::get_roomname_explanation(game.roomx, game.roomy));
-                }
+                print_explanation(loc::get_roomname_explanation(game.roomx, game.roomy));
 
                 if (key.textentry())
                 {
