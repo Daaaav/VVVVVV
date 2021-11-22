@@ -688,8 +688,13 @@ namespace loc
             vlog_error("Cannot set write dir to lang dir, so room name can't be saved");
             return false;
         }
-        FILESYSTEM_saveTiXml2Document((langcode + "/roomnames.xml").c_str(), doc);
+        bool save_success = FILESYSTEM_saveTiXml2Document((langcode + "/roomnames.xml").c_str(), doc);
         FILESYSTEM_restoreWriteDir();
+        if (!save_success)
+        {
+            vlog_error("Could not write roomnames document!");
+            return false;
+        }
         return store_roomname_translation(custom_level, roomx, roomy, tra, explanation);
     }
 

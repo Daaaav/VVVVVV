@@ -16,8 +16,6 @@ namespace roomname_translator
     bool expl_mode = false;
     bool help_screen = false;
 
-    int untranslated = 999;
-
     SDL_Surface* dimbuffer;
     SDL_Rect fullscreen_rect;
 
