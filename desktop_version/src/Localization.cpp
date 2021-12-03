@@ -31,8 +31,8 @@ namespace loc
 
 #define MAP_MAX_X 54
 #define MAP_MAX_Y 56
-    char* translation_roomnames[MAP_MAX_Y+1][MAP_MAX_X+1];
-    char* explanation_roomnames[MAP_MAX_Y+1][MAP_MAX_X+1];
+    const char* translation_roomnames[MAP_MAX_Y+1][MAP_MAX_X+1];
+    const char* explanation_roomnames[MAP_MAX_Y+1][MAP_MAX_X+1];
 
     int n_untranslated_roomnames = 0;
     int n_unexplained_roomnames = 0;
@@ -113,7 +113,7 @@ namespace loc
         textbook.pages_used = 0;
     }
 
-    char* textbook_store(Textbook& textbook, const char* text)
+    const char* textbook_store(Textbook& textbook, const char* text)
     {
         if (text == NULL)
         {
@@ -121,6 +121,12 @@ namespace loc
         }
 
         size_t text_len = SDL_strlen(text)+1;
+
+        if (text_len == 1)
+        {
+            /* Don't go and store a single null terminator when we have one right here for you: */
+            return "";
+        }
 
         if (text_len > TEXTBOOK_PAGE_SIZE)
         {
