@@ -317,7 +317,7 @@ bool FILESYSTEM_setLangWriteDir(void)
     return true;
 }
 
-bool FILESYSTEM_isFile(const char* filename)
+bool FILESYSTEM_isFileType(const char* filename, PHYSFS_FileType filetype)
 {
     PHYSFS_Stat stat;
 
@@ -335,8 +335,18 @@ bool FILESYSTEM_isFile(const char* filename)
     /* We unfortunately cannot follow symlinks (PhysFS limitation).
      * Let the caller deal with them.
      */
-    return stat.filetype == PHYSFS_FILETYPE_REGULAR
+    return stat.filetype == filetype
     || stat.filetype == PHYSFS_FILETYPE_SYMLINK;
+}
+
+bool FILESYSTEM_isFile(const char* filename)
+{
+    return FILESYSTEM_isFileType(filename, PHYSFS_FILETYPE_REGULAR);
+}
+
+bool FILESYSTEM_isDirectory(const char* filename)
+{
+    return FILESYSTEM_isFileType(filename, PHYSFS_FILETYPE_DIRECTORY);
 }
 
 bool FILESYSTEM_isMounted(const char* filename)
@@ -1108,12 +1118,18 @@ void FILESYSTEM_enumerateLevelDirFileNames(
 std::vector<std::string> FILESYSTEM_getLanguageCodes(void)
 {
     std::vector<std::string> list;
-    char **fileList = PHYSFS_enumerateFiles("lang");
-    char **i;
+    char** fileList = PHYSFS_enumerateFiles("lang");
+    char** item;
 
-    for (i = fileList; *i != NULL; i++)
+    for (item = fileList; *item != NULL; item++)
     {
-        list.push_back(*i);
+        char fullName[128];
+        SDL_snprintf(fullName, sizeof(fullName), "lang/%s", *item);
+
+        if (FILESYSTEM_isDirectory(fullName))
+        {
+            list.push_back(*item);
+        }
     }
 
     PHYSFS_freeList(fileList);
