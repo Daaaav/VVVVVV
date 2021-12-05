@@ -10,6 +10,16 @@
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
+#define FOR_EACH_XML_ELEMENT(doc, elem) \
+    for ( \
+        elem = doc \
+            .FirstChildElement() \
+            .FirstChildElement() \
+            .ToElement(); \
+        elem != NULL; \
+        elem = elem->NextSiblingElement() \
+    )
+
 namespace loc
 {
     std::string lang = "en";
@@ -39,11 +49,16 @@ namespace loc
 
     hashmap* map_translation_roomnames_special;
 
-    bool load_doc(const std::string& cat, tinyxml2::XMLDocument& doc, const std::string& langcode = lang)
+    bool load_lang_doc(const std::string& cat, tinyxml2::XMLDocument& doc, const std::string& langcode = lang)
     {
         if (!FILESYSTEM_loadTiXml2Document(("lang/" + langcode + "/" + cat + ".xml").c_str(), doc))
         {
             vlog_info("Could not load language file %s/%s.", langcode.c_str(), cat.c_str());
+            return false;
+        }
+        if (doc.Error())
+        {
+            vlog_error("Error parsing language file %s/%s: %s", langcode.c_str(), cat.c_str(), doc.ErrorStr());
             return false;
         }
         return true;
@@ -59,21 +74,15 @@ namespace loc
         meta.toupper_lower_escape_char = false;
 
         tinyxml2::XMLDocument doc;
-        if (!load_doc("meta", doc, langcode))
+        tinyxml2::XMLHandle hDoc(&doc);
+        tinyxml2::XMLElement* pElem;
+
+        if (!load_lang_doc("meta", doc, langcode))
         {
             return;
         }
 
-        tinyxml2::XMLHandle hDoc(&doc);
-        tinyxml2::XMLElement* pElem;
-        tinyxml2::XMLHandle hRoot(NULL);
-
-        {
-            pElem=hDoc.FirstChildElement().ToElement();
-            hRoot=tinyxml2::XMLHandle(pElem);
-        }
-
-        for (pElem = hRoot.FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+        FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             const char* pKey = pElem->Value();
             const char* pText = pElem->GetText();
@@ -83,19 +92,19 @@ namespace loc
             }
 
             if (SDL_strcmp(pKey, "active") == 0)
-                meta.active = atoi(pText);
+                meta.active = help.Int(pText);
             else if (SDL_strcmp(pKey, "nativename") == 0)
                 meta.nativename = std::string(pText);
             else if (SDL_strcmp(pKey, "credit") == 0)
                 meta.credit = std::string(pText);
             else if (SDL_strcmp(pKey, "autowordwrap") == 0)
-                meta.autowordwrap = atoi(pText);
+                meta.autowordwrap = help.Int(pText);
             else if (SDL_strcmp(pKey, "toupper") == 0)
-                meta.toupper = atoi(pText);
+                meta.toupper = help.Int(pText);
             else if (SDL_strcmp(pKey, "toupper_i_dot") == 0)
-                meta.toupper_i_dot = atoi(pText);
+                meta.toupper_i_dot = help.Int(pText);
             else if (SDL_strcmp(pKey, "toupper_lower_escape_char") == 0)
-                meta.toupper_lower_escape_char = atoi(pText);
+                meta.toupper_lower_escape_char = help.Int(pText);
         }
     }
 
@@ -266,21 +275,15 @@ namespace loc
     void loadtext_strings(void)
     {
         tinyxml2::XMLDocument doc;
-        if (!load_doc("strings", doc))
+        tinyxml2::XMLHandle hDoc(&doc);
+        tinyxml2::XMLElement* pElem;
+
+        if (!load_lang_doc("strings", doc))
         {
             return;
         }
 
-        tinyxml2::XMLHandle hDoc(&doc);
-        tinyxml2::XMLElement* pElem;
-        tinyxml2::XMLHandle hRoot(NULL);
-
-        {
-            pElem=hDoc.FirstChildElement().ToElement();
-            hRoot=tinyxml2::XMLHandle(pElem);
-        }
-
-        for (pElem = hRoot.FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+        FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             const char* pKey = pElem->Value();
             const char* pText = pElem->GetText();
@@ -299,21 +302,15 @@ namespace loc
     void loadtext_cutscenes(void)
     {
         tinyxml2::XMLDocument doc;
-        if (!load_doc("cutscenes", doc))
+        tinyxml2::XMLHandle hDoc(&doc);
+        tinyxml2::XMLElement* pElem;
+
+        if (!load_lang_doc("cutscenes", doc))
         {
             return;
         }
 
-        tinyxml2::XMLHandle hDoc(&doc);
-        tinyxml2::XMLElement* pElem;
-        tinyxml2::XMLHandle hRoot(NULL);
-
-        {
-            pElem=hDoc.FirstChildElement().ToElement();
-            hRoot=tinyxml2::XMLHandle(pElem);
-        }
-
-        for (pElem = hRoot.FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+        FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             const char* pKey = pElem->Value();
 
@@ -352,21 +349,15 @@ namespace loc
     void loadtext_numbers(void)
     {
         tinyxml2::XMLDocument doc;
-        if (!load_doc("numbers", doc))
+        tinyxml2::XMLHandle hDoc(&doc);
+        tinyxml2::XMLElement* pElem;
+
+        if (!load_lang_doc("numbers", doc))
         {
             return;
         }
 
-        tinyxml2::XMLHandle hDoc(&doc);
-        tinyxml2::XMLElement* pElem;
-        tinyxml2::XMLHandle hRoot(NULL);
-
-        {
-            pElem=hDoc.FirstChildElement().ToElement();
-            hRoot=tinyxml2::XMLHandle(pElem);
-        }
-
-        for (pElem = hRoot.FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+        FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             const char* pKey = pElem->Value();
             const char* pText = pElem->GetText();
@@ -377,7 +368,7 @@ namespace loc
 
             if (SDL_strcmp(pKey, "number") == 0)
             {
-                int value = atoi(pElem->Attribute("value"));
+                int value = help.Int(pElem->Attribute("value"));
                 if (value >= 0 && value <= 101)
                 {
                     number[value] = std::string(pText);
@@ -443,21 +434,15 @@ namespace loc
     void loadtext_roomnames(void)
     {
         tinyxml2::XMLDocument doc;
-        if (!load_doc("roomnames", doc))
+        tinyxml2::XMLHandle hDoc(&doc);
+        tinyxml2::XMLElement* pElem;
+
+        if (!load_lang_doc("roomnames", doc))
         {
             return;
         }
 
-        tinyxml2::XMLHandle hDoc(&doc);
-        tinyxml2::XMLElement* pElem;
-        tinyxml2::XMLHandle hRoot(NULL);
-
-        {
-            pElem=hDoc.FirstChildElement().ToElement();
-            hRoot=tinyxml2::XMLHandle(pElem);
-        }
-
-        for (pElem = hRoot.FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+        FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             const char* pKey = pElem->Value();
             const char* pText = pElem->GetText();
@@ -488,21 +473,15 @@ namespace loc
     void loadtext_roomnames_special(void)
     {
         tinyxml2::XMLDocument doc;
-        if (!load_doc("roomnames_special", doc))
+        tinyxml2::XMLHandle hDoc(&doc);
+        tinyxml2::XMLElement* pElem;
+
+        if (!load_lang_doc("roomnames_special", doc))
         {
             return;
         }
 
-        tinyxml2::XMLHandle hDoc(&doc);
-        tinyxml2::XMLElement* pElem;
-        tinyxml2::XMLHandle hRoot(NULL);
-
-        {
-            pElem=hDoc.FirstChildElement().ToElement();
-            hRoot=tinyxml2::XMLHandle(pElem);
-        }
-
-        for (pElem = hRoot.FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+        FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             const char* pKey = pElem->Value();
             const char* pText = pElem->GetText();
@@ -574,21 +553,15 @@ namespace loc
         loadtext();
 
         tinyxml2::XMLDocument doc;
-        if (!load_doc("strings", doc, "en"))
+        tinyxml2::XMLHandle hDoc(&doc);
+        tinyxml2::XMLElement* pElem;
+
+        if (!load_lang_doc("strings", doc, "en"))
         {
             return;
         }
 
-        tinyxml2::XMLHandle hDoc(&doc);
-        tinyxml2::XMLElement* pElem;
-        tinyxml2::XMLHandle hRoot(NULL);
-
-        {
-            pElem=hDoc.FirstChildElement().ToElement();
-            hRoot=tinyxml2::XMLHandle(pElem);
-        }
-
-        for (pElem = hRoot.FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+        FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             const char* pKey = pElem->Value();
 
@@ -644,22 +617,16 @@ namespace loc
         }
 
         tinyxml2::XMLDocument doc;
-        if (!load_doc("roomnames", doc, langcode))
+        tinyxml2::XMLHandle hDoc(&doc);
+        tinyxml2::XMLElement* pElem;
+
+        if (!load_lang_doc("roomnames", doc, langcode))
         {
             return false;
         }
 
-        tinyxml2::XMLHandle hDoc(&doc);
-        tinyxml2::XMLElement* pElem;
-        tinyxml2::XMLHandle hRoot(NULL);
-
-        {
-            pElem=hDoc.FirstChildElement().ToElement();
-            hRoot=tinyxml2::XMLHandle(pElem);
-        }
-
         bool found = false;
-        for (pElem = hRoot.FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+        FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             const char* pKey = pElem->Value();
 
