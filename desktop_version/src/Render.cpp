@@ -115,12 +115,12 @@ static void inline drawglitchrunnertext(void)
         tempg /= 2;
         tempb /= 2;
 
-        SDL_strlcpy(buffer, loc::gettext("Glitchrunner mode is OFF").c_str(), sizeof(buffer));
+        SDL_strlcpy(buffer, loc::gettext("Glitchrunner mode is OFF"), sizeof(buffer));
     }
     else
     {
-        std::string mode_string = loc::gettext(GlitchrunnerMode_enum_to_string(mode));
-        SDL_snprintf(buffer, sizeof(buffer), "Glitchrunner mode is %s", mode_string.c_str());
+        const char* mode_string = loc::gettext(GlitchrunnerMode_enum_to_string(mode));
+        SDL_snprintf(buffer, sizeof(buffer), "Glitchrunner mode is %s", mode_string);
     }
 
     graphics.PrintWrap(-1, 95, buffer, tempr, tempg, tempb, true);
@@ -140,9 +140,8 @@ static void menurender(void)
         graphics.drawsprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
 #if defined(MAKEANDPLAY)
-        #define EDITIONLABEL loc::gettext("MAKE AND PLAY EDITION")
-        graphics.Print(264-graphics.len(EDITIONLABEL),temp+35,EDITIONLABEL,tr, tg, tb);
-        #undef EDITIONLABEL
+        const char* editionlabel = loc::gettext("MAKE AND PLAY EDITION");
+        graphics.Print(264-graphics.len(editionlabel),temp+35,editionlabel,tr, tg, tb);
 #endif
 #ifdef COMMIT_DATE
         graphics.Print( 310 - (10*8), 210, COMMIT_DATE, tr/2, tg/2, tb/2);
@@ -173,7 +172,7 @@ static void menurender(void)
           char creatorline[SCREEN_WIDTH_CHARS + 1];
           SDL_snprintf(
             creatorline, sizeof(creatorline),
-            loc::gettext("by %s").c_str(),
+            loc::gettext("by %s"),
             cl.ListOfMetaData[tmp].creator.c_str()
           );
           graphics.Print( -1, 40, creatorline, tr, tg, tb, true);
@@ -406,7 +405,7 @@ static void menurender(void)
                 letter = 'P';
             }
             VVV_fillstring(soundtrack, sizeof(soundtrack), letter);
-            SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Current soundtrack: %s").c_str(), soundtrack);
+            SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Current soundtrack: %s"), soundtrack);
 
             graphics.bigprint(-1, 30, loc::gettext("Soundtrack"), tr, tg, tb, true);
             graphics.PrintWrap(-1, 65, loc::gettext("Toggle between MMMMMM and PPPPPP."), tr, tg, tb, true);
@@ -691,7 +690,7 @@ static void menurender(void)
         case 2:
         {
             char buffer[SCREEN_WIDTH_CHARS + 1];
-            std::string button;
+            const char* button;
 
             graphics.bigprint(-1, 30, loc::gettext("Interact Button"), tr, tg, tb, true);
             graphics.PrintWrap(-1, 65, loc::gettext("Toggle whether you interact with prompts using ENTER or E."), tr, tg, tb, true);
@@ -705,7 +704,7 @@ static void menurender(void)
                 button = loc::gettext("ENTER");
             }
 
-            SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Interact button: %s").c_str(), button.c_str());
+            SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Interact button: %s"), button);
             graphics.PrintWrap(-1, 95, buffer, tr, tg, tb, true);
             break;
         }
@@ -832,7 +831,7 @@ static void menurender(void)
             break;
         case OFFSET+4:
         {
-            std::string text;
+            const char* text;
 
             graphics.bigprint(-1, 30, loc::gettext("Text Outline"), tr, tg, tb, true);
             graphics.PrintWrap(-1, 65, loc::gettext("Disables outline on game text."), tr, tg, tb, true);
@@ -1052,15 +1051,15 @@ static void menurender(void)
             graphics.Print(220, 90+20, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
-        char tempstring_c[SCREEN_WIDTH_CHARS + 1];
+        char buffer[SCREEN_WIDTH_CHARS + 1];
         SDL_snprintf(
-            tempstring_c, sizeof(tempstring_c),
-            loc::gettext("%d of %d").c_str(),
+            buffer, sizeof(buffer),
+            loc::gettext("%d of %d"),
             game.timetrialresulttrinkets, game.timetrialresultshinytarget
         );
         graphics.drawspritesetcol(30, 80+55, 22, 22);
         graphics.Print(65, 80+55, loc::gettext("SHINY TRINKETS:"), 255, 255, 255);
-        graphics.Print(65, 90+55, tempstring_c, tr, tg, tb);
+        graphics.Print(65, 90+55, buffer, tr, tg, tb);
         if (game.timetrialresulttrinkets >= game.timetrialresultshinytarget)
         {
             graphics.Print(220, 90+55, loc::gettext("+1 Rank!"), 255, 255, 255);
@@ -1483,9 +1482,8 @@ void titlerender(void)
         graphics.drawsprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
 #if defined(MAKEANDPLAY)
-        #define EDITIONLABEL loc::gettext("MAKE AND PLAY EDITION")
-        graphics.Print(264-graphics.len(EDITIONLABEL),temp+35,EDITIONLABEL,tr, tg, tb);
-        #undef EDITIONLABEL
+        const char* editionlabel = loc::gettext("MAKE AND PLAY EDITION");
+        graphics.Print(264-graphics.len(editionlabel),temp+35,editionlabel,tr, tg, tb);
 #endif
 
         graphics.PrintWrap(5, 175, loc::gettext("[ Press ACTION to Start ]"), tr, tg, tb, true);
@@ -1704,7 +1702,7 @@ static const char* interact_prompt(
     const char* raw
 ) {
     const char* string_fmt_loc = SDL_strstr(raw, "%s");
-    std::string button;
+    const char* button;
 
     if (string_fmt_loc == NULL /* No "%s". */
     || string_fmt_loc != SDL_strchr(raw, '%') /* First "%" found is not "%s". */
@@ -1722,7 +1720,7 @@ static const char* interact_prompt(
         button = loc::gettext("ENTER");
     }
 
-    SDL_snprintf(buffer, buffer_size, raw, button.c_str());
+    SDL_snprintf(buffer, buffer_size, raw, button);
 
     return buffer;
 }
@@ -1782,7 +1780,7 @@ void gamerender(void)
     && game.showingametimer
     && !roomname_translator::enabled)
     {
-        std::string tempstring = loc::gettext("TIME:");
+        const char* tempstring = loc::gettext("TIME:");
         int label_len = graphics.len(tempstring);
         graphics.bprint(6, 6, tempstring,  255,255,255);
         graphics.bprint(6+label_len, 6, game.timestring(),  196, 196, 196);
@@ -1851,7 +1849,7 @@ void gamerender(void)
         const char* final_string = interact_prompt(
             buffer,
             sizeof(buffer),
-            loc::gettext("- Press %s to Teleport -").c_str()
+            loc::gettext("- Press %s to Teleport -")
         );
         int alpha = graphics.lerp(game.oldreadytotele, game.readytotele);
 
@@ -1873,9 +1871,8 @@ void gamerender(void)
                 graphics.bprint( 10, 10, loc::gettext("Current Time"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                 graphics.bigbprint( 25, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
                 tempstring = help.timestring(game.swnrecord);
-                #define BESTTIMELABEL loc::gettext("Best Time")
-                graphics.bprint( 320-graphics.len(BESTTIMELABEL)-8, 10, BESTTIMELABEL, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
-                #undef BESTTIMELABEL
+                const char* besttimelabel = loc::gettext("Best Time");
+                graphics.bprint( 320-graphics.len(besttimelabel)-8, 10, besttimelabel, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                 graphics.bigbrprint( 300, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
 
                 switch(game.swnbestrank)
@@ -1911,9 +1908,8 @@ void gamerender(void)
                 tempstring = help.timestring(game.swnrecord);
                 if (int(game.deathseq / 5) % 2 == 1)
                 {
-                    #define BESTTIMELABEL loc::gettext("Best Time")
-                    graphics.bprint( 320-graphics.len(BESTTIMELABEL)-8, 10, BESTTIMELABEL, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
-                    #undef BESTTIMELABEL
+                    const char* besttimelabel = loc::gettext("Best Time");
+                    graphics.bprint( 320-graphics.len(besttimelabel)-8, 10, besttimelabel, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                     graphics.bigbrprint( 300, 24, tempstring, 128 - (help.glow), 220 - (help.glow), 128 - (help.glow / 2), false, 2);
 
                     graphics.bigbprint( -1, 200, loc::gettext("New Record!"), 128 - (help.glow), 220 - (help.glow), 128 - (help.glow / 2), true, 2);
@@ -1927,9 +1923,8 @@ void gamerender(void)
                 graphics.bprint( 10, 10, loc::gettext("Current Time"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                 graphics.bigbprint( 25, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
                 tempstring = help.timestring(game.swnrecord);
-                #define BESTTIMELABEL loc::gettext("Best Time")
-                graphics.bprint( 320-graphics.len(BESTTIMELABEL)-8, 10, BESTTIMELABEL, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
-                #undef BESTTIMELABEL
+                const char* besttimelabel = loc::gettext("Best Time");
+                graphics.bprint( 320-graphics.len(besttimelabel)-8, 10, besttimelabel, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                 graphics.bigbrprint( 300, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
 
                 if (int(game.swnmessage / 5) % 2 == 1)
@@ -2004,7 +1999,7 @@ void gamerender(void)
         else if (!roomname_translator::is_pausing())
         {
             //Draw OSD stuff
-            std::string tempstring = loc::gettext("TIME:");
+            const char* tempstring = loc::gettext("TIME:");
             int label_len = graphics.len(tempstring);
             graphics.bprint(6, 18, tempstring,  255,255,255);
             tempstring = loc::gettext("DEATH:");
@@ -2030,19 +2025,19 @@ void gamerender(void)
             {
                 graphics.bprint(8+label_len, 30,help.String(game.deathcounts),  196, 196, 196);
             }
-            char tempstring_c[SCREEN_WIDTH_CHARS + 1];
+            char buffer[SCREEN_WIDTH_CHARS + 1];
             SDL_snprintf(
-                tempstring_c, sizeof(tempstring_c),
-                loc::gettext("%d of %d").c_str(),
+                buffer, sizeof(buffer),
+                loc::gettext("%d of %d"),
                 game.trinkets(), game.timetrialshinytarget
             );
             if(game.trinkets()<game.timetrialshinytarget)
             {
-                graphics.bprint(8+label_len, 42, tempstring_c,  196, 80, 80);
+                graphics.bprint(8+label_len, 42, buffer,  196, 80, 80);
             }
             else
             {
-                graphics.bprint(8+label_len, 42, tempstring_c,  196, 196, 196);
+                graphics.bprint(8+label_len, 42, buffer,  196, 196, 196);
             }
 
             tempstring = loc::gettext("PAR TIME:");
@@ -2133,11 +2128,11 @@ void maprender(void)
     if (script.running && game.menupage == 3)
     {
         // While in a cutscene, you can only save
-        graphics.Print(-1, 220, "[" + loc::gettext("SAVE") + "]", 196, 196, 255 - help.glow, true);
+        graphics.Print(-1, 220, "[" + std::string(loc::gettext("SAVE")) + "]", 196, 196, 255 - help.glow, true);
     }
     else if (game.menupage <= 3)
     {
-        std::string tab1;
+        const char* tab1;
         if (game.insecretlab)
         {
             tab1 = loc::gettext("GRAV");
@@ -2485,7 +2480,7 @@ void maprender(void)
             char creatorline[SCREEN_WIDTH_CHARS + 1];
             SDL_snprintf(
                 creatorline, sizeof(creatorline),
-                loc::gettext("by %s").c_str(),
+                loc::gettext("by %s"),
                 meta.creator.c_str()
             );
             graphics.Print(-1, FLIP(70, 8), creatorline, 196, 196, 255 - help.glow, true);
@@ -2906,7 +2901,7 @@ void teleporterrender(void)
         const char* final_string = interact_prompt(
             buffer,
             sizeof(buffer),
-            loc::gettext("Press %s to Teleport").c_str()
+            loc::gettext("Press %s to Teleport")
         );
 
         //Instructions!

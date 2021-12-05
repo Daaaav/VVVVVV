@@ -345,7 +345,7 @@ static void editormenurender(int tr, int tg, int tb)
         char creatorline[SCREEN_WIDTH_CHARS + 1];
         SDL_snprintf(
             creatorline, sizeof(creatorline),
-            loc::gettext("by %s").c_str(),
+            loc::gettext("by %s"),
             creator.c_str()
         );
         graphics.Print( -1, 60, creatorline, tr, tg, tb, true);
@@ -417,7 +417,7 @@ static void editormenurender(int tr, int tg, int tb)
         graphics.bigprint( -1, 65, loc::gettext("Map Music"), tr, tg, tb, true);
 
         graphics.PrintWrap( -1, 85, loc::gettext("Current map music:"), tr, tg, tb, true);
-        std::string songname;
+        const char* songname;
         switch(cl.levmusic)
         {
         case 0:
@@ -1204,7 +1204,7 @@ void editorrender(void)
             char namebuffer[SCREEN_WIDTH_CHARS + 1];
             SDL_snprintf(
                 namebuffer, sizeof(namebuffer),
-                loc::gettext("CURRENT SCRIPT: %s").c_str(),
+                loc::gettext("CURRENT SCRIPT: %s"),
                 ed.sbscript.c_str()
             );
             graphics.Print(16,228, namebuffer, 123, 111, 218, true);
@@ -1389,10 +1389,10 @@ void editorrender(void)
                 graphics.Print(4, 232, "2/2", 196, 196, 255 - help.glow, false);
             }
 
-            const std::string& changetooltext = loc::gettext("< and > keys change tool");
+            const char* changetooltext = loc::gettext("< and > keys change tool");
             graphics.Print(320-graphics.len(changetooltext), 232, changetooltext, 196, 196, 255 - help.glow, false);
 
-            std::string toolname;
+            const char* toolname;
             switch(ed.drawmode)
             {
             case 0:
@@ -1485,7 +1485,7 @@ void editorrender(void)
 
         if(ed.shiftmenu)
         {
-            std::string shiftmenuoptions[] = {
+            const char* shiftmenuoptions[] = {
                 loc::gettext("F1: Change Tileset"),
                 loc::gettext("F2: Change Colour"),
                 loc::gettext("F3: Change Enemies"),
@@ -2371,7 +2371,7 @@ void editorinput(void)
                 {
                     // don't use filename, it has the full path
                     char buffer[3*SCREEN_WIDTH_CHARS + 1];
-                    SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Loaded map: %s.vvvvvv").c_str(), ed.filename.c_str());
+                    SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Loaded map: %s.vvvvvv"), ed.filename.c_str());
                     ed.note = buffer;
                 }
                 else
@@ -2387,7 +2387,7 @@ void editorinput(void)
                 if (cl.save(savestring))
                 {
                     char buffer[3*SCREEN_WIDTH_CHARS + 1];
-                    SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Saved map: %s.vvvvvv").c_str(), ed.filename.c_str());
+                    SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Saved map: %s.vvvvvv"), ed.filename.c_str());
                     ed.note = buffer;
                 }
                 else
@@ -2635,7 +2635,7 @@ void editorinput(void)
                 char buffer[3*SCREEN_WIDTH_CHARS + 1];
                 SDL_snprintf(
                     buffer, sizeof(buffer),
-                    loc::gettext("Mapsize is now [%d,%d]").c_str(),
+                    loc::gettext("Mapsize is now [%d,%d]"),
                     cl.mapwidth, cl.mapheight
                 );
                 ed.note = buffer;
@@ -4243,8 +4243,8 @@ void editorclass::switch_tileset(const bool reversed)
     char buffer[3*SCREEN_WIDTH_CHARS + 1];
     SDL_snprintf(
         buffer, sizeof(buffer),
-        loc::gettext("Now using %s Tileset").c_str(),
-        loc::gettext(tilesets[tiles]).c_str()
+        loc::gettext("Now using %s Tileset"),
+        loc::gettext(tilesets[tiles])
     );
 
     note = buffer;

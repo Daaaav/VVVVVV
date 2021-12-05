@@ -120,7 +120,7 @@ void preloaderrender(void)
   }
 
   if (print_percentage) {
-    std::string percentage = loc::gettext("LOADING...") + " " + help.String(int(pre_fakepercent)) + "%";
+    std::string percentage = std::string(loc::gettext("LOADING...")) + " " + help.String(int(pre_fakepercent)) + "%";
     int percentage_len = graphics.len(percentage);
     if (pre_fakepercent < 10) {
       // Make the 9->10 transition less noticeable, as it has always been

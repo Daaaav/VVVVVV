@@ -64,7 +64,7 @@ namespace loc
     bool save_roomname_to_file(const std::string& langcode, bool custom_level, int roomx, int roomy, const char* tra, const char* explanation);
     bool save_roomname_explanation_to_files(bool custom_level, int roomx, int roomy, const char* explanation);
 
-    std::string gettext(const std::string& eng);
+    const char* gettext(const char* eng);
     std::string gettext_cutscene(const std::string& script_id, const std::string& eng);
     std::string getnumber(int n);
     const char* get_roomname_explanation(int roomx, int roomy);

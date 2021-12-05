@@ -712,10 +712,9 @@ namespace loc
         return tra;
     }
 
-    std::string gettext(const std::string& eng)
+    const char* gettext(const char* eng)
     {
-        // TODO: take and return const char*
-        return std::string(map_lookup_text(map_translation, eng.c_str()));
+        return map_lookup_text(map_translation, eng);
     }
 
     std::string gettext_cutscene(const std::string& script_id, const std::string& eng)
