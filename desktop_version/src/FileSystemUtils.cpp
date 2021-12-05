@@ -189,7 +189,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
             /* We want the last match */
             char* match_last = NULL;
             char* match = output;
-            while (match = SDL_strstr(match, needle))
+            while ((match = SDL_strstr(match, needle)))
             {
                 match_last = match;
                 match = &match[1];
@@ -1126,7 +1126,7 @@ std::vector<std::string> FILESYSTEM_getLanguageCodes(void)
         char fullName[128];
         SDL_snprintf(fullName, sizeof(fullName), "lang/%s", *item);
 
-        if (FILESYSTEM_isDirectory(fullName))
+        if (FILESYSTEM_isDirectory(fullName) && *item[0] != '.')
         {
             list.push_back(*item);
         }
