@@ -133,6 +133,7 @@ static void menurender(void)
     switch (game.currentmenuname)
     {
     case Menu::mainmenu:
+    {
         graphics.drawsprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
@@ -155,6 +156,7 @@ static void menurender(void)
             graphics.Print( 10, 230, loc::gettext("[MMMMMM Mod Installed]"), tr/2, tg/2, tb/2);
         }
         break;
+    }
 #if !defined(NO_CUSTOM_LEVELS)
     case Menu::levellist:
     {
