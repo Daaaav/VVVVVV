@@ -20,6 +20,13 @@
         elem = elem->NextSiblingElement() \
     )
 
+#define FOR_EACH_XML_SUB_ELEMENT(elem, subelem) \
+    for ( \
+        subelem = elem->FirstChildElement(); \
+        subelem != NULL; \
+        subelem = subelem->NextSiblingElement() \
+    )
+
 namespace loc
 {
     std::string lang = "en";
@@ -36,8 +43,10 @@ namespace loc
     Textbook textbook_main;
 
     hashmap* map_translation;
-    hashmap* map_translation_cutscene;
+    hashmap* map_translation_plural;
     std::string number[102];
+    char number_plural_form[102];
+    hashmap* map_translation_cutscene;
 
 #define MAP_MAX_X 54
 #define MAP_MAX_Y 56
@@ -247,6 +256,7 @@ namespace loc
             hashmap_free(map_translation);
             hashmap_iterate(map_translation_cutscene, callback_free_map_value, NULL);
             hashmap_free(map_translation_cutscene);
+            hashmap_free(map_translation_plural);
             hashmap_free(map_translation_roomnames_special);
 
             textbook_clear(textbook_main);
@@ -257,11 +267,13 @@ namespace loc
 
         map_translation = hashmap_create();
         map_translation_cutscene = hashmap_create();
+        map_translation_plural = hashmap_create();
 
         for (size_t i = 0; i <= 101; i++)
         {
             number[i] = "";
         }
+        SDL_zeroa(number_plural_form);
 
         SDL_zeroa(translation_roomnames);
         SDL_zeroa(explanation_roomnames);
@@ -295,6 +307,52 @@ namespace loc
             if (SDL_strcmp(pKey, "string") == 0)
             {
                 map_store_text(textbook_main, map_translation, pElem->Attribute("english"), pText);
+            }
+        }
+    }
+
+    void loadtext_strings_plural(void)
+    {
+        tinyxml2::XMLDocument doc;
+        tinyxml2::XMLHandle hDoc(&doc);
+        tinyxml2::XMLElement* pElem;
+
+        if (!load_lang_doc("strings_plural", doc))
+        {
+            return;
+        }
+
+        FOR_EACH_XML_ELEMENT(hDoc, pElem)
+        {
+            const char* pKey = pElem->Value();
+
+            if (SDL_strcmp(pKey, "string") == 0)
+            {
+                const char* eng_plural = pElem->Attribute("english_plural");
+                if (eng_plural == NULL)
+                {
+                    continue;
+                }
+
+                tinyxml2::XMLElement* subElem;
+                FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
+                {
+                    const char* pSubKey = subElem->Value();
+
+                    if (SDL_strcmp(pSubKey, "translation") == 0)
+                    {
+                        size_t alloc_len = 1+SDL_strlen(eng_plural)+1;
+
+                        char* key = (char*) SDL_malloc(alloc_len);
+                        char form = subElem->IntAttribute("form", 0);
+                        key[0] = form+1;
+                        SDL_memcpy(&key[1], eng_plural, alloc_len-1);
+
+                        map_store_text(textbook_main, map_translation_plural, key, subElem->Attribute("translation"));
+
+                        SDL_free(key);
+                    }
+                }
             }
         }
     }
@@ -372,6 +430,7 @@ namespace loc
                 if (value >= 0 && value <= 101)
                 {
                     number[value] = std::string(pText);
+                    number_plural_form[value] = pElem->IntAttribute("form", 0);
                 }
             }
         }
@@ -514,9 +573,10 @@ namespace loc
             return;
         }
 
-        loadtext_strings();
-        loadtext_cutscenes();
         loadtext_numbers();
+        loadtext_strings();
+        loadtext_strings_plural();
+        loadtext_cutscenes();
         loadtext_roomnames();
         loadtext_roomnames_special();
     }
@@ -717,23 +777,49 @@ namespace loc
         return map_lookup_text(map_translation, eng);
     }
 
-    std::string gettext_cutscene(const std::string& script_id, const std::string& eng)
+    const char* gettext_plural_english(const char* eng_plural, const char* eng_singular, int count)
     {
-        if (lang == "en" && !test_mode)
+        if (count == 1)
         {
-            return eng;
+            return eng_singular;
         }
+        return eng_plural;
+    }
 
-        uintptr_t ptr_cutscene_map;
-        bool found = hashmap_get(map_translation_cutscene, (void*) script_id.c_str(), script_id.size(), &ptr_cutscene_map);
-        hashmap* cutscene_map = (hashmap*) ptr_cutscene_map;
-
-        if (!found || cutscene_map == NULL)
+    const char* gettext_plural(const char* eng_plural, const char* eng_singular, int count)
+    {
+        if (lang != "en")
         {
-            return eng;
-        }
+            if (count < 0 || count > 100)
+            {
+                count = 101;
+            }
 
-        return std::string(map_lookup_text(cutscene_map, eng.c_str()));
+            size_t alloc_len = 1+SDL_strlen(eng_plural)+1;
+
+            char* key = (char*) SDL_malloc(alloc_len);
+            char form = number_plural_form[count];
+            key[0] = form+1;
+            SDL_memcpy(&key[1], eng_plural, alloc_len-1);
+
+            uintptr_t ptr_tra;
+            bool found = hashmap_get(map_translation_plural, (void*) key, alloc_len-1, &ptr_tra);
+            const char* tra = (const char*) ptr_tra;
+
+            SDL_free(key);
+
+            if (found && tra != NULL && tra[0] != '\0')
+            {
+                return tra;
+            }
+        }
+        return gettext_plural_english(eng_plural, eng_singular, count);
+    }
+
+    void gettext_plural_fill(char* buf, size_t buf_len, const char* eng_plural, const char* eng_singular, int count)
+    {
+        const char* tra = gettext_plural(eng_plural, eng_singular, count);
+        SDL_snprintf(buf, buf_len, tra, help.number_words(count).c_str());
     }
 
     std::string getnumber(int n)
@@ -753,6 +839,25 @@ namespace loc
             return help.String(n);
         }
         return number[ix];
+    }
+
+    std::string gettext_cutscene(const std::string& script_id, const std::string& eng)
+    {
+        if (lang == "en" && !test_mode)
+        {
+            return eng;
+        }
+
+        uintptr_t ptr_cutscene_map;
+        bool found = hashmap_get(map_translation_cutscene, (void*) script_id.c_str(), script_id.size(), &ptr_cutscene_map);
+        hashmap* cutscene_map = (hashmap*) ptr_cutscene_map;
+
+        if (!found || cutscene_map == NULL)
+        {
+            return eng;
+        }
+
+        return std::string(map_lookup_text(cutscene_map, eng.c_str()));
     }
 
     const char* get_roomname_explanation(int roomx, int roomy)

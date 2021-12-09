@@ -14,108 +14,110 @@
     0-20 hopefully fit in 17 characters, otherwise we're gonna have to move the trinket counter.
 
     101 (Lots) is used for any number above 100.
+
+	The plural forms are used for strings_plural.xml. More info about this in README.txt
 -->
 <numbers>
-    <number value="0" english="Zero">nul</number>
-    <number value="1" english="One">unu</number>
-    <number value="2" english="Two">du</number>
-    <number value="3" english="Three">tri</number>
-    <number value="4" english="Four">kvar</number>
-    <number value="5" english="Five">kvin</number>
-    <number value="6" english="Six">ses</number>
-    <number value="7" english="Seven">sep</number>
-    <number value="8" english="Eight">ok</number>
-    <number value="9" english="Nine">naŭ</number>
-    <number value="10" english="Ten">dek</number>
-    <number value="11" english="Eleven">dek unu</number>
-    <number value="12" english="Twelve">dek du</number>
-    <number value="13" english="Thirteen">dek tri</number>
-    <number value="14" english="Fourteen">dek kvar</number>
-    <number value="15" english="Fifteen">dek kvin</number>
-    <number value="16" english="Sixteen">dek ses</number>
-    <number value="17" english="Seventeen">dek sep</number>
-    <number value="18" english="Eighteen">dek ok</number>
-    <number value="19" english="Nineteen">dek naŭ</number>
-    <number value="20" english="Twenty">dudek</number>
-    <number value="21" english="Twenty One">dudek unu</number>
-    <number value="22" english="Twenty Two">dudek du</number>
-    <number value="23" english="Twenty Three">dudek tri</number>
-    <number value="24" english="Twenty Four">dudek kvar</number>
-    <number value="25" english="Twenty Five">dudek kvin</number>
-    <number value="26" english="Twenty Six">dudek ses</number>
-    <number value="27" english="Twenty Seven">dudek sep</number>
-    <number value="28" english="Twenty Eight">dudek ok</number>
-    <number value="29" english="Twenty Nine">dudek naŭ</number>
-    <number value="30" english="Thirty">tridek</number>
-    <number value="31" english="Thirty One">tridek unu</number>
-    <number value="32" english="Thirty Two">tridek du</number>
-    <number value="33" english="Thirty Three">tridek tri</number>
-    <number value="34" english="Thirty Four">tridek kvar</number>
-    <number value="35" english="Thirty Five">tridek kvin</number>
-    <number value="36" english="Thirty Six">tridek ses</number>
-    <number value="37" english="Thirty Seven">tridek sep</number>
-    <number value="38" english="Thirty Eight">tridek ok</number>
-    <number value="39" english="Thirty Nine">tridek naŭ</number>
-    <number value="40" english="Forty">kvardek</number>
-    <number value="41" english="Forty One">kvardek unu</number>
-    <number value="42" english="Forty Two">kvardek du</number>
-    <number value="43" english="Forty Three">kvardek tri</number>
-    <number value="44" english="Forty Four">kvardek kvar</number>
-    <number value="45" english="Forty Five">kvardek kvin</number>
-    <number value="46" english="Forty Six">kvardek ses</number>
-    <number value="47" english="Forty Seven">kvardek sep</number>
-    <number value="48" english="Forty Eight">kvardek ok</number>
-    <number value="49" english="Forty Nine">kvardek naŭ</number>
-    <number value="50" english="Fifty">kvindek</number>
-    <number value="51" english="Fifty One">kvindek unu</number>
-    <number value="52" english="Fifty Two">kvindek du</number>
-    <number value="53" english="Fifty Three">kvindek tri</number>
-    <number value="54" english="Fifty Four">kvindek kvar</number>
-    <number value="55" english="Fifty Five">kvindek kvin</number>
-    <number value="56" english="Fifty Six">kvindek ses</number>
-    <number value="57" english="Fifty Seven">kvindek sep</number>
-    <number value="58" english="Fifty Eight">kvindek ok</number>
-    <number value="59" english="Fifty Nine">kvindek naŭ</number>
-    <number value="60" english="Sixty">sesdek</number>
-    <number value="61" english="Sixty One">sesdek unu</number>
-    <number value="62" english="Sixty Two">sesdek du</number>
-    <number value="63" english="Sixty Three">sesdek tri</number>
-    <number value="64" english="Sixty Four">sesdek kvar</number>
-    <number value="65" english="Sixty Five">sesdek kvin</number>
-    <number value="66" english="Sixty Six">sesdek ses</number>
-    <number value="67" english="Sixty Seven">sesdek sep</number>
-    <number value="68" english="Sixty Eight">sesdek ok</number>
-    <number value="69" english="Sixty Nine">sesdek naŭ</number>
-    <number value="70" english="Seventy">sepdek</number>
-    <number value="71" english="Seventy One">sepdek unu</number>
-    <number value="72" english="Seventy Two">sepdek du</number>
-    <number value="73" english="Seventy Three">sepdek tri</number>
-    <number value="74" english="Seventy Four">sepdek kvar</number>
-    <number value="75" english="Seventy Five">sepdek kvin</number>
-    <number value="76" english="Seventy Six">sepdek ses</number>
-    <number value="77" english="Seventy Seven">sepdek sep</number>
-    <number value="78" english="Seventy Eight">sepdek ok</number>
-    <number value="79" english="Seventy Nine">sepdek naŭ</number>
-    <number value="80" english="Eighty">okdek</number>
-    <number value="81" english="Eighty One">okdek unu</number>
-    <number value="82" english="Eighty Two">okdek du</number>
-    <number value="83" english="Eighty Three">okdek tri</number>
-    <number value="84" english="Eighty Four">okdek kvar</number>
-    <number value="85" english="Eighty Five">okdek kvin</number>
-    <number value="86" english="Eighty Six">okdek ses</number>
-    <number value="87" english="Eighty Seven">okdek sep</number>
-    <number value="88" english="Eighty Eight">okdek ok</number>
-    <number value="89" english="Eighty Nine">okdek naŭ</number>
-    <number value="90" english="Ninety">naŭdek</number>
-    <number value="91" english="Ninety One">naŭdek unu</number>
-    <number value="92" english="Ninety Two">naŭdek du</number>
-    <number value="93" english="Ninety Three">naŭdek tri</number>
-    <number value="94" english="Ninety Four">naŭdek kvar</number>
-    <number value="95" english="Ninety Five">naŭdek kvin</number>
-    <number value="96" english="Ninety Six">naŭdek ses</number>
-    <number value="97" english="Ninety Seven">naŭdek sep</number>
-    <number value="98" english="Ninety Eight">naŭdek ok</number>
-    <number value="99" english="Ninety Nine">naŭdek naŭ</number>
-    <number value="100" english="One Hundred">cent</number>
-    <number value="101" english="Lots">multe</number>
+    <number value="0" form="0" english="Zero">nul</number>
+    <number value="1" form="1" english="One">unu</number>
+    <number value="2" form="0" english="Two">du</number>
+    <number value="3" form="0" english="Three">tri</number>
+    <number value="4" form="0" english="Four">kvar</number>
+    <number value="5" form="0" english="Five">kvin</number>
+    <number value="6" form="0" english="Six">ses</number>
+    <number value="7" form="0" english="Seven">sep</number>
+    <number value="8" form="0" english="Eight">ok</number>
+    <number value="9" form="0" english="Nine">naŭ</number>
+    <number value="10" form="0" english="Ten">dek</number>
+    <number value="11" form="0" english="Eleven">dek unu</number>
+    <number value="12" form="0" english="Twelve">dek du</number>
+    <number value="13" form="0" english="Thirteen">dek tri</number>
+    <number value="14" form="0" english="Fourteen">dek kvar</number>
+    <number value="15" form="0" english="Fifteen">dek kvin</number>
+    <number value="16" form="0" english="Sixteen">dek ses</number>
+    <number value="17" form="0" english="Seventeen">dek sep</number>
+    <number value="18" form="0" english="Eighteen">dek ok</number>
+    <number value="19" form="0" english="Nineteen">dek naŭ</number>
+    <number value="20" form="0" english="Twenty">dudek</number>
+    <number value="21" form="0" english="Twenty One">dudek unu</number>
+    <number value="22" form="0" english="Twenty Two">dudek du</number>
+    <number value="23" form="0" english="Twenty Three">dudek tri</number>
+    <number value="24" form="0" english="Twenty Four">dudek kvar</number>
+    <number value="25" form="0" english="Twenty Five">dudek kvin</number>
+    <number value="26" form="0" english="Twenty Six">dudek ses</number>
+    <number value="27" form="0" english="Twenty Seven">dudek sep</number>
+    <number value="28" form="0" english="Twenty Eight">dudek ok</number>
+    <number value="29" form="0" english="Twenty Nine">dudek naŭ</number>
+    <number value="30" form="0" english="Thirty">tridek</number>
+    <number value="31" form="0" english="Thirty One">tridek unu</number>
+    <number value="32" form="0" english="Thirty Two">tridek du</number>
+    <number value="33" form="0" english="Thirty Three">tridek tri</number>
+    <number value="34" form="0" english="Thirty Four">tridek kvar</number>
+    <number value="35" form="0" english="Thirty Five">tridek kvin</number>
+    <number value="36" form="0" english="Thirty Six">tridek ses</number>
+    <number value="37" form="0" english="Thirty Seven">tridek sep</number>
+    <number value="38" form="0" english="Thirty Eight">tridek ok</number>
+    <number value="39" form="0" english="Thirty Nine">tridek naŭ</number>
+    <number value="40" form="0" english="Forty">kvardek</number>
+    <number value="41" form="0" english="Forty One">kvardek unu</number>
+    <number value="42" form="0" english="Forty Two">kvardek du</number>
+    <number value="43" form="0" english="Forty Three">kvardek tri</number>
+    <number value="44" form="0" english="Forty Four">kvardek kvar</number>
+    <number value="45" form="0" english="Forty Five">kvardek kvin</number>
+    <number value="46" form="0" english="Forty Six">kvardek ses</number>
+    <number value="47" form="0" english="Forty Seven">kvardek sep</number>
+    <number value="48" form="0" english="Forty Eight">kvardek ok</number>
+    <number value="49" form="0" english="Forty Nine">kvardek naŭ</number>
+    <number value="50" form="0" english="Fifty">kvindek</number>
+    <number value="51" form="0" english="Fifty One">kvindek unu</number>
+    <number value="52" form="0" english="Fifty Two">kvindek du</number>
+    <number value="53" form="0" english="Fifty Three">kvindek tri</number>
+    <number value="54" form="0" english="Fifty Four">kvindek kvar</number>
+    <number value="55" form="0" english="Fifty Five">kvindek kvin</number>
+    <number value="56" form="0" english="Fifty Six">kvindek ses</number>
+    <number value="57" form="0" english="Fifty Seven">kvindek sep</number>
+    <number value="58" form="0" english="Fifty Eight">kvindek ok</number>
+    <number value="59" form="0" english="Fifty Nine">kvindek naŭ</number>
+    <number value="60" form="0" english="Sixty">sesdek</number>
+    <number value="61" form="0" english="Sixty One">sesdek unu</number>
+    <number value="62" form="0" english="Sixty Two">sesdek du</number>
+    <number value="63" form="0" english="Sixty Three">sesdek tri</number>
+    <number value="64" form="0" english="Sixty Four">sesdek kvar</number>
+    <number value="65" form="0" english="Sixty Five">sesdek kvin</number>
+    <number value="66" form="0" english="Sixty Six">sesdek ses</number>
+    <number value="67" form="0" english="Sixty Seven">sesdek sep</number>
+    <number value="68" form="0" english="Sixty Eight">sesdek ok</number>
+    <number value="69" form="0" english="Sixty Nine">sesdek naŭ</number>
+    <number value="70" form="0" english="Seventy">sepdek</number>
+    <number value="71" form="0" english="Seventy One">sepdek unu</number>
+    <number value="72" form="0" english="Seventy Two">sepdek du</number>
+    <number value="73" form="0" english="Seventy Three">sepdek tri</number>
+    <number value="74" form="0" english="Seventy Four">sepdek kvar</number>
+    <number value="75" form="0" english="Seventy Five">sepdek kvin</number>
+    <number value="76" form="0" english="Seventy Six">sepdek ses</number>
+    <number value="77" form="0" english="Seventy Seven">sepdek sep</number>
+    <number value="78" form="0" english="Seventy Eight">sepdek ok</number>
+    <number value="79" form="0" english="Seventy Nine">sepdek naŭ</number>
+    <number value="80" form="0" english="Eighty">okdek</number>
+    <number value="81" form="0" english="Eighty One">okdek unu</number>
+    <number value="82" form="0" english="Eighty Two">okdek du</number>
+    <number value="83" form="0" english="Eighty Three">okdek tri</number>
+    <number value="84" form="0" english="Eighty Four">okdek kvar</number>
+    <number value="85" form="0" english="Eighty Five">okdek kvin</number>
+    <number value="86" form="0" english="Eighty Six">okdek ses</number>
+    <number value="87" form="0" english="Eighty Seven">okdek sep</number>
+    <number value="88" form="0" english="Eighty Eight">okdek ok</number>
+    <number value="89" form="0" english="Eighty Nine">okdek naŭ</number>
+    <number value="90" form="0" english="Ninety">naŭdek</number>
+    <number value="91" form="0" english="Ninety One">naŭdek unu</number>
+    <number value="92" form="0" english="Ninety Two">naŭdek du</number>
+    <number value="93" form="0" english="Ninety Three">naŭdek tri</number>
+    <number value="94" form="0" english="Ninety Four">naŭdek kvar</number>
+    <number value="95" form="0" english="Ninety Five">naŭdek kvin</number>
+    <number value="96" form="0" english="Ninety Six">naŭdek ses</number>
+    <number value="97" form="0" english="Ninety Seven">naŭdek sep</number>
+    <number value="98" form="0" english="Ninety Eight">naŭdek ok</number>
+    <number value="99" form="0" english="Ninety Nine">naŭdek naŭ</number>
+    <number value="100" form="0" english="One Hundred">cent</number>
+    <number value="101" form="0" english="Lots">multe</number>
 </numbers>

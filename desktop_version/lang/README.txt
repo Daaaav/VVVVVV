@@ -79,6 +79,50 @@ TODO: The fonts directory will also have a README.txt file
 
 
 
+=== N U M B E R S   A N D   P L U R A L   F O R M S ===
+
+In certain places, VVVVVV (perhaps unconventionally) writes out numbers as full words. For example:
+
+  - One out of Fifteen
+  - Two crewmates remaining
+  - Two remaining
+
+These words can be found in numbers.xml. The numbers Zero through Twenty will be the most commonly seen. It's always possible for numbers up to One Hundred to be seen though (players can put up to 100 trinkets and crewmates in a custom level).
+
+"Lots" is used for any number above 100, but this will only show up in unusual/glitchy situations where the user is basically asking for it anyway, so it doesn't have to fit correctly in all these examples (and it already forms questionable sentences in English).
+
+Your language may not allow the same word to be used in these different scenarios. For example, in Polish, "twenty out of twenty" may be "dwadzieścia z dwudziestu". It's possible to leave the translations for all the numbers empty. In that case, numeric forms will be used automatically (20 out of 20).
+
+In English, using Title Case is appropriate, but in most other languages, it probably isn't. Therefore, you may want to translate all numbers in lowercase, when it's more appropriate to use "twenty out of twenty" than "Twenty out of Twenty".
+
+English and some other languages have a singular (1 crewmate) and a plural (2 crewmates). Other languages may work differently than that and have more possible forms depending on the number. These different plural forms can be defined in numbers.xml, by giving them a number that identify that form uniquely. For English, form 1 is used for singular, and form 0 is used for plural. You can set up any amount of plural forms you will need.
+
+Numbers that identify the forms do not need to be sequential, you may use any number between 0 and 254 to identify the different forms. So instead of using forms 0, 1, 2 and 3, you could also name them 1, 2, 5 and 7.
+
+When you have decided on the different forms, you can use them when translating strings_plural.
+
+Suppose you need a different form for the number 1, the numbers 2-4, and all other numbers. You could use "form 1" for the number 1, "form 2" for 2-4, and "form 0" for all other numbers:
+
+<numbers>
+    <number value="0"  form="0"  ... />
+    <number value="1"  form="1"  ... />
+    <number value="2"  form="2"  ... />
+    <number value="3"  form="2"  ... />
+    <number value="4"  form="2"  ... />
+    <number value="5"  form="0"  ... />
+    <number value="6"  form="0"  ... />
+    ...
+
+When translating the plural strings, you can add translations for every unique form. For example:
+
+    <string english_plural="You rescued %s crewmates" english_singular="You rescued %s crewmate">
+        <translation form="0" translation="You saved %s crewmates"/>
+        <translation form="1" translation="You saved %s crewmate"/>
+        <translation form="2" translation="You saved %s crewmateys"/>
+    </string>
+
+
+
 === S T O R Y   A N D   C H A R A C T E R   I N F O R M A T I O N ===
 
 TODO: basic story information, crewmate names, ranks (Captain/Doctor/Professor/Officer/Chief), genders/pronouns (what if you're forced to specify Viridian's gender in another language), personalities, level of (in)formality between crewmates, relationships, who wrote these "personal logs" you can find on terminals...

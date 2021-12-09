@@ -974,40 +974,40 @@ static void menurender(void)
         {
             graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.ndmresultcrewstats[i], true);
         }
-        std::string tempstring; // TODO LOC, plural forms
-        tempstring = "You rescued " + help.number_words(game.ndmresultcrewrescued) + (game.ndmresultcrewrescued == 1 ? " crewmate" : " crewmates");
-        graphics.Print(0, 100, tempstring, tr, tg, tb, true);
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        loc::gettext_plural_fill(buffer, sizeof(buffer), "You rescued %s crewmates", "You rescued %s crewmate", game.ndmresultcrewrescued);
+        graphics.Print(0, 100, buffer, tr, tg, tb, true);
 
-        tempstring = "and found " + help.number_words(game.ndmresulttrinkets) + (game.ndmresulttrinkets == 1 ? " trinket." : " trinkets.");
-        graphics.Print(0, 110, tempstring, tr, tg, tb, true);
+        loc::gettext_plural_fill(buffer, sizeof(buffer), "and found %s trinkets.", "and found %s trinket.", game.ndmresulttrinkets);
+        graphics.Print(0, 110, buffer, tr, tg, tb, true);
 
-        tempstring = loc::gettext("You managed to reach:");
-        graphics.Print(0, 145, tempstring, tr, tg, tb, true);
+        graphics.Print(0, 145, loc::gettext("You managed to reach:"), tr, tg, tb, true);
         graphics.Print(0, 155, game.ndmresulthardestroom, tr, tg, tb, true);
 
+        const char* encouragement;
         switch (game.ndmresultcrewrescued)
         {
         case 1:
-            tempstring = loc::gettext("Keep trying! You'll get there!");
+            encouragement = loc::gettext("Keep trying! You'll get there!");
             break;
         case 2:
-            tempstring = loc::gettext("Nice one!");
+            encouragement = loc::gettext("Nice one!");
             break;
         case 3:
-            tempstring = loc::gettext("Wow! Congratulations!");
+            encouragement = loc::gettext("Wow! Congratulations!");
             break;
         case 4:
-            tempstring = loc::gettext("Incredible!");
+            encouragement = loc::gettext("Incredible!");
             break;
         case 5:
-            tempstring = loc::gettext("Unbelievable! Well done!");
+            encouragement = loc::gettext("Unbelievable! Well done!");
             break;
         case 6:
-            tempstring = loc::gettext("Er, how did you do that?");
+            encouragement = loc::gettext("Er, how did you do that?");
             break;
         }
 
-        graphics.PrintWrap(0, 190, tempstring, tr, tg, tb, true);
+        graphics.PrintWrap(0, 190, encouragement, tr, tg, tb, true);
         break;
     }
     case Menu::nodeathmodecomplete:
@@ -1019,11 +1019,11 @@ static void menurender(void)
         {
             graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.ndmresultcrewstats[i], true);
         }
-        std::string tempstring = loc::gettext("You rescued all the crewmates!");
-        graphics.Print(0, 100, tempstring, tr, tg, tb, true);
+        graphics.Print(0, 100, loc::gettext("You rescued all the crewmates!"), tr, tg, tb, true);
 
-        tempstring = "And you found " + help.number_words(game.ndmresulttrinkets) + " trinket" + (game.ndmresulttrinkets == 1 ? "" : "s") + "."; // TODO LOC
-        graphics.Print(0, 110, tempstring, tr, tg, tb, true);
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        loc::gettext_plural_fill(buffer, sizeof(buffer), "And you found %s trinkets.", "And you found %s trinket.", game.ndmresulttrinkets);
+        graphics.PrintWrap(0, 110, buffer, tr, tg, tb, true);
 
         graphics.PrintWrap(0, 160, loc::gettext("A new trophy has been awarded and placed in the secret lab to acknowledge your achievement!"), tr, tg, tb, true);
         break;
@@ -1036,21 +1036,21 @@ static void menurender(void)
 
         std::string tempstring = game.resulttimestring() + " / " + game.timetstring(game.timetrialresultpar) + ".99"; // TODO LOC localize like said in Game.cpp?
 
-        graphics.drawspritesetcol(30, 80-15, 50, 22);
-        graphics.Print(65, 80-15, loc::gettext("TIME TAKEN:"), 255, 255, 255);
-        graphics.Print(65, 90-15, tempstring, tr, tg, tb);
+        graphics.drawspritesetcol(22, 80-15, 50, 22);
+        graphics.Print(49, 80-15, loc::gettext("TIME TAKEN:"), 255, 255, 255);
+        graphics.Print(49, 90-15, tempstring, tr, tg, tb);
         if (game.timetrialresulttime <= game.timetrialresultpar)
         {
-            graphics.Print(220, 90-15, loc::gettext("+1 Rank!"), 255, 255, 255);
+            graphics.Print(228, 90-15, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
         tempstring = help.String(game.timetrialresultdeaths);
-        graphics.drawspritesetcol(30-4, 80+20-4, 12, 22);
-        graphics.Print(65, 80+20, loc::gettext("NUMBER OF DEATHS:"), 255, 255, 255);
-        graphics.Print(65, 90+20, tempstring, tr, tg, tb);
+        graphics.drawspritesetcol(22-4, 80+20-4, 12, 22);
+        graphics.Print(49, 80+20, loc::gettext("NUMBER OF DEATHS:"), 255, 255, 255);
+        graphics.Print(49, 90+20, tempstring, tr, tg, tb);
         if (game.timetrialresultdeaths == 0)
         {
-            graphics.Print(220, 90+20, loc::gettext("+1 Rank!"), 255, 255, 255);
+            graphics.Print(228, 90+20, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
@@ -1059,39 +1059,42 @@ static void menurender(void)
             loc::gettext("%d of %d"),
             game.timetrialresulttrinkets, game.timetrialresultshinytarget
         );
-        graphics.drawspritesetcol(30, 80+55, 22, 22);
-        graphics.Print(65, 80+55, loc::gettext("SHINY TRINKETS:"), 255, 255, 255);
-        graphics.Print(65, 90+55, buffer, tr, tg, tb);
+        graphics.drawspritesetcol(22, 80+55, 22, 22);
+        graphics.Print(49, 80+55, loc::gettext("SHINY TRINKETS:"), 255, 255, 255);
+        graphics.Print(49, 90+55, buffer, tr, tg, tb);
         if (game.timetrialresulttrinkets >= game.timetrialresultshinytarget)
         {
-            graphics.Print(220, 90+55, loc::gettext("+1 Rank!"), 255, 255, 255);
+            graphics.Print(228, 90+55, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
-        int rankw = graphics.len(loc::gettext("Rank:"))*2 + 48;
-        int rankx = (320-rankw)/2;
-        int rankx2 = rankx + rankw - 32;
+        const char* rank = "";
+        switch(game.timetrialrank)
+        {
+        case 0:
+            rank = loc::gettext("B");
+            break;
+        case 1:
+            rank = loc::gettext("A");
+            break;
+        case 2:
+            rank = loc::gettext("S");
+            break;
+        case 3:
+            rank = loc::gettext("V");
+            break;
+        }
+        int rankw = graphics.len(rank)*4;
+        int ranktextw = graphics.len(loc::gettext("Rank:"))*2 + 16 + rankw;
+        int ranktextx = (320-ranktextw)/2;
+        int rankx = ranktextx + ranktextw - rankw;
         if (game.currentmenuname == Menu::timetrialcomplete2 || game.currentmenuname == Menu::timetrialcomplete3)
         {
-            graphics.bigprint( rankx, 175, loc::gettext("Rank:"), tr, tg, tb, false, 2);
+            graphics.bigprint(ranktextx, 175, loc::gettext("Rank:"), tr, tg, tb, false, 2);
         }
 
         if (game.currentmenuname == Menu::timetrialcomplete3)
         {
-            switch(game.timetrialrank)
-            {
-            case 0:
-                graphics.bigprint( rankx2, 165, loc::gettext("B"), 255, 255, 255, false, 4);
-                break;
-            case 1:
-                graphics.bigprint( rankx2, 165, loc::gettext("A"), 255, 255, 255, false, 4);
-                break;
-            case 2:
-                graphics.bigprint( rankx2, 165, loc::gettext("S"), 255, 255, 255, false, 4);
-                break;
-            case 3:
-                graphics.bigprint( rankx2, 165, loc::gettext("V"), 255, 255, 255, false, 4);
-                break;
-            }
+            graphics.bigprint(rankx, 165, rank, 255, 255, 255, false, 4);
         }
         break;
     }
@@ -2479,13 +2482,13 @@ void maprender(void)
             LevelMetaData& meta = cl.ListOfMetaData[game.playcustomlevel];
 
             graphics.bigprint(-1, FLIP(45, 8), meta.title, 196, 196, 255 - help.glow, true);
-            char creatorline[SCREEN_WIDTH_CHARS + 1];
+            char buffer[SCREEN_WIDTH_CHARS + 1];
             SDL_snprintf(
-                creatorline, sizeof(creatorline),
+                buffer, sizeof(buffer),
                 loc::gettext("by %s"),
                 meta.creator.c_str()
             );
-            graphics.Print(-1, FLIP(70, 8), creatorline, 196, 196, 255 - help.glow, true);
+            graphics.Print(-1, FLIP(70, 8), buffer, 196, 196, 255 - help.glow, true);
             graphics.Print(-1, FLIP(80, 8), meta.website, 196, 196, 255 - help.glow, true);
             graphics.Print(-1, FLIP(100, 8), meta.Desc1, 196, 196, 255 - help.glow, true);
             graphics.Print(-1, FLIP(110, 8), meta.Desc2, 196, 196, 255 - help.glow, true);
@@ -2493,11 +2496,8 @@ void maprender(void)
 
             int remaining = cl.numcrewmates() - game.crewmates();
 
-            if(remaining==1){ // TODO LOC
-                graphics.Print(1, FLIP(165, 8), help.number_words(remaining) + " crewmate remains", 196, 196, 255 - help.glow, true);
-            }else if(remaining>0){
-                graphics.Print(1, FLIP(165, 8), help.number_words(remaining) + " crewmates remain", 196, 196, 255 - help.glow, true);
-            }
+            loc::gettext_plural_fill(buffer, sizeof(buffer), "%s crewmates remain", "%s crewmate remains", remaining);
+            graphics.Print(1, FLIP(165, 8), buffer, 196, 196, 255 - help.glow, true);
         }
 #endif
         else

@@ -1190,6 +1190,7 @@ void Graphics::drawgui(void)
 
         if (textboxes[i].yp == 12 && textboxes[i].r == 165)
         {
+            // Level complete - TODO LOC
             if (flipmode)
             {
                 drawimage(5, 0, 180, true);
@@ -1201,6 +1202,7 @@ void Graphics::drawgui(void)
         }
         else if (textboxes[i].yp == 12 && textboxes[i].g == 165)
         {
+            // Game complete -- TODO LOC
             if (flipmode)
             {
                 drawimage(6, 0, 180, true);
