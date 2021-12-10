@@ -19,30 +19,21 @@ void textbook_clear(Textbook* textbook)
 	textbook->pages_used = 0;
 }
 
-const char* textbook_store(Textbook* textbook, const char* text)
+const char* textbook_store_raw(Textbook* textbook, const char* data, size_t data_len)
 {
-	size_t text_len;
 	short found_page = -1;
 	short p;
 
-	if (text == NULL)
+	if (data == NULL)
 	{
 		return NULL;
 	}
 
-	text_len = SDL_strlen(text)+1;
-
-	if (text_len == 1)
-	{
-		/* Don't go and store a single null terminator when we have one right here for you: */
-		return "";
-	}
-
-	if (text_len > TEXTBOOK_PAGE_SIZE)
+	if (data_len > TEXTBOOK_PAGE_SIZE)
 	{
 		vlog_warn(
-			"Cannot store string of %ld bytes in Textbook, max page size is %d",
-			text_len,
+			"Cannot store data of %ld bytes in Textbook, max page size is %d",
+			data_len,
 			TEXTBOOK_PAGE_SIZE
 		);
 		return NULL;
@@ -53,7 +44,7 @@ const char* textbook_store(Textbook* textbook, const char* text)
 	{
 		size_t free = TEXTBOOK_PAGE_SIZE - textbook->page_len[p];
 
-		if (text_len <= free)
+		if (data_len <= free)
 		{
 			found_page = p;
 			break;
@@ -88,9 +79,25 @@ const char* textbook_store(Textbook* textbook, const char* text)
 	{
 		size_t cursor = textbook->page_len[found_page];
 		char* added_text = &textbook->page[found_page][cursor];
-		SDL_memcpy(added_text, text, text_len);
-		textbook->page_len[found_page] += text_len;
+		SDL_memcpy(added_text, data, data_len);
+		textbook->page_len[found_page] += data_len;
 
 		return added_text;
 	}
+}
+
+const char* textbook_store(Textbook* textbook, const char* text)
+{
+	if (text == NULL)
+	{
+		return NULL;
+	}
+
+	if (text[0] == '\0')
+	{
+		/* Don't go and store a single null terminator when we have one right here for you: */
+		return "";
+	}
+
+	return textbook_store_raw(textbook, text, SDL_strlen(text)+1);
 }

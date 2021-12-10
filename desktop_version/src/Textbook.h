@@ -22,6 +22,7 @@ typedef struct _Textbook
 
 void textbook_init(Textbook* textbook);
 void textbook_clear(Textbook* textbook);
+const char* textbook_store_raw(Textbook* textbook, const char* data, size_t data_len);
 const char* textbook_store(Textbook* textbook, const char* text);
 
 #ifdef __cplusplus
