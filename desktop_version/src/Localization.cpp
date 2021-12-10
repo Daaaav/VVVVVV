@@ -1,12 +1,9 @@
 #include "Localization.h"
 
-#include <stdio.h>
 #include <tinyxml2.h>
 #include <utf8/unchecked.h>
 
-#include "Constants.h"
 #include "FileSystemUtils.h"
-//#include "Graphics.h"
 #include "Textbook.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -49,8 +46,8 @@ namespace loc
     char number_plural_form[102];
     hashmap* map_translation_cutscene;
 
-#define MAP_MAX_X 54
-#define MAP_MAX_Y 56
+    #define MAP_MAX_X 54
+    #define MAP_MAX_Y 56
     const char* translation_roomnames[MAP_MAX_Y+1][MAP_MAX_X+1];
     const char* explanation_roomnames[MAP_MAX_Y+1][MAP_MAX_X+1];
 
@@ -118,7 +115,7 @@ namespace loc
         }
     }
 
-    void map_store_text(Textbook* textbook, hashmap* map, const char* eng, const char* tra)
+    void map_store_translation(Textbook* textbook, hashmap* map, const char* eng, const char* tra)
     {
         if (eng == NULL || tra == NULL)
         {
@@ -222,7 +219,7 @@ namespace loc
 
             if (SDL_strcmp(pKey, "string") == 0)
             {
-                map_store_text(&textbook_main, map_translation, pElem->Attribute("english"), pText);
+                map_store_translation(&textbook_main, map_translation, pElem->Attribute("english"), pText);
             }
         }
     }
@@ -264,7 +261,7 @@ namespace loc
                         key[0] = form+1;
                         SDL_memcpy(&key[1], eng_plural, alloc_len-1);
 
-                        map_store_text(&textbook_main, map_translation_plural, key, subElem->Attribute("translation"));
+                        map_store_translation(&textbook_main, map_translation_plural, key, subElem->Attribute("translation"));
 
                         SDL_free(key);
                     }
@@ -306,7 +303,8 @@ namespace loc
                     NULL
                 );
 
-                for (tinyxml2::XMLElement* subElem = pElem->FirstChildElement(); subElem; subElem=subElem->NextSiblingElement())
+                tinyxml2::XMLElement* subElem;
+                FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
                 {
                     const char* pSubKey = subElem->Value();
                     const char* pSubText = subElem->GetText();
@@ -317,7 +315,7 @@ namespace loc
 
                     if (SDL_strcmp(pSubKey, "dialogue") == 0)
                     {
-                        map_store_text(&textbook_main, cutscene_map, subElem->Attribute("english"), pSubText);
+                        map_store_translation(&textbook_main, cutscene_map, subElem->Attribute("english"), pSubText);
                     }
                 }
             }
@@ -471,7 +469,7 @@ namespace loc
 
             if (SDL_strcmp(pKey, "roomname") == 0)
             {
-                map_store_text(&textbook_main, map_translation_roomnames_special, pElem->Attribute("english"), pText);
+                map_store_translation(&textbook_main, map_translation_roomnames_special, pElem->Attribute("english"), pText);
             }
         }
     }
@@ -962,8 +960,5 @@ namespace loc
         }
         return s;
     }
-
-#undef MAP_MAX_X
-#undef MAP_MAX_Y
 
 }
