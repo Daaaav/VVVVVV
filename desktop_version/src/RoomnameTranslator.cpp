@@ -5,6 +5,7 @@
 #include "Graphics.h"
 #include "KeyPoll.h"
 #include "Localization.h"
+#include "LocalizationStorage.h"
 #include "Map.h"
 #include "UtilityClass.h"
 

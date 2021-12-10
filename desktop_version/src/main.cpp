@@ -16,6 +16,7 @@
 #include "Input.h"
 #include "KeyPoll.h"
 #include "Localization.h"
+#include "LocalizationStorage.h"
 #include "Logic.h"
 #include "Map.h"
 #include "Music.h"
