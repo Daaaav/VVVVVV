@@ -113,6 +113,7 @@ set(VVV_SRC
     src/DeferCallbacks.c
     src/GlitchrunnerMode.c
     src/Network.c
+    src/Textbook.c
     src/ThirdPartyDeps.c
     src/Vlogging.c
     src/Xoshiro.c

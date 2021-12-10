@@ -34,18 +34,6 @@ namespace loc
         bool toupper_lower_escape_char; // = false; enable ~ to mark lowercase letters for uppercasing
     };
 
-    /* The purpose of a Textbook is to store, potentially, a lot of text on a pile that shouldn't
-     * go anywhere until we change languages or (for example) unload an entire level's text. */
-#define TEXTBOOK_MAX_PAGES 1000
-#define TEXTBOOK_PAGE_SIZE 50000
-    struct Textbook
-    {
-        char* page[TEXTBOOK_MAX_PAGES];
-        size_t page_len[TEXTBOOK_MAX_PAGES];
-
-        short pages_used;
-    };
-
     extern std::string lang;
     extern LangMeta langmeta;
     extern bool test_mode;

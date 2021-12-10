@@ -1,0 +1,96 @@
+#include "Textbook.h"
+
+#include <SDL.h>
+
+#include "Vlogging.h"
+
+void textbook_init(Textbook* textbook)
+{
+	textbook->pages_used = 0;
+}
+
+void textbook_clear(Textbook* textbook)
+{
+	short p;
+	for (p = 0; p < textbook->pages_used; p++)
+	{
+		SDL_free(textbook->page[p]);
+	}
+	textbook->pages_used = 0;
+}
+
+const char* textbook_store(Textbook* textbook, const char* text)
+{
+	size_t text_len;
+	short found_page = -1;
+	short p;
+
+	if (text == NULL)
+	{
+		return NULL;
+	}
+
+	text_len = SDL_strlen(text)+1;
+
+	if (text_len == 1)
+	{
+		/* Don't go and store a single null terminator when we have one right here for you: */
+		return "";
+	}
+
+	if (text_len > TEXTBOOK_PAGE_SIZE)
+	{
+		vlog_warn(
+			"Cannot store string of %ld bytes in Textbook, max page size is %d",
+			text_len,
+			TEXTBOOK_PAGE_SIZE
+		);
+		return NULL;
+	}
+
+	/* Find a suitable page to place our text on */
+	for (p = 0; p < textbook->pages_used; p++)
+	{
+		size_t free = TEXTBOOK_PAGE_SIZE - textbook->page_len[p];
+
+		if (text_len <= free)
+		{
+			found_page = p;
+			break;
+		}
+	}
+
+	if (found_page == -1)
+	{
+		/* Create a new page then */
+		found_page = textbook->pages_used;
+
+		if (found_page >= TEXTBOOK_MAX_PAGES)
+		{
+			vlog_warn(
+				"Textbook is full! %hd pages used (%d chars per page)",
+				textbook->pages_used,
+				TEXTBOOK_PAGE_SIZE
+			);
+			return NULL;
+		}
+
+		textbook->page[found_page] = (char*) SDL_malloc(TEXTBOOK_PAGE_SIZE);
+		if (textbook->page[found_page] == NULL)
+		{
+			return NULL;
+		}
+
+		textbook->page_len[found_page] = 0;
+		textbook->pages_used++;
+	}
+
+	{
+		size_t cursor = textbook->page_len[found_page];
+		char* added_text = &textbook->page[found_page][cursor];
+		SDL_memcpy(added_text, text, text_len);
+		textbook->page_len[found_page] += text_len;
+
+		return added_text;
+	}
+}

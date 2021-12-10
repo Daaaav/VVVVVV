@@ -7,6 +7,7 @@
 #include "Constants.h"
 #include "FileSystemUtils.h"
 //#include "Graphics.h"
+#include "Textbook.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
@@ -117,92 +118,7 @@ namespace loc
         }
     }
 
-    void textbook_init(Textbook& textbook)
-    {
-        textbook.pages_used = 0;
-    }
-
-    void textbook_clear(Textbook& textbook)
-    {
-        for (short p = 0; p < textbook.pages_used; p++)
-        {
-            SDL_free(textbook.page[p]);
-        }
-        textbook.pages_used = 0;
-    }
-
-    const char* textbook_store(Textbook& textbook, const char* text)
-    {
-        if (text == NULL)
-        {
-            return NULL;
-        }
-
-        size_t text_len = SDL_strlen(text)+1;
-
-        if (text_len == 1)
-        {
-            /* Don't go and store a single null terminator when we have one right here for you: */
-            return "";
-        }
-
-        if (text_len > TEXTBOOK_PAGE_SIZE)
-        {
-            vlog_warn(
-                "Cannot store string of %ld bytes in Textbook, max page size is %d",
-                text_len,
-                TEXTBOOK_PAGE_SIZE
-            );
-            return NULL;
-        }
-
-        /* Find a suitable page to place our text on */
-        short found_page = -1;
-        for (short p = 0; p < textbook.pages_used; p++)
-        {
-            size_t free = TEXTBOOK_PAGE_SIZE - textbook.page_len[p];
-
-            if (text_len <= free)
-            {
-                found_page = p;
-                break;
-            }
-        }
-
-        if (found_page == -1)
-        {
-            /* Create a new page then */
-            found_page = textbook.pages_used;
-
-            if (found_page >= TEXTBOOK_MAX_PAGES)
-            {
-                vlog_warn(
-                    "Textbook is full! %hd pages used (%d chars per page)",
-                    textbook.pages_used,
-                    TEXTBOOK_PAGE_SIZE
-                );
-                return NULL;
-            }
-
-            textbook.page[found_page] = (char*) SDL_malloc(TEXTBOOK_PAGE_SIZE);
-            if (textbook.page[found_page] == NULL)
-            {
-                return NULL;
-            }
-
-            textbook.page_len[found_page] = 0;
-            textbook.pages_used++;
-        }
-
-        size_t cursor = textbook.page_len[found_page];
-        char* added_text = &textbook.page[found_page][cursor];
-        SDL_memcpy(added_text, text, text_len);
-        textbook.page_len[found_page] += text_len;
-
-        return added_text;
-    }
-
-    void map_store_text(Textbook& textbook, hashmap* map, const char* eng, const char* tra)
+    void map_store_text(Textbook* textbook, hashmap* map, const char* eng, const char* tra)
     {
         if (eng == NULL || tra == NULL)
         {
@@ -230,8 +146,8 @@ namespace loc
     const char* map_store_404(hashmap* map, const char* eng)
     {
         /* Store a "string not found" translation, only called in test mode */
-        const char* tb_eng = textbook_store(textbook_main, eng);
-        const char* tb_tra = textbook_store(textbook_main, ("❌" + std::string(eng)).c_str());
+        const char* tb_eng = textbook_store(&textbook_main, eng);
+        const char* tb_tra = textbook_store(&textbook_main, ("❌" + std::string(eng)).c_str());
 
         if (tb_eng == NULL || tb_tra == NULL)
         {
@@ -259,11 +175,11 @@ namespace loc
             hashmap_free(map_translation_plural);
             hashmap_free(map_translation_roomnames_special);
 
-            textbook_clear(textbook_main);
+            textbook_clear(&textbook_main);
         }
         inited = true;
 
-        textbook_init(textbook_main);
+        textbook_init(&textbook_main);
 
         map_translation = hashmap_create();
         map_translation_cutscene = hashmap_create();
@@ -306,7 +222,7 @@ namespace loc
 
             if (SDL_strcmp(pKey, "string") == 0)
             {
-                map_store_text(textbook_main, map_translation, pElem->Attribute("english"), pText);
+                map_store_text(&textbook_main, map_translation, pElem->Attribute("english"), pText);
             }
         }
     }
@@ -348,7 +264,7 @@ namespace loc
                         key[0] = form+1;
                         SDL_memcpy(&key[1], eng_plural, alloc_len-1);
 
-                        map_store_text(textbook_main, map_translation_plural, key, subElem->Attribute("translation"));
+                        map_store_text(&textbook_main, map_translation_plural, key, subElem->Attribute("translation"));
 
                         SDL_free(key);
                     }
@@ -374,7 +290,11 @@ namespace loc
 
             if (SDL_strcmp(pKey, "cutscene") == 0)
             {
-                const char* script_id = textbook_store(textbook_main, pElem->Attribute("id"));
+                const char* script_id = textbook_store(&textbook_main, pElem->Attribute("id"));
+                if (script_id == NULL)
+                {
+                    continue;
+                }
 
                 hashmap* cutscene_map = hashmap_create();
                 hashmap_set_free(
@@ -397,7 +317,7 @@ namespace loc
 
                     if (SDL_strcmp(pSubKey, "dialogue") == 0)
                     {
-                        map_store_text(textbook_main, cutscene_map, subElem->Attribute("english"), pSubText);
+                        map_store_text(&textbook_main, cutscene_map, subElem->Attribute("english"), pSubText);
                     }
                 }
             }
@@ -479,12 +399,12 @@ namespace loc
         if (tra != NULL)
         {
             update_left_counter(translation_roomnames[roomy][roomx], tra, &n_untranslated_roomnames);
-            translation_roomnames[roomy][roomx] = textbook_store(textbook_main, tra);
+            translation_roomnames[roomy][roomx] = textbook_store(&textbook_main, tra);
         }
         if (explanation != NULL)
         {
             update_left_counter(explanation_roomnames[roomy][roomx], explanation, &n_unexplained_roomnames);
-            explanation_roomnames[roomy][roomx] = textbook_store(textbook_main, explanation);
+            explanation_roomnames[roomy][roomx] = textbook_store(&textbook_main, explanation);
         }
 
         return true;
@@ -551,7 +471,7 @@ namespace loc
 
             if (SDL_strcmp(pKey, "roomname") == 0)
             {
-                map_store_text(textbook_main, map_translation_roomnames_special, pElem->Attribute("english"), pText);
+                map_store_text(&textbook_main, map_translation_roomnames_special, pElem->Attribute("english"), pText);
             }
         }
     }
