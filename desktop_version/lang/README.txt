@@ -156,19 +156,30 @@ This file contains some general information about this translation. It contains 
 
 
 == strings.xml ==
-This file contains general strings for the interface and some parts of the game. In the XML, the translation is in between the opening and closing <string> tag. For example:
+This file contains general strings for the interface and some parts of the game. In the XML, the tag for one string looks like this:
 
-    <string english="Game paused" explanation="pause screen" max="40" comment="">Spel gepauzeerd</string>
+    <string english="Game paused" translation="" explanation="pause screen" max="40"/>
+
+To translate a string, simply fill in the translation attribute, like this:
+
+    <string english="Game paused" translation="Spel gepauzeerd" explanation="pause screen" max="40"/>
+
+If the translation is left blank, the English text will be used as a fallback. Translations should not be left blank on purpose if the text is the same however; the string will be counted as untranslated and it'll be harder to keep track of what's new.
 
 The following attributes may be found for each string:
 
 * english: the English text.
 
+* translation: the translation.
+
 * explanation: an explanation about the context, location and possibly the formatting.
 
 * max: length restrictions, described above in "WORDWRAPPING AND LENGTH LIMITS"
 
-* comment: some extra comments you can fill in as a translator. TODO: Will be kept when syncing. It obviously should.
+
+== strings_plural.xml ==
+
+TODO, but see "NUMBERS AND PLURAL FORMS" above.
 
 
 == numbers.xml ==
@@ -183,6 +194,10 @@ If this can't work for your language ("Twenty out of Twenty" uses two different 
 
 You may want to do it all-lowercase in order to not get English-style title casing. ("Twenty-one out of Twenty-one" may be grammatically incorrect in MANY languages, and "twenty-one out of twenty-one" would be better)
 
+This file also allows you to define the plural forms used in strings_plural.xml.
+
+For more information, see "NUMBERS AND PLURAL FORMS" above.
+
 
 == cutscenes.xml ==
 This file contains nearly all the cutscenes that appear in the main game. Each line has a "speaker" attribute, which is not used by the game - it's just for translators to know who says what and to establish context.
@@ -196,14 +211,6 @@ TODO: certain specific ones aren't automatically wrapped
 This file contains nearly all the room names for the main game. The limit is always 40 8x8 characters (320 pixels) or 26 12x12 characters.
 
 It's recommended to translate the room names in-game to see why all rooms are called what they are. To do this, enable room name translation mode in translator > translator options > translate room names.
-
-If you do want to work in the XML for this directly, know that for technical reasons, the tags are self-closing when they're not translated. So this is an untranslated room name:
-
-    <roomname x="4" y="2" english="AAAAAA" explanation=""/>
-
-And this is translated:
-
-    <roomname x="4" y="2" english="AAAAAA" explanation="">Aaaaaa.</roomname>
 
 
 == roomnames_special.xml ==

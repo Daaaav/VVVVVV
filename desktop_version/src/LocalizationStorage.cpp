@@ -90,9 +90,13 @@ namespace loc
 
     void map_store_translation(Textbook* textbook, hashmap* map, const char* eng, const char* tra)
     {
-        if (eng == NULL || tra == NULL)
+        if (eng == NULL)
         {
             return;
+        }
+        if (tra == NULL)
+        {
+            tra = "";
         }
         const char* tb_eng = textbook_store(textbook, eng);
         const char* tb_tra;
@@ -184,15 +188,15 @@ namespace loc
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             const char* pKey = pElem->Value();
-            const char* pText = pElem->GetText();
-            if (pText == NULL)
-            {
-                pText = "";
-            }
 
             if (SDL_strcmp(pKey, "string") == 0)
             {
-                map_store_translation(&textbook_main, map_translation, pElem->Attribute("english"), pText);
+                map_store_translation(
+                    &textbook_main,
+                    map_translation,
+                    pElem->Attribute("english"),
+                    pElem->Attribute("translation")
+                );
             }
         }
     }
@@ -234,7 +238,12 @@ namespace loc
                         key[0] = form+1;
                         SDL_memcpy(&key[1], eng_plural, alloc_len-1);
 
-                        map_store_translation(&textbook_main, map_translation_plural, key, subElem->Attribute("translation"));
+                        map_store_translation(
+                            &textbook_main,
+                            map_translation_plural,
+                            key,
+                            subElem->Attribute("translation")
+                        );
 
                         SDL_free(key);
                     }
@@ -280,15 +289,15 @@ namespace loc
                 FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
                 {
                     const char* pSubKey = subElem->Value();
-                    const char* pSubText = subElem->GetText();
-                    if (pSubText == NULL)
-                    {
-                        pSubText = "";
-                    }
 
                     if (SDL_strcmp(pSubKey, "dialogue") == 0)
                     {
-                        map_store_translation(&textbook_main, cutscene_map, subElem->Attribute("english"), pSubText);
+                        map_store_translation(
+                            &textbook_main,
+                            cutscene_map,
+                            subElem->Attribute("english"),
+                            subElem->Attribute("translation")
+                        );
                     }
                 }
             }
@@ -309,18 +318,18 @@ namespace loc
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             const char* pKey = pElem->Value();
-            const char* pText = pElem->GetText();
-            if (pText == NULL)
-            {
-                pText = "";
-            }
 
             if (SDL_strcmp(pKey, "number") == 0)
             {
                 int value = help.Int(pElem->Attribute("value"));
                 if (value >= 0 && value <= 101)
                 {
-                    number[value] = std::string(pText);
+                    const char* tra = pElem->Attribute("translation");
+                    if (tra == NULL)
+                    {
+                        tra = "";
+                    }
+                    number[value] = std::string(tra);
                     number_plural_form[value] = pElem->IntAttribute("form", 0);
                 }
             }
@@ -395,11 +404,6 @@ namespace loc
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             const char* pKey = pElem->Value();
-            const char* pText = pElem->GetText();
-            if (pText == NULL)
-            {
-                pText = "";
-            }
 
             if (SDL_strcmp(pKey, "roomname") == 0)
             {
@@ -413,7 +417,7 @@ namespace loc
                     false,
                     x,
                     y,
-                    pText,
+                    pElem->Attribute("translation"),
                     show_translator_menu ? pElem->Attribute("explanation") : NULL
                 );
             }
@@ -434,15 +438,15 @@ namespace loc
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             const char* pKey = pElem->Value();
-            const char* pText = pElem->GetText();
-            if (pText == NULL)
-            {
-                pText = "";
-            }
 
             if (SDL_strcmp(pKey, "roomname") == 0)
             {
-                map_store_translation(&textbook_main, map_translation_roomnames_special, pElem->Attribute("english"), pText);
+                map_store_translation(
+                    &textbook_main,
+                    map_translation_roomnames_special,
+                    pElem->Attribute("english"),
+                    pElem->Attribute("translation")
+                );
             }
         }
     }
@@ -526,7 +530,7 @@ namespace loc
                 {
                     tra = "";
                 }
-                pElem->SetText(tra);
+                pElem->SetAttribute("translation", tra);
             }
         }
 
@@ -594,7 +598,7 @@ namespace loc
                     }
                     if (tra != NULL)
                     {
-                        pElem->SetText(tra);
+                        pElem->SetAttribute("translation", tra);
                     }
                     found = true;
                 }

@@ -1,192 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <roomnames>
-    <roomname x="0" y="18" english="Single-slit Experiment" explanation=""/>
-    <roomname x="0" y="19" english="Don&apos;t Flip Out" explanation=""/>
-    <roomname x="1" y="0" english="I&apos;m Sorry" explanation="There are a few more rooms if you go above the spike on the bottom!"/>
-    <roomname x="1" y="1" english="Please Forgive Me!" explanation=""/>
-    <roomname x="1" y="17" english="Rascasse" explanation=""/>
-    <roomname x="1" y="18" english="Keep Going" explanation=""/>
-    <roomname x="1" y="19" english="Shuffled Hallway" explanation=""/>
-    <roomname x="2" y="0" english="Kids His Age Bounce" explanation=""/>
-    <roomname x="2" y="1" english="Playing Foosball" explanation=""/>
-    <roomname x="2" y="4" english="Philadelphia Experiment" explanation=""/>
-    <roomname x="2" y="16" english="Get Ready To Bounce" explanation=""/>
-    <roomname x="2" y="17" english="It&apos;s Perfectly Safe" explanation=""/>
-    <roomname x="2" y="18" english="Young Man, It&apos;s Worth the Challenge" explanation=""/>
-    <roomname x="2" y="19" english="Double-slit Experiment" explanation=""/>
-    <roomname x="3" y="0" english="Merge" explanation=""/>
-    <roomname x="3" y="1" english="A Difficult Chord" explanation=""/>
-    <roomname x="3" y="4" english="Why So Blue?" explanation=""/>
-    <roomname x="3" y="16" english="Brought to you by the letter G" explanation=""/>
-    <roomname x="3" y="17" english="Thorny Exchange" explanation=""/>
-    <roomname x="3" y="18" english="Square Root" explanation=""/>
-    <roomname x="3" y="19" english="They Call Him Flipper" explanation=""/>
-    <roomname x="4" y="0" english="Vibrating String Problem" explanation=""/>
-    <roomname x="4" y="1" english="The Living Dead End" explanation=""/>
-    <roomname x="4" y="2" english="AAAAAA" explanation=""/>
-    <roomname x="4" y="3" english="Diode" explanation=""/>
-    <roomname x="4" y="4" english="I Smell Ozone" explanation=""/>
-    <roomname x="4" y="16" english="Free Your Mind" explanation=""/>
-    <roomname x="4" y="17" english="I Changed My Mind, Thelma..." explanation=""/>
-    <roomname x="4" y="18" english="Hitting the Apex" explanation=""/>
-    <roomname x="4" y="19" english="Three&apos;s a Crowd" explanation=""/>
-    <roomname x="5" y="0" english="Spike Strip Deployed" explanation=""/>
-    <roomname x="5" y="1" english="Anomaly" explanation=""/>
-    <roomname x="5" y="16" english="In a Single Bound" explanation=""/>
-    <roomname x="5" y="17" english="Indirect Jump Vector" explanation=""/>
-    <roomname x="6" y="0" english="Topsy Turvyism" explanation=""/>
-    <roomname x="6" y="1" english="Purest Unobtainium" explanation=""/>
-    <roomname x="6" y="16" english="Barani, Barani" explanation=""/>
-    <roomname x="6" y="17" english="Safety Dance" explanation=""/>
-    <roomname x="7" y="0" english="Standing Wave" explanation=""/>
-    <roomname x="7" y="15" english="Entanglement Generator" explanation=""/>
-    <roomname x="7" y="16" english="Heady Heights" explanation=""/>
-    <roomname x="7" y="17" english="Exhausted?" explanation=""/>
-    <roomname x="7" y="18" english="The Tantalizing Trinket" explanation=""/>
-    <roomname x="7" y="19" english="The Bernoulli Principle" explanation=""/>
-    <roomname x="8" y="9" english="Teleporter Divot" explanation=""/>
-    <roomname x="9" y="9" english="The Tower" explanation=""/>
-    <roomname x="10" y="4" english="Seeing Red" explanation=""/>
-    <roomname x="10" y="5" english="Energize" explanation=""/>
-    <roomname x="10" y="6" english="Down Under" explanation=""/>
-    <roomname x="10" y="7" english="A Deception" explanation=""/>
-    <roomname x="11" y="4" english="Building Apport" explanation=""/>
-    <roomname x="11" y="5" english="Frown Upside Down" explanation=""/>
-    <roomname x="11" y="6" english="Shenanigan" explanation=""/>
-    <roomname x="11" y="7" english="Prize for the Reckless" explanation=""/>
-    <roomname x="11" y="11" english="Conveying a New Idea" explanation=""/>
-    <roomname x="11" y="12" english="One Way Room" explanation=""/>
-    <roomname x="11" y="13" english="Boldly To Go" explanation=""/>
-    <roomname x="11" y="14" english="The Filter" explanation=""/>
-    <roomname x="12" y="3" english="Security Sweep" explanation=""/>
-    <roomname x="12" y="4" english="Gantry and Dolly" explanation=""/>
-    <roomname x="12" y="5" english="The Yes Men" explanation=""/>
-    <roomname x="12" y="6" english="Stop and Reflect" explanation=""/>
-    <roomname x="12" y="7" english="V Stitch" explanation=""/>
-    <roomname x="12" y="11" english="Upstream Downstream" explanation=""/>
-    <roomname x="12" y="12" english="The High Road is Low" explanation=""/>
-    <roomname x="12" y="13" english="Give Me A V" explanation=""/>
-    <roomname x="12" y="14" english="Outer Hull" explanation=""/>
-    <roomname x="13" y="0" english="It&apos;s Not Easy Being Green" explanation=""/>
-    <roomname x="13" y="3" english="Linear Collider" explanation=""/>
-    <roomname x="13" y="4" english="Comms Relay" explanation=""/>
-    <roomname x="13" y="5" english="Welcome Aboard" explanation=""/>
-    <roomname x="13" y="6" english="Trench Warfare" explanation=""/>
-    <roomname x="13" y="7" english="B-B-B-Busted" explanation=""/>
-    <roomname x="13" y="8" english="Level Complete!" explanation=""/>
-    <roomname x="13" y="9" english="Lighter Than Air" explanation=""/>
-    <roomname x="13" y="10" english="The Solution is Dilution" explanation=""/>
-    <roomname x="13" y="11" english="The Cuckoo" explanation=""/>
-    <roomname x="13" y="12" english="Backsliders" explanation=""/>
-    <roomname x="13" y="13" english="Select Track" explanation=""/>
-    <roomname x="14" y="0" english="Green Dudes Can&apos;t Flip" explanation=""/>
-    <roomname x="14" y="1" english="This is how it is" explanation=""/>
-    <roomname x="14" y="2" english="That&apos;s Why I Have To Kill You" explanation=""/>
-    <roomname x="14" y="3" english="Atmospheric Filtering Unit" explanation=""/>
-    <roomname x="14" y="4" english="It&apos;s a Secret to Nobody" explanation=""/>
-    <roomname x="14" y="5" english="Conundrum" explanation=""/>
-    <roomname x="14" y="6" english="Boo! Think Fast!" explanation=""/>
-    <roomname x="14" y="7" english="The Sensible Room" explanation=""/>
-    <roomname x="14" y="8" english="The Hanged Man, Reversed" explanation=""/>
-    <roomname x="14" y="9" english="Green Grotto" explanation=""/>
-    <roomname x="14" y="10" english="Manic Mine" explanation=""/>
-    <roomname x="14" y="11" english="Clarion Call" explanation=""/>
-    <roomname x="14" y="12" english="Gordian Knot" explanation=""/>
-    <roomname x="14" y="13" english="You Chose... Poorly" explanation=""/>
-    <roomname x="15" y="0" english="Murdering Twinmaker" explanation=""/>
-    <roomname x="15" y="1" english="A Bisected Spiral" explanation=""/>
-    <roomname x="15" y="2" english="Take the Red Pill" explanation=""/>
-    <roomname x="15" y="3" english="Traffic Jam" explanation=""/>
-    <roomname x="15" y="4" english="Leap of Faith" explanation=""/>
-    <roomname x="15" y="5" english="Solitude" explanation=""/>
-    <roomname x="15" y="6" english="Driller" explanation=""/>
-    <roomname x="15" y="7" english="Exhaust Chute" explanation=""/>
-    <roomname x="15" y="8" english="Sorrow" explanation=""/>
-    <roomname x="15" y="9" english="doomS" explanation=""/>
-    <roomname x="15" y="10" english="Swoop" explanation=""/>
-    <roomname x="15" y="11" english="Chinese Rooms" explanation=""/>
-    <roomname x="15" y="12" english="You Just Keep Coming Back" explanation=""/>
-    <roomname x="15" y="13" english="Hyperspace Bypass 5" explanation=""/>
-    <roomname x="16" y="0" english="I Love You" explanation=""/>
-    <roomname x="16" y="1" english="As you like it" explanation=""/>
-    <roomname x="16" y="2" english="Short Circuit" explanation=""/>
-    <roomname x="16" y="3" english="Twisty Little Passages" explanation=""/>
-    <roomname x="16" y="6" english="Quicksand" explanation=""/>
-    <roomname x="16" y="7" english="The Tomb of Mad Carew" explanation=""/>
-    <roomname x="16" y="8" english="Parabolica" explanation=""/>
-    <roomname x="16" y="9" english="$eeing Dollar $ign$" explanation=""/>
-    <roomname x="16" y="10" english="What Lies Beneath?" explanation=""/>
-    <roomname x="16" y="11" english="Spikes Do!" explanation=""/>
-    <roomname x="16" y="12" english="Ha Ha Ha Not Really" explanation=""/>
-    <roomname x="16" y="13" english="Plain Sailing from Here On" explanation=""/>
-    <roomname x="17" y="0" english="As we go up, we go down" explanation=""/>
-    <roomname x="17" y="1" english="Maze With No Entrance" explanation=""/>
-    <roomname x="17" y="2" english="The Brown Gate" explanation=""/>
-    <roomname x="17" y="3" english="Edge Games" explanation=""/>
-    <roomname x="17" y="7" english="Brass Sent Us Under The Top" explanation=""/>
-    <roomname x="17" y="8" english="The Warning" explanation=""/>
-    <roomname x="17" y="9" english="Just Pick Yourself Down" explanation=""/>
-    <roomname x="17" y="10" english="If You Fall Up" explanation=""/>
-    <roomname x="17" y="11" english="Chipper Cipher" explanation=""/>
-    <roomname x="18" y="0" english="Time to get serious" explanation=""/>
-    <roomname x="18" y="1" english="Wheeler&apos;s Wormhole" explanation=""/>
-    <roomname x="18" y="2" english="Sweeney&apos;s Maze" explanation=""/>
-    <roomname x="18" y="3" english="Mind The Gap" explanation=""/>
-    <roomname x="18" y="7" english="A Wrinkle in Time" explanation=""/>
-    <roomname x="18" y="8" english="Getting Here is Half the Fun" explanation=""/>
-    <roomname x="18" y="9" english="Your Bitter Tears... Delicious" explanation=""/>
-    <roomname x="18" y="10" english="Easy Mode Unlocked" explanation=""/>
-    <roomname x="18" y="11" english="Vici!" explanation=""/>
-    <roomname x="18" y="12" english="Vidi" explanation=""/>
-    <roomname x="18" y="13" english="Veni" explanation=""/>
-    <roomname x="18" y="14" english="Doing Things The Hard Way" explanation=""/>
-    <roomname x="19" y="0" english="To The Batcave!" explanation=""/>
-    <roomname x="19" y="1" english="Ascending and Descending" explanation=""/>
-    <roomname x="19" y="2" english="Shockwave Rider" explanation=""/>
-    <roomname x="19" y="3" english="This will make you flip" explanation=""/>
-    <roomname x="41" y="51" english="1950 Silverstone Grand V" explanation=""/>
-    <roomname x="41" y="52" english="DIY V Repair" explanation=""/>
-    <roomname x="41" y="56" english="Now Take My Lead" explanation=""/>
-    <roomname x="42" y="52" english="Party Time!" explanation=""/>
-    <roomname x="42" y="56" english="What Are You Waiting For?" explanation=""/>
-    <roomname x="43" y="51" english="The Voon Show" explanation=""/>
-    <roomname x="43" y="52" english="Upstairs, Downstairs" explanation=""/>
-    <roomname x="43" y="56" english="Don&apos;t Get Ahead of Yourself!" explanation=""/>
-    <roomname x="44" y="51" english="Vertigo" explanation=""/>
-    <roomname x="44" y="52" english="Timeslip" explanation=""/>
-    <roomname x="44" y="56" english="Very Good" explanation=""/>
-    <roomname x="45" y="52" english="Three&apos;s Company" explanation=""/>
-    <roomname x="45" y="56" english="Must I Do Everything For You?" explanation=""/>
-    <roomname x="46" y="54" english="Temporary Fault..." explanation=""/>
-    <roomname x="46" y="56" english="Now Stay Close To Me..." explanation=""/>
-    <roomname x="47" y="52" english="Cosmic Creepers" explanation=""/>
-    <roomname x="47" y="54" english="Do Not Adjust the V-hold" explanation=""/>
-    <roomname x="47" y="56" english="...But Not Too Close" explanation=""/>
-    <roomname x="48" y="52" english="The Villi People" explanation=""/>
-    <roomname x="48" y="54" english="Regular Service Will Return Shortly" explanation=""/>
-    <roomname x="48" y="56" english="Don&apos;t Be Afraid" explanation=""/>
-    <roomname x="49" y="52" english="Panic Room" explanation=""/>
-    <roomname x="49" y="54" english="Origami Room" explanation=""/>
-    <roomname x="49" y="56" english="Do as I Say..." explanation=""/>
-    <roomname x="50" y="51" english="The V Stooges" explanation=""/>
-    <roomname x="50" y="52" english="1954 World Cup Vinyl" explanation=""/>
-    <roomname x="50" y="56" english="...Not as I Do" explanation=""/>
-    <roomname x="51" y="53" english="The Final Challenge" explanation=""/>
-    <roomname x="51" y="56" english="Mind Your Head" explanation=""/>
-    <roomname x="52" y="53" english="The Last Straw" explanation=""/>
-    <roomname x="52" y="56" english="Do Try To Keep Up" explanation=""/>
-    <roomname x="53" y="48" english="Whee Sports" explanation=""/>
-    <roomname x="53" y="49" english="Whizz Down The Shaft" explanation=""/>
-    <roomname x="53" y="50" english="The Gravitron" explanation=""/>
-    <roomname x="53" y="51" english="Tunnel of Terror" explanation=""/>
-    <roomname x="53" y="52" english="House of Mirrors" explanation=""/>
-    <roomname x="53" y="53" english="W" explanation=""/>
-    <roomname x="53" y="56" english="You&apos;re Falling Behind" explanation=""/>
-    <roomname x="54" y="48" english="VVVVVV" explanation=""/>
-    <roomname x="54" y="49" english="VVVVV" explanation=""/>
-    <roomname x="54" y="50" english="VVVV" explanation=""/>
-    <roomname x="54" y="51" english="VVV" explanation=""/>
-    <roomname x="54" y="52" english="VV" explanation=""/>
-    <roomname x="54" y="53" english="V" explanation=""/>
-    <roomname x="54" y="56" english="Class Dismissed!" explanation=""/>
+    <roomname x="0" y="18" english="Single-slit Experiment" translation="" explanation=""/>
+    <roomname x="0" y="19" english="Don&apos;t Flip Out" translation="" explanation=""/>
+    <roomname x="1" y="0" english="I&apos;m Sorry" translation="" explanation="There are a few more rooms if you go above the spike on the bottom!"/>
+    <roomname x="1" y="1" english="Please Forgive Me!" translation="" explanation=""/>
+    <roomname x="1" y="17" english="Rascasse" translation="" explanation=""/>
+    <roomname x="1" y="18" english="Keep Going" translation="" explanation=""/>
+    <roomname x="1" y="19" english="Shuffled Hallway" translation="" explanation=""/>
+    <roomname x="2" y="0" english="Kids His Age Bounce" translation="" explanation=""/>
+    <roomname x="2" y="1" english="Playing Foosball" translation="" explanation=""/>
+    <roomname x="2" y="4" english="Philadelphia Experiment" translation="" explanation=""/>
+    <roomname x="2" y="16" english="Get Ready To Bounce" translation="" explanation=""/>
+    <roomname x="2" y="17" english="It&apos;s Perfectly Safe" translation="" explanation=""/>
+    <roomname x="2" y="18" english="Young Man, It&apos;s Worth the Challenge" translation="" explanation=""/>
+    <roomname x="2" y="19" english="Double-slit Experiment" translation="" explanation=""/>
+    <roomname x="3" y="0" english="Merge" translation="" explanation=""/>
+    <roomname x="3" y="1" english="A Difficult Chord" translation="" explanation=""/>
+    <roomname x="3" y="4" english="Why So Blue?" translation="" explanation=""/>
+    <roomname x="3" y="16" english="Brought to you by the letter G" translation="" explanation=""/>
+    <roomname x="3" y="17" english="Thorny Exchange" translation="" explanation=""/>
+    <roomname x="3" y="18" english="Square Root" translation="" explanation=""/>
+    <roomname x="3" y="19" english="They Call Him Flipper" translation="" explanation=""/>
+    <roomname x="4" y="0" english="Vibrating String Problem" translation="" explanation=""/>
+    <roomname x="4" y="1" english="The Living Dead End" translation="" explanation=""/>
+    <roomname x="4" y="2" english="AAAAAA" translation="" explanation=""/>
+    <roomname x="4" y="3" english="Diode" translation="" explanation=""/>
+    <roomname x="4" y="4" english="I Smell Ozone" translation="" explanation=""/>
+    <roomname x="4" y="16" english="Free Your Mind" translation="" explanation=""/>
+    <roomname x="4" y="17" english="I Changed My Mind, Thelma..." translation="" explanation=""/>
+    <roomname x="4" y="18" english="Hitting the Apex" translation="" explanation=""/>
+    <roomname x="4" y="19" english="Three&apos;s a Crowd" translation="" explanation=""/>
+    <roomname x="5" y="0" english="Spike Strip Deployed" translation="" explanation=""/>
+    <roomname x="5" y="1" english="Anomaly" translation="" explanation=""/>
+    <roomname x="5" y="16" english="In a Single Bound" translation="" explanation=""/>
+    <roomname x="5" y="17" english="Indirect Jump Vector" translation="" explanation=""/>
+    <roomname x="6" y="0" english="Topsy Turvyism" translation="" explanation=""/>
+    <roomname x="6" y="1" english="Purest Unobtainium" translation="" explanation=""/>
+    <roomname x="6" y="16" english="Barani, Barani" translation="" explanation=""/>
+    <roomname x="6" y="17" english="Safety Dance" translation="" explanation=""/>
+    <roomname x="7" y="0" english="Standing Wave" translation="" explanation=""/>
+    <roomname x="7" y="15" english="Entanglement Generator" translation="" explanation=""/>
+    <roomname x="7" y="16" english="Heady Heights" translation="" explanation=""/>
+    <roomname x="7" y="17" english="Exhausted?" translation="" explanation=""/>
+    <roomname x="7" y="18" english="The Tantalizing Trinket" translation="" explanation=""/>
+    <roomname x="7" y="19" english="The Bernoulli Principle" translation="" explanation=""/>
+    <roomname x="8" y="9" english="Teleporter Divot" translation="" explanation=""/>
+    <roomname x="9" y="9" english="The Tower" translation="" explanation=""/>
+    <roomname x="10" y="4" english="Seeing Red" translation="" explanation=""/>
+    <roomname x="10" y="5" english="Energize" translation="" explanation=""/>
+    <roomname x="10" y="6" english="Down Under" translation="" explanation=""/>
+    <roomname x="10" y="7" english="A Deception" translation="" explanation=""/>
+    <roomname x="11" y="4" english="Building Apport" translation="" explanation=""/>
+    <roomname x="11" y="5" english="Frown Upside Down" translation="" explanation=""/>
+    <roomname x="11" y="6" english="Shenanigan" translation="" explanation=""/>
+    <roomname x="11" y="7" english="Prize for the Reckless" translation="" explanation=""/>
+    <roomname x="11" y="11" english="Conveying a New Idea" translation="" explanation=""/>
+    <roomname x="11" y="12" english="One Way Room" translation="" explanation=""/>
+    <roomname x="11" y="13" english="Boldly To Go" translation="" explanation=""/>
+    <roomname x="11" y="14" english="The Filter" translation="" explanation=""/>
+    <roomname x="12" y="3" english="Security Sweep" translation="" explanation=""/>
+    <roomname x="12" y="4" english="Gantry and Dolly" translation="" explanation=""/>
+    <roomname x="12" y="5" english="The Yes Men" translation="" explanation=""/>
+    <roomname x="12" y="6" english="Stop and Reflect" translation="" explanation=""/>
+    <roomname x="12" y="7" english="V Stitch" translation="" explanation=""/>
+    <roomname x="12" y="11" english="Upstream Downstream" translation="" explanation=""/>
+    <roomname x="12" y="12" english="The High Road is Low" translation="" explanation=""/>
+    <roomname x="12" y="13" english="Give Me A V" translation="" explanation=""/>
+    <roomname x="12" y="14" english="Outer Hull" translation="" explanation=""/>
+    <roomname x="13" y="0" english="It&apos;s Not Easy Being Green" translation="" explanation=""/>
+    <roomname x="13" y="3" english="Linear Collider" translation="" explanation=""/>
+    <roomname x="13" y="4" english="Comms Relay" translation="" explanation=""/>
+    <roomname x="13" y="5" english="Welcome Aboard" translation="" explanation=""/>
+    <roomname x="13" y="6" english="Trench Warfare" translation="" explanation=""/>
+    <roomname x="13" y="7" english="B-B-B-Busted" translation="" explanation=""/>
+    <roomname x="13" y="8" english="Level Complete!" translation="" explanation=""/>
+    <roomname x="13" y="9" english="Lighter Than Air" translation="" explanation=""/>
+    <roomname x="13" y="10" english="The Solution is Dilution" translation="" explanation=""/>
+    <roomname x="13" y="11" english="The Cuckoo" translation="" explanation=""/>
+    <roomname x="13" y="12" english="Backsliders" translation="" explanation=""/>
+    <roomname x="13" y="13" english="Select Track" translation="" explanation=""/>
+    <roomname x="14" y="0" english="Green Dudes Can&apos;t Flip" translation="" explanation=""/>
+    <roomname x="14" y="1" english="This is how it is" translation="" explanation=""/>
+    <roomname x="14" y="2" english="That&apos;s Why I Have To Kill You" translation="" explanation=""/>
+    <roomname x="14" y="3" english="Atmospheric Filtering Unit" translation="" explanation=""/>
+    <roomname x="14" y="4" english="It&apos;s a Secret to Nobody" translation="" explanation=""/>
+    <roomname x="14" y="5" english="Conundrum" translation="" explanation=""/>
+    <roomname x="14" y="6" english="Boo! Think Fast!" translation="" explanation=""/>
+    <roomname x="14" y="7" english="The Sensible Room" translation="" explanation=""/>
+    <roomname x="14" y="8" english="The Hanged Man, Reversed" translation="" explanation=""/>
+    <roomname x="14" y="9" english="Green Grotto" translation="" explanation=""/>
+    <roomname x="14" y="10" english="Manic Mine" translation="" explanation=""/>
+    <roomname x="14" y="11" english="Clarion Call" translation="" explanation=""/>
+    <roomname x="14" y="12" english="Gordian Knot" translation="" explanation=""/>
+    <roomname x="14" y="13" english="You Chose... Poorly" translation="" explanation=""/>
+    <roomname x="15" y="0" english="Murdering Twinmaker" translation="" explanation=""/>
+    <roomname x="15" y="1" english="A Bisected Spiral" translation="" explanation=""/>
+    <roomname x="15" y="2" english="Take the Red Pill" translation="" explanation=""/>
+    <roomname x="15" y="3" english="Traffic Jam" translation="" explanation=""/>
+    <roomname x="15" y="4" english="Leap of Faith" translation="" explanation=""/>
+    <roomname x="15" y="5" english="Solitude" translation="" explanation=""/>
+    <roomname x="15" y="6" english="Driller" translation="" explanation=""/>
+    <roomname x="15" y="7" english="Exhaust Chute" translation="" explanation=""/>
+    <roomname x="15" y="8" english="Sorrow" translation="" explanation=""/>
+    <roomname x="15" y="9" english="doomS" translation="" explanation=""/>
+    <roomname x="15" y="10" english="Swoop" translation="" explanation=""/>
+    <roomname x="15" y="11" english="Chinese Rooms" translation="" explanation=""/>
+    <roomname x="15" y="12" english="You Just Keep Coming Back" translation="" explanation=""/>
+    <roomname x="15" y="13" english="Hyperspace Bypass 5" translation="" explanation=""/>
+    <roomname x="16" y="0" english="I Love You" translation="" explanation=""/>
+    <roomname x="16" y="1" english="As you like it" translation="" explanation=""/>
+    <roomname x="16" y="2" english="Short Circuit" translation="" explanation=""/>
+    <roomname x="16" y="3" english="Twisty Little Passages" translation="" explanation=""/>
+    <roomname x="16" y="6" english="Quicksand" translation="" explanation=""/>
+    <roomname x="16" y="7" english="The Tomb of Mad Carew" translation="" explanation=""/>
+    <roomname x="16" y="8" english="Parabolica" translation="" explanation=""/>
+    <roomname x="16" y="9" english="$eeing Dollar $ign$" translation="" explanation=""/>
+    <roomname x="16" y="10" english="What Lies Beneath?" translation="" explanation=""/>
+    <roomname x="16" y="11" english="Spikes Do!" translation="" explanation=""/>
+    <roomname x="16" y="12" english="Ha Ha Ha Not Really" translation="" explanation=""/>
+    <roomname x="16" y="13" english="Plain Sailing from Here On" translation="" explanation=""/>
+    <roomname x="17" y="0" english="As we go up, we go down" translation="" explanation=""/>
+    <roomname x="17" y="1" english="Maze With No Entrance" translation="" explanation=""/>
+    <roomname x="17" y="2" english="The Brown Gate" translation="" explanation=""/>
+    <roomname x="17" y="3" english="Edge Games" translation="" explanation=""/>
+    <roomname x="17" y="7" english="Brass Sent Us Under The Top" translation="" explanation=""/>
+    <roomname x="17" y="8" english="The Warning" translation="" explanation=""/>
+    <roomname x="17" y="9" english="Just Pick Yourself Down" translation="" explanation=""/>
+    <roomname x="17" y="10" english="If You Fall Up" translation="" explanation=""/>
+    <roomname x="17" y="11" english="Chipper Cipher" translation="" explanation=""/>
+    <roomname x="18" y="0" english="Time to get serious" translation="" explanation=""/>
+    <roomname x="18" y="1" english="Wheeler&apos;s Wormhole" translation="" explanation=""/>
+    <roomname x="18" y="2" english="Sweeney&apos;s Maze" translation="" explanation=""/>
+    <roomname x="18" y="3" english="Mind The Gap" translation="" explanation=""/>
+    <roomname x="18" y="7" english="A Wrinkle in Time" translation="" explanation=""/>
+    <roomname x="18" y="8" english="Getting Here is Half the Fun" translation="" explanation=""/>
+    <roomname x="18" y="9" english="Your Bitter Tears... Delicious" translation="" explanation=""/>
+    <roomname x="18" y="10" english="Easy Mode Unlocked" translation="" explanation=""/>
+    <roomname x="18" y="11" english="Vici!" translation="" explanation=""/>
+    <roomname x="18" y="12" english="Vidi" translation="" explanation=""/>
+    <roomname x="18" y="13" english="Veni" translation="" explanation=""/>
+    <roomname x="18" y="14" english="Doing Things The Hard Way" translation="" explanation=""/>
+    <roomname x="19" y="0" english="To The Batcave!" translation="" explanation=""/>
+    <roomname x="19" y="1" english="Ascending and Descending" translation="" explanation=""/>
+    <roomname x="19" y="2" english="Shockwave Rider" translation="" explanation=""/>
+    <roomname x="19" y="3" english="This will make you flip" translation="" explanation=""/>
+    <roomname x="41" y="51" english="1950 Silverstone Grand V" translation="" explanation=""/>
+    <roomname x="41" y="52" english="DIY V Repair" translation="" explanation=""/>
+    <roomname x="41" y="56" english="Now Take My Lead" translation="" explanation=""/>
+    <roomname x="42" y="52" english="Party Time!" translation="" explanation=""/>
+    <roomname x="42" y="56" english="What Are You Waiting For?" translation="" explanation=""/>
+    <roomname x="43" y="51" english="The Voon Show" translation="" explanation=""/>
+    <roomname x="43" y="52" english="Upstairs, Downstairs" translation="" explanation=""/>
+    <roomname x="43" y="56" english="Don&apos;t Get Ahead of Yourself!" translation="" explanation=""/>
+    <roomname x="44" y="51" english="Vertigo" translation="" explanation=""/>
+    <roomname x="44" y="52" english="Timeslip" translation="" explanation=""/>
+    <roomname x="44" y="56" english="Very Good" translation="" explanation=""/>
+    <roomname x="45" y="52" english="Three&apos;s Company" translation="" explanation=""/>
+    <roomname x="45" y="56" english="Must I Do Everything For You?" translation="" explanation=""/>
+    <roomname x="46" y="54" english="Temporary Fault..." translation="" explanation=""/>
+    <roomname x="46" y="56" english="Now Stay Close To Me..." translation="" explanation=""/>
+    <roomname x="47" y="52" english="Cosmic Creepers" translation="" explanation=""/>
+    <roomname x="47" y="54" english="Do Not Adjust the V-hold" translation="" explanation=""/>
+    <roomname x="47" y="56" english="...But Not Too Close" translation="" explanation=""/>
+    <roomname x="48" y="52" english="The Villi People" translation="" explanation=""/>
+    <roomname x="48" y="54" english="Regular Service Will Return Shortly" translation="" explanation=""/>
+    <roomname x="48" y="56" english="Don&apos;t Be Afraid" translation="" explanation=""/>
+    <roomname x="49" y="52" english="Panic Room" translation="" explanation=""/>
+    <roomname x="49" y="54" english="Origami Room" translation="" explanation=""/>
+    <roomname x="49" y="56" english="Do as I Say..." translation="" explanation=""/>
+    <roomname x="50" y="51" english="The V Stooges" translation="" explanation=""/>
+    <roomname x="50" y="52" english="1954 World Cup Vinyl" translation="" explanation=""/>
+    <roomname x="50" y="56" english="...Not as I Do" translation="" explanation=""/>
+    <roomname x="51" y="53" english="The Final Challenge" translation="" explanation=""/>
+    <roomname x="51" y="56" english="Mind Your Head" translation="" explanation=""/>
+    <roomname x="52" y="53" english="The Last Straw" translation="" explanation=""/>
+    <roomname x="52" y="56" english="Do Try To Keep Up" translation="" explanation=""/>
+    <roomname x="53" y="48" english="Whee Sports" translation="" explanation=""/>
+    <roomname x="53" y="49" english="Whizz Down The Shaft" translation="" explanation=""/>
+    <roomname x="53" y="50" english="The Gravitron" translation="" explanation=""/>
+    <roomname x="53" y="51" english="Tunnel of Terror" translation="" explanation=""/>
+    <roomname x="53" y="52" english="House of Mirrors" translation="" explanation=""/>
+    <roomname x="53" y="53" english="W" translation="" explanation=""/>
+    <roomname x="53" y="56" english="You&apos;re Falling Behind" translation="" explanation=""/>
+    <roomname x="54" y="48" english="VVVVVV" translation="" explanation=""/>
+    <roomname x="54" y="49" english="VVVVV" translation="" explanation=""/>
+    <roomname x="54" y="50" english="VVVV" translation="" explanation=""/>
+    <roomname x="54" y="51" english="VVV" translation="" explanation=""/>
+    <roomname x="54" y="52" english="VV" translation="" explanation=""/>
+    <roomname x="54" y="53" english="V" translation="" explanation=""/>
+    <roomname x="54" y="56" english="Class Dismissed!" translation="" explanation=""/>
 </roomnames>
