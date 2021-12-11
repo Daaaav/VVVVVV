@@ -88,6 +88,10 @@ public:
 
     void textboxpad(size_t left_pad, size_t right_pad);
 
+    void textboxpadtowidth(size_t new_w);
+
+    void textboxcentertext();
+
     void textboxadjust(void);
 
     void addline(const std::string& t);

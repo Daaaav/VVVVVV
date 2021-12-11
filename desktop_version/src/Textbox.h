@@ -28,6 +28,10 @@ public:
     void addline(const std::string& t);
 
     void pad(size_t left_pad, size_t right_pad);
+
+    void padtowidth(size_t new_w);
+
+    void centertext();
 public:
     //Fundamentals
     std::vector<std::string> lines;

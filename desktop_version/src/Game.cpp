@@ -655,8 +655,9 @@ void Game::crewmate_textbox(const int r, const int g, const int b)
 {
     graphics.createtextboxflipme("", -1, 64 + 8 + 16, r, g, b);
     graphics.addline("You have rescued");
-    graphics.addline(" a crew member! ");
+    graphics.addline("a crew member!");
     graphics.addline("");
+    graphics.textboxcentertext();
     graphics.textboxpad(5, 2);
     graphics.textboxcenterx();
 }
