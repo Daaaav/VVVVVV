@@ -3274,6 +3274,17 @@ void Graphics::textboxcentery(void)
     textboxes[m].centery();
 }
 
+void Graphics::textboxpad(size_t left_pad, size_t right_pad)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxpad() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].pad(left_pad, right_pad);
+}
+
 int Graphics::crewcolour(const int t)
 {
     //given crewmate t, return colour in setcol

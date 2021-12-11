@@ -113,3 +113,12 @@ void textboxclass::addline(const std::string& t)
     resize();
     if ((int) lines.size() >= 12) lines.clear();
 }
+
+void textboxclass::pad(size_t left_pad, size_t right_pad)
+{
+    for (size_t iter = 0; iter < lines.size(); iter++)
+    {
+        lines[iter] = std::string(left_pad, ' ') + lines[iter] + std::string(right_pad, ' ');
+    }
+    resize();
+}

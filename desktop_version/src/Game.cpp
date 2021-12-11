@@ -654,9 +654,10 @@ void Game::levelcomplete_textbox(void)
 void Game::crewmate_textbox(const int r, const int g, const int b)
 {
     graphics.createtextboxflipme("", -1, 64 + 8 + 16, r, g, b);
-    graphics.addline("     You have rescued  ");
-    graphics.addline("      a crew member!   ");
+    graphics.addline("You have rescued");
+    graphics.addline(" a crew member! ");
     graphics.addline("");
+    graphics.textboxpad(5, 2);
     graphics.textboxcenterx();
 }
 
@@ -667,30 +668,32 @@ void Game::remaining_textbox(void)
     char buffer[SCREEN_WIDTH_CHARS + 1];
     if (remaining == 1)
     {
-        string = "  One remains  ";
+        string = "One remains";
     }
     else if (remaining > 0)
     {
         SDL_snprintf(
             buffer,
             sizeof(buffer),
-            "  %s remain  ",
+            "%s remain",
             help.number_words(remaining).c_str()
         );
         string = buffer;
     }
     else
     {
-        string = "  All Crew Members Rescued!  ";
+        string = "All Crew Members Rescued!";
     }
 
     graphics.createtextboxflipme(string, -1, 128 + 16, 174, 174, 174);
+    graphics.textboxpad(2, 2);
     graphics.textboxcenterx();
 }
 
 void Game::actionprompt_textbox(void)
 {
-    graphics.createtextboxflipme(" Press ACTION to continue ", -1, 196, 164, 164, 255);
+    graphics.createtextboxflipme(loc::gettext("Press ACTION to continue"), -1, 196, 164, 164, 255);
+    graphics.textboxpad(1, 1);
     graphics.textboxcenterx();
 }
 

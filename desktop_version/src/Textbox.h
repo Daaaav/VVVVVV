@@ -26,6 +26,8 @@ public:
     void resize(void);
 
     void addline(const std::string& t);
+
+    void pad(size_t left_pad, size_t right_pad);
 public:
     //Fundamentals
     std::vector<std::string> lines;

@@ -353,6 +353,7 @@
     <string english="[Press ENTER to return to editor]" translation="[Druk op ENTER om terug te gaan]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press ACTION to advance text -" translation="- Druk op ACTIE om verder te gaan -" explanation="to dismiss a textbox" max="40"/>
     <string english="- Press %s to Teleport -" translation="" explanation="keyboard key (E or ENTER) is filled in for %s" max="40"/>
+    <string english="Press ACTION to continue" translation="Druk op ACTIE om verder te gaan" explanation="" max="34"/>
     <string english="Current Time" translation="Huidige tijd" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Beste tijd" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Volgende trofee bij 5 seconden" explanation="" max="38*2"/>

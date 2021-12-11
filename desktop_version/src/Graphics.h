@@ -86,6 +86,8 @@ public:
 
     void textboxcentery(void);
 
+    void textboxpad(size_t left_pad, size_t right_pad);
+
     void textboxadjust(void);
 
     void addline(const std::string& t);
