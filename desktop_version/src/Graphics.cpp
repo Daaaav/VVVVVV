@@ -1212,30 +1212,31 @@ void Graphics::drawgui(void)
                 drawimage(4, 0, 12, true);
             }
         }
+        int crew_xp = textboxes[i].xp+20 - 6;
         if (textboxes[i].r == 175 && textboxes[i].g == 175)
         {
             //purple guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textboxes[i].rand, 120- help.glow/4, 210 - help.glow/4);
+            drawsprite(crew_xp, crew_yp, crew_sprite, 220- help.glow/4 - textboxes[i].rand, 120- help.glow/4, 210 - help.glow/4);
         }
         else if (textboxes[i].r == 175 && textboxes[i].b == 175)
         {
             //red guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
+            drawsprite(crew_xp, crew_yp, crew_sprite, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
         }
         else if (textboxes[i].r == 175)
         {
             //green guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 120 - help.glow / 4 - textboxes[i].rand, 220 - help.glow / 4, 120 - help.glow / 4);
+            drawsprite(crew_xp, crew_yp, crew_sprite, 120 - help.glow / 4 - textboxes[i].rand, 220 - help.glow / 4, 120 - help.glow / 4);
         }
         else if (textboxes[i].g == 175)
         {
             //yellow guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textboxes[i].rand, 210 - help.glow/4, 120- help.glow/4);
+            drawsprite(crew_xp, crew_yp, crew_sprite, 220- help.glow/4 - textboxes[i].rand, 210 - help.glow/4, 120- help.glow/4);
         }
         else if (textboxes[i].b == 175)
         {
             //blue guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - textboxes[i].rand);
+            drawsprite(crew_xp, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - textboxes[i].rand);
         }
     }
 }
