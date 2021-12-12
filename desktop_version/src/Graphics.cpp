@@ -773,10 +773,10 @@ std::string Graphics::string_wordwrap(const std::string& s, int maxwidth, short 
     }
 }
 
-std::string Graphics::string_wordwrap_balanced(const std::string& s, int minwidth, int maxwidth)
+std::string Graphics::string_wordwrap_balanced(const std::string& s, int maxwidth)
 {
-    // Return a string wordwrapped to a limit between minwidth and maxwidth by adding newlines.
-    // Within these bounds, try to fill the lines as far as possible, and return result where lines are most filled.
+    // Return a string wordwrapped to a limit of maxwidth by adding newlines.
+    // Try to fill the lines as far as possible, and return result where lines are most filled.
     // Goal is to have all lines in textboxes be about as long and to avoid wrapping just one word to a new line.
     // CJK will need to have autowordwrap disabled and have manually inserted newlines.
 
@@ -785,51 +785,22 @@ std::string Graphics::string_wordwrap_balanced(const std::string& s, int minwidt
         return s;
     }
 
-    int bestwidth = maxwidth; // "Best" value for wordwrap maxwidth
-    double bestwidth_linefill = 0; // What fraction of the area of the "best" textbox is filled with text (0-1)
-    for (int curlimit = minwidth; curlimit <= maxwidth; curlimit += 8)
+    short lines;
+    string_wordwrap(s, maxwidth, &lines);
+
+    int bestwidth = maxwidth;
+    if (lines > 1)
     {
-        std::string curstring = string_wordwrap(s, curlimit);
-
-        // We need to know how much all the lines are filled, on average
-        int total_lines = 1;
-        double total_linefill = 0;
-
-        int line_len = 0;
-        bool dq = false;
-        std::string::iterator iter = curstring.begin();
-        uint32_t ch;
-        while (iter != curstring.end())
+        for (int curlimit = maxwidth; curlimit > 1; curlimit -= 8)
         {
-            ch = utf8::unchecked::next(iter);
-            if (ch == '\n')
+            short try_lines;
+            string_wordwrap(s, curlimit, &try_lines);
+
+            if (try_lines > lines)
             {
-                // If this line somehow overshoots our limit, the entire textbox is disqualified.
-                if (line_len > curlimit)
-                {
-                    dq = true;
-                    break;
-                }
-                total_lines++;
-                total_linefill += (double)line_len / curlimit;
-                line_len = 0;
+                bestwidth = curlimit + 8;
+                break;
             }
-            else
-            {
-                line_len += bfontlen(ch);
-            }
-        }
-        if (dq)
-        {
-            continue;
-        }
-        total_linefill += (double)line_len / curlimit;
-
-        double linefill = total_linefill / total_lines;
-        if (linefill >= bestwidth_linefill)
-        {
-            bestwidth = curlimit;
-            bestwidth_linefill = linefill;
         }
     }
 
