@@ -19,7 +19,7 @@ void textbook_clear(Textbook* textbook)
     textbook->pages_used = 0;
 }
 
-const char* textbook_store_raw(Textbook* textbook, const char* data, size_t data_len)
+const void* textbook_store_raw(Textbook* textbook, const void* data, size_t data_len)
 {
     short found_page = -1;
     short p;

@@ -292,12 +292,42 @@ namespace loc
 
                     if (SDL_strcmp(pSubKey, "dialogue") == 0)
                     {
-                        map_store_translation(
-                            &textbook_main,
-                            cutscene_map,
-                            subElem->Attribute("english"),
-                            subElem->Attribute("translation")
+                        const char* eng = subElem->Attribute("english");
+                        const char* tra = subElem->Attribute("translation");
+                        if (eng == NULL || tra == NULL)
+                        {
+                            continue;
+                        }
+                        const char* tb_eng = textbook_store(&textbook_main, eng);
+                        const char* tb_tra = textbook_store(&textbook_main, tra);
+                        if (tb_eng == NULL || tb_tra == NULL)
+                        {
+                            continue;
+                        }
+                        TextboxFormat format;
+                        format.text = tb_tra;
+                        format.tt = subElem->BoolAttribute("tt", false);
+                        format.centertext = subElem->BoolAttribute("centertext", false);
+                        format.pad_left = subElem->UnsignedAttribute("pad_left", 0);
+                        format.pad_right = subElem->UnsignedAttribute("pad_right", 0);
+                        unsigned short pad = subElem->UnsignedAttribute("pad", 0);
+                        format.pad_left += pad;
+                        format.pad_right += pad;
+                        format.wraplimit = subElem->UnsignedAttribute("wraplimit",
+                            36*8 - (format.pad_left+format.pad_right)*8
                         );
+                        format.padtowidth = subElem->UnsignedAttribute("padtowidth", 0);
+
+                        const TextboxFormat* tb_format = (TextboxFormat*) textbook_store_raw(
+                            &textbook_main,
+                            &format,
+                            sizeof(TextboxFormat)
+                        );
+                        if (tb_format == NULL)
+                        {
+                            continue;
+                        }
+                        hashmap_set(cutscene_map, (void*) tb_eng, SDL_strlen(tb_eng), (uintptr_t) tb_format);
                     }
                 }
             }

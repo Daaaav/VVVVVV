@@ -204,7 +204,31 @@ This file contains nearly all the cutscenes that appear in the main game. Each l
 
 The dialogues are automatically text-wrapped, except if automatic wrapping is disabled in meta.xml. In that case, the maximum line length is 36 8x8 characters (288 pixels) or 24 12x12 characters.
 
-TODO: certain specific ones aren't automatically wrapped
+You may find some additional formatting attributes on each <dialogue> tag. These are used to make spacing and formatting in translations consistent with the original English text (for example, centered text, padding on both sides, etc). You can change any of these if you need, and you can also add them yourself to ANY dialogue tag.
+
+* tt: teletype. if "1", disable automatic word wrapping, even if autowordwrap is enabled in meta.xml. You will have to add newlines manually for this textbox, either with hard enters, or with |
+
+* wraplimit: change the maximum width of the text before it wordwraps, in pixels. Only if tt is not enabled. Example:
+    [Hello world!]  --[wraplimit="56"]-->  [Hello ]   (56=7*8)
+                                           [world!]
+  If autowordwrap is disabled in meta.xml, this also doesn't work, but it does give you an advisory maximum text width.
+  The default is 288 (36*8 or 24*12).
+
+* centertext: center the text (but keep it aligned to the grid), for example:
+    [You have rescued]  --[centertext="1"]-->  [You have rescued]
+    [a crewmember!]                            [ a crewmember!  ]
+
+* pad: pad each line of text with a number of spaces (0 by default), for example:
+    [You have rescued]  --[pad="2"]-->  [  You have rescued  ]
+    [ a crewmember!  ]                  [   a crewmember!    ]
+  This will automatically make the wrap limit smaller accordingly, unless a custom wraplimit is given.
+
+* pad_left/pad_right: same as pad, but only affects the left or right side. For example:
+    [You have rescued]  --[ pad_left="5"]--\  [     You have rescued  ]
+    [ a crewmember!  ]  --[pad_right="2"]--/  [      a crewmember!    ]
+
+* padtowidth: pad the text on both sides if it's not this many pixels wide. For example:
+    [-= Personal Log =-]  --[padtowidth="224"]--> [     -= Personal Log =-     ]   (224=28*8)
 
 
 == roomnames.xml ==

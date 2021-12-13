@@ -89,11 +89,11 @@ namespace loc
         return number[ix];
     }
 
-    std::string gettext_cutscene(const std::string& script_id, const std::string& eng)
+    const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::string& eng)
     {
-        if (lang == "en" && !test_mode)
+        if (lang == "en")
         {
-            return eng;
+            return NULL;
         }
 
         uintptr_t ptr_cutscene_map;
@@ -102,10 +102,18 @@ namespace loc
 
         if (!found || cutscene_map == NULL)
         {
-            return eng;
+            return NULL;
         }
 
-        return std::string(map_lookup_text(cutscene_map, eng.c_str()));
+        uintptr_t ptr_format;
+        found = hashmap_get(cutscene_map, (void*) eng.c_str(), eng.size(), &ptr_format);
+        const TextboxFormat* format = (TextboxFormat*) ptr_format;
+
+        if (!found)
+        {
+            return NULL;
+        }
+        return format;
     }
 
     const char* get_roomname_explanation(int roomx, int roomy)

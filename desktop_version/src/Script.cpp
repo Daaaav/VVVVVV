@@ -36,6 +36,10 @@ scriptclass::scriptclass(void)
     textx = 0;
     texty = 0;
     textflipme = false;
+    textcentertext = false;
+    textpad_left = 0;
+    textpad_right = 0;
+    textpadtowidth = 0;
 }
 
 void scriptclass::clearcustom(void)
@@ -498,6 +502,11 @@ void scriptclass::run(void)
                     }
                 }
 
+                textcentertext = false;
+                textpad_left = 0;
+                textpad_right = 0;
+                textpadtowidth = 0;
+
                 translate_dialogue();
             }
             else if (words[0] == "position")
@@ -683,6 +692,20 @@ void scriptclass::run(void)
                     {
                         graphics.addline(txt[i]);
                     }
+                }
+
+                // Some textbox formatting that can be set by translations...
+                if (textcentertext)
+                {
+                    graphics.textboxcentertext();
+                }
+                if (textpad_left > 0 || textpad_right > 0)
+                {
+                    graphics.textboxpad(textpad_left, textpad_right);
+                }
+                if (textpadtowidth > 0)
+                {
+                    graphics.textboxpadtowidth(textpadtowidth);
                 }
 
                 //the textbox cannot be outside the screen. Fix if it is.
@@ -2380,7 +2403,35 @@ void scriptclass::translate_dialogue(void)
     }
 
     eng = graphics.string_unwordwrap(eng);
-    std::string tra = graphics.string_wordwrap_balanced(loc::gettext_cutscene(scriptname, eng), 36*8);
+    const loc::TextboxFormat* format = loc::gettext_cutscene(scriptname, eng);
+    if (format == NULL || format->text == NULL || format->text[0] == '\0')
+    {
+        return;
+    }
+    std::string tra;
+    if (format->tt)
+    {
+        tra = std::string(format->text);
+        size_t pipe;
+        while (true)
+        {
+            pipe = tra.find('|', 0);
+            if (pipe == std::string::npos)
+            {
+                break;
+            }
+            tra.replace(pipe, 1, "\n");
+        }
+    }
+    else
+    {
+        tra = graphics.string_wordwrap_balanced(format->text, format->wraplimit);
+    }
+
+    textcentertext = format->centertext;
+    textpad_left = format->pad_left;
+    textpad_right = format->pad_right;
+    textpadtowidth = format->padtowidth;
 
     txt.clear();
     size_t startline = 0;

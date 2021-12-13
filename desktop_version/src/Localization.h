@@ -19,6 +19,17 @@ namespace loc
         bool toupper_lower_escape_char; // = false; enable ~ to mark lowercase letters for uppercasing
     };
 
+    struct TextboxFormat
+    {
+        const char* text;
+        unsigned short wraplimit; // = 36*8-pad_left-pad_right; no effect if tt or !langmeta.autowordwrap
+        bool tt; // teletype, don't auto-wordwrap
+        bool centertext; // whether the text should be centered inside the box
+        unsigned char pad_left; // pad with X characters
+        unsigned char pad_right;
+        unsigned short padtowidth; // pad to X pixels (0 to disable)
+    };
+
     extern std::string lang;
     extern LangMeta langmeta;
     extern bool test_mode;
@@ -34,7 +45,7 @@ namespace loc
     const char* gettext_plural(const char* eng_plural, const char* eng_singular, int count);
     void gettext_plural_fill(char* buf, size_t buf_len, const char* eng_plural, const char* eng_singular, int count);
     std::string getnumber(int n);
-    std::string gettext_cutscene(const std::string& script_id, const std::string& eng);
+    const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::string& eng);
     const char* get_roomname_explanation(int roomx, int roomy);
     const char* get_roomname_translation(int roomx, int roomy);
     const char* gettext_roomname(int roomx, int roomy, const char* eng, bool special);

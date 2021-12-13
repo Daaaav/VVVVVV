@@ -65,6 +65,10 @@ public:
     int texty;
     int r,g,b;
     bool textflipme;
+    bool textcentertext;
+    size_t textpad_left;
+    size_t textpad_right;
+    size_t textpadtowidth;
 
     //Misc
     int i, j, k;

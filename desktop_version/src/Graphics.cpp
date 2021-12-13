@@ -596,6 +596,7 @@ bool Graphics::next_wrap(
             }
             break;
         case '\n':
+        case '|':
             *start += 1;
             VVV_fallthrough;
         case '\0':
