@@ -847,7 +847,7 @@ std::string Graphics::string_unwordwrap(const std::string& s)
             utf8::unchecked::append(ch, inserter);
         }
 
-        lastspace = (ch == ' ');
+        lastspace = (ch == ' ' || ch == '\n');
     }
 
     // We could have one trailing space

@@ -5,6 +5,7 @@
 #include <tinyxml2.h>
 
 #include "FileSystemUtils.h"
+#include "Graphics.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
@@ -298,7 +299,8 @@ namespace loc
                         {
                             continue;
                         }
-                        const char* tb_eng = textbook_store(&textbook_main, eng);
+                        const std::string eng_unwrapped = graphics.string_unwordwrap(eng);
+                        const char* tb_eng = textbook_store(&textbook_main, eng_unwrapped.c_str());
                         const char* tb_tra = textbook_store(&textbook_main, tra);
                         if (tb_eng == NULL || tb_tra == NULL)
                         {
