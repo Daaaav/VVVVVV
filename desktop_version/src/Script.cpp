@@ -40,6 +40,7 @@ scriptclass::scriptclass(void)
     textpad_left = 0;
     textpad_right = 0;
     textpadtowidth = 0;
+    textcase = 1;
 }
 
 void scriptclass::clearcustom(void)
@@ -2358,6 +2359,11 @@ void scriptclass::run(void)
                     }
                 }
             }
+            else if (words[0] == "textcase")
+            {
+                // Used to disambiguate identical textboxes for translations (1 by default)
+                textcase = ss_toi(words[1]);
+            }
 
             position++;
         }
@@ -2386,6 +2392,9 @@ void scriptclass::run(void)
 
 void scriptclass::translate_dialogue(void)
 {
+    char tc = textcase;
+    textcase = 1;
+
     if (!loc::is_cutscene_translated(scriptname))
     {
         return;
@@ -2403,7 +2412,7 @@ void scriptclass::translate_dialogue(void)
     }
 
     eng = graphics.string_unwordwrap(eng);
-    const loc::TextboxFormat* format = loc::gettext_cutscene(scriptname, eng);
+    const loc::TextboxFormat* format = loc::gettext_cutscene(scriptname, eng, tc);
     if (format == NULL || format->text == NULL || format->text[0] == '\0')
     {
         return;

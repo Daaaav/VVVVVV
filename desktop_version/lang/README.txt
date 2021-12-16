@@ -125,7 +125,7 @@ When translating the plural strings, you can add translations for every unique f
 
 === S T O R Y   A N D   C H A R A C T E R   I N F O R M A T I O N ===
 
-TODO: basic story information, crewmate names, ranks (Captain/Doctor/Professor/Officer/Chief), genders/pronouns (what if you're forced to specify Viridian's gender in another language), personalities, level of (in)formality between crewmates, relationships, who wrote these "personal logs" you can find on terminals...
+TODO: basic story information, crewmate names, ranks (Captain/Doctor/Professor/Officer/Chief), colors (and pink=purple in scripts), genders/pronouns (what if you're forced to specify Viridian's gender in another language), personalities, level of (in)formality between crewmates, relationships, the ship and why it's called "D.S.S. Souleye", who wrote these "personal logs" you can find on terminals...
 
 
 
@@ -203,6 +203,8 @@ For more information, see "NUMBERS AND PLURAL FORMS" above.
 This file contains nearly all the cutscenes that appear in the main game. Each line has a "speaker" attribute, which is not used by the game - it's just for translators to know who says what and to establish context.
 
 The dialogues are automatically text-wrapped, except if automatic wrapping is disabled in meta.xml. In that case, the maximum line length is 36 8x8 characters (288 pixels) or 24 12x12 characters.
+
+In the few cases where the same text appears multiple times in a cutscene, these have the attribute "case" added to them (for example case="1", case="2", etc), so they can be translated separately if needed. (These match up with textcase(x) commands in the scripts themselves)
 
 You may find some additional formatting attributes on each <dialogue> tag. These are used to make spacing and formatting in translations consistent with the original English text (for example, centered text, padding on both sides, etc). You can change any of these if you need, and you can also add them yourself to ANY dialogue tag.
 

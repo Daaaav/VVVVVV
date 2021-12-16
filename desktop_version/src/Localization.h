@@ -45,7 +45,7 @@ namespace loc
     const char* gettext_plural(const char* eng_plural, const char* eng_singular, int count);
     void gettext_plural_fill(char* buf, size_t buf_len, const char* eng_plural, const char* eng_singular, int count);
     std::string getnumber(int n);
-    const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::string& eng);
+    const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::string& eng, char textcase);
     const char* get_roomname_explanation(int roomx, int roomy);
     const char* get_roomname_translation(int roomx, int roomy);
     const char* gettext_roomname(int roomx, int roomy, const char* eng, bool special);

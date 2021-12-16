@@ -43,22 +43,21 @@ namespace loc
                 count = 101;
             }
 
-            size_t alloc_len = 1+SDL_strlen(eng_plural)+1;
-
-            char* key = (char*) SDL_malloc(alloc_len);
+            size_t alloc_len;
             char form = number_plural_form[count];
-            key[0] = form+1;
-            SDL_memcpy(&key[1], eng_plural, alloc_len-1);
-
-            uintptr_t ptr_tra;
-            bool found = hashmap_get(map_translation_plural, (void*) key, alloc_len-1, &ptr_tra);
-            const char* tra = (const char*) ptr_tra;
-
-            SDL_free(key);
-
-            if (found && tra != NULL && tra[0] != '\0')
+            char* key = add_disambiguator(form+1, eng_plural, &alloc_len);
+            if (key != NULL)
             {
-                return tra;
+                uintptr_t ptr_tra;
+                bool found = hashmap_get(map_translation_plural, (void*) key, alloc_len-1, &ptr_tra);
+                const char* tra = (const char*) ptr_tra;
+
+                SDL_free(key);
+
+                if (found && tra != NULL && tra[0] != '\0')
+                {
+                    return tra;
+                }
             }
         }
         return gettext_plural_english(eng_plural, eng_singular, count);
@@ -89,7 +88,7 @@ namespace loc
         return number[ix];
     }
 
-    const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::string& eng)
+    const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::string& eng, char textcase)
     {
         if (lang == "en")
         {
@@ -105,9 +104,18 @@ namespace loc
             return NULL;
         }
 
+        size_t alloc_len;
+        char* key = add_disambiguator(textcase, eng.c_str(), &alloc_len);
+        if (key == NULL)
+        {
+            return NULL;
+        }
+
         uintptr_t ptr_format;
-        found = hashmap_get(cutscene_map, (void*) eng.c_str(), eng.size(), &ptr_format);
+        found = hashmap_get(cutscene_map, (void*) key, alloc_len-1, &ptr_format);
         const TextboxFormat* format = (TextboxFormat*) ptr_format;
+
+        SDL_free(key);
 
         if (!found)
         {

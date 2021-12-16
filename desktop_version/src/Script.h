@@ -69,6 +69,7 @@ public:
     size_t textpad_left;
     size_t textpad_right;
     size_t textpadtowidth;
+    char textcase;
 
     //Misc
     int i, j, k;

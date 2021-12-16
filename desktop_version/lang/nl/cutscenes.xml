@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cutscenes>
     <cutscene id="intro" explanation="">
-        <dialogue speaker="cyan" english="Uh oh..." translation="O-o..."/>
+        <dialogue speaker="cyan" english="Uh oh..." translation="O jee..."/>
         <dialogue speaker="purple" english="Is everything ok?" translation="Is alles in orde?"/>
         <dialogue speaker="cyan" english="No! We&apos;ve hit some kind of interference..." translation="Nee! We hebben last van een soort interferentie..."/>
         <dialogue speaker="cyan" english="Something&apos;s wrong! We&apos;re going to crash!" translation="Er gaat iets fout! We gaan neerstorten!"/>
@@ -146,11 +146,11 @@
         <dialogue speaker="yellow" english="After you, Captain!" translation=""/>
     </cutscene>
     <cutscene id="int1blue_1" explanation="">
-        <dialogue speaker="blue" english="Waaaa!" translation=""/>
+        <dialogue speaker="blue" english="Waaaa!" translation="" case="1"/>
         <dialogue speaker="blue" english="Captain! Are you ok?" translation=""/>
         <dialogue speaker="player" english="I&apos;m ok... this... this isn&apos;t the ship..." translation=""/>
         <dialogue speaker="player" english="Where are we?" translation=""/>
-        <dialogue speaker="blue" english="Waaaa!" translation=""/>
+        <dialogue speaker="blue" english="Waaaa!" translation="" case="2"/>
         <dialogue speaker="player" english="Something&apos;s gone wrong... We should look for a way back!" translation=""/>
     </cutscene>
     <cutscene id="int1blue_2" explanation="">
@@ -661,11 +661,11 @@ READY _" translation=""/>
         <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation=""/>
         <dialogue speaker="cyan" english="I wonder if I can turn it off?" translation=""/>
         <dialogue speaker="gray" english="WARNING: Disabling the Dimensional Stability Generator may lead to instability! Are you sure you want to do this?" translation=""/>
-        <dialogue speaker="cyan" english="Yes!" translation=""/>
+        <dialogue speaker="cyan" english="Yes!" translation="Ja 1!" case="1"/>
         <dialogue speaker="gray" english="Seriously! The whole dimension could collapse! Just think about this for a minute!
 
-Are you really sure you want to do this?" translation=""/>
-        <dialogue speaker="cyan" english="Yes!" translation=""/>
+Are you really sure you want to do this?" translation="nee doe normaal"/>
+        <dialogue speaker="cyan" english="Yes!" translation="Ja 2!" case="2"/>
     </cutscene>
     <cutscene id="finalterminal_finish" explanation="">
         <dialogue speaker="gray" english="-= WARNING =-
@@ -678,11 +678,11 @@ Are you really sure you want to do this?" translation=""/>
     </cutscene>
     <cutscene id="gamecomplete_ending" explanation="">
         <dialogue speaker="player" english="Hello!" translation=""/>
-        <dialogue speaker="purple" english="Captain!" translation=""/>
-        <dialogue speaker="yellow" english="Captain!" translation=""/>
-        <dialogue speaker="red" english="Captain!" translation=""/>
-        <dialogue speaker="green" english="Captain!" translation=""/>
-        <dialogue speaker="blue" english="Captain!" translation=""/>
+        <dialogue speaker="purple" english="Captain!" translation="" case="1" pad_right="8"/>
+        <dialogue speaker="yellow" english="Captain!" translation="" case="2" pad_right="6"/>
+        <dialogue speaker="red" english="Captain!" translation="" case="3" pad_right="4"/>
+        <dialogue speaker="green" english="Captain!" translation="" case="4" pad_right="2"/>
+        <dialogue speaker="blue" english="Captain!" translation="" case="5"/>
         <dialogue speaker="blue" english="You&apos;re alright!" translation=""/>
         <dialogue speaker="blue" english="I knew you&apos;d be ok!" translation=""/>
         <dialogue speaker="purple" english="We were very worried when you didn&apos;t come back..." translation=""/>
@@ -724,12 +724,12 @@ Are you really sure you want to do this?" translation=""/>
         <dialogue speaker="blue" english="Oh no! We&apos;re trapped!" translation=""/>
         <dialogue speaker="yellow" english="Oh dear..." translation=""/>
         <dialogue speaker="player" english="Hmm... how should we get out of this?" translation=""/>
-        <dialogue speaker="player" english="COMBINE!" translation=""/>
-        <dialogue speaker="purple" english="COMBINE!" translation=""/>
-        <dialogue speaker="yellow" english="COMBINE!" translation=""/>
-        <dialogue speaker="red" english="COMBINE!" translation=""/>
-        <dialogue speaker="green" english="COMBINE!" translation=""/>
-        <dialogue speaker="blue" english="COMBINE!" translation=""/>
+        <dialogue speaker="player" english="COMBINE!" translation="" case="1"/>
+        <dialogue speaker="purple" english="COMBINE!" translation="" case="2"/>
+        <dialogue speaker="yellow" english="COMBINE!" translation="" case="3"/>
+        <dialogue speaker="red" english="COMBINE!" translation="" case="4"/>
+        <dialogue speaker="green" english="COMBINE!" translation="" case="5"/>
+        <dialogue speaker="blue" english="COMBINE!" translation="" case="6"/>
         <dialogue speaker="purple" english="Or, you know... we could have just warped back to the ship..." translation=""/>
         <dialogue speaker="green" english="Wow! What is this?" translation=""/>
         <dialogue speaker="yellow" english="It looks like another laboratory!" translation=""/>

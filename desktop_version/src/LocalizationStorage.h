@@ -54,6 +54,8 @@ namespace loc
     bool save_roomname_explanation_to_files(bool custom_level, int roomx, int roomy, const char* explanation);
 
     const char* map_lookup_text(hashmap* map, const char* eng);
+
+    char* add_disambiguator(char disambiguator, const char* original_string, size_t* ext_alloc_len);
 }
 
 #undef LS_INTERN

@@ -232,12 +232,12 @@ namespace loc
 
                     if (SDL_strcmp(pSubKey, "translation") == 0)
                     {
-                        size_t alloc_len = 1+SDL_strlen(eng_plural)+1;
-
-                        char* key = (char*) SDL_malloc(alloc_len);
                         char form = subElem->IntAttribute("form", 0);
-                        key[0] = form+1;
-                        SDL_memcpy(&key[1], eng_plural, alloc_len-1);
+                        char* key = add_disambiguator(form+1, eng_plural, NULL);
+                        if (key == NULL)
+                        {
+                            continue;
+                        }
 
                         map_store_translation(
                             &textbook_main,
@@ -300,8 +300,14 @@ namespace loc
                             continue;
                         }
                         const std::string eng_unwrapped = graphics.string_unwordwrap(eng);
-                        const char* tb_eng = textbook_store(&textbook_main, eng_unwrapped.c_str());
+                        char* eng_prefixed = add_disambiguator(subElem->UnsignedAttribute("case", 1), eng_unwrapped.c_str(), NULL);
+                        if (eng_prefixed == NULL)
+                        {
+                            continue;
+                        }
+                        const char* tb_eng = textbook_store(&textbook_main, eng_prefixed);
                         const char* tb_tra = textbook_store(&textbook_main, tra);
+                        SDL_free(eng_prefixed);
                         if (tb_eng == NULL || tb_tra == NULL)
                         {
                             continue;
@@ -697,5 +703,30 @@ namespace loc
         }
 
         return tra;
+    }
+
+    char* add_disambiguator(char disambiguator, const char* original_string, size_t* ext_alloc_len)
+    {
+        /* Create a version of the string prefixed with the given byte.
+         * This byte is used when the English string is just not enough to identify the correct translation.
+         * It's needed to store plural forms, and when the same text appears multiple times in a cutscene.
+         * Caller must SDL_free. */
+
+        size_t alloc_len = 1+SDL_strlen(original_string)+1;
+
+        char* alloc = (char*) SDL_malloc(alloc_len);
+        if (alloc == NULL)
+        {
+            return NULL;
+        }
+        alloc[0] = disambiguator;
+        SDL_memcpy(&alloc[1], original_string, alloc_len-1);
+
+        if (ext_alloc_len != NULL)
+        {
+            *ext_alloc_len = alloc_len;
+        }
+
+        return alloc;
     }
 }
