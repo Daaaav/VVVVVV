@@ -39,7 +39,7 @@
         <dialogue speaker="cyan" english="I probably don&apos;t really need it, but it might be nice to take it back to the ship to study..." translation="Waarschijnlijk heb ik het niet echt nodig, maar het kan een goed idee zijn om het mee terug te nemen naar het schip om het te bestuderen..."/>
     </cutscene>
     <cutscene id="newtrenchwarfare" explanation="">
-        <dialogue speaker="cyan" english="Oh! It&apos;s another one of those shiny things!" translation="O! Hier is nog zo'n glanzend ding!"/>
+        <dialogue speaker="cyan" english="Oh! It&apos;s another one of those shiny things!" translation="O! Hier is nog zo&apos;n glanzend ding!"/>
         <dialogue speaker="cyan" english="I probably don&apos;t really need it, but it might be nice to take it back to the ship to study..." translation="Waarschijnlijk heb ik het niet echt nodig, maar het kan een goed idee zijn om het mee terug te nemen naar het schip om het te bestuderen..."/>
     </cutscene>
     <cutscene id="teleporterback" explanation="">
@@ -66,7 +66,8 @@
         <dialogue speaker="player" english="Ok! Where do we start?" translation="Oké! Waar zullen we beginnen?"/>
         <dialogue speaker="purple" english="Well, I&apos;ve been trying to find them with the ship&apos;s scanners!" translation="Nou, ik heb ze geprobeerd te vinden met de scanners van het schip!"/>
         <dialogue speaker="purple" english="It&apos;s not working, but I did find something..." translation="Het wil niet lukken, maar ik heb wel iets gevonden..."/>
-        <dialogue speaker="purple" english="These points show up on our scans as having high energy patterns!" translation="Deze punten hebben patronen met veel energie in onze scans!"/> <!-- TODO deze punten komen naar voren? -->
+        <dialogue speaker="purple" english="These points show up on our scans as having high energy patterns!" translation="Deze punten hebben patronen met veel energie in onze scans!"/>
+        <!-- TODO deze punten komen naar voren? -->
         <dialogue speaker="purple" english="There&apos;s a good chance they&apos;re teleporters - which means they&apos;re probably built near something important..." translation="Het zou goed kunnen dat het teleporters zijn - wat zou betekenen dat ze waarschijnlijk in de buurt van iets belangrijks zijn gebouwd..."/>
         <dialogue speaker="purple" english="They could be a very good place to start looking." translation="Die zouden een goede plek kunnen zijn om te beginnen met zoeken."/>
         <dialogue speaker="player" english="Ok! I&apos;ll head out and see what I can find!" translation="Oké! Ik ga eropuit en ik zie wat ik kan vinden!"/>
@@ -653,11 +654,13 @@
     <cutscene id="terminal_finallevel" explanation="">
         <dialogue speaker="gray" english="* DIMENSIONAL STABILITY GENERATOR *
 
- [ Currently Generating ] Maximum Stability
+     [ Currently Generating ]
+        Maximum Stability
 
- [ Status ] Online
+            [ Status ]
+              Online
 
-READY _" translation=""/>
+READY _" translation="" tt="1"/>
         <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation=""/>
         <dialogue speaker="cyan" english="I wonder if I can turn it off?" translation=""/>
         <dialogue speaker="gray" english="WARNING: Disabling the Dimensional Stability Generator may lead to instability! Are you sure you want to do this?" translation=""/>
@@ -670,7 +673,7 @@ Are you really sure you want to do this?" translation="nee doe normaal"/>
     <cutscene id="finalterminal_finish" explanation="">
         <dialogue speaker="gray" english="-= WARNING =-
 
- DIMENSIONAL STABILISER OFFLINE" translation=""/>
+DIMENSIONAL STABILISER OFFLINE" translation="" centertext="1" pad="1"/>
         <dialogue speaker="cyan" english="Uh oh..." translation=""/>
     </cutscene>
     <cutscene id="gamecomplete" explanation="">
@@ -757,65 +760,73 @@ Are you really sure you want to do this?" translation="nee doe normaal"/>
     <cutscene id="terminal_jukebox" explanation="">
         <dialogue speaker="gray" english="-= JUKEBOX =-
 
- Songs will continue to play until you leave the ship.
+Songs will continue to play until you leave the ship.
 
- Collect trinkets to unlock new songs!" translation=""/>
+Collect trinkets to unlock new songs!" translation="" centertext="1" padtowidth="264"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock1" explanation="">
-        <dialogue speaker="gray" english="NEXT UNLOCK: 5 Trinkets
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+5 Trinkets
 
- Pushing Onwards" translation=""/>
+Pushing Onwards" translation="" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock2" explanation="">
-        <dialogue speaker="gray" english="NEXT UNLOCK: 8 Trinkets
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+8 Trinkets
 
- Positive Force" translation=""/>
+Positive Force" translation="" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock3" explanation="">
-        <dialogue speaker="gray" english="NEXT UNLOCK: 10 Trinkets
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+10 Trinkets
 
- Presenting VVVVVV" translation=""/>
+Presenting VVVVVV" translation="" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock4" explanation="">
-        <dialogue speaker="gray" english="NEXT UNLOCK: 12 Trinkets
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+12 Trinkets
 
- Potential for Anything" translation=""/>
+Potential for Anything" translation="" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock41" explanation="">
-        <dialogue speaker="gray" english="NEXT UNLOCK: 14 Trinkets
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+14 Trinkets
 
- Pressure Cooker" translation=""/>
+Pressure Cooker" translation="" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock5" explanation="">
-        <dialogue speaker="gray" english="NEXT UNLOCK: 16 Trinkets
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+16 Trinkets
 
- Predestined Fate" translation=""/>
+Predestined Fate" translation="" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock6" explanation="">
-        <dialogue speaker="gray" english="NEXT UNLOCK: 18 Trinkets
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+18 Trinkets
 
- Popular Potpourri" translation=""/>
+Popular Potpourri" translation="" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock7" explanation="">
-        <dialogue speaker="gray" english="NEXT UNLOCK: 20 Trinkets
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+20 Trinkets
 
- Pipe Dream" translation=""/>
+Pipe Dream" translation="" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_1" explanation="">
-        <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation=""/>
-        <dialogue speaker="gray" english="Almost everyone has been evacuated from the space station now. The rest of us are leaving in a couple of days, once our research has been completed." translation=""/>
+        <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="" padtowidth="280"/>
+        <dialogue speaker="gray" english="Almost everyone has been evacuated from the space station now. The rest of us are leaving in a couple of days, once our research has been completed." translation="" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_2" explanation="">
-        <dialogue speaker="gray" english="-= Research Notes =-" translation=""/>
-        <dialogue speaker="gray" english="...everything collapses, eventually. It&apos;s the way of the universe." translation=""/>
+        <dialogue speaker="gray" english="-= Research Notes =-" translation="" padtowidth="264"/>
+        <dialogue speaker="gray" english="...everything collapses, eventually. It&apos;s the way of the universe." translation="" centertext="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_3" explanation="">
         <dialogue speaker="gray" english="I wonder if the generator we set up in the polar dimension is what&apos;s affecting our teleporters?" translation=""/>
         <dialogue speaker="gray" english="No, it&apos;s probably just a glitch." translation=""/>
     </cutscene>
     <cutscene id="terminal_station_4" explanation="">
-        <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation=""/>
-        <dialogue speaker="gray" english="Hah! Nobody will ever get this one." translation=""/>
+        <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="" padtowidth="280"/>
+        <dialogue speaker="gray" english="Hah! Nobody will ever get this one." translation="" pad="1"/>
     </cutscene>
     <cutscene id="terminal_warp_1" explanation="">
         <dialogue speaker="gray" english="...The other day I was chased down a hallway by a giant cube with the word AVOID on it." translation=""/>
@@ -826,28 +837,28 @@ Are you really sure you want to do this?" translation="nee doe normaal"/>
         <dialogue speaker="gray" english="I&apos;ve made sure that it&apos;s difficult for unauthorised personnel to gain access." translation=""/>
     </cutscene>
     <cutscene id="terminal_outside_1" explanation="">
-        <dialogue speaker="gray" english="-= Research Notes =-" translation=""/>
-        <dialogue speaker="gray" english="... our first breakthrough was the creation of the inversion plane, which creates a mirrored dimension beyond a given event horizon ..." translation=""/>
+        <dialogue speaker="gray" english="-= Research Notes =-" translation="" padtowidth="264"/>
+        <dialogue speaker="gray" english="... our first breakthrough was the creation of the inversion plane, which creates a mirrored dimension beyond a given event horizon ..." translation="" pad="1"/>
     </cutscene>
     <cutscene id="terminal_outside_2" explanation="">
-        <dialogue speaker="gray" english="-= Research Notes =-" translation=""/>
+        <dialogue speaker="gray" english="-= Research Notes =-" translation="" padtowidth="264"/>
         <dialogue speaker="gray" english="...with just a small modification to the usual parameters, we were able to stabilise an infinite tunnel!" translation=""/>
     </cutscene>
     <cutscene id="terminal_outside_3" explanation="">
-        <dialogue speaker="gray" english="-= Research Notes =-" translation=""/>
-        <dialogue speaker="gray" english="... the final step in creating the dimensional stabiliser was to create a feedback loop ..." translation=""/>
+        <dialogue speaker="gray" english="-= Research Notes =-" translation="" padtowidth="264"/>
+        <dialogue speaker="gray" english="... the final step in creating the dimensional stabiliser was to create a feedback loop ..." translation="" pad="1"/>
     </cutscene>
     <cutscene id="terminal_outside_4" explanation="">
-        <dialogue speaker="gray" english="-= Research Notes =-" translation=""/>
-        <dialogue speaker="gray" english="...despite our best efforts, the dimensional stabiliser won&apos;t hold out forever. Its collapse is inevitable..." translation=""/>
+        <dialogue speaker="gray" english="-= Research Notes =-" translation="" padtowidth="264"/>
+        <dialogue speaker="gray" english="...despite our best efforts, the dimensional stabiliser won&apos;t hold out forever. Its collapse is inevitable..." translation="" pad="1"/>
         <dialogue speaker="cyan" english="Huh? These coordinates aren&apos;t even in this dimension!" translation=""/>
     </cutscene>
     <cutscene id="terminal_outside_5" explanation="">
-        <dialogue speaker="gray" english="-= Personal Log =-" translation=""/>
-        <dialogue speaker="gray" english="... I&apos;ve had to seal off access to most of our research. Who knows what could happen if it fell into the wrong hands? ..." translation=""/>
+        <dialogue speaker="gray" english="-= Personal Log =-" translation="" padtowidth="232"/>
+        <dialogue speaker="gray" english="... I&apos;ve had to seal off access to most of our research. Who knows what could happen if it fell into the wrong hands? ..." translation="" centertext="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_outside_6" explanation="">
-        <dialogue speaker="gray" english="-= Research Notes =-" translation=""/>
+        <dialogue speaker="gray" english="-= Research Notes =-" translation="" padtowidth="264"/>
         <dialogue speaker="gray" english="... access to the control center is still possible through the main atmospheric filters ..." translation=""/>
     </cutscene>
     <cutscene id="terminal_lab_1" explanation="">
@@ -856,7 +867,7 @@ Are you really sure you want to do this?" translation="nee doe normaal"/>
         <dialogue speaker="gray" english="I&apos;ve been working on something more permanent, but it seems it&apos;s going to be too late..." translation=""/>
     </cutscene>
     <cutscene id="terminal_lab_2" explanation="">
-        <dialogue speaker="gray" english="?SYNTAX ERROR" translation=""/>
+        <dialogue speaker="gray" english="?SYNTAX  ERROR" translation=""/>
     </cutscene>
     <cutscene id="terminal_letsgo" explanation="">
         <dialogue speaker="player" english="Now that the ship is fixed, we can leave anytime we want!" translation=""/>
@@ -866,18 +877,19 @@ Are you really sure you want to do this?" translation="nee doe normaal"/>
     <cutscene id="terminal_radio" explanation="">
         <dialogue speaker="gray" english="-= SHIP RADIO =-
 
- [ Status ] Broadcasting" translation=""/>
+[ Status ]
+Broadcasting" translation="" tt="1" centertext="1" pad="2"/>
     </cutscene>
     <cutscene id="terminal_secretlab" explanation="">
         <dialogue speaker="gray" english="-= WARNING =-
 
- The Super-Gravitron is intended for entertainment purposes only." translation=""/>
+The Super-Gravitron is intended for entertainment purposes only." translation="" centertext="1" pad="1"/>
         <dialogue speaker="gray" english="Anyone found using the Super Gravitron for educational purposes may be asked to stand in the naughty corner." translation=""/>
     </cutscene>
     <cutscene id="terminal_shipcomputer" explanation="">
         <dialogue speaker="gray" english="-= D.S.S. SOULEYE =-
 
- Ship Navigation Controls" translation=""/>
+Ship Navigation Controls" translation="" centertext="1" pad="1"/>
         <dialogue speaker="gray" english="Error! Error! Cannot isolate dimensional coordinates! Interference detected!" translation=""/>
     </cutscene>
     <cutscene id="alreadyvisited" explanation="">
