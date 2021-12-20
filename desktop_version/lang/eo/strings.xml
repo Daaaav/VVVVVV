@@ -353,7 +353,7 @@
     <string english="[Press ENTER to return to editor]" translation="[Premu ENTER por reveni al redaktilo]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press ACTION to advance text -" translation="- Premu AGBUTONON por daŭrigi -" explanation="to dismiss a textbox" max="40"/>
     <string english="- Press %s to Teleport -" translation="- Premu %s por teleportiĝi -" explanation="keyboard key (E or ENTER) is filled in for %s" max="40"/>
-    <string english="Press ACTION to continue" translation="" explanation="" max="34"/>
+    <string english="Press ACTION to continue" translation="Premu AGBUTONON por daŭrigi" explanation="" max="34"/>
     <string english="Current Time" translation="Nuna tempo" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Plej bona tempo" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Sekva trofeo je 5 sekundoj" explanation="" max="38*2"/>
