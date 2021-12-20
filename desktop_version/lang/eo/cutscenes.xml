@@ -866,7 +866,7 @@ Pipe Dream" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_4" explanation="">
         <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= PRIVATA PROTOKOLO =-" padtowidth="280"/>
-        <dialogue speaker="gray" english="Hah! Nobody will ever get this one." translation="Ĥa! Neniu neniam atingos tiun ĉi." pad="1"/>
+        <dialogue speaker="gray" english="Hah! Nobody will ever get this one." translation="Ĥa! Neniu iam ajn atingos tiun ĉi." pad="1"/>
     </cutscene>
     <cutscene id="terminal_warp_1" explanation="">
         <dialogue speaker="gray" english="...The other day I was chased down a hallway by a giant cube with the word AVOID on it." translation="...Lastfoje mi ĉasiĝis laŭ koridoro de giganta kubo, kiu surhavis la vorton EVITU."/>
