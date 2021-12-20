@@ -10,15 +10,19 @@
 -->
 <strings_plural>
     <string english_plural="You rescued %s crewmates" english_singular="You rescued %s crewmate" explanation="These two strings are displayed underneath each other (1/2)" max="40">
-        <translation form="0" translation=""/>
+        <translation form="0" translation="Vi savis %s ŝipanojn"/>
+        <translation form="1" translation="Vi savis %s ŝipanon"/>
     </string>
     <string english_plural="and found %s trinkets." english_singular="and found %s trinket." explanation="These two strings are displayed underneath each other (2/2)" max="40">
-        <translation form="0" translation=""/>
+        <translation form="0" translation="kaj trovis %s kolektaĵojn."/>
+        <translation form="1" translation="kaj trovis %s kolektaĵon."/>
     </string>
     <string english_plural="And you found %s trinkets." english_singular="And you found %s trinket." explanation="You rescued all the crewmates! And you found XX trinket(s)." max="38*3">
-        <translation form="0" translation=""/>
+        <translation form="0" translation="Kaj vi trovis %s kolektaĵojn."/>
+        <translation form="1" translation="Kaj vi trovis %s kolektaĵon."/>
     </string>
     <string english_plural="%s crewmates remain" english_singular="%s crewmate remains" explanation="" max="40">
-        <translation form="0" translation=""/>
+        <translation form="0" translation="%s ŝipanoj restas"/>
+        <translation form="1" translation="%s ŝipano restas"/>
     </string>
 </strings_plural>
