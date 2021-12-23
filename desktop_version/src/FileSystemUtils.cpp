@@ -309,6 +309,14 @@ bool FILESYSTEM_restoreWriteDir(void)
 
 bool FILESYSTEM_setLangWriteDir(void)
 {
+    const char* realLangDir = PHYSFS_getRealDir("lang");
+    if (realLangDir == NULL || SDL_strcmp(mainLangDir, realLangDir) != 0)
+    {
+        vlog_error("Not setting language write dir: %s overrules %s when loading",
+            realLangDir, mainLangDir
+        );
+        return false;
+    }
     if (!PHYSFS_setWriteDir(mainLangDir))
     {
         FILESYSTEM_restoreWriteDir();
