@@ -624,11 +624,15 @@ namespace loc
                     {
                         continue;
                     }
-                    const RoomProperty* const room = cl.getroomprop(x, y);
-                    if (SDL_strcmp(original_roomname, room->roomname.c_str()) != 0)
-                    {
+                    #if !defined(NO_CUSTOM_LEVELS)
+                        const RoomProperty* const room = cl.getroomprop(x, y);
+                        if (SDL_strcmp(original_roomname, room->roomname.c_str()) != 0)
+                        {
+                            continue;
+                        }
+                    #else
                         continue;
-                    }
+                    #endif
 
                     n_untranslated_roomnames_custom++;
                     n_unexplained_roomnames_custom++;
