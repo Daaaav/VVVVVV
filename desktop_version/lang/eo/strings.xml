@@ -11,7 +11,7 @@
     <string english="levels" translation="niveloj" explanation="main menu option"/>
     <string english="options" translation="agordoj" explanation="main menu option"/>
     <string english="translator" translation="tradukadaj iloj" explanation="main menu option"/>
-    <string english="credits" translation="kreditoj" explanation="main menu option"/>
+    <string english="credits" translation="agnoskoj" explanation="main menu option"/>
     <string english="quit" translation="eliri" explanation="main menu option"/>
     <string english="gameplay" translation="ludado" explanation="options menu option"/>
     <string english="Gameplay Options" translation="Agordoj de ludado" explanation="title" max="20"/>
