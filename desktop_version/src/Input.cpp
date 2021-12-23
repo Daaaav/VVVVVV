@@ -1054,9 +1054,9 @@ static void menuactionpress(void)
             {
                 loc::lang = loc::languagelist[game.currentmenuoption].code;
                 loc::loadtext();
-                game.savestats();
-                map.nexttowercolour();
                 game.returnmenu();
+                map.nexttowercolour();
+                game.savestatsandsettings_menu();
             }
         }
         else

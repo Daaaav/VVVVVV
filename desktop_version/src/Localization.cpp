@@ -19,6 +19,8 @@ namespace loc
 
     int n_untranslated_roomnames = 0;
     int n_unexplained_roomnames = 0;
+    int n_untranslated_roomnames_custom = 0;
+    int n_unexplained_roomnames_custom = 0;
 
     const char* gettext(const char* eng)
     {
@@ -88,15 +90,33 @@ namespace loc
         return number[ix];
     }
 
+    bool is_script_custom(const char* script_id)
+    {
+        return SDL_strncmp(script_id, "custom_", 7) == 0;
+    }
+
     const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::string& eng, char textcase)
     {
-        if (lang == "en")
+        hashmap* map;
+        const char* map_script_key;
+        if (is_script_custom(script_id.c_str()))
         {
-            return NULL;
+            map = map_translation_cutscene_custom;
+            map_script_key = &script_id.c_str()[7];
+        }
+        else
+        {
+            if (lang == "en")
+            {
+                return NULL;
+            }
+
+            map = map_translation_cutscene;
+            map_script_key = script_id.c_str();
         }
 
         uintptr_t ptr_cutscene_map;
-        bool found = hashmap_get(map_translation_cutscene, (void*) script_id.c_str(), script_id.size(), &ptr_cutscene_map);
+        bool found = hashmap_get(map, (void*) map_script_key, SDL_strlen(map_script_key), &ptr_cutscene_map);
         hashmap* cutscene_map = (hashmap*) ptr_cutscene_map;
 
         if (!found || cutscene_map == NULL)
@@ -124,16 +144,24 @@ namespace loc
         return format;
     }
 
-    const char* get_roomname_explanation(int roomx, int roomy)
+    const char* get_roomname_explanation(bool custom_level, int roomx, int roomy)
     {
         /* Never returns NULL. */
 
-        if (!fix_room_coords(&roomx, &roomy))
+        if (!fix_room_coords(custom_level, &roomx, &roomy))
         {
             return "";
         }
 
-        const char* explanation = explanation_roomnames[roomy][roomx];
+        const char* explanation;
+        if (custom_level)
+        {
+            explanation = explanation_roomnames_custom[roomy][roomx];
+        }
+        else
+        {
+            explanation = explanation_roomnames[roomy][roomx];
+        }
         if (explanation == NULL)
         {
             return "";
@@ -141,18 +169,27 @@ namespace loc
         return explanation;
     }
 
-    const char* get_roomname_translation(int roomx, int roomy)
+    const char* get_roomname_translation(bool custom_level, int roomx, int roomy)
     {
         /* Only looks for the translation, doesn't return English fallback.
          * Never returns NULL.
          * Also used for room name translation mode. */
 
-        if (!fix_room_coords(&roomx, &roomy))
+        if (!fix_room_coords(custom_level, &roomx, &roomy))
         {
             return "";
         }
 
-        const char* tra = translation_roomnames[roomy][roomx];
+        const char* tra;
+        if (custom_level)
+        {
+            tra = translation_roomnames_custom[roomy][roomx];
+        }
+        else
+        {
+            tra = translation_roomnames[roomy][roomx];
+        }
+
         if (tra == NULL)
         {
             return "";
@@ -160,7 +197,7 @@ namespace loc
         return tra;
     }
 
-    const char* gettext_roomname(int roomx, int roomy, const char* eng, bool special)
+    const char* gettext_roomname(bool custom_level, int roomx, int roomy, const char* eng, bool special)
     {
         if (lang == "en")
         {
@@ -172,7 +209,7 @@ namespace loc
             return gettext_roomname_special(eng);
         }
 
-        const char* tra = get_roomname_translation(roomx, roomy);
+        const char* tra = get_roomname_translation(custom_level, roomx, roomy);
         if (tra[0] == '\0')
         {
             return eng;
@@ -187,13 +224,26 @@ namespace loc
 
     bool is_cutscene_translated(const std::string& script_id)
     {
-        if (lang == "en")
+        hashmap* map;
+        const char* map_script_key;
+        if (is_script_custom(script_id.c_str()))
         {
-            return false;
+            map = map_translation_cutscene_custom;
+            map_script_key = &script_id.c_str()[7];
+        }
+        else
+        {
+            if (lang == "en")
+            {
+                return false;
+            }
+
+            map = map_translation_cutscene;
+            map_script_key = script_id.c_str();
         }
 
         uintptr_t ptr_unused;
-        return hashmap_get(map_translation_cutscene, (void*) script_id.c_str(), script_id.size(), &ptr_unused);
+        return hashmap_get(map, (void*) map_script_key, SDL_strlen(map_script_key), &ptr_unused);
     }
 
     uint32_t toupper(uint32_t ch)

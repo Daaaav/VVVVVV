@@ -44,6 +44,7 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename);
 
 bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc, bool sync = true);
 bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc);
+bool FILESYSTEM_loadAssetTiXml2Document(const char *name, tinyxml2::XMLDocument& doc);
 
 void FILESYSTEM_enumerateLevelDirFileNames(void (*callback)(const char* filename));
 

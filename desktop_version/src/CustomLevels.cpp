@@ -18,6 +18,7 @@
 #include "GraphicsUtil.h"
 #include "KeyPoll.h"
 #include "Localization.h"
+#include "LocalizationStorage.h"
 #include "Map.h"
 #include "Script.h"
 #include "UtilityClass.h"
@@ -1275,6 +1276,8 @@ next:
 #ifndef NO_EDITOR
     ed.gethooks();
 #endif
+
+    loc::loadtext_custom(_path.c_str());
 
     version=2;
 

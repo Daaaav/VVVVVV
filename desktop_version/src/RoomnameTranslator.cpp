@@ -113,7 +113,17 @@ namespace roomname_translator
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
 
-        SDL_snprintf(buffer, sizeof(buffer), "%3d left", expl_mode ? loc::n_unexplained_roomnames : loc::n_untranslated_roomnames);
+        int n_left;
+        if (expl_mode)
+        {
+            n_left = map.custommode ? loc::n_unexplained_roomnames_custom : loc::n_unexplained_roomnames;
+        }
+        else
+        {
+            n_left = map.custommode ? loc::n_untranslated_roomnames_custom : loc::n_untranslated_roomnames;
+        }
+
+        SDL_snprintf(buffer, sizeof(buffer), "%3d left", n_left);
         graphics.bprint(144, 0, buffer, 255,255,255);
 
         if (map.invincibility)
@@ -142,7 +152,7 @@ namespace roomname_translator
         else if (!expl_mode)
         {
             // Name mode affects play mode a bit as well...
-            bool roomname_is_translated = loc::get_roomname_translation(game.roomx, game.roomy)[0] != '\0';
+            bool roomname_is_translated = loc::get_roomname_translation(map.custommode, game.roomx, game.roomy)[0] != '\0';
 
             if (edit_mode)
             {
@@ -157,7 +167,7 @@ namespace roomname_translator
                 }
                 graphics.bprint(-1, 221, english_roomname, 0,192,255, true);
 
-                print_explanation(loc::get_roomname_explanation(game.roomx, game.roomy));
+                print_explanation(loc::get_roomname_explanation(map.custommode, game.roomx, game.roomy));
 
                 if (key.textentry())
                 {
@@ -182,7 +192,7 @@ namespace roomname_translator
         else
         {
             // Explanation mode!
-            const char* explanation = loc::get_roomname_explanation(game.roomx, game.roomy);
+            const char* explanation = loc::get_roomname_explanation(map.custommode, game.roomx, game.roomy);
             if (explanation[0] == '\0')
             {
                 *roomname_r = 64;
@@ -384,17 +394,17 @@ namespace roomname_translator
                 key.enabletextentry();
                 if (!expl_mode)
                 {
-                    key.keybuffer = loc::get_roomname_translation(game.roomx, game.roomy);
+                    key.keybuffer = loc::get_roomname_translation(map.custommode, game.roomx, game.roomy);
                 }
                 else
                 {
-                    key.keybuffer = loc::get_roomname_explanation(game.roomx, game.roomy);
+                    key.keybuffer = loc::get_roomname_explanation(map.custommode, game.roomx, game.roomy);
                 }
             }
 
             if (expl_mode && key_pressed_once(SDLK_PERIOD, &held_period))
             {
-                const char* old_explanation = loc::get_roomname_explanation(game.roomx, game.roomy);
+                const char* old_explanation = loc::get_roomname_explanation(map.custommode, game.roomx, game.roomy);
                 const char* new_explanation = NULL;
                 const char* success_message;
                 if (old_explanation[0] == '\0')

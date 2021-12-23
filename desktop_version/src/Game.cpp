@@ -16,6 +16,7 @@
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "Localization.h"
+#include "LocalizationStorage.h"
 #include "KeyPoll.h"
 #include "MakeAndPlay.h"
 #include "Map.h"
@@ -3951,7 +3952,7 @@ void Game::gethardestroom(void)
     if (currentroomdeaths > hardestroomdeaths)
     {
         hardestroomdeaths = currentroomdeaths;
-        hardestroom = loc::gettext_roomname(roomx, roomy, map.roomname, map.roomname_special);
+        hardestroom = loc::gettext_roomname(map.custommode, roomx, roomy, map.roomname, map.roomname_special);
         if (SDL_strcmp(map.roomname, "glitch") == 0)
         {
             if (roomx == 42 && roomy == 51)
@@ -6757,6 +6758,7 @@ void Game::quittomenu(void)
     gamestate = TITLEMODE;
     graphics.fademode = 4;
     FILESYSTEM_unmountAssets();
+    loc::unloadtext_custom();
     cliplaytest = false;
     graphics.titlebg.tdrawback = true;
     graphics.flipmode = false;

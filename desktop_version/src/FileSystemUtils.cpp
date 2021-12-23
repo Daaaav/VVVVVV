@@ -1071,6 +1071,20 @@ bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
     return true;
 }
 
+bool FILESYSTEM_loadAssetTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
+{
+    /* Same as FILESYSTEM_loadTiXml2Document except for possible custom assets */
+    unsigned char *mem;
+    FILESYSTEM_loadAssetToMemory(name, &mem, NULL, true);
+    if (mem == NULL)
+    {
+        return false;
+    }
+    doc.Parse((const char*) mem);
+    FILESYSTEM_freeMemory(&mem);
+    return true;
+}
+
 struct CallbackWrapper
 {
     void (*callback)(const char* filename);

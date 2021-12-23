@@ -39,6 +39,8 @@ namespace loc
 
     extern int n_untranslated_roomnames;
     extern int n_unexplained_roomnames;
+    extern int n_untranslated_roomnames_custom;
+    extern int n_unexplained_roomnames_custom;
 
 
     const char* gettext(const char* eng);
@@ -46,9 +48,9 @@ namespace loc
     void gettext_plural_fill(char* buf, size_t buf_len, const char* eng_plural, const char* eng_singular, int count);
     std::string getnumber(int n);
     const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::string& eng, char textcase);
-    const char* get_roomname_explanation(int roomx, int roomy);
-    const char* get_roomname_translation(int roomx, int roomy);
-    const char* gettext_roomname(int roomx, int roomy, const char* eng, bool special);
+    const char* get_roomname_explanation(bool custom_level, int roomx, int roomy);
+    const char* get_roomname_translation(bool custom_level, int roomx, int roomy);
+    const char* gettext_roomname(bool custom_level, int roomx, int roomy, const char* eng, bool special);
     const char* gettext_roomname_special(const char* eng);
 
     bool is_cutscene_translated(const std::string& script_id);

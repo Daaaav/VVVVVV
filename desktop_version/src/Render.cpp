@@ -1806,11 +1806,11 @@ void gamerender(void)
         const char* translated_roomname;
         if (map.finalmode)
         {
-            translated_roomname = loc::gettext_roomname(game.roomx, game.roomy, map.glitchname, map.roomname_special);
+            translated_roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.glitchname, map.roomname_special);
         }
         else
         {
-            translated_roomname = loc::gettext_roomname(game.roomx, game.roomy, map.roomname, map.roomname_special);
+            translated_roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
         }
 
         graphics.render_roomname(translated_roomname, roomname_r, roomname_g, roomname_b);
@@ -2111,11 +2111,11 @@ void maprender(void)
     {
         if (map.finalmode)
         {
-            translated_roomname = loc::gettext_roomname(game.roomx, game.roomy, map.glitchname, map.roomname_special);
+            translated_roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.glitchname, map.roomname_special);
         }
         else
         {
-            translated_roomname = loc::gettext_roomname(game.roomx, game.roomy, map.roomname, map.roomname_special);
+            translated_roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
         }
     }
     graphics.Print(5, 2, translated_roomname, 196, 196, 255 - help.glow, true);
@@ -2810,7 +2810,7 @@ void teleporterrender(void)
     }
     else
     {
-        translated_roomname = loc::gettext_roomname(game.roomx, game.roomy, map.roomname, map.roomname_special);
+        translated_roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
     }
     graphics.Print(5, 2, translated_roomname, 196, 196, 255 - help.glow, true);
 
