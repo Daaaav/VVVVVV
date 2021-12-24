@@ -31,6 +31,7 @@ namespace loc
     };
 
     extern std::string lang;
+    extern std::string lang_custom;
     extern LangMeta langmeta;
     extern bool test_mode;
     extern std::vector<LangMeta> languagelist;

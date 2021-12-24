@@ -13,6 +13,7 @@
 #include "Graphics.h"
 #include "KeyPoll.h"
 #include "Localization.h"
+#include "LocalizationStorage.h"
 #include "Map.h"
 #include "Music.h"
 #include "UtilityClass.h"
@@ -2364,6 +2365,22 @@ void scriptclass::run(void)
                 // Used to disambiguate identical textboxes for translations (1 by default)
                 textcase = ss_toi(words[1]);
             }
+            else if (words[0] == "loadtext")
+            {
+                if (map.custommode)
+                {
+                    loc::lang_custom = words[1];
+                    loc::loadtext_custom(NULL);
+                }
+            }
+            else if (words[0] == "iflang")
+            {
+                if (loc::lang == words[1])
+                {
+                    load("custom_"+words[2]);
+                    position--;
+                }
+            }
 
             position++;
         }
@@ -3576,6 +3593,12 @@ void scriptclass::loadcustom(const std::string& t)
         }else if(words[0] == "iftrinketsless"){
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add("custom"+lines[i]);
+        }else if(words[0] == "iflang"){
+            if(customtextmode==1){ add("endtext"); customtextmode=0;}
+            add(lines[i]);
+        }else if(words[0] == "loadtext"){
+            if(customtextmode==1){ add("endtext"); customtextmode=0;}
+            add(lines[i]);
         }else if(words[0] == "destroy"){
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add(lines[i]);

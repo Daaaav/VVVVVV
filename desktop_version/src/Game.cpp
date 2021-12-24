@@ -5219,6 +5219,14 @@ void Game::customloadquick(const std::string& savfile)
                 music.play(song);
             }
         }
+        else if (SDL_strcmp(pKey, "lang_custom") == 0)
+        {
+            loc::lang_custom = pText;
+            if (pText[0] != '\0')
+            {
+                loc::loadtext_custom(NULL);
+            }
+        }
         else if (SDL_strcmp(pKey, "showminimap") == 0)
         {
             map.customshowmm = help.Int(pText);
@@ -5675,6 +5683,8 @@ bool Game::customsavequick(const std::string& savfile)
     {
         xml::update_tag(msgs, "currentsong", music.currentsong);
     }
+
+    xml::update_tag(msgs, "lang_custom", loc::lang_custom.c_str());
 
     xml::update_tag(msgs, "teleportscript", teleportscript.c_str());
     xml::update_tag(msgs, "companion", companion);

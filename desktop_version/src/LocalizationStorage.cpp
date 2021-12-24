@@ -186,6 +186,8 @@ namespace loc
     {
         resettext_custom();
 
+        loc::lang_custom = "";
+
         if (custom_level_path != NULL)
         {
             SDL_free(custom_level_path);
@@ -368,6 +370,16 @@ namespace loc
         return original;
     }
 
+    std::string& get_level_lang_code(bool custom_level)
+    {
+        if (!custom_level || lang_custom == "")
+        {
+            return lang;
+        }
+
+        return lang_custom;
+    }
+
     void loadtext_cutscenes(bool custom_level)
     {
         tinyxml2::XMLDocument doc;
@@ -381,7 +393,7 @@ namespace loc
         {
             return;
         }
-        if (!load_lang_doc(doc_path, doc, lang, doc_path_asset))
+        if (!load_lang_doc(doc_path, doc, get_level_lang_code(custom_level), doc_path_asset))
         {
             return;
         }
@@ -600,7 +612,7 @@ namespace loc
         {
             return;
         }
-        if (!load_lang_doc(doc_path, doc, lang, doc_path_asset))
+        if (!load_lang_doc(doc_path, doc, get_level_lang_code(custom_level), doc_path_asset))
         {
             return;
         }
@@ -684,7 +696,7 @@ namespace loc
     void loadtext_custom(const char* custom_path)
     {
         resettext_custom();
-        if (custom_level_path == NULL)
+        if (custom_level_path == NULL && custom_path != NULL)
         {
             custom_level_path = SDL_strdup(custom_path);
         }
@@ -718,7 +730,7 @@ namespace loc
 
         if (custom_level_path != NULL)
         {
-            loadtext_custom(custom_level_path);
+            loadtext_custom(NULL);
         }
     }
 

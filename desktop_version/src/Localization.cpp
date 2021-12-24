@@ -9,6 +9,7 @@
 namespace loc
 {
     std::string lang = "en";
+    std::string lang_custom = "";
     LangMeta langmeta;
     bool test_mode = false;
 
@@ -199,7 +200,7 @@ namespace loc
 
     const char* gettext_roomname(bool custom_level, int roomx, int roomy, const char* eng, bool special)
     {
-        if (lang == "en")
+        if (!custom_level && lang == "en")
         {
             return eng;
         }
