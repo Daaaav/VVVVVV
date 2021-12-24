@@ -1446,6 +1446,9 @@ void editorrender(void)
             case 16:
                 toolname = loc::gettext("P: Start Point");
                 break;
+            default:
+                toolname = "???";
+                break;
             }
             int toolnamelen = graphics.len(toolname);
             FillRect(graphics.backBuffer, 0,197,toolnamelen+8,11, graphics.getRGB(32,32,32));

@@ -1002,7 +1002,7 @@ static void menurender(void)
         case 5:
             encouragement = loc::gettext("Unbelievable! Well done!");
             break;
-        case 6:
+        default:
             encouragement = loc::gettext("Er, how did you do that?");
             break;
         }
