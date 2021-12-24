@@ -366,8 +366,8 @@
     <string english="New Record!" translation="Nova rekordo!" explanation="" max="20"/>
     <string english="New Trophy!" translation="Nova trofeo!" explanation="" max="20"/>
     <string english="[Press ENTER to stop]" translation="[Premu ENTER por haltigi]" explanation="stop super gravitron" max="40"/>
-    <string english="SUPER GRAVITRON" translation="SUPER GRAVITRON" explanation="" max="20"/>
-    <string english="SUPER GRAVITRON HIGHSCORE" translation="ALTPOENTARO DE SUPER GRAVITRON" explanation="" max="38*4"/>
+    <string english="SUPER GRAVITRON" translation="SUPER-GRAVITĈAMBRO" explanation="" max="20"/>
+    <string english="SUPER GRAVITRON HIGHSCORE" translation="ALTPOENTARO DE SUPER-GRAVITĈAMBRO" explanation="" max="38*4"/>
     <string english="GO!" translation="EK!" explanation="3, 2, 1, GO!" max="13"/>
     <string english="Go!" translation="Ek!" explanation="3, 2, 1, Go!" max="10"/>
     <string english="TIME:" translation="TEMPO: " explanation="stopwatch time, not too long"/>
@@ -382,7 +382,7 @@
     <string english="SAVE" translation="KONSERVI" explanation="in-game menu" max="8"/>
     <string english="[ PAUSE ]" translation="[ PAŬZO ]" explanation="in-game menu" max="40"/>
     <string english="[ QUIT ]" translation="[ ELIRI ]" explanation="in-game menu" max="40"/>
-    <string english="[ GRAVITRON ]" translation="[ GRAVITRON ]" explanation="in-game menu" max="40"/>
+    <string english="[ GRAVITRON ]" translation="[ GRAVITĈAMBRO ]" explanation="in-game menu" max="40"/>
     <string english="NO SIGNAL" translation="SENSIGNALE" explanation=""/>
     <string english="Press ACTION to warp to the ship." translation="Premu AGBUTONON por teleportiĝi al la ŝipo." explanation="spaceship. Warp = teleport" max="38*7"/>
     <string english="Missing..." translation="Mankas..." explanation="" max="15"/>
