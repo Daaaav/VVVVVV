@@ -81,7 +81,7 @@
         <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="Memoru, ke vi povas premi ENTER por kontroli, kie vi estas surmape!"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="Serĉu areojn, kie eble estas la ŝipanoj..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="Se vi perdiĝas, vi povas reveni al la ŝipo per ajna teleportilo."/>
-        <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="Kaj ne ĉagrenu! Ni ĉiujn trovos!"/>
+        <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="Kaj ne ĉagreniĝu! Ni ĉiujn trovos!"/>
         <dialogue speaker="purple" english="Everything will be ok!" translation="Ĉio finiĝos bone!"/>
     </cutscene>
     <cutscene id="talkpurple_3" explanation="">
@@ -91,7 +91,7 @@
         <dialogue speaker="player" english="I&apos;m worried about Verdigris, Doctor!" translation="Mi maltrankviliĝas pri Verdigriso, Doktoro!"/>
         <dialogue speaker="player" english="I&apos;m worried about Vermilion, Doctor!" translation="Mi maltrankviliĝas pri Vermiljo, Doktoro!"/>
         <dialogue speaker="player" english="I&apos;m worried about you, Doctor!" translation="Mi maltrankviliĝas pri vi, Doktoro!"/>
-        <dialogue speaker="purple" english="Oh - well, don&apos;t worry, they&apos;ll show up!" translation="Ho - nu, ne ĉagrenu, ĉiuj aperos!"/>
+        <dialogue speaker="purple" english="Oh - well, don&apos;t worry, they&apos;ll show up!" translation="Ho - nu, ne ĉagreniĝu, ĉiuj aperos!"/>
         <dialogue speaker="purple" english="Here! Have a lollipop!" translation="Jen! Havu bombonon!"/>
     </cutscene>
     <cutscene id="trinketcollector" explanation="">
@@ -119,7 +119,7 @@
         <dialogue speaker="player" english="It&apos;s ok - I&apos;m here to rescue you!" translation="Estas enorde - mi estas ĉi tie por savi vin!"/>
         <dialogue speaker="player" english="Let me explain everything..." translation="Mi ĉion klarigu..."/>
         <dialogue speaker="blue" english="What? I didn&apos;t understand any of that!" translation="Kio? Mi tute ne komprenas!"/>
-        <dialogue speaker="player" english="Oh... well, don&apos;t worry." translation="Ho... nu, ne ĉagrenu."/>
+        <dialogue speaker="player" english="Oh... well, don&apos;t worry." translation="Ho... nu, ne ĉagreniĝu."/>
         <dialogue speaker="player" english="Follow me! Everything will be alright!" translation="Sekvu min! Ĉio estos en ordo!"/>
         <dialogue speaker="blue" english="Sniff... Really?" translation="Snuf&apos;... ĉu vere?"/>
         <dialogue speaker="blue" english="Ok then!" translation="Bone, do!"/>
@@ -133,7 +133,7 @@
         <dialogue speaker="red" english="There&apos;s a teleporter in the next room." translation="Estas teleportilo en la apuda ĉambro."/>
     </cutscene>
     <cutscene id="rescueyellow" explanation="">
-        <dialogue speaker="yellow" english="Ah, Viridian! You got off the ship alright too?" translation="Ha, Viridian! Ankaŭ vi eliĝis de la ŝipo bone, mi vidas."/>
+        <dialogue speaker="yellow" english="Ah, Viridian! You got off the ship alright too?" translation="Ha, Viridiano! Ankaŭ vi eliĝis de la ŝipo bone, mi vidas."/>
         <dialogue speaker="player" english="It&apos;s good to see you&apos;re alright, Professor!" translation="Estas bone vidi, ke vi bonfartas, Profesoro!"/>
         <dialogue speaker="yellow" english="Is the ship ok?" translation="Kio okazis al la ŝipo?"/>
         <dialogue speaker="player" english="It&apos;s badly damaged, but Violet&apos;s been working on fixing it." translation="Ĝi malbone damaĝiĝis, sed Violeto laboras pri ripari ĝin."/>
@@ -156,7 +156,7 @@
     <cutscene id="int1blue_2" explanation="">
         <dialogue speaker="player" english="Follow me! I&apos;ll help you!" translation="Sekvu min! Mi helpos vin!"/>
         <dialogue speaker="blue" english="Promise you won&apos;t leave without me!" translation="Promesu, ke vi ne forlasos min!"/>
-        <dialogue speaker="player" english="I promise! Don&apos;t worry!" translation="Mi promesas! Ne ĉagrenu!"/>
+        <dialogue speaker="player" english="I promise! Don&apos;t worry!" translation="Mi promesas! Ne ĉagreniĝu!"/>
     </cutscene>
     <cutscene id="int1blue_3" explanation="">
         <dialogue speaker="player" english="Are you ok down there, Doctor?" translation="Ĉu vi enordas tie, Doktoro?"/>
@@ -171,7 +171,7 @@
         <dialogue speaker="blue" english="Captain! Captain! Wait for me!" translation="Kapitan&apos;! Kapitan&apos;! Atendu min!"/>
         <dialogue speaker="blue" english="Please don&apos;t leave me behind! I don&apos;t mean to be a burden!" translation="Ne forlasu min, mi petas! Mi ne volas esti ŝarĝo!"/>
         <dialogue speaker="blue" english="I&apos;m scared!" translation="Mi tre timas!"/>
-        <dialogue speaker="player" english="Oh... don&apos;t worry Victoria, I&apos;ll look after you!" translation="Ho... ne ĉagrenu, Viktoria, mi vartos vin!"/>
+        <dialogue speaker="player" english="Oh... don&apos;t worry Victoria, I&apos;ll look after you!" translation="Ho... ne ĉagreniĝu, Viktoria, mi vartos vin!"/>
     </cutscene>
     <cutscene id="int1blue_5" explanation="">
         <dialogue speaker="blue" english="We&apos;re never going to get out of here, are we?" translation="Ni neniam eskapos el ĉi tie, ĉu?"/>
@@ -197,7 +197,7 @@
         <dialogue speaker="player" english="I... I don&apos;t know!" translation="M-... mi ne scias!"/>
         <dialogue speaker="player" english="Where are we?" translation="Kie ni estas?"/>
         <dialogue speaker="green" english="Uh oh, this isn&apos;t good... Something must have gone wrong with the teleporter!" translation="Ho ve, tio ĉi ne bonas... io devus esti misiĝinta pri la teleportilo!"/>
-        <dialogue speaker="player" english="Ok... no need to panic!" translation="Bone... ni ne panikiĝu!"/>
+        <dialogue speaker="player" english="Ok... no need to panic!" translation="Bone... ni ne paniku!"/>
         <dialogue speaker="player" english="Let&apos;s look for another teleporter!" translation="Ni serĉu alian teleportilon!"/>
     </cutscene>
     <cutscene id="int1green_2" explanation="">
@@ -225,7 +225,7 @@
         <dialogue speaker="green" english="Do you have any advice?" translation="Ĉu vi havas ajnan konsilon?"/>
         <dialogue speaker="player" english="Oh!" translation="Ho!"/>
         <dialogue speaker="player" english="Hmm..." translation="Hmm..."/>
-        <dialogue speaker="player" english="Um... you should... be yourself!" translation="Nu... vi devus... agi kiel vi mem!"/>
+        <dialogue speaker="player" english="Um... you should... be yourself!" translation="Nu... vi devus... esti vi mem!"/>
         <dialogue speaker="green" english="Oh." translation="Ho."/>
         <dialogue speaker="green" english="Thanks Captain!" translation="Dankon, Kapitano!"/>
     </cutscene>
@@ -237,7 +237,7 @@
     </cutscene>
     <cutscene id="int1green_7" explanation="">
         <dialogue speaker="green" english="Finally! A teleporter!" translation="Finfine! Estas teleportilo!"/>
-        <dialogue speaker="green" english="I was getting worried we wouldn&apos;t find one..." translation="Mi ekĉagrenis, ke ni ne trovus iun..."/>
+        <dialogue speaker="green" english="I was getting worried we wouldn&apos;t find one..." translation="Mi ekĉagreniĝis, ke ni ne trovus iun..."/>
         <dialogue speaker="player" english="Let&apos;s head back to the ship!" translation="Ni revenu al la ŝipo do!"/>
     </cutscene>
     <cutscene id="int1red_1" explanation="">
@@ -252,7 +252,7 @@
         <dialogue speaker="red" english="Aye aye, Captain!" translation="Jes ja, Kapitano!"/>
     </cutscene>
     <cutscene id="int1red_3" explanation="">
-        <dialogue speaker="red" english="Hey Viridian... how did the crash happen, exactly?" translation="Hej, Viridian... kiel ekzakte okazis la kraŝo, do?"/>
+        <dialogue speaker="red" english="Hey Viridian... how did the crash happen, exactly?" translation="Hej, Viridiano... kiel ekzakte okazis la kraŝo, do?"/>
         <dialogue speaker="player" english="Oh, I don&apos;t really know - some sort of interference..." translation="Ho, mi ne vere scias - ia speco de interveno..."/>
         <dialogue speaker="player" english="...or something sciencey like that. It&apos;s not really my area." translation="...aŭ io tiel scienceca. Tio vere ne estas mia fako."/>
         <dialogue speaker="red" english="Ah! Well, do you think we&apos;ll be able to fix the ship and go home?" translation="Ha - nu, ĉu vi pensas, ke ni povos ripari la ŝipon kaj iri hejmen?"/>
@@ -290,7 +290,7 @@
         <dialogue speaker="yellow" english="Right behind you, Captain!" translation="Mi tuj malantaŭas, Kapitano!"/>
     </cutscene>
     <cutscene id="int1yellow_3" explanation="">
-        <dialogue speaker="player" english="What do you make of all this, Professor?" translation="Kiel vi taksas ĉion ĉi, Profesoro?"/>
+        <dialogue speaker="player" english="What do you make of all this, Professor?" translation="Kiel vi konsideras ĉion ĉi, Profesoro?"/>
         <dialogue speaker="yellow" english="I&apos;m guessing this dimension has something to do with the interference that caused us to crash!" translation="Mi supozas, ke tiu ĉi dimensio iel rilatas al la interveno, kiu nin kraŝigis!"/>
         <dialogue speaker="yellow" english="Maybe we&apos;ll find the cause of it here?" translation="Eble ĉi tie ni trovos la kaŭzon..."/>
         <dialogue speaker="player" english="Oh wow! Really?" translation="Ho! Ĉu vere?"/>
@@ -307,11 +307,11 @@
     </cutscene>
     <cutscene id="int1yellow_5" explanation="">
         <dialogue speaker="yellow" english="You know, there&apos;s something really odd about this dimension..." translation="Vere, estas io tre stranga pri tiu ĉi dimensio..."/>
-        <dialogue speaker="player" english="Yeah?" translation="Jes?"/>
+        <dialogue speaker="player" english="Yeah?" translation="Ĉu?"/>
         <dialogue speaker="yellow" english="We shouldn&apos;t really be able to move between dimensions with a regular teleporter..." translation="Vere ne devus ebli moviĝi inter dimensioj per normala teleportilo..."/>
         <dialogue speaker="yellow" english="Maybe this isn&apos;t a proper dimension at all?" translation="Eble tiu ĉi tute ne estas konvena dimensio?"/>
-        <dialogue speaker="yellow" english="Maybe it&apos;s some kind of polar dimension? Something artificially created for some reason?" translation="Eble ĝi estas ia sorto de polara dimensio? Io ial artefarite kreita?"/>
-        <dialogue speaker="yellow" english="I can&apos;t wait to get back to the ship. I have a lot of tests to run!" translation="Mi ne povas atendi reveni ŝipen. Mi havas multe da testoj por fari!"/>
+        <dialogue speaker="yellow" english="Maybe it&apos;s some kind of polar dimension? Something artificially created for some reason?" translation="Eble ĝi estas ia speco de polara dimensio? Io ial artefarite kreita?"/>
+        <dialogue speaker="yellow" english="I can&apos;t wait to get back to the ship. I have a lot of tests to run!" translation="Mi esperas, ke ni baldaŭ revenos. Mi havas multe da testoj por plenumi!"/>
     </cutscene>
     <cutscene id="int1yellow_6" explanation="">
         <dialogue speaker="yellow" english="I wonder if there&apos;s anything else in this dimension worth exploring?" translation="Mi scivolas, ĉu estas io ajn plu esplorinda en tiu ĉi dimensio..."/>
@@ -327,7 +327,7 @@
     </cutscene>
     <cutscene id="int2intro_blue" explanation="">
         <dialogue speaker="player" english="Victoria? Where are you?" translation="Viktoria? Kie vi estas?"/>
-        <dialogue speaker="blue" english="Help!" translation="Helpu!"/>
+        <dialogue speaker="blue" english="Help!" translation="Help!"/>
         <dialogue speaker="player" english="Hang on! I&apos;ll save you!" translation="Atendu! Mi savos vin!"/>
     </cutscene>
     <cutscene id="int2intro_green" explanation="">
@@ -385,12 +385,12 @@
     </cutscene>
     <cutscene id="talkpurple_6" explanation="">
         <dialogue speaker="purple" english="Captain! You found Verdigris!" translation="Kapitano! Vi trovis Verdigrison!"/>
-        <dialogue speaker="purple" english="Thank you so much!" translation="Dankegon al vi!"/>
+        <dialogue speaker="purple" english="Thank you so much!" translation="Multajn dankegojn!"/>
     </cutscene>
     <cutscene id="talkpurple_7" explanation="">
         <dialogue speaker="purple" english="I&apos;m glad Professor Vitellary is ok!" translation="Mi feliĉegas, ke Profesoro Vitelario bonfartas!"/>
         <dialogue speaker="purple" english="He had lots of questions for me about this dimension." translation="Li havis multe da demandoj por mi pri tiu ĉi dimensio."/>
-        <dialogue speaker="purple" english="He&apos;s already gotten to work with his research!" translation="Li jam eklaboras pri lia esplorado!"/>
+        <dialogue speaker="purple" english="He&apos;s already gotten to work with his research!" translation="Li jam eklaboras pri sia esplorado!"/>
     </cutscene>
     <cutscene id="talkpurple_intermission1" explanation="">
         <dialogue speaker="player" english="Doctor, something strange happened when we teleported back to the ship..." translation="Doktoro, io stranga okazis kiam ni reteleportis al la ŝipo..."/>
@@ -432,7 +432,7 @@
     <cutscene id="talkgreen_5" explanation="">
         <dialogue speaker="green" english="The Professor had lots of questions about this dimension for me..." translation="La Profesoro havis multajn demandojn pri ĉi tiu dimensio por mi..."/>
         <dialogue speaker="green" english="We still don&apos;t really know that much, though." translation="Tamen, ni ankoraŭ ne scias multe."/>
-        <dialogue speaker="green" english="Until we work out what&apos;s causing that interference, we can&apos;t go anywhere." translation="Ĝis ni eltrovas la fonton de la interveno, ni povas iri nenien."/>
+        <dialogue speaker="green" english="Until we work out what&apos;s causing that interference, we can&apos;t go anywhere." translation="Ĝis kiam ni eltrovas la fonton de la interveno, ni povas iri nenien."/>
     </cutscene>
     <cutscene id="talkgreen_6" explanation="">
         <dialogue speaker="green" english="I&apos;m so glad that Violet&apos;s alright!" translation="Mi tiel feliĉegas, ke Violeto bonfartas!"/>
@@ -451,7 +451,7 @@
         <dialogue speaker="green" english="The ship&apos;s all fixed up. We can leave at a moment&apos;s notice!" translation="La ŝipo estas tutriparita. Ni povas forveturi, kiam ajn ni bezonas!"/>
     </cutscene>
     <cutscene id="talkred_1" explanation="">
-        <dialogue speaker="red" english="Don&apos;t worry, Sir!" translation="Ne ĉagrenu, Kapitano!"/>
+        <dialogue speaker="red" english="Don&apos;t worry, Sir!" translation="Ne ĉagreniĝu, Kapitano!"/>
         <dialogue speaker="red" english="We&apos;ll find a way out of here!" translation="Ni trovos elvojon!"/>
     </cutscene>
     <cutscene id="talkred_2" explanation="">
@@ -473,7 +473,7 @@
     </cutscene>
     <cutscene id="talkred_6" explanation="">
         <dialogue speaker="red" english="It&apos;s good to have Victoria back with us." translation="Bonegas havi Viktorian kun ni denove."/>
-        <dialogue speaker="red" english="She really seems happy to get back to work in her lab!" translation="Ŝi ŝajnas tre feliĉa re-eklabori en sia laboratorio!"/>
+        <dialogue speaker="red" english="She really seems happy to get back to work in her lab!" translation="Ŝi ŝajnas tre feliĉa re-eklaboranta en sia laboratorio!"/>
     </cutscene>
     <cutscene id="talkred_7" explanation="">
         <dialogue speaker="red" english="I think I saw Verdigris working on the outside of the ship!" translation="Mi pensas, ke mi vidis Verdigrison laboranta ĉe la ŝipeksteraĵo!"/>
@@ -531,7 +531,7 @@
     <cutscene id="talkblue_6" explanation="">
         <dialogue speaker="blue" english="Verdigris is ok! Violet will be so happy!" translation="Verdigriso bonfartas! Violeto tiel feliĉegos!"/>
         <dialogue speaker="blue" english="I&apos;m happy!" translation="Mi feliĉegas!"/>
-        <dialogue speaker="blue" english="Though I was very worried..." translation="Tamen, mi tre ĉagrenis..."/>
+        <dialogue speaker="blue" english="Though I was very worried..." translation="Tamen, mi tre ĉagreniĝis..."/>
     </cutscene>
     <cutscene id="talkblue_7" explanation="">
         <dialogue speaker="blue" english="Why did the teleporter send us to that scary dimension?" translation="Kial la teleportilo sendis nin al tiu timiga dimensio?"/>
@@ -662,14 +662,14 @@
 
 READY _" translation="* GENERILO DE DIMENSIA STABILECO *
 
-       [ Aktuale generas ]
+        [ Nune generas ]
       Maksimuman stabilecon
 
             [ Stato ]
              enreta
 
 PRETA _" tt="1"/>
-        <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="A ha! Tio ĉi devas esti la kaŭzo de la interveno!"/>
+        <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="Aĥa! Tio ĉi devas esti la kaŭzo de la interveno!"/>
         <dialogue speaker="cyan" english="I wonder if I can turn it off?" translation="Mi scivolas, ĉu mi povas malŝalti ĝin..."/>
         <dialogue speaker="gray" english="WARNING: Disabling the Dimensional Stability Generator may lead to instability! Are you sure you want to do this?" translation="AVERTO: Malebligi la generilon de dimensia stabileco eble kaŭzos malstabilecon! Ĉu vi certas, ke vi volas fari tion?"/>
         <dialogue speaker="cyan" english="Yes!" translation="Jes!" case="1"/>
@@ -709,7 +709,7 @@ DIMENSIA STABILIGILO ESTAS MALŜALTITA" centertext="1" pad="1"/>
         <dialogue speaker="yellow" english="...it looks like this dimension is starting to destabilise, just like our own..." translation="...ŝajnas ke la dimensio ekperdas sian stabilecon, same kiel la nia..."/>
         <dialogue speaker="red" english="...we can stay and explore for a little longer, but..." translation="...ni povas resti kaj esplori iom plu, sed..."/>
         <dialogue speaker="yellow" english="...eventually, it&apos;ll collapse completely." translation="...fine, ĝi tute kolapsos."/>
-        <dialogue speaker="green" english="There&apos;s no telling exactly how long we have here. But the ship&apos;s fixed, so..." translation="Ni ne scias, kiom longe ni havas ĉi tie. Sed la ŝipo estas riparita, do..."/>
+        <dialogue speaker="green" english="There&apos;s no telling exactly how long we have here. But the ship&apos;s fixed, so..." translation="Ni ne scias, kiom longe ni povas resti ĉi tie. Sed la ŝipo estas riparita, do..."/>
         <dialogue speaker="blue" english="...as soon as we&apos;re ready, we can go home!" translation="...tuj kiam ni pretas, ni povas iri hejmen!"/>
         <dialogue speaker="purple" english="What now, Captain?" translation="Kio nun, Kapitano?"/>
         <dialogue speaker="player" english="Let&apos;s find a way to save this dimension!" translation="Ni eltrovu, kiel savi tiun ĉi dimension!"/>
@@ -721,7 +721,7 @@ DIMENSIA STABILIGILO ESTAS MALŜALTITA" centertext="1" pad="1"/>
         <dialogue speaker="blue" english="Wow! You found all of them!" translation="Ho! Vi trovis ĉiujn el ili!"/>
         <dialogue speaker="player" english="Really? Great!" translation="Ĉu vere? Bonege!"/>
         <dialogue speaker="blue" english="I&apos;ll run some tests and see if I can work out what they&apos;re for..." translation="Mi faros kelkajn testojn kaj vidos, ĉu mi povas eltrovi ilian celon..."/>
-        <dialogue speaker="player" english="That... that didn&apos;t sound good..." translation="Tio... ne sonis bone..."/>
+        <dialogue speaker="player" english="That... that didn&apos;t sound good..." translation="Tio... tio ne sonis bone..."/>
         <dialogue speaker="blue" english="Run!" translation="Kuru!"/>
         <dialogue speaker="player" english="Oh no!" translation="Ho, ne!"/>
         <dialogue speaker="red" english="Not again!" translation="Ne denove!"/>
@@ -747,7 +747,7 @@ DIMENSIA STABILIGILO ESTAS MALŜALTITA" centertext="1" pad="1"/>
         <dialogue speaker="blue" english="COMBINE!" translation="KOMBINIĜU!" case="6"/>
         <dialogue speaker="purple" english="Or, you know... we could have just warped back to the ship..." translation="Aŭ, nu... ni simple povis reteleportiĝi al la ŝipo..."/>
         <dialogue speaker="green" english="Wow! What is this?" translation="Ho! Kio estas ĉi tio?"/>
-        <dialogue speaker="yellow" english="It looks like another laboratory!" translation="Aspektas kiel alia laboratorio!"/>
+        <dialogue speaker="yellow" english="It looks like another laboratory!" translation="Ĝi aspektas kiel alia laboratorio!"/>
         <dialogue speaker="red" english="Let&apos;s have a look around!" translation="Ni esploru kaj rigardu!"/>
     </cutscene>
     <cutscene id="talkpurple_9" explanation="">
@@ -776,7 +776,7 @@ Songs will continue to play until you leave the ship.
 
 Collect trinkets to unlock new songs!" translation="-= MUZIKILO =-
  
-Melodioj daŭros ludiĝi, ĝis kiam vi forlasas la ŝipon.
+Melodioj daŭre ludiĝos, ĝis kiam vi forlasas la ŝipon.
  
 Trovu kolektaĵojn por malŝlosi novajn melodiojn!" centertext="1" padtowidth="264"/>
     </cutscene>
@@ -854,14 +854,14 @@ Pipe Dream" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_1" explanation="">
         <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= PRIVATA PROTOKOLO =-" padtowidth="280"/>
-        <dialogue speaker="gray" english="Almost everyone has been evacuated from the space station now. The rest of us are leaving in a couple of days, once our research has been completed." translation="Preskaŭ ĉiuj nun estas evakuigitaj el la kosmostacio. Ni, kiuj restas, foriras post kelkaj tagoj, kiam nia esplorado estas finita." pad="1"/>
+        <dialogue speaker="gray" english="Almost everyone has been evacuated from the space station now. The rest of us are leaving in a couple of days, once our research has been completed." translation="Preskaŭ ĉiuj nun estas evakuigitaj el la kosmostacio. Ni, kiuj restas, foriros post kelkaj tagoj, kiam nia esplorado estas finita." pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_2" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= Notoj de esplorado =-" padtowidth="264"/>
         <dialogue speaker="gray" english="...everything collapses, eventually. It&apos;s the way of the universe." translation="...ĉio fine kolapsos. Tiel okazas por ĉio en la universo." centertext="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_3" explanation="">
-        <dialogue speaker="gray" english="I wonder if the generator we set up in the polar dimension is what&apos;s affecting our teleporters?" translation="Mi scivolas, ĉu la generilo, kiun ni metis en la polardimension, faras la problemojn pri niaj teleportiloj..."/>
+        <dialogue speaker="gray" english="I wonder if the generator we set up in the polar dimension is what&apos;s affecting our teleporters?" translation="Mi scivolas, ĉu la generilo, kiun ni metis en la polardimension, faras la problemojn ĉe niaj teleportiloj..."/>
         <dialogue speaker="gray" english="No, it&apos;s probably just a glitch." translation="Ne, verŝajne estas simpla cimo."/>
     </cutscene>
     <cutscene id="terminal_station_4" explanation="">
@@ -937,7 +937,7 @@ La Super-Gravitĉambro estas nur por celoj de amuzo." centertext="1" pad="1"/>
 Ship Navigation Controls" translation="-= KOSMOŜIPO SOULEYE =-
  
 Ŝipnavigaj regiloj" centertext="1" pad="1"/>
-        <dialogue speaker="gray" english="Error! Error! Cannot isolate dimensional coordinates! Interference detected!" translation="Eraro! Eraro! Ne povas izoligi dimensiajn koordinatojn! Interveno detektiĝas!"/>
+        <dialogue speaker="gray" english="Error! Error! Cannot isolate dimensional coordinates! Interference detected!" translation="Eraro! Eraro! Ne eblas izoligi dimensiajn koordinatojn! Interveno detektiĝas!"/>
     </cutscene>
     <cutscene id="alreadyvisited" explanation="">
         <dialogue speaker="cyan" english="...oh, I&apos;ve already found this." translation="...Ho, mi jam trovis tion."/>
