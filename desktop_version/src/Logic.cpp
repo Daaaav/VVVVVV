@@ -999,7 +999,7 @@ void gamelogic(void)
                 obj.customwarpmodevon = false;
 
                 int i = obj.getplayer();
-                if (INBOUNDS_VEC(i, obj.entities) && ((game.door_down > -2 && obj.entities[i].yp >= 226-16) || (game.door_up > -2 && obj.entities[i].yp < -2+16) ||    (game.door_left > -2 && obj.entities[i].xp < -14+16) ||    (game.door_right > -2 && obj.entities[i].xp >= 308-16))){
+                if (INBOUNDS_VEC(i, obj.entities) && (obj.entities[i].yp >= 226-16 || obj.entities[i].yp < -2+16 || obj.entities[i].xp < -14+16 || obj.entities[i].xp >= 308-16)){
                     //Player is leaving room
                     obj.customwarplinecheck(i);
                 }
@@ -1139,12 +1139,12 @@ void gamelogic(void)
         {
             //Normal! Just change room
             int player = obj.getplayer();
-            if (INBOUNDS_VEC(player, obj.entities) && game.door_down > -2 && obj.entities[player].yp >= 238)
+            if (INBOUNDS_VEC(player, obj.entities) && obj.entities[player].yp >= 238)
             {
                 obj.entities[player].yp -= 240;
                 GOTOROOM(game.roomx, game.roomy + 1);
             }
-            if (INBOUNDS_VEC(player, obj.entities) && game.door_up > -2 && obj.entities[player].yp < -2)
+            if (INBOUNDS_VEC(player, obj.entities) && obj.entities[player].yp < -2)
             {
                 obj.entities[player].yp += 240;
                 GOTOROOM(game.roomx, game.roomy - 1);
@@ -1155,12 +1155,12 @@ void gamelogic(void)
         {
             //Normal! Just change room
             int player = obj.getplayer();
-            if (INBOUNDS_VEC(player, obj.entities) && game.door_left > -2 && obj.entities[player].xp < -14)
+            if (INBOUNDS_VEC(player, obj.entities) && obj.entities[player].xp < -14)
             {
                 obj.entities[player].xp += 320;
                 GOTOROOM(game.roomx - 1, game.roomy);
             }
-            if (INBOUNDS_VEC(player, obj.entities) && game.door_right > -2 && obj.entities[player].xp >= 308)
+            if (INBOUNDS_VEC(player, obj.entities) && obj.entities[player].xp >= 308)
             {
                 obj.entities[player].xp -= 320;
                 GOTOROOM(game.roomx + 1, game.roomy);
@@ -1174,12 +1174,12 @@ void gamelogic(void)
             {
                 //This is minitower 1!
                 int player = obj.getplayer();
-                if (INBOUNDS_VEC(player, obj.entities) && game.door_left > -2 && obj.entities[player].xp < -14)
+                if (INBOUNDS_VEC(player, obj.entities) && obj.entities[player].xp < -14)
                 {
                     obj.entities[player].xp += 320;
                     GOTOROOM(48, 52);
                 }
-                if (INBOUNDS_VEC(player, obj.entities) && game.door_right > -2 && obj.entities[player].xp >= 308)
+                if (INBOUNDS_VEC(player, obj.entities) && obj.entities[player].xp >= 308)
                 {
                     obj.entities[player].xp -= 320;
                     obj.entities[player].yp -= (71*8);
@@ -1190,7 +1190,7 @@ void gamelogic(void)
             {
                 //This is minitower 2!
                 int player = obj.getplayer();
-                if (INBOUNDS_VEC(player, obj.entities) && game.door_left > -2 && obj.entities[player].xp < -14)
+                if (INBOUNDS_VEC(player, obj.entities) && obj.entities[player].xp < -14)
                 {
                     if (obj.entities[player].yp > 300)
                     {
@@ -1204,7 +1204,7 @@ void gamelogic(void)
                         GOTOROOM(50, 53);
                     }
                 }
-                if (INBOUNDS_VEC(player, obj.entities) && game.door_right > -2 && obj.entities[player].xp >= 308)
+                if (INBOUNDS_VEC(player, obj.entities) && obj.entities[player].xp >= 308)
                 {
                     obj.entities[player].xp -= 320;
                     GOTOROOM(52, 53);
@@ -1234,13 +1234,13 @@ void gamelogic(void)
             {
                 //Do not wrap! Instead, go to the correct room
                 int player = obj.getplayer();
-                if (INBOUNDS_VEC(player, obj.entities) && game.door_left > -2 && obj.entities[player].xp < -14)
+                if (INBOUNDS_VEC(player, obj.entities) && obj.entities[player].xp < -14)
                 {
                     obj.entities[player].xp += 320;
                     obj.entities[player].yp -= (671 * 8);
                     GOTOROOM(108, 109);
                 }
-                if (INBOUNDS_VEC(player, obj.entities) && game.door_right > -2 && obj.entities[player].xp >= 308)
+                if (INBOUNDS_VEC(player, obj.entities) && obj.entities[player].xp >= 308)
                 {
                     obj.entities[player].xp -= 320;
                     GOTOROOM(110, 104);

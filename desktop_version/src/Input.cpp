@@ -16,6 +16,7 @@
 #include "Map.h"
 #include "Music.h"
 #include "RoomnameTranslator.h"
+#include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -289,6 +290,26 @@ static void startmode(const int mode)
     graphics.fademode = 2; /* fading out */
     fadetomode = true;
     fadetomodedelay = 19;
+}
+
+static void handlefadetomode(void)
+{
+    if (game.ingame_titlemode)
+    {
+        /* We shouldn't be here! */
+        SDL_assert(0 && "Loading a mode from in-game options!");
+        return;
+    }
+
+    if (fadetomodedelay > 0)
+    {
+        --fadetomodedelay;
+    }
+    else
+    {
+        fadetomode = false;
+        script.startgamemode(gotomode);
+    }
 }
 
 static int* user_changing_volume = NULL;
@@ -566,7 +587,7 @@ static void menuactionpress(void)
             && FILESYSTEM_openDirectory(FILESYSTEM_getUserLevelDirectory()))
             {
                 music.playef(11);
-                SDL_MinimizeWindow(graphics.screenbuffer->m_window);
+                SDL_MinimizeWindow(gameScreen.m_window);
             }
             else
             {
@@ -574,6 +595,11 @@ static void menuactionpress(void)
             }
             break;
         case OFFSET+3:
+            music.playef(11);
+            game.createmenu(Menu::confirmshowlevelspath);
+            map.nexttowercolour();
+            break;
+        case OFFSET+4:
             //back
             music.playef(11);
             game.returnmenu();
@@ -583,36 +609,47 @@ static void menuactionpress(void)
 #undef OFFSET
         break;
 #endif
+    case Menu::confirmshowlevelspath:
+    {
+        int prevmenuoption = game.currentmenuoption; /* returnmenu destroys this */
+        music.playef(11);
+        game.returnmenu();
+        map.nexttowercolour();
+        if (prevmenuoption == 1)
+        {
+            game.createmenu(Menu::showlevelspath);
+        }
+        break;
+    }
+    case Menu::showlevelspath:
+        music.playef(11);
+        game.returntomenu(Menu::playerworlds);
+        map.nexttowercolour();
+        break;
     case Menu::errornostart:
         music.playef(11);
         game.createmenu(Menu::mainmenu);
         map.nexttowercolour();
         break;
     case Menu::graphicoptions:
-        if (graphics.screenbuffer == NULL)
-        {
-            SDL_assert(0 && "Screenbuffer is NULL!");
-            break;
-        }
-
         switch (game.currentmenuoption)
         {
         case 0:
             music.playef(11);
-            graphics.screenbuffer->toggleFullScreen();
+            gameScreen.toggleFullScreen();
             game.savestatsandsettings_menu();
             break;
         case 1:
             music.playef(11);
-            graphics.screenbuffer->toggleStretchMode();
+            gameScreen.toggleScalingMode();
             game.savestatsandsettings_menu();
             break;
         case 2:
             // resize to nearest multiple
-            if (graphics.screenbuffer->isWindowed)
+            if (gameScreen.isWindowed)
             {
                 music.playef(11);
-                graphics.screenbuffer->ResizeToNearestMultiple();
+                gameScreen.ResizeToNearestMultiple();
                 game.savestatsandsettings_menu();
             }
             else
@@ -622,13 +659,13 @@ static void menuactionpress(void)
             break;
         case 3:
             music.playef(11);
-            graphics.screenbuffer->toggleLinearFilter();
+            gameScreen.toggleLinearFilter();
             game.savestatsandsettings_menu();
             break;
         case 4:
             //change smoothing
             music.playef(11);
-            graphics.screenbuffer->badSignalEffect= !graphics.screenbuffer->badSignalEffect;
+            gameScreen.badSignalEffect= !gameScreen.badSignalEffect;
             game.savestatsandsettings_menu();
             break;
         case 5:
@@ -636,8 +673,7 @@ static void menuactionpress(void)
 #if SDL_VERSION_ATLEAST(2, 0, 17)
             //toggle vsync
             music.playef(11);
-            graphics.screenbuffer->vsync = !graphics.screenbuffer->vsync;
-            graphics.screenbuffer->toggleVSync();
+            gameScreen.toggleVSync();
             game.savestatsandsettings_menu();
 #endif
             break;
@@ -1621,8 +1657,6 @@ static void menuactionpress(void)
         case 0:
             //back
             music.playef(11);
-            game.returnmenu();
-            map.nexttowercolour();
             break;
         default:
             //yep
@@ -1633,10 +1667,10 @@ static void menuactionpress(void)
             game.deletesettings();
             game.flashlight = 5;
             game.screenshake = 15;
-            game.createmenu(Menu::mainmenu);
-            map.nexttowercolour();
             break;
         }
+        game.returnmenu();
+        map.nexttowercolour();
         break;
     case Menu::clearcustomdatamenu:
         switch (game.currentmenuoption)
@@ -2084,15 +2118,7 @@ void titleinput(void)
 
     if (fadetomode)
     {
-        if (fadetomodedelay > 0)
-        {
-            --fadetomodedelay;
-        }
-        else
-        {
-            fadetomode = false;
-            script.startgamemode(gotomode);
-        }
+        handlefadetomode();
     }
 }
 
@@ -2347,7 +2373,7 @@ void gameinput(void)
             {
                 any_onground = true;
             }
-            else if (obj.entities[ie].onroof > 0)
+            if (obj.entities[ie].onroof > 0)
             {
                 any_onroof = true;
             }

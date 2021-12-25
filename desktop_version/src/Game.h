@@ -7,6 +7,13 @@
 
 #include "ScreenSettings.h"
 
+/* FIXME: Can't forward declare this enum in C++, unfortunately.
+ * In C, enum sizes are always the same, so you can forward declare them.
+ * In C++ instead, enum sizes are based on how many enums there are.
+ * You cannot specify the underlying type until C++11.
+ * But bumping the standard opens up a can of worms. I'd rather just move to C. -Misa */
+#include "Enums.h"
+
 // Forward decl without including all of <tinyxml2.h>
 namespace tinyxml2
 {
@@ -30,6 +37,8 @@ namespace Menu
     {
         mainmenu,
         playerworlds,
+        confirmshowlevelspath,
+        showlevelspath,
         levellist,
         quickloadlevel,
         deletequicklevel,
@@ -135,11 +144,11 @@ public:
 
     std::string  timestring(void);
 
-    std::string partimestring(void);
-
     std::string resulttimestring(void);
 
     std::string timetstring(int t);
+
+    void timestringcenti(char* buffer, size_t buffer_size);
 
     void returnmenu(void);
     void returntomenu(enum Menu::MenuName t);
@@ -159,20 +168,20 @@ public:
 
     void unlocknum(int t);
 
-    void loadstats(ScreenSettings* screen_settings);
+    void loadstats(struct ScreenSettings* screen_settings);
 
-    bool savestats(const ScreenSettings* screen_settings, bool sync = true);
+    bool savestats(const struct ScreenSettings* screen_settings, bool sync = true);
     bool savestats(bool sync = true);
 
     void deletestats(void);
 
-    void deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* screen_settings);
+    void deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSettings* screen_settings);
 
-    void serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSettings* screen_settings);
+    void serializesettings(tinyxml2::XMLElement* dataNode, const struct ScreenSettings* screen_settings);
 
-    void loadsettings(ScreenSettings* screen_settings);
+    void loadsettings(struct ScreenSettings* screen_settings);
 
-    bool savesettings(const ScreenSettings* screen_settings);
+    bool savesettings(const struct ScreenSettings* screen_settings);
     bool savesettings(void);
 
     bool savestatsandsettings(void);
@@ -216,10 +225,6 @@ public:
     const char* saveFilePath;
 
 
-    int door_left;
-    int door_right;
-    int door_up;
-    int door_down;
     int roomx, roomy;
     int prevroomx, prevroomy;
 
@@ -236,8 +241,8 @@ public:
 
     bool glitchrunkludge;
 
-    int gamestate;
-    int prevgamestate; //only used sometimes
+    enum GameGamestate gamestate;
+    enum GameGamestate prevgamestate; //only used sometimes
     bool hascontrol, jumpheld;
     int jumppressed;
     int gravitycontrol;
@@ -251,7 +256,7 @@ public:
     int tapleft, tapright;
 
     //Menu interaction stuff
-    void mapmenuchange(const int newgamestate, const bool user_initiated);
+    void mapmenuchange(const enum GameGamestate newgamestate, const bool user_initiated);
     bool mapheld;
     int menupage;
     int lastsaved;

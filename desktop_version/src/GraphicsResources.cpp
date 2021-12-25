@@ -6,13 +6,6 @@
 // Used to load PNG data
 extern "C"
 {
-    extern unsigned lodepng_decode24(
-        unsigned char** out,
-        unsigned* w,
-        unsigned* h,
-        const unsigned char* in,
-        size_t insize
-    );
     extern unsigned lodepng_decode32(
         unsigned char** out,
         unsigned* w,
@@ -20,9 +13,11 @@ extern "C"
         const unsigned char* in,
         size_t insize
     );
+    extern const char* lodepng_error_text(unsigned code);
 }
 
-static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool noAlpha = false)
+/* Don't declare `static`, this is used elsewhere */
+SDL_Surface* LoadImage(const char *filename)
 {
     //Temporary storage for the image that's loaded
     SDL_Surface* loadedImage = NULL;
@@ -31,6 +26,7 @@ static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool no
 
     unsigned char *data;
     unsigned int width, height;
+    unsigned int error;
 
     unsigned char *fileIn;
     size_t length;
@@ -40,23 +36,22 @@ static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool no
         SDL_assert(0 && "Image file missing!");
         return NULL;
     }
-    if (noAlpha)
-    {
-        lodepng_decode24(&data, &width, &height, fileIn, length);
-    }
-    else
-    {
-        lodepng_decode32(&data, &width, &height, fileIn, length);
-    }
+    error = lodepng_decode32(&data, &width, &height, fileIn, length);
     FILESYSTEM_freeMemory(&fileIn);
+
+    if (error != 0)
+    {
+        vlog_error("Could not load %s: %s", filename, lodepng_error_text(error));
+        return NULL;
+    }
 
     loadedImage = SDL_CreateRGBSurfaceWithFormatFrom(
         data,
         width,
         height,
-        noAlpha ? 24 : 32,
-        width * (noAlpha ? 3 : 4),
-        noAlpha ? SDL_PIXELFORMAT_RGB24 : SDL_PIXELFORMAT_ABGR8888
+        32,
+        width * 4,
+        SDL_PIXELFORMAT_ABGR8888
     );
 
     if (loadedImage != NULL)
@@ -68,10 +63,7 @@ static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool no
         );
         SDL_FreeSurface( loadedImage );
         SDL_free(data);
-        if (noBlend)
-        {
-            SDL_SetSurfaceBlendMode(optimizedImage, SDL_BLENDMODE_BLEND);
-        }
+        SDL_SetSurfaceBlendMode(optimizedImage, SDL_BLENDMODE_BLEND);
         return optimizedImage;
     }
     else
@@ -94,14 +86,14 @@ void GraphicsResources::init(void)
     im_bfont =        LoadImage("graphics/font.png");
     im_teleporter =        LoadImage("graphics/teleporter.png");
 
-    im_image0 =        LoadImage("graphics/levelcomplete.png", false);
-    im_image1 =        LoadImage("graphics/minimap.png", true, true);
-    im_image2 =        LoadImage("graphics/covered.png", true, true);
+    im_image0 =        LoadImage("graphics/levelcomplete.png");
+    im_image1 =        LoadImage("graphics/minimap.png");
+    im_image2 =        LoadImage("graphics/covered.png");
     im_image3 =        LoadImage("graphics/elephant.png");
-    im_image4 =        LoadImage("graphics/gamecomplete.png", false);
-    im_image5 =        LoadImage("graphics/fliplevelcomplete.png", false);
-    im_image6 =        LoadImage("graphics/flipgamecomplete.png", false);
-    im_image7 =        LoadImage("graphics/site.png", false);
+    im_image4 =        LoadImage("graphics/gamecomplete.png");
+    im_image5 =        LoadImage("graphics/fliplevelcomplete.png");
+    im_image6 =        LoadImage("graphics/flipgamecomplete.png");
+    im_image7 =        LoadImage("graphics/site.png");
     im_image8 =        LoadImage("graphics/site2.png");
     im_image9 =        LoadImage("graphics/site3.png");
     im_image10 =        LoadImage("graphics/ending.png");

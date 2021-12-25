@@ -8,10 +8,10 @@
 class Screen
 {
 public:
-    void init(const ScreenSettings& settings);
+    void init(const struct ScreenSettings* settings);
     void destroy(void);
 
-    void GetSettings(ScreenSettings* settings);
+    void GetSettings(struct ScreenSettings* settings);
 
     void LoadIcon(void);
 
@@ -25,22 +25,24 @@ public:
     const SDL_PixelFormat* GetFormat(void);
 
     void toggleFullScreen(void);
-    void toggleStretchMode(void);
+    void toggleScalingMode(void);
     void toggleLinearFilter(void);
     void toggleVSync(void);
 
     bool isWindowed;
     bool isFiltered;
     bool badSignalEffect;
-    int stretchMode;
+    int scalingMode;
     bool vsync;
 
     SDL_Window *m_window;
     SDL_Renderer *m_renderer;
     SDL_Texture *m_screenTexture;
     SDL_Surface* m_screen;
-
-    SDL_Rect filterSubrect;
 };
+
+#ifndef GAMESCREEN_DEFINITION
+extern Screen gameScreen;
+#endif
 
 #endif /* SCREEN_H */

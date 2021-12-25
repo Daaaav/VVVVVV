@@ -16,6 +16,7 @@
 #include "Maths.h"
 #include "Music.h"
 #include "RoomnameTranslator.h"
+#include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
 #include "Version.h"
@@ -290,19 +291,13 @@ static void menurender(void)
         }
         break;
     case Menu::graphicoptions:
-        if (graphics.screenbuffer == NULL)
-        {
-            SDL_assert(0 && "Screenbuffer is NULL!");
-            break;
-        }
-
         switch (game.currentmenuoption)
         {
         case 0:
             graphics.bigprint( -1, 30, loc::gettext("Toggle Fullscreen"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Change to fullscreen/windowed mode."), tr, tg, tb, true);
 
-            if (graphics.screenbuffer->isWindowed)
+            if (gameScreen.isWindowed)
             {
                 graphics.PrintWrap( -1, 95, loc::gettext("Current mode: WINDOWED"), tr, tg, tb, true);
             }
@@ -316,7 +311,7 @@ static void menurender(void)
             graphics.bigprint( -1, 30, loc::gettext("Scaling Mode"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Choose letterbox/stretch/integer mode."), tr, tg, tb, true);
 
-            switch (graphics.screenbuffer->stretchMode)
+            switch (gameScreen.scalingMode)
             {
             case 2:
                 graphics.PrintWrap( -1, 95, loc::gettext("Current mode: INTEGER"), tr, tg, tb, true);
@@ -332,7 +327,7 @@ static void menurender(void)
         case 2:
             graphics.bigprint(-1, 30, loc::gettext("Resize to Nearest"), tr, tg, tb, true);
             graphics.PrintWrap(-1, 65, loc::gettext("Resize to the nearest window size that is of an integer multiple."), tr, tg, tb, true);
-            if (!graphics.screenbuffer->isWindowed)
+            if (!gameScreen.isWindowed)
             {
                 graphics.PrintWrap(-1, 95, loc::gettext("You must be in windowed mode to use this option."), tr, tg, tb, true);
             }
@@ -341,7 +336,7 @@ static void menurender(void)
             graphics.bigprint( -1, 30, loc::gettext("Toggle Filter"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Change to nearest/linear filter."), tr, tg, tb, true);
 
-            if (graphics.screenbuffer->isFiltered)
+            if (gameScreen.isFiltered)
             {
                 graphics.PrintWrap( -1, 95, loc::gettext("Current mode: LINEAR"), tr, tg, tb, true);
             }
@@ -365,7 +360,7 @@ static void menurender(void)
             graphics.Print(-1, 75, "Edit the config file.", tr, tg, tb, true);
 #endif
 
-            if (!graphics.screenbuffer->vsync)
+            if (!gameScreen.vsync)
             {
                 graphics.PrintWrap(-1, 85, loc::gettext("Current mode: VSYNC OFF"), tr/2, tg/2, tb/2, true);
             }
@@ -448,7 +443,7 @@ static void menurender(void)
         graphics.PrintWrap( -1, 20, loc::gettext("VVVVVV is supported by the following patrons"), tr, tg, tb, true);
 
         int startidx = game.current_credits_list_index;
-        int endidx = VVV_min(startidx + 9, (int)SDL_arraysize(Credits::superpatrons));
+        int endidx = SDL_min(startidx + 9, (int)SDL_arraysize(Credits::superpatrons));
 
         int xofs = 80 - 16;
         int yofs = 40 + 20;
@@ -466,7 +461,7 @@ static void menurender(void)
         graphics.PrintWrap( -1, 20, loc::gettext("and also by"), tr, tg, tb, true);
 
         int startidx = game.current_credits_list_index;
-        int endidx = VVV_min(startidx + 14, (int)SDL_arraysize(Credits::patrons));
+        int endidx = SDL_min(startidx + 14, (int)SDL_arraysize(Credits::patrons));
 
         int maxheight = 10 * 14;
         int totalheight = (endidx - startidx) * 10;
@@ -486,7 +481,7 @@ static void menurender(void)
         graphics.PrintWrap( -1, 20, loc::gettext("With contributions on GitHub from"), tr, tg, tb, true);
 
         int startidx = game.current_credits_list_index;
-        int endidx = VVV_min(startidx + 9, (int)SDL_arraysize(Credits::githubfriends));
+        int endidx = SDL_min(startidx + 9, (int)SDL_arraysize(Credits::githubfriends));
 
         int maxheight = 14 * 9;
         int totalheight = (endidx - startidx) * 14;
@@ -1424,23 +1419,15 @@ static void menurender(void)
         graphics.PrintWrap( -1, 125, loc::gettext("You have unlocked the intermission levels."), tr, tg, tb, true);
         break;
     case Menu::playerworlds:
-    {
-        std::string tempstring = FILESYSTEM_getUserLevelDirectory();
-        if(tempstring.length()>80){
-            graphics.PrintWrap( -1, 160, loc::gettext("To install new player levels, copy the .vvvvvv files to this folder:"), tr, tg, tb, true);
-            graphics.Print( 320-((tempstring.length()-80)*8), 190, tempstring.substr(0,tempstring.length()-80), tr, tg, tb);
-            graphics.Print( 0, 200, tempstring.substr(tempstring.length()-80,40), tr, tg, tb);
-            graphics.Print( 0, 210, tempstring.substr(tempstring.length()-40,40), tr, tg, tb);
-        }else if(tempstring.length()>40){
-            graphics.PrintWrap( -1, 170, loc::gettext("To install new player levels, copy the .vvvvvv files to this folder:"), tr, tg, tb, true);
-            graphics.Print( 320-((tempstring.length()-40)*8), 200, tempstring.substr(0,tempstring.length()-40), tr, tg, tb);
-            graphics.Print( 0, 210, tempstring.substr(tempstring.length()-40,40), tr, tg, tb);
-        }else{
-            graphics.PrintWrap( -1, 180, loc::gettext("To install new player levels, copy the .vvvvvv files to this folder:"), tr, tg, tb, true);
-            graphics.Print( 320-(tempstring.length()*8), 210, tempstring, tr, tg, tb);
-        }
+        graphics.PrintWrap(-1, 180, loc::gettext("To install new player levels, copy the .vvvvvv files to the levels folder."), tr, tg, tb, true);
         break;
-    }
+    case Menu::confirmshowlevelspath:
+        graphics.PrintWrap(-1, 80, loc::gettext("Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming."), tr, tg, tb, true);
+        break;
+    case Menu::showlevelspath:
+        graphics.Print(-1, 40, loc::gettext("The levels path is:"), tr, tg, tb, true);
+        graphics.PrintWrap(0, 60, FILESYSTEM_getUserLevelDirectory(), tr, tg, tb, false, 10, 320);
+        break;
     case Menu::errorsavingsettings:
         graphics.PrintWrap( -1, 95, loc::gettext("ERROR: Could not save settings file!"), tr, tg, tb, true);
         break;
@@ -1781,14 +1768,16 @@ void gamerender(void)
     if (graphics.fademode==0
     && !game.intimetrial
     && !game.isingamecompletescreen()
-    && game.swngame != 1
+    && (!game.swnmode || game.swngame != 1)
     && game.showingametimer
     && !roomname_translator::enabled)
     {
         const char* tempstring = loc::gettext("TIME:");
         int label_len = graphics.len(tempstring);
         graphics.bprint(6, 6, tempstring,  255,255,255);
-        graphics.bprint(6+label_len, 6, game.timestring(),  196, 196, 196);
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        game.timestringcenti(buffer, sizeof(buffer));
+        graphics.bprint(6+label_len, 6, buffer,  196, 196, 196);
     }
 
     bool force_roomname_hidden = false;
@@ -2003,24 +1992,27 @@ void gamerender(void)
         }
         else if (!roomname_translator::is_pausing())
         {
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            game.timestringcenti(buffer, sizeof(buffer));
+
             //Draw OSD stuff
             const char* tempstring = loc::gettext("TIME:");
             int label_len = graphics.len(tempstring);
             graphics.bprint(6, 18, tempstring,  255,255,255);
             tempstring = loc::gettext("DEATH:");
-            label_len = VVV_max(label_len, graphics.len(tempstring));
+            label_len = SDL_max(label_len, graphics.len(tempstring));
             graphics.bprint(6, 30, tempstring,  255, 255, 255);
             tempstring = loc::gettext("SHINY:");
-            label_len = VVV_max(label_len, graphics.len(tempstring));
+            label_len = SDL_max(label_len, graphics.len(tempstring));
             graphics.bprint(6, 42, tempstring,  255,255,255);
 
             if(game.timetrialparlost)
             {
-                graphics.bprint(8+label_len, 18, game.timestring(),  196, 80, 80);
+                graphics.bprint(8+label_len, 18, buffer,  196, 80, 80);
             }
             else
             {
-                graphics.bprint(8+label_len, 18, game.timestring(),  196, 196, 196);
+                graphics.bprint(8+label_len, 18, buffer,  196, 196, 196);
             }
             if(game.deathcounts>0)
             {
@@ -2030,7 +2022,6 @@ void gamerender(void)
             {
                 graphics.bprint(8+label_len, 30,help.String(game.deathcounts),  196, 196, 196);
             }
-            char buffer[SCREEN_WIDTH_CHARS + 1];
             SDL_snprintf(
                 buffer, sizeof(buffer),
                 loc::gettext("%d of %d"),
@@ -2050,12 +2041,12 @@ void gamerender(void)
             if(game.timetrialparlost)
             {
                 graphics.bprint(275-label_len, 214, tempstring,  80, 80, 80);
-                graphics.bprint(275, 214, game.partimestring(),  80, 80, 80);
+                graphics.bprint(275, 214, game.timetstring(game.timetrialpar),  80, 80, 80);
             }
             else
             {
                 graphics.bprint(275-label_len, 214, tempstring,  255, 255, 255);
-                graphics.bprint(275, 214, game.partimestring(),  196, 196, 196);
+                graphics.bprint(275, 214, game.timetstring(game.timetrialpar),  196, 196, 196);
             }
         }
     }
@@ -2194,7 +2185,7 @@ void maprender(void)
                     graphics.drawimage(2, 40 + (i * 12), 21 + (j * 9), false);
                 }
             }
-            graphics.Print(-1, 105, loc::gettext("NO SIGNAL"), 245, 245, 245, true);
+            graphics.bprint(-1, 105, loc::gettext("NO SIGNAL"), 245, 245, 245, true);
         }
 #ifndef NO_CUSTOM_LEVELS
         else if(map.custommode)

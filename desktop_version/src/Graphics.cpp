@@ -14,6 +14,7 @@
 #include "Music.h"
 #include "RoomnameTranslator.h"
 #include "Screen.h"
+#include "TempSDLFallthrough.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
@@ -110,7 +111,6 @@ void Graphics::init(void)
     m = 0;
     linedelay = 0;
     menubuffer = NULL;
-    screenbuffer = NULL;
     tempBuffer = NULL;
     warpbuffer = NULL;
     warpbuffer_lerp = NULL;
@@ -327,7 +327,7 @@ void Graphics::updatetitlecolours(void)
         SDL_snprintf(error, sizeof(error), error_fmt, #tilesheet, tile_square); \
         SDL_snprintf(error_title, sizeof(error_title), error_title_fmt, #tilesheet); \
         \
-        vlog_error(error); \
+        vlog_error("%s", error); \
         \
         return false; \
     }
@@ -598,7 +598,7 @@ bool Graphics::next_wrap(
         case '\n':
         case '|':
             *start += 1;
-            VVV_fallthrough;
+            SDL_FALLTHROUGH;
         case '\0':
             return true;
         }
@@ -635,7 +635,7 @@ bool Graphics::next_wrap_s(
     if (retval)
     {
         /* Like next_split_s(), don't use SDL_strlcpy() here. */
-        const size_t length = VVV_min(buffer_size - 1, len);
+        const size_t length = SDL_min(buffer_size - 1, len);
         SDL_memcpy(buffer, &str[prev_start], length);
         buffer[length] = '\0';
     }
@@ -692,7 +692,8 @@ void Graphics::bigprint(  int _x, int _y, const std::string& _s, int r, int g, i
 {
     if (cen)
     {
-        _x = VVV_max(160 - (int((len(_s)/ 2.0)*sc)), 0 );
+        const int len_ = len(_s);
+        _x = SDL_max(160 - (int((len_/ 2.0)*sc)), 0 );
     }
 
     return do_print(_x, _y, _s, r, g, b, 255, sc);
@@ -705,7 +706,8 @@ void Graphics::bigbprint(int x, int y, const std::string& s, int r, int g, int b
         bigprint(x, y - sc, s, 0, 0, 0, cen, sc);
         if (cen)
         {
-            int x_cen = VVV_max(160 - (len(s) / 2) * sc, 0);
+            const int len_ = len(s);
+            int x_cen = SDL_max(160 - (len_ / 2) * sc, 0);
             bigprint(x_cen - sc, y, s, 0, 0, 0, false, sc);
             bigprint(x_cen + sc, y, s, 0, 0, 0, false, sc);
         }
@@ -1343,13 +1345,13 @@ void Graphics::cutscenebarstimer(void)
     if (showcutscenebars)
     {
         cutscenebarspos += 25;
-        cutscenebarspos = VVV_min(cutscenebarspos, 361);
+        cutscenebarspos = SDL_min(cutscenebarspos, 361);
     }
     else if (cutscenebarspos > 0)
     {
         //disappearing
         cutscenebarspos -= 25;
-        cutscenebarspos = VVV_max(cutscenebarspos, 0);
+        cutscenebarspos = SDL_max(cutscenebarspos, 0);
     }
 }
 
@@ -1779,10 +1781,10 @@ bool Graphics::Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, po
 
     if(intersection)
     {
-        int r3_left = VVV_max(r1_left, r2_left);
-        int r3_top = VVV_min(r1_top, r2_top);
-        int r3_right = VVV_min(r1_right, r2_right);
-        int r3_bottom= VVV_max(r1_bottom, r2_bottom);
+        int r3_left = SDL_max(r1_left, r2_left);
+        int r3_top = SDL_min(r1_top, r2_top);
+        int r3_right = SDL_min(r1_right, r2_right);
+        int r3_bottom= SDL_max(r1_bottom, r2_bottom);
 
         //for every pixel inside rectangle
         for(int x = r3_left; x < r3_right; x++)
@@ -1876,70 +1878,70 @@ void Graphics::drawtrophytext(void)
     switch(obj.trophytype)
     {
     case 1:
-        Print( -1, 6, "SPACE STATION 1 MASTERED", temp, temp2, temp3, true);
-        Print( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        bprint( -1, 6, "SPACE STATION 1 MASTERED", temp, temp2, temp3, true);
+        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
         break;
     case 2:
-        Print( -1, 6, "LABORATORY MASTERED", temp, temp2, temp3, true);
-        Print( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        bprint( -1, 6, "LABORATORY MASTERED", temp, temp2, temp3, true);
+        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
         break;
     case 3:
-        Print( -1, 6, "THE TOWER MASTERED", temp, temp2, temp3, true);
-        Print( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        bprint( -1, 6, "THE TOWER MASTERED", temp, temp2, temp3, true);
+        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
         break;
     case 4:
-        Print( -1, 6, "SPACE STATION 2 MASTERED", temp, temp2, temp3, true);
-        Print( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        bprint( -1, 6, "SPACE STATION 2 MASTERED", temp, temp2, temp3, true);
+        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
         break;
     case 5:
-        Print( -1, 6, "WARP ZONE MASTERED", temp, temp2, temp3, true);
-        Print( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        bprint( -1, 6, "WARP ZONE MASTERED", temp, temp2, temp3, true);
+        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
         break;
     case 6:
-        Print( -1, 6, "FINAL LEVEL MASTERED", temp, temp2, temp3, true);
-        Print( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        bprint( -1, 6, "FINAL LEVEL MASTERED", temp, temp2, temp3, true);
+        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
         break;
     case 7:
-        Print( -1, 6, "GAME COMPLETE", temp, temp2, temp3, true);
-        Print( -1, 16, "Complete the game", temp, temp2, temp3, true);
+        bprint( -1, 6, "GAME COMPLETE", temp, temp2, temp3, true);
+        bprint( -1, 16, "Complete the game", temp, temp2, temp3, true);
         break;
     case 8:
-        Print( -1, 6, "FLIP MODE COMPLETE", temp, temp2, temp3, true);
-        Print( -1, 16, "Complete the game in flip mode", temp, temp2, temp3, true);
+        bprint( -1, 6, "FLIP MODE COMPLETE", temp, temp2, temp3, true);
+        bprint( -1, 16, "Complete the game in flip mode", temp, temp2, temp3, true);
         break;
     case 9:
-        Print( -1, 11, "Win with less than 50 deaths", temp, temp2, temp3, true);
+        bprint( -1, 11, "Win with less than 50 deaths", temp, temp2, temp3, true);
         break;
     case 10:
-        Print( -1, 11, "Win with less than 100 deaths", temp, temp2, temp3, true);
+        bprint( -1, 11, "Win with less than 100 deaths", temp, temp2, temp3, true);
         break;
     case 11:
-        Print( -1, 11, "Win with less than 250 deaths", temp, temp2, temp3, true);
+        bprint( -1, 11, "Win with less than 250 deaths", temp, temp2, temp3, true);
         break;
     case 12:
-        Print( -1, 11, "Win with less than 500 deaths", temp, temp2, temp3, true);
+        bprint( -1, 11, "Win with less than 500 deaths", temp, temp2, temp3, true);
         break;
     case 13:
-        Print( -1, 11, "Last 5 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bprint( -1, 11, "Last 5 seconds on the Super Gravitron", temp, temp2, temp3, true);
         break;
     case 14:
-        Print( -1, 11, "Last 10 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bprint( -1, 11, "Last 10 seconds on the Super Gravitron", temp, temp2, temp3, true);
         break;
     case 15:
-        Print( -1, 11, "Last 15 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bprint( -1, 11, "Last 15 seconds on the Super Gravitron", temp, temp2, temp3, true);
         break;
     case 16:
-        Print( -1, 11, "Last 20 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bprint( -1, 11, "Last 20 seconds on the Super Gravitron", temp, temp2, temp3, true);
         break;
     case 17:
-        Print( -1, 11, "Last 30 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bprint( -1, 11, "Last 30 seconds on the Super Gravitron", temp, temp2, temp3, true);
         break;
     case 18:
-        Print( -1, 11, "Last 1 minute on the Super Gravitron", temp, temp2, temp3, true);
+        bprint( -1, 11, "Last 1 minute on the Super Gravitron", temp, temp2, temp3, true);
         break;
     case 20:
-        Print( -1, 6, "MASTER OF THE UNIVERSE", temp, temp2, temp3, true);
-        Print( -1, 16, "Complete the game in no death mode", temp, temp2, temp3, true);
+        bprint( -1, 6, "MASTER OF THE UNIVERSE", temp, temp2, temp3, true);
+        bprint( -1, 16, "Complete the game in no death mode", temp, temp2, temp3, true);
         break;
     }
 }
@@ -2036,7 +2038,7 @@ void Graphics::drawentity(const int i, const int yoff)
             wrapX = true;
             wrappedPoint.x += 320;
         }
-        else if (tpoint.x > 300)
+        else if (tpoint.x > 288)
         {
             wrapX = true;
             wrappedPoint.x -= 320;
@@ -2048,7 +2050,7 @@ void Graphics::drawentity(const int i, const int yoff)
             wrapY = true;
             wrappedPoint.y += 232;
         }
-        else if (tpoint.y > 210)
+        else if (tpoint.y > 200)
         {
             wrapY = true;
             wrappedPoint.y -= 232;
@@ -3146,7 +3148,7 @@ void Graphics::menuoffrender(void)
     BlitSurfaceStandard(tempBuffer, NULL, backBuffer, NULL);
     BlitSurfaceStandard(menubuffer, NULL, backBuffer, &offsetRect);
 
-    screenbuffer->UpdateScreen(backBuffer, NULL);
+    gameScreen.UpdateScreen(backBuffer, NULL);
     ClearSurface(backBuffer);
 }
 
@@ -3300,7 +3302,7 @@ void Graphics::flashlight(void)
 void Graphics::screenshake(void)
 {
     SDL_Rect shakeRect = {screenshake_x, screenshake_y, backBuffer->w, backBuffer->h};
-    screenbuffer->UpdateScreen(backBuffer, &shakeRect);
+    gameScreen.UpdateScreen(backBuffer, &shakeRect);
 
     ClearSurface(backBuffer);
 }
@@ -3313,12 +3315,7 @@ void Graphics::updatescreenshake(void)
 
 void Graphics::render(void)
 {
-    if (screenbuffer == NULL)
-    {
-        return;
-    }
-
-    screenbuffer->UpdateScreen(backBuffer, NULL);
+    gameScreen.UpdateScreen(backBuffer, NULL);
 }
 
 void Graphics::renderwithscreeneffects(void)
@@ -3345,7 +3342,7 @@ void Graphics::renderfixedpre(void)
         updatescreenshake();
     }
 
-    if (screenbuffer != NULL && screenbuffer->badSignalEffect)
+    if (gameScreen.badSignalEffect)
     {
         UpdateFilter();
     }
@@ -3366,13 +3363,15 @@ void Graphics::renderfixedpost(void)
 
 void Graphics::bigrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen, float sc)
 {
+    const int len_ = len(t);
+
     x = x /  (sc);
 
-    x -= (len(t));
+    x -= len_;
 
     if (cen)
     {
-        x = VVV_max(160 - (int((len(t)/ 2.0)*sc)), 0 );
+        x = SDL_max(160 - (int((len_/ 2.0)*sc)), 0 );
     }
     else
     {
@@ -3386,11 +3385,12 @@ void Graphics::bigbrprint(int x, int y, const std::string& s, int r, int g, int 
 {
     if (!notextoutline)
     {
-        int x_o = x / sc - len(s);
+        const int len_ = len(s);
+        int x_o = x / sc - len_;
         bigrprint(x, y - sc, s, 0, 0, 0, cen, sc);
         if (cen)
         {
-            x_o = VVV_max(160 - (len(s) / 2) * sc, 0);
+            x_o = SDL_max(160 - (len_ / 2) * sc, 0);
             bigprint(x_o - sc, y, s, 0, 0, 0, false, sc);
             bigprint(x_o + sc, y, s, 0, 0, 0, false, sc);
         }
@@ -3576,10 +3576,7 @@ bool Graphics::reloadresources(void)
     images.push_back(grphx.im_image11);
     images.push_back(grphx.im_image12);
 
-    if (screenbuffer != NULL)
-    {
-        screenbuffer->LoadIcon();
-    }
+    gameScreen.LoadIcon();
 
     music.destroy();
     music.init();

@@ -334,7 +334,11 @@
     <string english="play a level" translation="" explanation="menu option"/>
     <string english="level editor" translation="" explanation="menu option"/>
     <string english="open level folder" translation="" explanation="menu option"/>
+    <string english="show level folder path" translation="" explanation="menu option"/>
     <string english="return" translation="" explanation="menu option"/>
+    <string english="return to levels" translation="" explanation="menu option"/>
+    <string english="no, don't show me" translation="" explanation="menu option"/>
+    <string english="yes, reveal the path" translation="" explanation="menu option. Path to the levels folder"/>
     <string english="return to play menu" translation="" explanation="menu option" max="36"/>
     <string english="try again" translation="" explanation="menu option, retry time trial" max="36"/>
     <string english="ok" translation="" explanation="button"/>
@@ -347,7 +351,9 @@
     <string english="start from beginning" translation="" explanation="menu option"/>
     <string english="delete save" translation="" explanation="menu option"/>
     <string english="back to levels" translation="" explanation="menu option"/>
-    <string english="To install new player levels, copy the .vvvvvv files to this folder:" translation="" explanation="" max="38*3"/>
+    <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="" explanation="" max="38*3"/>
+    <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="" explanation="" max="38*4"/>
+    <string english="The levels path is:" translation="" explanation="" max="40"/>
     <string english="[ Press ACTION to Start ]" translation="" explanation="title screen" max="38*2"/>
     <string english="ACTION = Space, Z, or V" translation="" explanation="title screen" max="38*3"/>
     <string english="[Press ENTER to return to editor]" translation="" explanation="`to editor` is sorta redundant" max="40"/>
@@ -532,11 +538,11 @@
     <string english="ERROR: No checkpoint to spawn at" translation="" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="" explanation="" max="38*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="" explanation="" max="38*3"/>
-    <string english="" translation="" explanation=""/>
-    <string english="" translation="" explanation=""/>
-    <string english="" translation="" explanation=""/>
-    <string english="" translation="" explanation=""/>
-    <string english="" translation="" explanation=""/>
+    <string english="%d:%02d:%02d" translation="" explanation="time format H:MM:SS"/>
+    <string english="%d:%02d:%02d.%02d" translation="" explanation="time format H:MM:SS.CC"/>
+    <string english="%d:%02d" translation="" explanation="time format M:SS"/>
+    <string english="%d:%02d.%02d" translation="" explanation="time format M:SS.CC"/>
+    <string english="%d.%02d" translation="" explanation="time format S.CC"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

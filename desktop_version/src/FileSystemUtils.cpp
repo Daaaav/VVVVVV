@@ -430,7 +430,7 @@ static int setLevelDirError(const char* text, ...)
     retval = SDL_vsnprintf(levelDirError, sizeof(levelDirError), text, list);
     va_end(list);
 
-    vlog_error(levelDirError);
+    vlog_error("%s", levelDirError);
 
     return retval;
 }

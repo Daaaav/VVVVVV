@@ -1,3 +1,4 @@
+#define GAMESCREEN_DEFINITION
 #include "Screen.h"
 
 #include <SDL.h>
@@ -7,43 +8,27 @@
 #include "GraphicsUtil.h"
 #include "Vlogging.h"
 
-// Used to create the window icon
-extern "C"
+void ScreenSettings_default(struct ScreenSettings* _this)
 {
-    extern unsigned lodepng_decode24(
-        unsigned char** out,
-        unsigned* w,
-        unsigned* h,
-        const unsigned char* in,
-        size_t insize
-    );
+    _this->windowWidth = 320;
+    _this->windowHeight = 240;
+    _this->fullscreen = false;
+    _this->useVsync = true; // Now that uncapped is the default...
+    _this->scalingMode = 0;
+    _this->linearFilter = false;
+    _this->badSignal = false;
 }
 
-ScreenSettings::ScreenSettings(void)
-{
-    windowWidth = 320;
-    windowHeight = 240;
-    fullscreen = false;
-    useVsync = true; // Now that uncapped is the default...
-    stretch = 0;
-    linearFilter = false;
-    badSignal = false;
-}
-
-void Screen::init(const ScreenSettings& settings)
+void Screen::init(const struct ScreenSettings* settings)
 {
     m_window = NULL;
     m_renderer = NULL;
     m_screenTexture = NULL;
     m_screen = NULL;
-    isWindowed = !settings.fullscreen;
-    stretchMode = settings.stretch;
-    isFiltered = settings.linearFilter;
-    vsync = settings.useVsync;
-    filterSubrect.x = 1;
-    filterSubrect.y = 1;
-    filterSubrect.w = 318;
-    filterSubrect.h = 238;
+    isWindowed = !settings->fullscreen;
+    scalingMode = settings->scalingMode;
+    isFiltered = settings->linearFilter;
+    vsync = settings->useVsync;
 
     SDL_SetHintWithPriority(
         SDL_HINT_RENDER_SCALE_QUALITY,
@@ -88,9 +73,9 @@ void Screen::init(const ScreenSettings& settings)
         240
     );
 
-    badSignalEffect = settings.badSignal;
+    badSignalEffect = settings->badSignal;
 
-    ResizeScreen(settings.windowWidth, settings.windowHeight);
+    ResizeScreen(settings->windowWidth, settings->windowHeight);
 }
 
 void Screen::destroy(void)
@@ -108,7 +93,7 @@ void Screen::destroy(void)
 #undef X
 }
 
-void Screen::GetSettings(ScreenSettings* settings)
+void Screen::GetSettings(struct ScreenSettings* settings)
 {
     int width, height;
     GetWindowSize(&width, &height);
@@ -118,34 +103,31 @@ void Screen::GetSettings(ScreenSettings* settings)
 
     settings->fullscreen = !isWindowed;
     settings->useVsync = vsync;
-    settings->stretch = stretchMode;
+    settings->scalingMode = scalingMode;
     settings->linearFilter = isFiltered;
     settings->badSignal = badSignalEffect;
 }
 
+#ifdef __APPLE__
+/* Apple doesn't like icons anymore... */
 void Screen::LoadIcon(void)
 {
-#ifndef __APPLE__
-    unsigned char *fileIn;
-    size_t length;
-    unsigned char *data;
-    unsigned int width, height;
-    FILESYSTEM_loadAssetToMemory("VVVVVV.png", &fileIn, &length, false);
-    lodepng_decode24(&data, &width, &height, fileIn, length);
-    FILESYSTEM_freeMemory(&fileIn);
-    SDL_Surface *icon = SDL_CreateRGBSurfaceWithFormatFrom(
-        data,
-        width,
-        height,
-        24,
-        width * 3,
-        SDL_PIXELFORMAT_RGB24
-    );
+
+}
+#else
+SDL_Surface* LoadImage(const char* filename);
+
+void Screen::LoadIcon(void)
+{
+    SDL_Surface* icon = LoadImage("VVVVVV.png");
+    if (icon == NULL)
+    {
+        return;
+    }
     SDL_SetWindowIcon(m_window, icon);
     SDL_FreeSurface(icon);
-    SDL_free(data);
-#endif /* __APPLE__ */
 }
+#endif /* __APPLE__ */
 
 void Screen::ResizeScreen(int x, int y)
 {
@@ -181,7 +163,7 @@ void Screen::ResizeScreen(int x, int y)
             SDL_SetWindowPosition(m_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         }
     }
-    if (stretchMode == 1)
+    if (scalingMode == 1)
     {
         int winX, winY;
         GetWindowSize(&winX, &winY);
@@ -201,7 +183,7 @@ void Screen::ResizeScreen(int x, int y)
     else
     {
         SDL_RenderSetLogicalSize(m_renderer, 320, 240);
-        int result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (stretchMode == 2));
+        int result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (scalingMode == 2));
         if (result != 0)
         {
             vlog_error("Error: could not set scale: %s", SDL_GetError());
@@ -303,6 +285,8 @@ const SDL_PixelFormat* Screen::GetFormat(void)
 
 void Screen::FlipScreen(const bool flipmode)
 {
+    static const SDL_Rect filterSubrect = {1, 1, 318, 238};
+
     SDL_RendererFlip flip_flags;
     if (flipmode)
     {
@@ -345,9 +329,9 @@ void Screen::toggleFullScreen(void)
     }
 }
 
-void Screen::toggleStretchMode(void)
+void Screen::toggleScalingMode(void)
 {
-    stretchMode = (stretchMode + 1) % 3;
+    scalingMode = (scalingMode + 1) % 3;
     ResizeScreen(-1, -1);
 }
 

@@ -23,6 +23,7 @@
 #include "Music.h"
 #include "Network.h"
 #include "RoomnameTranslator.h"
+#include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -571,7 +572,7 @@ void Game::loadcustomlevelstats(void)
     }
 
     // If the two arrays happen to differ in length, just go with the smallest one
-    for (int i = 0; i < VVV_min(customlevelnames.size(), customlevelscores.size()); i++)
+    for (size_t i = 0; i < SDL_min(customlevelnames.size(), customlevelscores.size()); i++)
     {
         CustomLevelStat stat = {customlevelnames[i], customlevelscores[i]};
         customlevelstats.push_back(stat);
@@ -1427,7 +1428,7 @@ void Game::updatestate(void)
                 }
             }
 
-            timetrialresulttime = seconds + (minutes * 60) + (hours * 60 * 60);
+            timetrialresulttime = help.hms_to_seconds(hours, minutes, seconds);
             timetrialresultframes = frames;
             timetrialresulttrinkets = trinkets();
             timetrialresultshinytarget = timetrialshinytarget;
@@ -2620,13 +2621,16 @@ void Game::updatestate(void)
             graphics.textboxcenterx();
             break;
         case 3502:
+        {
             state++;
             statedelay = 45+15;
 
             graphics.createtextboxflipme("  All Crew Members Rescued!  ", -1, 64, 0, 0, 0);
-            savetime = timestring();
-            savetime += "." + help.twodigits(frames*100 / 30);
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            timestringcenti(buffer, sizeof(buffer));
+            savetime = buffer;
             break;
+        }
         case 3503:
         {
             state++;
@@ -4006,7 +4010,7 @@ void Game::deletestats(void)
         }
         swnrecord = 0;
         swnbestrank = 0;
-        bestgamedeaths = 0;
+        bestgamedeaths = -1;
 #ifndef MAKEANDPLAY
         graphics.setflipmode = false;
 #endif
@@ -4036,7 +4040,7 @@ void Game::unlocknum( int t )
 #endif
 }
 
-void Game::loadstats(ScreenSettings* screen_settings)
+void Game::loadstats(struct ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -4115,7 +4119,7 @@ void Game::loadstats(ScreenSettings* screen_settings)
     deserializesettings(dataNode, screen_settings);
 }
 
-void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* screen_settings)
+void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSettings* screen_settings)
 {
     // Don't duplicate controller buttons!
     controllerButton_flip.clear();
@@ -4143,7 +4147,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
 
         if (SDL_strcmp(pKey, "stretch") == 0)
         {
-            screen_settings->stretch = help.Int(pText);
+            screen_settings->scalingMode = help.Int(pText);
         }
 
         if (SDL_strcmp(pKey, "useLinearFilter") == 0)
@@ -4352,18 +4356,14 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
 
 bool Game::savestats(bool sync /*= true*/)
 {
-    if (graphics.screenbuffer == NULL)
-    {
-        return false;
-    }
-
-    ScreenSettings screen_settings;
-    graphics.screenbuffer->GetSettings(&screen_settings);
+    struct ScreenSettings screen_settings;
+    SDL_zero(screen_settings);
+    gameScreen.GetSettings(&screen_settings);
 
     return savestats(&screen_settings, sync);
 }
 
-bool Game::savestats(const ScreenSettings* screen_settings, bool sync /*= true*/)
+bool Game::savestats(const struct ScreenSettings* screen_settings, bool sync /*= true*/)
 {
     tinyxml2::XMLDocument doc;
     bool already_exists = FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc);
@@ -4466,13 +4466,13 @@ void Game::savestatsandsettings_menu(void)
     }
 }
 
-void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSettings* screen_settings)
+void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument& doc = xml::get_document(dataNode);
 
     xml::update_tag(dataNode, "fullscreen", (int) screen_settings->fullscreen);
 
-    xml::update_tag(dataNode, "stretch", screen_settings->stretch);
+    xml::update_tag(dataNode, "stretch", screen_settings->scalingMode);
 
     xml::update_tag(dataNode, "useLinearFilter", (int) screen_settings->linearFilter);
 
@@ -4596,7 +4596,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
     xml::update_tag(dataNode, "roomname_translator", (int) roomname_translator::enabled);
 }
 
-void Game::loadsettings(ScreenSettings* screen_settings)
+void Game::loadsettings(struct ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -4625,18 +4625,14 @@ void Game::loadsettings(ScreenSettings* screen_settings)
 
 bool Game::savesettings(void)
 {
-    if (graphics.screenbuffer == NULL)
-    {
-        return false;
-    }
-
-    ScreenSettings screen_settings;
-    graphics.screenbuffer->GetSettings(&screen_settings);
+    struct ScreenSettings screen_settings;
+    SDL_zero(screen_settings);
+    gameScreen.GetSettings(&screen_settings);
 
     return savesettings(&screen_settings);
 }
 
-bool Game::savesettings(const ScreenSettings* screen_settings)
+bool Game::savesettings(const struct ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument doc;
     bool already_exists = FILESYSTEM_loadTiXml2Document("saves/settings.vvv", doc);
@@ -5795,71 +5791,33 @@ void Game::gameclock(void)
 
 std::string Game::giventimestring( int hrs, int min, int sec )
 {
-    std::string tempstring = "";
-    if (hrs > 0)
-    {
-        tempstring += help.String(hrs) + ":";
-    }
-    tempstring += help.twodigits(min) + ":" + help.twodigits(sec);
-    return tempstring;
+    return timetstring(help.hms_to_seconds(hrs, min, sec));
 }
 
 std::string Game::timestring(void)
 {
-    std::string tempstring = "";
-    if (hours > 0)
-    {
-        tempstring += help.String(hours) + ":";
-    }
-    tempstring += help.twodigits(minutes) + ":" + help.twodigits(seconds);
-    return tempstring;
-}
-
-std::string Game::partimestring(void)
-{
-    //given par time in seconds:
-    std::string tempstring = "";
-    if (timetrialpar >= 60)
-    {
-        tempstring = help.twodigits(timetrialpar / 60) + ":" + help.twodigits(timetrialpar % 60);
-    }
-    else
-    {
-        tempstring = "00:" + help.twodigits(timetrialpar);
-    }
-    return tempstring;
+    return giventimestring(hours, minutes, seconds);
 }
 
 std::string Game::resulttimestring(void)
 {
     //given result time in seconds:
-    std::string tempstring = "";
-    if (timetrialresulttime >= 60)
-    {
-        tempstring = help.twodigits(timetrialresulttime / 60) + ":"
-                     + help.twodigits(timetrialresulttime % 60);
-    }
-    else
-    {
-        tempstring = "00:" + help.twodigits(timetrialresulttime);
-    }
-    tempstring += "." + help.twodigits(timetrialresultframes*100 / 30); // TODO LOC maybe localize, as lang meta? 2x!
-    return tempstring;
+    char output[SCREEN_WIDTH_CHARS + 1];
+    help.format_time(output, sizeof(output), timetrialresulttime, timetrialresultframes, true);
+    return output;
 }
 
 std::string Game::timetstring( int t )
 {
     //given par time in seconds:
-    std::string tempstring = "";
-    if (t >= 60)
-    {
-        tempstring = help.twodigits(t / 60) + ":" + help.twodigits(t % 60);
-    }
-    else
-    {
-        tempstring = "00:" + help.twodigits(t);
-    }
-    return tempstring;
+    char output[SCREEN_WIDTH_CHARS + 1];
+    help.format_time(output, sizeof(output), t, -1, true);
+    return output;
+}
+
+void Game::timestringcenti(char* buffer, const size_t buffer_size)
+{
+    help.format_time(buffer, buffer_size, help.hms_to_seconds(hours, minutes, seconds), frames, true);
 }
 
 void Game::returnmenu(void)
@@ -5945,6 +5903,12 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     switch (t)
     {
     case Menu::mainmenu:
+        if (ingame_titlemode)
+        {
+            /* We shouldn't be here! */
+            SDL_assert(0 && "Entering main menu from in-game options!");
+            break;
+        }
 #if !defined(MAKEANDPLAY)
         option(loc::gettext("play"));
 #endif
@@ -5970,9 +5934,19 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("level editor"));
  #endif
         option(loc::gettext("open level folder"), FILESYSTEM_openDirectoryEnabled());
+        option(loc::gettext("show level folder path"));
         option(loc::gettext("return"));
         menuyoff = -40;
         maxspacing = 15;
+        break;
+    case Menu::confirmshowlevelspath:
+        option(loc::gettext("no, don't show me"));
+        option(loc::gettext("yes, reveal the path"));
+        menuyoff = -10;
+        break;
+    case Menu::showlevelspath:
+        option(loc::gettext("return to levels"));
+        menuyoff = 60;
         break;
     case Menu::levellist:
         if(cl.ListOfMetaData.size()==0)
@@ -6107,7 +6081,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::graphicoptions:
         option(loc::gettext("toggle fullscreen"));
         option(loc::gettext("scaling mode"));
-        option(loc::gettext("resize to nearest"), graphics.screenbuffer->isWindowed);
+        option(loc::gettext("resize to nearest"), gameScreen.isWindowed);
         option(loc::gettext("toggle filter"));
         option(loc::gettext("toggle analogue"));
         option(loc::gettext("toggle vsync"));
@@ -6943,7 +6917,7 @@ void Game::unlockAchievement(const char *name) {
 #endif
 }
 
-void Game::mapmenuchange(const int newgamestate, const bool user_initiated)
+void Game::mapmenuchange(const enum GameGamestate newgamestate, const bool user_initiated)
 {
     if (user_initiated && graphics.resumegamemode)
     {

@@ -61,13 +61,13 @@ static std::string playassets;
 
 static std::string playtestname;
 
-static volatile Uint32 time_ = 0;
-static volatile Uint32 timePrev = 0;
+static volatile Uint64 time_ = 0;
+static volatile Uint64 timePrev = 0;
 static volatile Uint32 accumulator = 0;
 
 #ifndef __EMSCRIPTEN__
-static volatile Uint32 f_time = 0;
-static volatile Uint32 f_timePrev = 0;
+static volatile Uint64 f_time = 0;
+static volatile Uint64 f_timePrev = 0;
 #endif
 
 enum FuncType
@@ -360,7 +360,11 @@ static void cleanup(void);
 static void emscriptenloop(void)
 {
     timePrev = time_;
+#if SDL_VERSION_ATLEAST(2, 0, 17)
+    time_ = SDL_GetTicks64();
+#else
     time_ = SDL_GetTicks();
+#endif
     deltaloop();
 }
 #endif
@@ -581,12 +585,13 @@ int main(int argc, char *argv[])
     {
         // Prioritize unlock.vvv first (2.2 and below),
         // but settings have been migrated to settings.vvv (2.3 and up)
-        ScreenSettings screen_settings;
+        struct ScreenSettings screen_settings;
+        SDL_zero(screen_settings);
+        ScreenSettings_default(&screen_settings);
         game.loadstats(&screen_settings);
         game.loadsettings(&screen_settings);
-        gameScreen.init(screen_settings);
+        gameScreen.init(&screen_settings);
     }
-    graphics.screenbuffer = &gameScreen;
 
     loc::loadtext();
     loc::loadlanguagelist();
@@ -688,20 +693,32 @@ int main(int argc, char *argv[])
 #else
     while (true)
     {
+#if SDL_VERSION_ATLEAST(2, 0, 17)
+        f_time = SDL_GetTicks64();
+#else
         f_time = SDL_GetTicks();
+#endif
 
-        const Uint32 f_timetaken = f_time - f_timePrev;
+        const Uint64 f_timetaken = f_time - f_timePrev;
         if (!game.over30mode && f_timetaken < 34)
         {
-            const volatile Uint32 f_delay = 34 - f_timetaken;
-            SDL_Delay(f_delay);
+            const volatile Uint64 f_delay = 34 - f_timetaken;
+            SDL_Delay((Uint32) f_delay);
+#if SDL_VERSION_ATLEAST(2, 0, 17)
+            f_time = SDL_GetTicks64();
+#else
             f_time = SDL_GetTicks();
+#endif
         }
 
         f_timePrev = f_time;
 
         timePrev = time_;
+#if SDL_VERSION_ATLEAST(2, 0, 17)
+        time_ = SDL_GetTicks64();
+#else
         time_ = SDL_GetTicks();
+#endif
 
         deltaloop();
     }

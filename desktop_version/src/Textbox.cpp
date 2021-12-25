@@ -1,8 +1,7 @@
 #include "Textbox.h"
 
+#include <SDL.h>
 #include <utf8/unchecked.h>
-
-#include "Maths.h"
 
 textboxclass::textboxclass(void)
 {
@@ -132,7 +131,7 @@ void textboxclass::padtowidth(size_t new_w)
     /* Pad the current text so that each line is new_w pixels wide.
      * Each existing line is centered in that width. */
     resize();
-    size_t chars_w = VVV_max(w-16, new_w) / 8;
+    size_t chars_w = SDL_max(w-16, new_w) / 8;
     for (size_t iter = 0; iter < lines.size(); iter++)
     {
         size_t n_glyphs = utf8::unchecked::distance(lines[iter].begin(), lines[iter].end());
