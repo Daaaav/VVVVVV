@@ -647,7 +647,7 @@ void Game::savecustomlevelstats(void)
 void Game::levelcomplete_textbox(void)
 {
     graphics.createtextboxflipme("", -1, 12, 165, 165, 255);
-    graphics.addline("                                   ");
+    graphics.addline("                                    ");
     graphics.addline("");
     graphics.addline("");
     graphics.textboxcenterx();
@@ -2615,7 +2615,7 @@ void Game::updatestate(void)
             music.play(7);
 
             graphics.createtextboxflipme("", -1, 12, 164, 165, 255);
-            graphics.addline("                                   ");
+            graphics.addline("                                    ");
             graphics.addline("");
             graphics.addline("");
             graphics.textboxcenterx();

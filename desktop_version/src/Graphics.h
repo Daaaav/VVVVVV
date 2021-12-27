@@ -234,6 +234,11 @@ public:
     bool minimap_mounted;
 #endif
 
+    bool gamecomplete_mounted;
+    bool levelcomplete_mounted;
+    bool flipgamecomplete_mounted;
+    bool fliplevelcomplete_mounted;
+
 
     void menuoffrender(void);
 

@@ -151,6 +151,11 @@ void Graphics::init(void)
     minimap_mounted = false;
 #endif
 
+    gamecomplete_mounted = false;
+    levelcomplete_mounted = false;
+    flipgamecomplete_mounted = false;
+    fliplevelcomplete_mounted = false;
+
     SDL_zeroa(error);
     SDL_zeroa(error_title);
 }
@@ -1164,26 +1169,66 @@ void Graphics::drawgui(void)
 
         if (textboxes[i].yp == 12 && textboxes[i].r == 165)
         {
-            // Level complete - TODO LOC
-            if (flipmode)
+            // Level complete
+            const char* english = "Level Complete!";
+            const char* translation = loc::gettext(english);
+            if (SDL_strcmp(english, translation) != 0
+                && !(flipmode && fliplevelcomplete_mounted)
+                && !(!flipmode && levelcomplete_mounted)
+            )
             {
-                drawimage(5, 0, 180, true);
+                int sc = 2;
+                int y = 28;
+                if (len(translation) > 144)
+                {
+                    // We told translators how long it could be... Ah well, mitigate the damage.
+                    sc = 1;
+                    y += 4;
+                }
+                bigprint(-1, y, translation, 164, 164, 255, true, sc);
             }
             else
             {
-                drawimage(0, 0, 12, true);
+                if (flipmode)
+                {
+                    drawimage(5, 0, 180, true);
+                }
+                else
+                {
+                    drawimage(0, 0, 12, true);
+                }
             }
         }
         else if (textboxes[i].yp == 12 && textboxes[i].g == 165)
         {
-            // Game complete -- TODO LOC
-            if (flipmode)
+            // Game complete
+            const char* english = "Game Complete!";
+            const char* translation = loc::gettext(english);
+            if (SDL_strcmp(english, translation) != 0
+                && !(flipmode && flipgamecomplete_mounted)
+                && !(!flipmode && gamecomplete_mounted)
+            )
             {
-                drawimage(6, 0, 180, true);
+                int sc = 2;
+                int y = 28;
+                if (len(translation) > 144)
+                {
+                    // We told translators how long it could be... Ah well, mitigate the damage.
+                    sc = 1;
+                    y += 4;
+                }
+                bigprint(-1, y, translation, 164, 164, 255, true, sc);
             }
             else
             {
-                drawimage(4, 0, 12, true);
+                if (flipmode)
+                {
+                    drawimage(6, 0, 180, true);
+                }
+                else
+                {
+                    drawimage(4, 0, 12, true);
+                }
             }
         }
         int crew_xp = textboxes[i].xp+20 - 6;
@@ -3586,6 +3631,11 @@ bool Graphics::reloadresources(void)
     tiles2_mounted = FILESYSTEM_isAssetMounted("graphics/tiles2.png");
     minimap_mounted = FILESYSTEM_isAssetMounted("graphics/minimap.png");
 #endif
+
+    gamecomplete_mounted = FILESYSTEM_isAssetMounted("graphics/gamecomplete.png");
+    levelcomplete_mounted = FILESYSTEM_isAssetMounted("graphics/levelcomplete.png");
+    flipgamecomplete_mounted = FILESYSTEM_isAssetMounted("graphics/flipgamecomplete.png");
+    fliplevelcomplete_mounted = FILESYSTEM_isAssetMounted("graphics/fliplevelcomplete.png");
 
     return true;
 

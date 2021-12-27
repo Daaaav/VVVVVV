@@ -543,8 +543,8 @@
     <string english="%d:%02d" translation="%d:%02d" explanation="time format M:SS"/>
     <string english="%d:%02d.%02d" translation="%d:%02d,%02d" explanation="time format M:SS.CC"/>
     <string english="%d.%02d" translation="%d,%02d" explanation="time format S.CC"/>
-    <string english="" translation="" explanation=""/>
-    <string english="" translation="" explanation=""/>
+    <string english="Level Complete!" translation="Level voltooid!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
+    <string english="Game Complete!" translation="Spel uitgespeeld!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
