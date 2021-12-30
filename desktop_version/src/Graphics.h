@@ -85,11 +85,15 @@ public:
 
     void textboxcentery(void);
 
+    int textboxwrap(int pad);
+
     void textboxpad(size_t left_pad, size_t right_pad);
 
     void textboxpadtowidth(size_t new_w);
 
     void textboxcentertext();
+
+    void textboxcommsrelay();
 
     void textboxadjust(void);
 

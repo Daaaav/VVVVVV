@@ -312,11 +312,17 @@
     <string english="[Trinkets found]" translation="[Baratijas encontradas]" explanation="amount of shiny trinkets found" max="40"/>
     <string english="[Number of Deaths]" translation="[Número de muertes]" explanation="" max="40"/>
     <string english="[Time Taken]" translation="[Tiempo tomado]" explanation="stopwatch time" max="40"/>
+    <string english="Trinkets Found:" translation="" explanation="game complete screen" max="21"/>
+    <string english="Game Time:" translation="" explanation="game complete screen" max="21"/>
+    <string english="Total Flips:" translation="" explanation="game complete screen" max="21"/>
+    <string english="Total Deaths:" translation="" explanation="game complete screen" max="21"/>
     <string english="Results" translation="Resultados" explanation="bigger title" max="13"/>
     <string english="TIME TAKEN:" translation="TIEMPO TOMADO:" explanation="time the player took playing the level" max="32"/>
     <string english="NUMBER OF DEATHS:" translation="NÚMERO DE MUERTES:" explanation="amount of times the player died" max="32"/>
-    <string english="SHINY TRINKETS:" translation="BARATIJAS BRILLANTES:" explanation="amount of trinkets collected"/>
+    <string english="SHINY TRINKETS:" translation="BARATIJAS BRILLANTES:" explanation="amount of trinkets collected" max="32"/>
+    <string english=" / " translation="" explanation="inserted between two times, ex: 0:46.90 / 1:15.99"/>
     <string english="%d of %d" translation="%d de %d" explanation="ex: 2 of 5"/>
+    <string english="%s out of %s" translation="" explanation="ex: One out of Twenty, see numbers.xml" max="34"/>
     <string english="+1 Rank!" translation="+1 Rango!" explanation="rank was upgraded (B → A → S → V)" max="12"/>
     <string english="Rank:" translation="Rango:" explanation="time trial rank"/>
     <string english="B" translation="B" explanation="time trial rank"/>
@@ -396,8 +402,8 @@
     <string english="Cannot Save in No Death Mode" translation="No puedes guardar en el Modo Sin Muertes" explanation="" max="38*7"/>
     <string english="How&apos;d you get here?" translation="" explanation="" max="38*7"/>
     <string english="Cannot Save in Secret Lab" translation="No puedes guardar en el Laboratorio Secreto" explanation="" max="38*7"/>
-    <string english="ERROR: Could not save game!" translation="" explanation="" max="38*7"/>
-    <string english="ERROR: Could not save settings file!" translation="" explanation="" max="38*4"/>
+    <string english="ERROR: Could not save game!" translation="" explanation="" max="34*2"/>
+    <string english="ERROR: Could not save settings file!" translation="" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Juego guardado exitosamente!" explanation="" max="38*2"/>
     <string english="[Press ACTION to save your game]" translation="[Presiona ACCÍÓN para guardar partida]" explanation="" max="38*7"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Nota: El juego se guarda automaticamente en cada teletransportador)" explanation="" max="38*3"/>
@@ -543,8 +549,63 @@
     <string english="%d:%02d" translation="" explanation="time format M:SS"/>
     <string english="%d:%02d.%02d" translation="" explanation="time format M:SS.CC"/>
     <string english="%d.%02d" translation="" explanation="time format S.CC"/>
+    <string english=".99" translation="" explanation="appended to time format for 99/100 seconds (example: 1:15.99)"/>
     <string english="Level Complete!" translation="" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="Game Complete!" translation="" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
+    <string english="You have rescued a crew member!" translation="" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2"/>
+    <string english="All Crew Members Rescued!" translation="" explanation="" max="32"/>
+    <string english="All crewmates rescued!" translation="" explanation="" max="32"/>
+    <string english="Game Saved" translation="" explanation="" max="30"/>
+    <string english="Press arrow keys or WASD to move" translation="" explanation="" max="32*2"/>
+    <string english="Press ACTION to flip" translation="" explanation="" max="32*3"/>
+    <string english="Press ENTER to view map and quicksave" translation="" explanation="" max="32*3"/>
+    <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="" explanation="" max="34*3"/>
+    <string english="Help! Can anyone hear this message?" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Verdigris? Are you out there? Are you ok?" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Please help us! We&apos;ve crashed and need assistance!" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Hello? Anyone out there?" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="This is Doctor Violet from the D.S.S. Souleye! Please respond!" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Please... Anyone..." translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Please be alright, everyone..." translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Congratulations!
+
+You have found a shiny trinket!" translation="" explanation="" max="37*4"/>
+    <string english="Congratulations!
+
+You have found a lost crewmate!" translation="" explanation="" max="37*4"/>
+    <string english="Viridian" translation="" explanation="crewmate name (player)"/>
+    <string english="Violet" translation="" explanation="crewmate name"/>
+    <string english="Vitellary" translation="" explanation="crewmate name"/>
+    <string english="Vermilion" translation="" explanation="crewmate name"/>
+    <string english="Verdigris" translation="" explanation="crewmate name"/>
+    <string english="Victoria" translation="" explanation="crewmate name"/>
+    <string english="When you&apos;re standing on the floor, Vitellary will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, Vermilion will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, Verdigris will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, Victoria will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Vitellary will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Vermilion will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Verdigris will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Victoria will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Vitellary will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Vermilion will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Verdigris will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Victoria will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Vitellary will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Vermilion will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Verdigris will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Victoria will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="You can&apos;t continue to the next room until he is safely across." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="You can&apos;t continue to the next room until she is safely across." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="Survive for" translation="" explanation="Gravitron. Line 1/2: Survive for 60 seconds!" max="20"/>
+    <string english="60 seconds!" translation="" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20"/>
+    <string english="space station 1" translation="" explanation="area name as menu option"/>
+    <string english="space station 2" translation="" explanation="area name as menu option"/>
+    <string english="the laboratory" translation="" explanation="area name as menu option"/>
+    <string english="the tower" translation="" explanation="area name as menu option"/>
+    <string english="the warp zone" translation="" explanation="area name as menu option"/>
+    <string english="the final level" translation="" explanation="area name as menu option"/>
+    <string english="???" translation="" explanation="locked area as menu option"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

@@ -10,7 +10,7 @@
     <string english="play" translation="spelen" explanation="main menu option"/>
     <string english="levels" translation="levels" explanation="main menu option"/>
     <string english="options" translation="opties" explanation="main menu option"/>
-    <string english="translator" translation="" explanation="main menu option"/>
+    <string english="translator" translation="vertaler" explanation="main menu option"/>
     <string english="credits" translation="credits" explanation="main menu option"/>
     <string english="quit" translation="afsluiten" explanation="main menu option"/>
     <string english="gameplay" translation="spel" explanation="options menu option"/>
@@ -309,14 +309,20 @@
     <string english="WOW" translation="WAUW" explanation="even bigger title" max="10"/>
     <string english="You rescued all the crewmates!" translation="Je hebt alle bemanningsleden gered!" explanation="" max="40"/>
     <string english="A new trophy has been awarded and placed in the secret lab to acknowledge your achievement!" translation="Er is een nieuwe trofee voor je in het geheime lab geplaatst om je prestatie te erkennen!" explanation="" max="38*4"/>
-    <string english="[Trinkets found]" translation="[Sieraden gevonden]" explanation="amount of shiny trinkets found" max="40"/>
+    <string english="[Trinkets found]" translation="[Artefacten gevonden]" explanation="amount of shiny trinkets found" max="40"/>
     <string english="[Number of Deaths]" translation="[Aantal keer dood]" explanation="" max="40"/>
     <string english="[Time Taken]" translation="[Tijd verstreken]" explanation="stopwatch time" max="40"/>
+    <string english="Trinkets Found:" translation="Artefacten:" explanation="game complete screen" max="21"/>
+    <string english="Game Time:" translation="Speeltijd:" explanation="game complete screen" max="21"/>
+    <string english="Total Flips:" translation="Aantal omkeringen:" explanation="game complete screen" max="21"/>
+    <string english="Total Deaths:" translation="Aantal keer dood:" explanation="game complete screen" max="21"/>
     <string english="Results" translation="Resultaten" explanation="bigger title" max="13"/>
     <string english="TIME TAKEN:" translation="TIJD VERSTREKEN:" explanation="time the player took playing the level" max="32"/>
     <string english="NUMBER OF DEATHS:" translation="AANTAL KEER DOOD:" explanation="amount of times the player died" max="32"/>
-    <string english="SHINY TRINKETS:" translation="GLANZENDE SIERADEN:" explanation="amount of trinkets collected"/>
+    <string english="SHINY TRINKETS:" translation="GLANZENDE ARTEFACTEN:" explanation="amount of trinkets collected" max="32"/>
+    <string english=" / " translation=" / " explanation="inserted between two times, ex: 0:46.90 / 1:15.99"/>
     <string english="%d of %d" translation="%d van %d" explanation="ex: 2 of 5"/>
+    <string english="%s out of %s" translation="%s van de %s" explanation="ex: One out of Twenty, see numbers.xml" max="34"/>
     <string english="+1 Rank!" translation="+1 score!" explanation="rank was upgraded (B → A → S → V)" max="12"/>
     <string english="Rank:" translation="Score:" explanation="time trial rank"/>
     <string english="B" translation="B" explanation="time trial rank"/>
@@ -378,7 +384,7 @@
     <string english="Go!" translation="Go!" explanation="3, 2, 1, Go!" max="10"/>
     <string english="TIME:" translation="TIJD:" explanation="stopwatch time, not too long"/>
     <string english="DEATH:" translation="DOOD:" explanation="number of times player died, not too long"/>
-    <string english="SHINY:" translation="SIERAAD:" explanation="number of shiny trinkets collected, not too long"/>
+    <string english="SHINY:" translation="ARTE:" explanation="number of shiny trinkets collected, not too long"/>
     <string english="PAR TIME:" translation="PAR-TIJD:" explanation="goal time for time trial"/>
     <string english="MAP" translation="KAART" explanation="in-game menu" max="8"/>
     <string english="GRAV" translation="GRAV" explanation="in-game menu, Gravitron" max="8"/>
@@ -396,8 +402,8 @@
     <string english="Cannot Save in No Death Mode" translation="Kan niet opslaan in éénlevenmodus" explanation="" max="38*7"/>
     <string english="How&apos;d you get here?" translation="" explanation="" max="38*7"/>
     <string english="Cannot Save in Secret Lab" translation="Kan niet opslaan in geheim lab" explanation="" max="38*7"/>
-    <string english="ERROR: Could not save game!" translation="FOUT: Kon spel niet opslaan!" explanation="" max="38*7"/>
-    <string english="ERROR: Could not save settings file!" translation="FOUT: Kon instellingenbestand niet opslaan!" explanation="" max="38*4"/>
+    <string english="ERROR: Could not save game!" translation="FOUT: Kon spel niet opslaan!" explanation="" max="34*2"/>
+    <string english="ERROR: Could not save settings file!" translation="FOUT: Kon instellingenbestand niet opslaan!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Spel opgeslagen!" explanation="" max="38*2"/>
     <string english="[Press ACTION to save your game]" translation="[Druk op ACTIE om je spel op te slaan]" explanation="" max="38*7"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Opmerking: het spel wordt automatisch opgeslagen bij elke teleporter.)" explanation="" max="38*3"/>
@@ -480,7 +486,7 @@
     <string english="1: Walls" translation="1: Muur" explanation="editor tool. Solid tiles" max="32"/>
     <string english="2: Backing" translation="2: Achtergrond" explanation="editor tool. Non-solid background tiles" max="32"/>
     <string english="3: Spikes" translation="3: Spijker" explanation="editor tool" max="32"/>
-    <string english="4: Trinkets" translation="4: Sieraad" explanation="editor tool. Shiny trinkets/collectibles" max="32"/>
+    <string english="4: Trinkets" translation="4: Artefact" explanation="editor tool. Shiny trinkets/collectibles" max="32"/>
     <string english="5: Checkpoint" translation="5: Checkpoint" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
     <string english="6: Disappear" translation="6: Brekend platform" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
     <string english="7: Conveyors" translation="7: Lopende band" explanation="editor tool. Conveyor belt" max="32"/>
@@ -543,8 +549,67 @@
     <string english="%d:%02d" translation="%d:%02d" explanation="time format M:SS"/>
     <string english="%d:%02d.%02d" translation="%d:%02d,%02d" explanation="time format M:SS.CC"/>
     <string english="%d.%02d" translation="%d,%02d" explanation="time format S.CC"/>
+    <string english=".99" translation=",99" explanation="appended to time format for 99/100 seconds (example: 1:15.99)"/>
     <string english="Level Complete!" translation="Level voltooid!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="Game Complete!" translation="Spel uitgespeeld!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
+    <string english="You have rescued a crew member!" translation="Je hebt een bemanningslid gered!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2"/>
+    <string english="All Crew Members Rescued!" translation="Alle bemanningsleden gered!" explanation="" max="32"/>
+    <string english="All crewmates rescued!" translation="Alle bemanningsleden gered!" explanation="" max="32"/>
+    <string english="Game Saved" translation="Spel opgeslagen" explanation="" max="30"/>
+    <string english="Press arrow keys or WASD to move" translation="Druk op de pijltjestoetsen of WASD om te bewegen" explanation="" max="32*2"/>
+    <string english="Press ACTION to flip" translation="Druk op ACTIE om je zwaartekracht om te keren" explanation="" max="32*3"/>
+    <string english="Press ENTER to view map and quicksave" translation="Druk op ENTER om de kaart te bekijken en om op te slaan" explanation="" max="32*3"/>
+    <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="Je kunt ook op OMHOOG of OMLAAG drukken in plaats van ACTIE om je zwaartekracht om te keren." explanation="" max="34*3"/>
+    <string english="Help! Can anyone hear this message?" translation="Help! Kan iemand dit horen?" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Verdigris? Are you out there? Are you ok?" translation="Verdigris? Ben je daar ergens? Ben je in orde?" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Please help us! We&apos;ve crashed and need assistance!" translation="Help ons! We zijn neergestort en hebben assistentie nodig!" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Hello? Anyone out there?" translation="Hallo? Is er iemand in de buurt?" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="This is Doctor Violet from the D.S.S. Souleye! Please respond!" translation="Dit is Doctor Violet van de D.S.S. Souleye! Antwoord alsjeblieft!" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Please... Anyone..." translation="Alsjeblieft... Iemand..." explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Please be alright, everyone..." translation="Ik hoop dat iedereen ongedeerd is..." explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Congratulations!
+
+You have found a shiny trinket!" translation="Gefeliciteerd!
+
+Je hebt een glanzend artefact gevonden!" explanation="" max="37*4"/>
+    <string english="Congratulations!
+
+You have found a lost crewmate!" translation="Gefeliciteerd!
+
+Je hebt een bemanningslid gevonden!" explanation="" max="37*4"/>
+    <string english="Viridian" translation="" explanation="crewmate name (player)"/>
+    <string english="Violet" translation="" explanation="crewmate name"/>
+    <string english="Vitellary" translation="" explanation="crewmate name"/>
+    <string english="Vermilion" translation="" explanation="crewmate name"/>
+    <string english="Verdigris" translation="" explanation="crewmate name"/>
+    <string english="Victoria" translation="" explanation="crewmate name"/>
+    <string english="When you&apos;re standing on the floor, Vitellary will try to walk to you." translation="Als je op de grond staat, zal Vitellary naar je toe proberen te lopen." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, Vermilion will try to walk to you." translation="Als je op de grond staat, zal Vermilion naar je toe proberen te lopen." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, Verdigris will try to walk to you." translation="Als je op de grond staat, zal Verdigris naar je toe proberen te lopen." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, Victoria will try to walk to you." translation="Als je op de grond staat, zal Victoria naar je toe proberen te lopen." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Vitellary will try to walk to you." translation="Als je op het plafond staat, zal Vitellary naar je toe proberen te lopen." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Vermilion will try to walk to you." translation="Als je op het plafond staat, zal Vermilion naar je toe proberen te lopen." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Verdigris will try to walk to you." translation="Als je op het plafond staat, zal Verdigris naar je toe proberen te lopen." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Victoria will try to walk to you." translation="Als je op het plafond staat, zal Victoria naar je toe proberen te lopen." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Vitellary will stop and wait for you." translation="Als je NIET op de grond staat, zal Vitellary stoppen en op je wachten." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Vermilion will stop and wait for you." translation="Als je NIET op de grond staat, zal Vermilion stoppen en op je wachten." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Verdigris will stop and wait for you." translation="Als je NIET op de grond staat, zal Verdigris stoppen en op je wachten." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Victoria will stop and wait for you." translation="Als je NIET op de grond staat, zal Victoria stoppen en op je wachten." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Vitellary will stop and wait for you." translation="Als je NIET op het plafond staat, zal Vitellary stoppen en op je wachten." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Vermilion will stop and wait for you." translation="Als je NIET op het plafond staat, zal Vermilion stoppen en op je wachten." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Verdigris will stop and wait for you." translation="Als je NIET op het plafond staat, zal Verdigris stoppen en op je wachten." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Victoria will stop and wait for you." translation="Als je NIET op het plafond staat, zal Victoria stoppen en op je wachten." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="You can&apos;t continue to the next room until he is safely across." translation="Je kunt niet naar de volgende kamer totdat hij veilig aan de overkant is." explanation="Intermission 1" max="34*4"/>
+    <string english="You can&apos;t continue to the next room until she is safely across." translation="Je kunt niet naar de volgende kamer totdat ze veilig aan de overkant is." explanation="Intermission 1" max="34*4"/>
+    <string english="Survive for" translation="Overleef" explanation="Gravitron. Line 1/2: Survive for 60 seconds!" max="20"/>
+    <string english="60 seconds!" translation="60 seconden!" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20"/>
+    <string english="space station 1" translation="" explanation="area name as menu option"/>
+    <string english="space station 2" translation="" explanation="area name as menu option"/>
+    <string english="the laboratory" translation="" explanation="area name as menu option"/>
+    <string english="the tower" translation="" explanation="area name as menu option"/>
+    <string english="the warp zone" translation="" explanation="area name as menu option"/>
+    <string english="the final level" translation="" explanation="area name as menu option"/>
+    <string english="???" translation="" explanation="locked area as menu option"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

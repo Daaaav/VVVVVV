@@ -106,7 +106,7 @@
     <cutscene id="new2trinketcollector" explanation="">
         <dialogue speaker="cyan" english="I hope she&apos;s ok..." translation=""/>
     </cutscene>
-    <cutscene id="rescuegreen" explanation="">
+    <cutscene id="rescuegreen" explanation="nuance: `she&apos;s BACK on the ship` means more `she&apos;s home` and not `she has returned to the ship`. She has never left the ship">
         <dialogue speaker="green" english="Captain! I&apos;ve been so worried!" translation=""/>
         <dialogue speaker="player" english="Chief Verdigris! You&apos;re ok!" translation=""/>
         <dialogue speaker="green" english="I&apos;ve been trying to get out, but I keep going around in circles..." translation=""/>

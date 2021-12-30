@@ -656,8 +656,20 @@ void Game::levelcomplete_textbox(void)
 void Game::crewmate_textbox(const int r, const int g, const int b)
 {
     graphics.createtextboxflipme("", -1, 64 + 8 + 16, r, g, b);
-    graphics.addline("You have rescued");
-    graphics.addline("a crew member!");
+
+    /* This is a special case for wrapping, we MUST have two lines.
+     * So just make sure it can't fit in one line. */
+    const char* text = loc::gettext("You have rescued a crew member!");
+    std::string wrapped = graphics.string_wordwrap_balanced(text, graphics.len(text)-1);
+
+    size_t startline = 0;
+    size_t newline;
+    do {
+        newline = SDL_min(wrapped.find('\n', startline), wrapped.find('|', startline));
+        graphics.addline(wrapped.substr(startline, newline-startline));
+        startline = newline+1;
+    } while (newline != std::string::npos);
+
     graphics.addline("");
     graphics.textboxcentertext();
     graphics.textboxpad(5, 2);
@@ -667,28 +679,17 @@ void Game::crewmate_textbox(const int r, const int g, const int b)
 void Game::remaining_textbox(void)
 {
     const int remaining = 6 - crewrescued();
-    const char* string;
     char buffer[SCREEN_WIDTH_CHARS + 1];
-    if (remaining == 1)
+    if (remaining > 0)
     {
-        string = "One remains";
-    }
-    else if (remaining > 0)
-    {
-        SDL_snprintf(
-            buffer,
-            sizeof(buffer),
-            "%s remain",
-            help.number_words(remaining).c_str()
-        );
-        string = buffer;
+        loc::gettext_plural_fill(buffer, sizeof(buffer), "%s remain", "%s remains", remaining);
     }
     else
     {
-        string = "All Crew Members Rescued!";
+        SDL_strlcpy(buffer, loc::gettext("All Crew Members Rescued!"), sizeof(buffer));
     }
 
-    graphics.createtextboxflipme(string, -1, 128 + 16, 174, 174, 174);
+    graphics.createtextboxflipme(buffer, -1, 128 + 16, 174, 174, 174);
     graphics.textboxpad(2, 2);
     graphics.textboxcenterx();
 }
@@ -709,12 +710,17 @@ void Game::savetele_textbox(void)
 
     if (savetele())
     {
-        graphics.createtextboxflipme("    Game Saved    ", -1, 12, 174, 174, 174);
+        graphics.createtextboxflipme(loc::gettext("Game Saved"), -1, 12, 174, 174, 174);
+        graphics.textboxpad(3, 3);
+        graphics.textboxcenterx();
         graphics.textboxtimer(25);
     }
     else
     {
-        graphics.createtextboxflipme("  ERROR: Could not save game!  ", -1, 12, 255, 60, 60);
+        graphics.createtextboxflipme(loc::gettext("ERROR: Could not save game!"), -1, 12, 255, 60, 60);
+        graphics.textboxwrap(2);
+        graphics.textboxpad(1, 1);
+        graphics.textboxcenterx();
         graphics.textboxtimer(50);
     }
 }
@@ -728,7 +734,7 @@ void Game::updatestate(void)
     }
     if (statedelay <= 0)
     {
-        switch(state) // TODO LOC, most everything here. We might need to sacrifice the manual paddings and centerings in textboxes. Though centering can probably be done with a function just before the textbox is displayed. I also have an idea in mind for "nice" wrapping in cutscenes, so lines are filled as much as possible.
+        switch(state)
         {
         case 0:
             //Do nothing here! Standard game state
@@ -763,7 +769,11 @@ void Game::updatestate(void)
             break;
         case 4:
             //End of opening cutscene for now
-            graphics.createtextbox("  Press arrow keys or WASD to move  ", -1, 195, 174, 174, 174);
+            graphics.createtextbox(loc::gettext("Press arrow keys or WASD to move"), -1, 195, 174, 174, 174);
+            graphics.textboxwrap(4);
+            graphics.textboxcentertext();
+            graphics.textboxpad(2, 2);
+            graphics.textboxcenterx();
             graphics.textboxtimer(60);
             state = 0;
             break;
@@ -790,8 +800,11 @@ void Game::updatestate(void)
             if (!obj.flags[13])
             {
                 obj.flags[13] = true;
-                graphics.createtextbox("  Press ENTER to view map  ", -1, 155, 174, 174, 174);
-                graphics.addline("      and quicksave");
+                graphics.createtextbox(loc::gettext("Press ENTER to view map and quicksave"), -1, 155, 174, 174, 174);
+                graphics.textboxwrap(4);
+                graphics.textboxcentertext();
+                graphics.textboxpad(2, 2);
+                graphics.textboxcenterx();
                 graphics.textboxtimer(60);
             }
             state = 0;
@@ -851,52 +864,38 @@ void Game::updatestate(void)
             break;
 
         case 11:
+        {
             //Intermission 1 instructional textbox, depends on last saved
             graphics.textboxremovefast();
-            graphics.createtextbox("   When you're NOT standing on   ", -1, 3, 174, 174, 174);
-            if (graphics.flipmode)
+            const char* floorceiling = graphics.flipmode ? "ceiling" : "floor";
+            const char* crewmate;
+            switch (lastsaved)
             {
-                if (lastsaved == 2)
-                {
-                    graphics.addline("   the ceiling, Vitellary will");
-                }
-                else if (lastsaved == 3)
-                {
-                    graphics.addline("   the ceiling, Vermilion will");
-                }
-                else if (lastsaved == 4)
-                {
-                    graphics.addline("   the ceiling, Verdigris will");
-                }
-                else if (lastsaved == 5)
-                {
-                    graphics.addline("   the ceiling, Victoria will");
-                }
+            case 2:
+                crewmate = "Vitellary";
+                break;
+            case 3:
+                crewmate = "Vermilion";
+                break;
+            case 4:
+                crewmate = "Verdigris";
+                break;
+            default:
+                crewmate = "Victoria";
             }
-            else
-            {
-                if (lastsaved == 2)
-                {
-                    graphics.addline("    the floor, Vitellary will");
-                }
-                else if (lastsaved == 3)
-                {
-                    graphics.addline("    the floor, Vermilion will");
-                }
-                else if (lastsaved == 4)
-                {
-                    graphics.addline("    the floor, Verdigris will");
-                }
-                else if (lastsaved == 5)
-                {
-                    graphics.addline("    the floor, Victoria will");
-                }
-            }
-
-            graphics.addline("     stop and wait for you.");
+            char english[SCREEN_WIDTH_TILES*3 + 1]; /* ASCII only */
+            SDL_snprintf(english, sizeof(english),
+                "When you're NOT standing on the %s, %s will stop and wait for you.",
+                floorceiling, crewmate
+            );
+            graphics.createtextbox(loc::gettext(english), -1, 3, 174, 174, 174);
+            graphics.textboxwrap(2);
+            graphics.textboxpadtowidth(36*8);
+            graphics.textboxcenterx();
             graphics.textboxtimer(180);
             state = 0;
             break;
+        }
         case 12:
             //Intermission 1 instructional textbox, depends on last saved
             obj.removetrigger(12);
@@ -904,15 +903,19 @@ void Game::updatestate(void)
             {
                 obj.flags[61] = true;
                 graphics.textboxremovefast();
-                graphics.createtextbox("  You can't continue to the next   ", -1, 8, 174, 174, 174);
+                const char* english;
                 if (lastsaved == 5)
                 {
-                    graphics.addline("  room until she is safely across. ");
+                    english = "You can't continue to the next room until she is safely across.";
                 }
                 else
                 {
-                    graphics.addline("  room until he is safely across.  ");
+                    english = "You can't continue to the next room until he is safely across.";
                 }
+                graphics.createtextbox(loc::gettext(english), -1, 3, 174, 174, 174);
+                graphics.textboxwrap(2);
+                graphics.textboxpadtowidth(36*8);
+                graphics.textboxcenterx();
                 graphics.textboxtimer(120);
             }
             state = 0;
@@ -924,36 +927,38 @@ void Game::updatestate(void)
             state = 0;
             break;
         case 14:
+        {
             //Intermission 1 instructional textbox, depends on last saved
-            if (graphics.flipmode)
+            const char* floorceiling = graphics.flipmode ? "ceiling" : "floor";
+            const char* crewmate;
+            switch (lastsaved)
             {
-                graphics.createtextbox(" When you're standing on the ceiling, ", -1, 3, 174, 174, 174);
+            case 2:
+                crewmate = "Vitellary";
+                break;
+            case 3:
+                crewmate = "Vermilion";
+                break;
+            case 4:
+                crewmate = "Verdigris";
+                break;
+            default:
+                crewmate = "Victoria";
             }
-            else
-            {
-                graphics.createtextbox(" When you're standing on the floor, ", -1, 3, 174, 174, 174);
-            }
-            if (lastsaved == 2)
-            {
-                graphics.addline(" Vitellary will try to walk to you. ");
-            }
-            else if (lastsaved == 3)
-            {
-                graphics.addline(" Vermilion will try to walk to you. ");
-            }
-            else if (lastsaved == 4)
-            {
-                graphics.addline(" Verdigris will try to walk to you. ");
-            }
-            else if (lastsaved == 5)
-            {
-                graphics.addline(" Victoria will try to walk to you. ");
-            }
+            char english[SCREEN_WIDTH_TILES*3 + 1]; /* ASCII only */
+            SDL_snprintf(english, sizeof(english),
+                "When you're standing on the %s, %s will try to walk to you.",
+                floorceiling, crewmate
+            );
+            graphics.createtextbox(loc::gettext(english), -1, 3, 174, 174, 174);
+            graphics.textboxwrap(2);
+            graphics.textboxpadtowidth(36*8);
+            graphics.textboxcenterx();
             graphics.textboxtimer(280);
 
             state = 0;
             break;
-
+        }
         case 15:
         {
             //leaving the naughty corner
@@ -981,8 +986,11 @@ void Game::updatestate(void)
         case 17:
             //Arrow key tutorial
             obj.removetrigger(17);
-            graphics.createtextbox(" If you prefer, you can press UP or ", -1, 195, 174, 174, 174);
-            graphics.addline("   DOWN instead of ACTION to flip.");
+            graphics.createtextbox(loc::gettext("If you prefer, you can press UP or DOWN instead of ACTION to flip."), -1, 187, 174, 174, 174);
+            graphics.textboxwrap(2);
+            graphics.textboxcentertext();
+            graphics.textboxpad(1, 1);
+            graphics.textboxcenterx();
             graphics.textboxtimer(100);
             state = 0;
             break;
@@ -1011,7 +1019,11 @@ void Game::updatestate(void)
                 graphics.textboxremovefast();
                 obj.flags[3] = true;
                 state = 0;
-                graphics.createtextbox("  Press ACTION to flip  ", -1, 25, 174, 174, 174);
+                graphics.createtextbox(loc::gettext("Press ACTION to flip"), -1, 25, 174, 174, 174);
+                graphics.textboxwrap(4);
+                graphics.textboxcentertext();
+                graphics.textboxpad(2, 2);
+                graphics.textboxcenterx();
                 graphics.textboxtimer(60);
             }
             obj.removetrigger(22);
@@ -1352,53 +1364,56 @@ void Game::updatestate(void)
 
         case 50:
             music.playef(15);
-            graphics.createtextbox("Help! Can anyone hear", 35, 15, 255, 134, 255);
-            graphics.addline("this message?");
+            graphics.createtextbox(loc::gettext("Help! Can anyone hear this message?"), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             state++;
             statedelay = 100;
             break;
         case 51:
             music.playef(15);
-            graphics.createtextbox("Verdigris? Are you out", 30, 12, 255, 134, 255);
-            graphics.addline("there? Are you ok?");
+            graphics.createtextbox(loc::gettext("Verdigris? Are you out there? Are you ok?"), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             state++;
             statedelay = 100;
             break;
         case 52:
             music.playef(15);
-            graphics.createtextbox("Please help us! We've crashed", 5, 22, 255, 134, 255);
-            graphics.addline("and need assistance!");
+            graphics.createtextbox(loc::gettext("Please help us! We've crashed and need assistance!"), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             state++;
             statedelay = 100;
             break;
         case 53:
             music.playef(15);
-            graphics.createtextbox("Hello? Anyone out there?", 40, 15, 255, 134, 255);
+            graphics.createtextbox(loc::gettext("Hello? Anyone out there?"), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             state++;
             statedelay = 100;
             break;
         case 54:
             music.playef(15);
-            graphics.createtextbox("This is Doctor Violet from the", 5, 8, 255, 134, 255);
-            graphics.addline("D.S.S. Souleye! Please respond!");
+            graphics.createtextbox(loc::gettext("This is Doctor Violet from the D.S.S. Souleye! Please respond!"), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             state++;
             statedelay = 100;
             break;
         case 55:
             music.playef(15);
-            graphics.createtextbox("Please... Anyone...", 45, 14, 255, 134, 255);
+            graphics.createtextbox(loc::gettext("Please... Anyone..."), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             state++;
             statedelay = 100;
             break;
         case 56:
             music.playef(15);
-            graphics.createtextbox("Please be alright, everyone...", 25, 18, 255, 134, 255);
+            graphics.createtextbox(loc::gettext("Please be alright, everyone..."), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             state=50;
             statedelay = 100;
@@ -1850,27 +1865,41 @@ void Game::updatestate(void)
             statedelay = 15;
             break;
         case 1001:
+        {
             //Found a trinket!
             advancetext = true;
             state++;
-            graphics.createtextboxflipme("        Congratulations!       ", 50, 85, 174, 174, 174);
-            graphics.addline("");
-            graphics.addline("You have found a shiny trinket!");
+            graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a shiny trinket!"), 50, 85, 174, 174, 174);
+            int h = graphics.textboxwrap(-1);
+            graphics.textboxcentertext();
             graphics.textboxcenterx();
+
+            int max_trinkets;
 
 #if !defined(NO_CUSTOM_LEVELS)
             if(map.custommode)
             {
-                graphics.createtextboxflipme(" " + help.number_words(trinkets()) + " out of " + help.number_words(cl.numtrinkets())+ " ", 50, 135, 174, 174, 174);
-                graphics.textboxcenterx();
+                max_trinkets = cl.numtrinkets();
             }
             else
 #endif
             {
-                graphics.createtextboxflipme(" " + help.number_words(trinkets()) + " out of Twenty ", 50, 135, 174, 174, 174);
-                graphics.textboxcenterx();
+                max_trinkets = 20;
             }
+
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            SDL_snprintf(
+                buffer, sizeof(buffer),
+                loc::gettext("%s out of %s"),
+                help.number_words(trinkets()).c_str(), help.number_words(max_trinkets).c_str()
+            );
+            graphics.createtextboxflipme(buffer, 50, 95+h, 174, 174, 174);
+            graphics.textboxwrap(2);
+            graphics.textboxcentertext();
+            graphics.textboxpad(1, 1);
+            graphics.textboxcenterx();
             break;
+        }
         case 1002:
             if (!advancetext)
             {
@@ -1900,28 +1929,35 @@ void Game::updatestate(void)
             break;
 #if !defined(NO_CUSTOM_LEVELS)
         case 1011:
+        {
             //Found a crewmate!
             advancetext = true;
             state++;
-            graphics.createtextboxflipme("        Congratulations!       ", 50, 85, 174, 174, 174);
-            graphics.addline("");
-            graphics.addline("You have found a lost crewmate!");
+            graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a lost crewmate!"), 50, 85, 174, 174, 174);
+            int h = graphics.textboxwrap(-1);
+            graphics.textboxcentertext();
             graphics.textboxcenterx();
 
             if(cl.numcrewmates()-crewmates()==0)
             {
-                graphics.createtextboxflipme("     All crewmates rescued!    ", 50, 135, 174, 174, 174);
-            }
-            else if(cl.numcrewmates()-crewmates()==1)
-            {
-                graphics.createtextboxflipme("    " + help.number_words(cl.numcrewmates()-crewmates())+ " remains    ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme(loc::gettext("All crewmates rescued!"), 50, 95+h, 174, 174, 174);
             }
             else
             {
-                graphics.createtextboxflipme("     " + help.number_words(cl.numcrewmates()-crewmates())+ " remain    ", 50, 135, 174, 174, 174);
+                char buffer[SCREEN_WIDTH_CHARS + 1];
+                loc::gettext_plural_fill(
+                    buffer, sizeof(buffer),
+                    "%s remain", "%s remains",
+                    cl.numcrewmates()-crewmates()
+                );
+                graphics.createtextboxflipme(buffer, 50, 95+h, 174, 174, 174);
             }
+            graphics.textboxwrap(4);
+            graphics.textboxcentertext();
+            graphics.textboxpad(2, 2);
             graphics.textboxcenterx();
             break;
+        }
         case 1012:
             if (!advancetext)
             {
@@ -2625,7 +2661,7 @@ void Game::updatestate(void)
             state++;
             statedelay = 45+15;
 
-            graphics.createtextboxflipme("  All Crew Members Rescued!  ", -1, 64, 0, 0, 0);
+            graphics.createtextboxflipme(loc::gettext("All Crew Members Rescued!"), -1, 64, 0, 0, 0);
             char buffer[SCREEN_WIDTH_CHARS + 1];
             timestringcenti(buffer, sizeof(buffer));
             savetime = buffer;
@@ -2636,8 +2672,9 @@ void Game::updatestate(void)
             state++;
             statedelay = 45;
 
+            const char* label = loc::gettext("Trinkets Found:");
             std::string tempstring = help.number_words(trinkets());
-            graphics.createtextboxflipme("Trinkets Found:", 48, 84, 0,0,0);
+            graphics.createtextboxflipme(label, 168-graphics.len(label), 84, 0,0,0);
             graphics.createtextboxflipme(tempstring, 180, 84, 0, 0, 0);
             break;
         }
@@ -2646,32 +2683,45 @@ void Game::updatestate(void)
             state++;
             statedelay = 45+15;
 
+            const char* label = loc::gettext("Game Time:");
             std::string tempstring = savetime;
-            graphics.createtextboxflipme("   Game Time:", 64, 96, 0,0,0);
+            graphics.createtextboxflipme(label, 168-graphics.len(label), 96, 0,0,0);
             graphics.createtextboxflipme(tempstring, 180, 96, 0, 0, 0);
             break;
         }
         case 3505:
+        {
             state++;
             statedelay = 45;
 
-            graphics.createtextboxflipme(" Total Flips:", 64, 123, 0,0,0);
+            const char* label = loc::gettext("Total Flips:");
+            graphics.createtextboxflipme(label, 168-graphics.len(label), 123, 0,0,0);
             graphics.createtextboxflipme(help.String(totalflips), 180, 123, 0, 0, 0);
             break;
+        }
         case 3506:
+        {
             state++;
             statedelay = 45+15;
 
-            graphics.createtextboxflipme("Total Deaths:", 64, 135, 0,0,0);
+            const char* label = loc::gettext("Total Deaths:");
+            graphics.createtextboxflipme(label, 168-graphics.len(label), 135, 0,0,0);
             graphics.createtextboxflipme(help.String(deathcounts), 180, 135, 0, 0, 0);
             break;
+        }
         case 3507:
         {
             state++;
             statedelay = 45+15;
 
-            std::string tempstring = "Hardest Room (with " + help.String(hardestroomdeaths) + " deaths)";
-            graphics.createtextboxflipme(tempstring, -1, 158, 0,0,0);
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            loc::gettext_plural_fill(
+                buffer, sizeof(buffer),
+                "Hardest Room (with %d deaths)",
+                "Hardest Room (with %d death)",
+                hardestroomdeaths
+            );
+            graphics.createtextboxflipme(buffer, -1, 158, 0,0,0);
             graphics.createtextboxflipme(hardestroom, -1, 170, 0, 0, 0);
             break;
         }
@@ -6450,19 +6500,19 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = -35;
         break;
     case Menu::playint1:
-        option("Vitellary"); // TODO LOC
-        option("Vermilion");
-        option("Verdigris");
-        option("Victoria");
-        option("return");
+        option(loc::gettext("Vitellary"));
+        option(loc::gettext("Vermilion"));
+        option(loc::gettext("Verdigris"));
+        option(loc::gettext("Victoria"));
+        option(loc::gettext("return"));
         menuyoff = 10;
         break;
     case Menu::playint2:
-        option("Vitellary");
-        option("Vermilion");
-        option("Verdigris");
-        option("Victoria");
-        option("return");
+        option(loc::gettext("Vitellary"));
+        option(loc::gettext("Vermilion"));
+        option(loc::gettext("Verdigris"));
+        option(loc::gettext("Victoria"));
+        option(loc::gettext("return"));
         menuyoff = 10;
         break;
     case Menu::continuemenu:
@@ -6487,23 +6537,23 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = 80;
         break;
     case Menu::unlockmenutrials:
-        option("space station 1", !unlock[9]); // TODO LOC
-        option("the laboratory", !unlock[10]);
-        option("the tower", !unlock[11]);
-        option("space station 2", !unlock[12]);
-        option("the warp zone", !unlock[13]);
-        option("the final level", !unlock[14]);
+        option(loc::gettext("space station 1"), !unlock[9]);
+        option(loc::gettext("the laboratory"), !unlock[10]);
+        option(loc::gettext("the tower"), !unlock[11]);
+        option(loc::gettext("space station 2"), !unlock[12]);
+        option(loc::gettext("the warp zone"), !unlock[13]);
+        option(loc::gettext("the final level"), !unlock[14]);
 
         option(loc::gettext("return"));
         menuyoff = 0;
         break;
     case Menu::timetrials:
-        option(unlock[9] ? "space station 1" : "???", unlock[9]);
-        option(unlock[10] ? "the laboratory" : "???", unlock[10]);
-        option(unlock[11] ? "the tower" : "???", unlock[11]);
-        option(unlock[12] ? "space station 2" : "???", unlock[12]);
-        option(unlock[13] ? "the warp zone" : "???", unlock[13]);
-        option(unlock[14] ? "the final level" : "???", unlock[14]);
+        option(loc::gettext(unlock[9] ? "space station 1" : "???"), unlock[9]);
+        option(loc::gettext(unlock[10] ? "the laboratory" : "???"), unlock[10]);
+        option(loc::gettext(unlock[11] ? "the tower" : "???"), unlock[11]);
+        option(loc::gettext(unlock[12] ? "space station 2" : "???"), unlock[12]);
+        option(loc::gettext(unlock[13] ? "the warp zone" : "???"), unlock[13]);
+        option(loc::gettext(unlock[14] ? "the final level" : "???"), unlock[14]);
 
         option(loc::gettext("return"));
         menuyoff = 0;

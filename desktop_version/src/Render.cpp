@@ -1029,7 +1029,7 @@ static void menurender(void)
     {
         graphics.bigprint( -1, 20, loc::gettext("Results"), tr, tg, tb, true, 3);
 
-        std::string tempstring = game.resulttimestring() + " / " + game.timetstring(game.timetrialresultpar) + ".99"; // TODO LOC localize like said in Game.cpp?
+        std::string tempstring = game.resulttimestring() + loc::gettext(" / ") + game.timetstring(game.timetrialresultpar) + loc::gettext(".99");
 
         graphics.drawspritesetcol(22, 80-15, 50, 22);
         graphics.Print(49, 80-15, loc::gettext("TIME TAKEN:"), 255, 255, 255);
@@ -1945,9 +1945,8 @@ void gamerender(void)
                     y1 = 10;
                     y2 = 30;
                 }
-                // TODO LOC: wrapped bigprint.
-                graphics.bigbprint( -1, y1, "Survive for", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
-                graphics.bigbprint( -1, y2, "60 seconds!", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
+                graphics.bigbprint( -1, y1, loc::gettext("Survive for"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
+                graphics.bigbprint( -1, y2, loc::gettext("60 seconds!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
             }
         }
         else if(game.swngame==7)
@@ -2569,7 +2568,13 @@ void maprender(void)
 
         /* Stats. */
         graphics.Print(0, FLIP(52, 8), loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow, true);
-        graphics.Print(0, FLIP(64, 8), help.number_words(game.trinkets()) + " out of " + help.number_words(total), 96, 96, 96, true); // TODO LOC
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        SDL_snprintf(
+            buffer, sizeof(buffer),
+            loc::gettext("%s out of %s"),
+            help.number_words(game.trinkets()).c_str(), help.number_words(total).c_str()
+        );
+        graphics.Print(0, FLIP(64, 8), buffer, 96, 96, 96, true);
 
         graphics.Print(0, FLIP(102, 8), loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow, true);
         graphics.Print(0, FLIP(114, 8), help.String(game.deathcounts), 96, 96, 96, true);

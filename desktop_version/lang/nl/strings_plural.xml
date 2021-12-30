@@ -24,4 +24,8 @@
     <string english_plural="%s crewmates remain" english_singular="%s crewmate remains" explanation="" max="40">
         <translation form="0" translation=""/>
     </string>
+    <string english_plural="%s remain" english_singular="%s remains" explanation="You have rescued a crew member! XX remain" max="32">
+        <translation form="0" translation="Nog %s te gaan"/>
+        <translation form="1" translation="Nog %s te gaan"/>
+    </string>
 </strings_plural>

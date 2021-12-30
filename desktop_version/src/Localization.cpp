@@ -69,7 +69,15 @@ namespace loc
     void gettext_plural_fill(char* buf, size_t buf_len, const char* eng_plural, const char* eng_singular, int count)
     {
         const char* tra = gettext_plural(eng_plural, eng_singular, count);
-        SDL_snprintf(buf, buf_len, tra, help.number_words(count).c_str());
+        if (SDL_strstr(tra, "%d") != NULL)
+        {
+            // TODO: improve support for plural forms
+            SDL_snprintf(buf, buf_len, tra, count);
+        }
+        else
+        {
+            SDL_snprintf(buf, buf_len, tra, help.number_words(count).c_str());
+        }
     }
 
     std::string getnumber(int n)

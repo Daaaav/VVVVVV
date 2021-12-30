@@ -7,6 +7,8 @@
         <translation form="0" translation="Shows up for all numbers with form=0"/>
         <translation form="1" translation="Shows up for all numbers with form=1"/>
         <translation form="2" translation="Shows up for all numbers with form=2"/>
+
+    %s indicates a word will be filled in (like twelve), and %d means a number (12)
 -->
 <strings_plural>
     <string english_plural="You rescued %s crewmates" english_singular="You rescued %s crewmate" explanation="These two strings are displayed underneath each other (1/2)" max="40">
@@ -19,6 +21,12 @@
         <translation form="0" translation=""/>
     </string>
     <string english_plural="%s crewmates remain" english_singular="%s crewmate remains" explanation="" max="40">
+        <translation form="0" translation=""/>
+    </string>
+    <string english_plural="%s remain" english_singular="%s remains" explanation="You have rescued a crew member! XX remain" max="32">
+        <translation form="0" translation=""/>
+    </string>
+    <string english_plural="Hardest Room (with %d deaths)" english_singular="Hardest Room (with %d death)" explanation="game complete screen" max="40">
         <translation form="0" translation=""/>
     </string>
 </strings_plural>
