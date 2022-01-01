@@ -28,26 +28,36 @@ namespace loc
         return map_lookup_text(map_translation, eng);
     }
 
-    const char* gettext_plural_english(const char* eng_plural, const char* eng_singular, int count)
+    const char* gettext_plural_english(const char* eng_plural, const char* eng_singular, int n)
     {
-        if (count == 1)
+        /* Do be consistent with negative number handling for other languages... */
+        if (n == 1 || n == -1)
         {
             return eng_singular;
         }
         return eng_plural;
     }
 
-    const char* gettext_plural(const char* eng_plural, const char* eng_singular, int count)
+    const char* gettext_plural(const char* eng_plural, const char* eng_singular, int n)
     {
         if (lang != "en")
         {
-            if (count < 0 || count > 100)
+            int n_ix;
+            if (n > -100 && n < 100)
             {
-                count = 101;
+                /* Plural forms for negative numbers are debatable in any language I'd imagine...
+                 * But they shouldn't appear anyway unless there's a bug or you're asking for it.
+                 * Or do YOU ever get -10 deaths while collecting -1 trinket? */
+                n_ix = SDL_abs(n);
+            }
+            else
+            {
+                /* Plural forms for 100 and above always just keep repeating. Thank goodness. */
+                n_ix = SDL_abs(n % 100) + 100;
             }
 
             size_t alloc_len;
-            char form = number_plural_form[count];
+            char form = number_plural_form[n_ix];
             char* key = add_disambiguator(form+1, eng_plural, &alloc_len);
             if (key != NULL)
             {
@@ -63,7 +73,7 @@ namespace loc
                 }
             }
         }
-        return gettext_plural_english(eng_plural, eng_singular, count);
+        return gettext_plural_english(eng_plural, eng_singular, n);
     }
 
     void gettext_plural_fill(char* buf, size_t buf_len, const char* eng_plural, const char* eng_singular, int count)
@@ -71,7 +81,6 @@ namespace loc
         const char* tra = gettext_plural(eng_plural, eng_singular, count);
         if (SDL_strstr(tra, "%d") != NULL)
         {
-            // TODO: improve support for plural forms
             SDL_snprintf(buf, buf_len, tra, count);
         }
         else

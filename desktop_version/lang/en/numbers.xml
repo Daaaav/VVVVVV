@@ -13,9 +13,10 @@
 
     0-20 hopefully fit in 17 characters, otherwise we're gonna have to move the trinket counter.
 
-    101 (Lots) is used for any number above 100.
+    "Lots" is used for any number above 100.
 
-	The plural forms are used for strings_plural.xml. More info about this in README.txt
+	The FORM attributes define what the plural forms in your language are (1 crewmate, 2 crewmateS).
+	These forms are used for strings_plural.xml. More info about this in README.txt
 -->
 <numbers>
     <number value="0" form="0" english="Zero" translation=""/>
@@ -119,5 +120,24 @@
     <number value="98" form="0" english="Ninety Eight" translation=""/>
     <number value="99" form="0" english="Ninety Nine" translation=""/>
     <number value="100" form="0" english="One Hundred" translation=""/>
-    <number value="101" form="0" english="Lots" translation=""/>
+    <number value="lots" english="Lots" translation=""/>
+    <number value="101" form="0"/>
+    <number value="102" form="0"/>
+    <number value="103" form="0"/>
+    <number value="104" form="0"/>
+    <number value="105" form="0"/>
+    <number value="106" form="0"/>
+    <number value="107" form="0"/>
+    <number value="108" form="0"/>
+    <number value="109" form="0"/>
+    <number value="110" form="0"/>
+    <number value="111" form="0"/>
+    <number value="112" form="0"/>
+    <number value="113" form="0"/>
+    <number value="114" form="0"/>
+    <number value="115" form="0"/>
+    <number value="116" form="0"/>
+    <number value="117" form="0"/>
+    <number value="118" form="0"/>
+    <number value="119" form="0"/>
 </numbers>

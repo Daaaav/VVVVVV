@@ -508,8 +508,14 @@ namespace loc
 
             if (SDL_strcmp(pKey, "number") == 0)
             {
-                int value = help.Int(pElem->Attribute("value"));
-                if (value >= 0 && value <= 101)
+                const char* value_str = pElem->Attribute("value");
+                bool is_lots = SDL_strcmp(value_str, "lots") == 0;
+                int value = help.Int(value_str);
+                if (is_lots)
+                {
+                    value = 101;
+                }
+                if ((value >= 0 && value <= 100) || is_lots)
                 {
                     const char* tra = pElem->Attribute("translation");
                     if (tra == NULL)
@@ -517,7 +523,15 @@ namespace loc
                         tra = "";
                     }
                     number[value] = std::string(tra);
-                    number_plural_form[value] = pElem->IntAttribute("form", 0);
+                }
+                if (value >= 0 && value <= 199 && !is_lots)
+                {
+                    int form = pElem->IntAttribute("form", 0);
+                    number_plural_form[value] = form;
+                    if (value < 100)
+                    {
+                        number_plural_form[value+100] = form;
+                    }
                 }
             }
         }

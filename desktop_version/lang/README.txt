@@ -89,17 +89,15 @@ In certain places, VVVVVV (perhaps unconventionally) writes out numbers as full 
 
 These words can be found in numbers.xml. The numbers Zero through Twenty will be the most commonly seen. It's always possible for numbers up to One Hundred to be seen though (players can put up to 100 trinkets and crewmates in a custom level).
 
-"Lots" is used for any number above 100, but this will only show up in unusual/glitchy situations where the user is basically asking for it anyway, so it doesn't have to fit correctly in all these examples (and it already forms questionable sentences in English).
+Your language may not allow the same word to be used for the same number in different scenarios. For example, in Polish, "twenty out of twenty" may be "dwadzieścia z dwudziestu". It's possible to leave the translations for all the numbers empty. In that case, numeric forms will be used automatically (20 out of 20).
 
-Your language may not allow the same word to be used in these different scenarios. For example, in Polish, "twenty out of twenty" may be "dwadzieścia z dwudziestu". It's possible to leave the translations for all the numbers empty. In that case, numeric forms will be used automatically (20 out of 20).
+"Lots" is used for any number above 100, but this will only show up in unusual/glitchy situations where the user is basically asking for it anyway, so it doesn't have to fit correctly in all these examples (and it already forms questionable sentences in English).
 
 In English, using Title Case is appropriate, but in most other languages, it probably isn't. Therefore, you may want to translate all numbers in lowercase, when it's more appropriate to use "twenty out of twenty" than "Twenty out of Twenty".
 
-English and some other languages have a singular (1 crewmate) and a plural (2 crewmates). Other languages may work differently than that and have more possible forms depending on the number. These different plural forms can be defined in numbers.xml, by giving them a number that identify that form uniquely. For English, form 1 is used for singular, and form 0 is used for plural. You can set up any amount of plural forms you will need.
+As for plural forms: English and some other languages have a singular (1 crewmate) and a plural (2 crewmates). Some languages may have different rules (like for 0, or numbers that end in 2, 3 and 4). VVVVVV can accommodate these rules and allows you to translate certain strings (strings_plural.xml) in different ways depending on the number. The different forms can be defined by changing the "form" attribute on each number in numbers.xml. For English, form "1" is used for singular, and form "0" is used for plural. You can set up any amount of plural forms you will need.
 
 Numbers that identify the forms do not need to be sequential, you may use any number between 0 and 254 to identify the different forms. So instead of using forms 0, 1, 2 and 3, you could also name them 1, 2, 5 and 7.
-
-When you have decided on the different forms, you can use them when translating strings_plural.
 
 Suppose you need a different form for the number 1, the numbers 2-4, and all other numbers. You could use "form 1" for the number 1, "form 2" for 2-4, and "form 0" for all other numbers:
 
@@ -120,6 +118,12 @@ When translating the plural strings, you can add translations for every unique f
         <translation form="1" translation="You saved %s crewmate"/>
         <translation form="2" translation="You saved %s crewmateys"/>
     </string>
+
+Plural forms can appear both for wordy numbers ("you saved one crewmate") as well as numbery numbers ("you died 136 times in this room"), so we need the plural forms to go further than 100.
+
+For the numbers 100 and higher: as far as I can find (with information about plural rules across 160 languages) - the plural forms always repeat themselves every 100 numbers. So numbers 100-199 always have the same forms as 200-299, 300-399, and so on. However, 100-119 (200-219, etc) don't always work the same as 0-19 do (in English for example, it's not "101 trinket" despite ending in 01). Therefore, forms for 100-119 can also be filled in. The system will simply copy 20-99 for 120-199, and that should be enough to cover all numbers from 0 to infinity. Technically the system supports providing forms until 199, but it should never be necessary to go higher than 119, so they're not in the language files by default.
+
+Numbers higher than 100 cannot have a written out translation ("one hundred and one" does not exist), and the word "Lots" cannot have a special plural form.
 
 
 
