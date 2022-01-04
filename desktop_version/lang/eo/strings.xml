@@ -542,8 +542,9 @@
     <string english="Room warps vertically" translation="Ĉambro volviĝas vertikale" explanation="level editor, the top and bottom edges of the room are connected with each other. The player can still go to other rooms on the left and right" max="38*3"/>
     <string english="Room warping disabled" translation="Ĉambro-volviĝo malebliĝis" explanation="level editor, no edges are connected and the player can go to other rooms" max="38*3"/>
     <string english="ERROR: No checkpoint to spawn at" translation="ERARO: Ne estas konservpunkto ĉi-ĉambre" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
-    <string english="ERROR: Max number of trinkets is 100" translation="ERARO: Altlimo de kolektaĵoj estas 100" explanation="" max="38*3"/>
-    <string english="ERROR: Max number of crewmates is 100" translation="ERARO: Altlimo de ŝipanoj estas 100" explanation="" max="38*3"/>
+    <string english="ERROR: Max number of trinkets is 100" translation="ERARO: Altlimo de kolektaĵoj estas 100" explanation="editor, user tried to place another trinket" max="38*3"/>
+    <string english="ERROR: Max number of crewmates is 100" translation="ERARO: Altlimo de ŝipanoj estas 100" explanation="editor, user tried to place another crewmate" max="38*3"/>
+    <string english="Rolled credits" translation="" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
     <string english="%d:%02d:%02d" translation="%d:%02d:%02d" explanation="time format H:MM:SS"/>
     <string english="%d:%02d:%02d.%02d" translation="%d:%02d:%02d,%02d" explanation="time format H:MM:SS.CC"/>
     <string english="%d:%02d" translation="%d:%02d" explanation="time format M:SS"/>
@@ -573,6 +574,10 @@ You have found a shiny trinket!" translation="" explanation="" max="37*4"/>
     <string english="Congratulations!
 
 You have found a lost crewmate!" translation="" explanation="" max="37*4"/>
+    <string english="Congratulations!
+
+You have found the secret lab!" translation="" explanation="" max="37*4"/>
+    <string english="The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu." translation="" explanation="" max="36*10"/>
     <string english="Viridian" translation="" explanation="crewmate name (player)"/>
     <string english="Violet" translation="" explanation="crewmate name"/>
     <string english="Vitellary" translation="" explanation="crewmate name"/>

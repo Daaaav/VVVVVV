@@ -424,7 +424,7 @@ public:
 
     //Some stats:
     int totalflips;
-    std::string hardestroom;
+    std::string hardestroom; // don't change to C string unless you wanna handle language switches (or make it store coords)
     int hardestroomdeaths, currentroomdeaths;
 
 
