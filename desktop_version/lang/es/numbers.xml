@@ -15,8 +15,8 @@
 
     "Lots" is used for any number above 100.
 
-	The FORM attributes define what the plural forms in your language are (1 crewmate, 2 crewmateS).
-	These forms are used for strings_plural.xml. More info about this in README.txt
+    The FORM attributes define what the plural forms in your language are (1 crewmate, 2 crewmateS).
+    These forms are used for strings_plural.xml. More info about this in README.txt
 -->
 <numbers>
     <number value="0" form="0" english="Zero" translation=""/>

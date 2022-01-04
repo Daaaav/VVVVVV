@@ -974,7 +974,7 @@ static void menurender(void)
         graphics.Print(0, 100, buffer, tr, tg, tb, true);
 
         loc::gettext_plural_fill(buffer, sizeof(buffer), "and found %s trinkets.", "and found %s trinket.", game.ndmresulttrinkets);
-        graphics.Print(0, 110, buffer, tr, tg, tb, true);
+        graphics.PrintWrap(0, 110, buffer, tr, tg, tb, true);
 
         graphics.Print(0, 145, loc::gettext("You managed to reach:"), tr, tg, tb, true);
         graphics.Print(0, 155, game.ndmresulthardestroom, tr, tg, tb, true);
@@ -2068,7 +2068,7 @@ void gamerender(void)
         }
         else
         {
-            graphics.drawtextbox(game.activity_x + 16, game.activity_y + 4, 36, 3, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
+            graphics.drawtextbox(game.activity_x + 4, game.activity_y + 4, 39, 3, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
             graphics.Print(centered_x + game.activity_x, game.activity_y + 12, final_string, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
         }
     }

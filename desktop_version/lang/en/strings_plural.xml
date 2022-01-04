@@ -14,7 +14,7 @@
     <string english_plural="You rescued %s crewmates" english_singular="You rescued %s crewmate" explanation="These two strings are displayed underneath each other (1/2)" max="40">
         <translation form="0" translation=""/>
     </string>
-    <string english_plural="and found %s trinkets." english_singular="and found %s trinket." explanation="These two strings are displayed underneath each other (2/2)" max="40">
+    <string english_plural="and found %s trinkets." english_singular="and found %s trinket." explanation="These two strings are displayed underneath each other (2/2)" max="38*2">
         <translation form="0" translation=""/>
     </string>
     <string english_plural="And you found %s trinkets." english_singular="And you found %s trinket." explanation="You rescued all the crewmates! And you found XX trinket(s)." max="38*3">

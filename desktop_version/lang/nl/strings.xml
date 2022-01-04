@@ -419,10 +419,29 @@
     <string english="yes, return" translation="ja, teruggaan" explanation="" max="24"/>
     <string english="[ YES, RETURN ]" translation="[ JA, TERUGGAAN ]" explanation="" max="28"/>
     <string english="yes, quit" translation="ja, afsluiten" explanation="quit program"/>
-    <string english="return to game" translation="terug naar het spel" explanation="pause menu option"/>
-    <string english="quit to menu" translation="stoppen en naar menu" explanation="pause menu option"/>
+    <string english="return to game" translation="terug naar het spel" explanation="pause menu option" max="27"/>
+    <string english="quit to menu" translation="stoppen" explanation="pause menu option" max="19"/>
     <string english="Press Left/Right to choose a Teleporter" translation="Links/Rechts: kies teleporter" explanation="tight fit, so maybe `Left/Right: choose teleporter`" max="40"/>
-    <string english="Press %s to Teleport" translation="" explanation="keyboard key (E or ENTER) is filled in for %s" max="40"/>
+    <string english="Press %s to Teleport" translation="Druk op %s om te teleporteren" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="40"/>
+    <string english="Press %s to explode" translation="%s: Ontploffen" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
+    <string english="Press %s to talk to Violet" translation="%s: Praten met Violet" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to talk to Vitellary" translation="%s: Praten met Vitellary" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to talk to Vermilion" translation="%s: Praten met Vermilion" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to talk to Verdigris" translation="%s: Praten met Verdigris" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to talk to Victoria" translation="%s: Praten met Victoria" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to activate terminal" translation="%s: Terminal activeren" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to activate terminals" translation="%s: Terminals activeren" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. there are 3 next to each other in the ship" max="37"/>
+    <string english="Press %s to interact" translation="%s: Interactie" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Passion for Exploring" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Pushing Onwards" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Positive Force" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Presenting VVVVVV" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Potential for Anything" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Predestined Fate" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Pipe Dream" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Popular Potpourri" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Pressure Cooker" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="ecroF evitisoP" translation="" explanation="song name should probably not be translated" max="37"/>
     <string english="Map Settings" translation="Levelinstellingen" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20"/>
     <string english="edit scripts" translation="scripts bewerken" explanation="level editor menu option"/>
     <string english="change music" translation="muziek wijzigen" explanation="level editor menu option"/>

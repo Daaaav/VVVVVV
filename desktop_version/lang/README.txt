@@ -168,7 +168,7 @@ To translate a string, simply fill in the translation attribute, like this:
 
     <string english="Game paused" translation="Spel gepauzeerd" explanation="pause screen" max="40"/>
 
-If the translation is left blank, the English text will be used as a fallback. Translations should not be left blank on purpose if the text is the same however; the string will be counted as untranslated and it'll be harder to keep track of what's new.
+If the translation is left blank, the English text will be used as a fallback. Translations should NOT be left blank on purpose if the text is the same however; the string will be counted as untranslated and it'll be harder to keep track of what's new. Always just copy-paste the English string into the translation in that case.
 
 The following attributes may be found for each string:
 

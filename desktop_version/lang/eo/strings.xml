@@ -419,10 +419,29 @@
     <string english="yes, return" translation="jes, revenu" explanation="" max="24"/>
     <string english="[ YES, RETURN ]" translation="[ JES, REVENU ]" explanation="" max="28"/>
     <string english="yes, quit" translation="jes, eliri" explanation="quit program"/>
-    <string english="return to game" translation="reveni al ludo" explanation="pause menu option"/>
-    <string english="quit to menu" translation="eliri al menuo" explanation="pause menu option"/>
+    <string english="return to game" translation="reveni al ludo" explanation="pause menu option" max="27"/>
+    <string english="quit to menu" translation="eliri al menuo" explanation="pause menu option" max="19"/>
     <string english="Press Left/Right to choose a Teleporter" translation="Dekstro/Mal.: elekti teleportilon" explanation="tight fit, so maybe `Left/Right: choose teleporter`" max="40"/>
-    <string english="Press %s to Teleport" translation="Premu %s por teleportiĝi" explanation="keyboard key (E or ENTER) is filled in for %s" max="40"/>
+    <string english="Press %s to Teleport" translation="Premu %s por teleportiĝi" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="40"/>
+    <string english="Press %s to explode" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
+    <string english="Press %s to talk to Violet" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to talk to Vitellary" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to talk to Vermilion" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to talk to Verdigris" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to talk to Victoria" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to activate terminal" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to activate terminals" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. there are 3 next to each other in the ship" max="37"/>
+    <string english="Press %s to interact" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Passion for Exploring" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Pushing Onwards" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Positive Force" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Presenting VVVVVV" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Potential for Anything" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Predestined Fate" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Pipe Dream" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Popular Potpourri" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Pressure Cooker" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="ecroF evitisoP" translation="" explanation="song name should probably not be translated" max="37"/>
     <string english="Map Settings" translation="Mapagordoj" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20"/>
     <string english="edit scripts" translation="redakti skriptojn" explanation="level editor menu option"/>
     <string english="change music" translation="ŝanĝi muzikon" explanation="level editor menu option"/>
