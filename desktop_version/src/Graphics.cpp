@@ -1185,6 +1185,10 @@ void Graphics::drawgui(void)
                     sc = 1;
                     y += 4;
                 }
+                if (flipmode)
+                {
+                    y = 240 - y - 8*sc;
+                }
                 bigprint(-1, y, translation, 164, 164, 255, true, sc);
             }
             else
@@ -1216,6 +1220,10 @@ void Graphics::drawgui(void)
                     // We told translators how long it could be... Ah well, mitigate the damage.
                     sc = 1;
                     y += 4;
+                }
+                if (flipmode)
+                {
+                    y = 240 - y - 8*sc;
                 }
                 bigprint(-1, y, translation, 164, 164, 255, true, sc);
             }
