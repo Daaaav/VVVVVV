@@ -1098,289 +1098,179 @@ static void menurender(void)
         graphics.PrintWrap( -1, 65, loc::gettext("You can unlock each time trial separately."), tr, tg, tb, true);
         break;
     case Menu::timetrials:
+    {
+        bool unlocked = false;
+        int id_trial = game.currentmenuoption;
+        int par;
+        int max_trinkets;
+
         switch (game.currentmenuoption)
         {
         case 0:
-            // TODO LOC. Context string for not globally limiting area names to 20 characters?
-            // In fact, this entire switch statement is hairy as for translation.
-            // Too tight for other languages, probably needs repositionings, and everything is hardcoded 6 times.
             if(game.unlock[9])
             {
-                graphics.bigprint( -1, 30, "Space Station 1", tr, tg, tb, true);
-                if (game.besttimes[0] == -1)
-                {
-                    graphics.Print( -1, 75, "Not yet attempted", tr, tg, tb, true);
-                }
-                else
-                {
-                    graphics.Print( 16, 65, "BEST TIME  ", tr, tg, tb);
-                    graphics.Print( 16, 75, "BEST SHINY ", tr, tg, tb);
-                    graphics.Print( 16, 85, "BEST LIVES ", tr, tg, tb);
-                    graphics.Print( 110, 65, game.timetstring(game.besttimes[0]), tr, tg, tb);
-                    graphics.Print( 110, 75, help.String(game.besttrinkets[0])+"/2", tr, tg, tb);
-                    graphics.Print( 110, 85,help.String(game.bestlives[0]), tr, tg, tb);
-
-
-                    graphics.Print( 170, 65, "PAR TIME    1:15", tr, tg, tb);
-                    graphics.Print( 170, 85, "Best Rank", tr, tg, tb);
-                    switch(game.bestrank[0])
-                    {
-                    case 0:
-                        graphics.bigprint( 275, 82, "B", 225, 225, 225);
-                        break;
-                    case 1:
-                        graphics.bigprint( 275, 82, "A", 225, 225, 225);
-                        break;
-                    case 2:
-                        graphics.bigprint( 275, 82, "S", 225, 225, 225);
-                        break;
-                    case 3:
-                        graphics.bigprint( 275, 82, "V", 225, 225, 225);
-                        break;
-                    }
-                }
-
+                graphics.bigprint( -1, 30, loc::gettext("Space Station 1"), tr, tg, tb, true);
+                unlocked = true;
+                par = 75;
+                max_trinkets = 2;
             }
             else
             {
-                graphics.bigprint( -1, 30, "???", tr, tg, tb, true);
-                graphics.Print( -1, 60, "TO UNLOCK:", tr, tg, tb, true);
-                graphics.Print( -1, 75, "Rescue Violet", tr, tg, tb, true);
-                graphics.Print( -1, 85, "Find three trinkets", tr, tg, tb, true);
+                graphics.bigprint( -1, 30, loc::gettext("???"), tr, tg, tb, true);
+                graphics.Print( -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb, true);
+                graphics.Print( -1, 75, loc::gettext("Rescue Violet"), tr, tg, tb, true);
+                graphics.Print( -1, 85, loc::gettext("Find three trinkets"), tr, tg, tb, true);
             }
             break;
         case 1:
             if(game.unlock[10])
             {
-                graphics.bigprint( -1, 30, "The Laboratory", tr, tg, tb, true);
-                if (game.besttimes[1] == -1)
-                {
-                    graphics.Print( -1, 75, "Not yet attempted", tr, tg, tb, true);
-                }
-                else
-                {
-                    graphics.Print( 16, 65, "BEST TIME  ", tr, tg, tb);
-                    graphics.Print( 16, 75, "BEST SHINY ", tr, tg, tb);
-                    graphics.Print( 16, 85, "BEST LIVES ", tr, tg, tb);
-                    graphics.Print( 110, 65, game.timetstring(game.besttimes[1]), tr, tg, tb);
-                    graphics.Print( 110, 75, help.String(game.besttrinkets[1])+"/4", tr, tg, tb);
-                    graphics.Print( 110, 85, help.String(game.bestlives[1]), tr, tg, tb);
-
-
-                    graphics.Print( 170, 65, "PAR TIME    2:45", tr, tg, tb);
-                    graphics.Print( 170, 85, "Best Rank", tr, tg, tb);
-                    switch(game.bestrank[1])
-                    {
-                    case 0:
-                        graphics.bigprint( 275, 82, "B", 225, 225, 225);
-                        break;
-                    case 1:
-                        graphics.bigprint( 275, 82, "A", 225, 225, 225);
-                        break;
-                    case 2:
-                        graphics.bigprint( 275, 82, "S", 225, 225, 225);
-                        break;
-                    case 3:
-                        graphics.bigprint( 275, 82, "V", 225, 225, 225);
-                        break;
-                    }
-                }
-
+                graphics.bigprint( -1, 30, loc::gettext("The Laboratory"), tr, tg, tb, true);
+                unlocked = true;
+                par = 165;
+                max_trinkets = 4;
             }
             else
             {
-                graphics.bigprint( -1, 30, "???", tr, tg, tb, true);
-                graphics.Print( -1, 60, "TO UNLOCK:", tr, tg, tb, true);
-                graphics.Print( -1, 75, "Rescue Victoria", tr, tg, tb, true);
-                graphics.Print( -1, 85, "Find six trinkets", tr, tg, tb, true);
+                graphics.bigprint( -1, 30, loc::gettext("???"), tr, tg, tb, true);
+                graphics.Print( -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb, true);
+                graphics.Print( -1, 75, loc::gettext("Rescue Victoria"), tr, tg, tb, true);
+                graphics.Print( -1, 85, loc::gettext("Find six trinkets"), tr, tg, tb, true);
             }
             break;
         case 2:
             if(game.unlock[11])
             {
-                graphics.bigprint( -1, 30, "The Tower", tr, tg, tb, true);
-                if (game.besttimes[2] == -1)
-                {
-                    graphics.Print( -1, 75, "Not yet attempted", tr, tg, tb, true);
-                }
-                else
-                {
-                    graphics.Print( 16, 65, "BEST TIME  ", tr, tg, tb);
-                    graphics.Print( 16, 75, "BEST SHINY ", tr, tg, tb);
-                    graphics.Print( 16, 85, "BEST LIVES ", tr, tg, tb);
-                    graphics.Print( 110, 65, game.timetstring(game.besttimes[2]), tr, tg, tb);
-                    graphics.Print( 110, 75, help.String(game.besttrinkets[2])+"/2", tr, tg, tb);
-                    graphics.Print( 110, 85, help.String(game.bestlives[2]), tr, tg, tb);
-
-
-                    graphics.Print( 170, 65, "PAR TIME    1:45", tr, tg, tb);
-                    graphics.Print( 170, 85, "Best Rank", tr, tg, tb);
-                    switch(game.bestrank[2])
-                    {
-                    case 0:
-                        graphics.bigprint( 275, 82, "B", 225, 225, 225);
-                        break;
-                    case 1:
-                        graphics.bigprint( 275, 82, "A", 225, 225, 225);
-                        break;
-                    case 2:
-                        graphics.bigprint( 275, 82, "S", 225, 225, 225);
-                        break;
-                    case 3:
-                        graphics.bigprint( 275, 82, "V", 225, 225, 225);
-                        break;
-                    }
-                }
-
+                graphics.bigprint( -1, 30, loc::gettext("The Tower"), tr, tg, tb, true);
+                unlocked = true;
+                par = 105;
+                max_trinkets = 2;
             }
             else
             {
-                graphics.bigprint( -1, 30, "???", tr, tg, tb, true);
-                graphics.Print( -1, 60, "TO UNLOCK:", tr, tg, tb, true);
-                graphics.Print( -1, 75, "Rescue Vermilion", tr, tg, tb, true);
-                graphics.Print( -1, 85, "Find nine trinkets", tr, tg, tb, true);
+                graphics.bigprint( -1, 30, loc::gettext("???"), tr, tg, tb, true);
+                graphics.Print( -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb, true);
+                graphics.Print( -1, 75, loc::gettext("Rescue Vermilion"), tr, tg, tb, true);
+                graphics.Print( -1, 85, loc::gettext("Find nine trinkets"), tr, tg, tb, true);
             }
             break;
         case 3:
             if(game.unlock[12])
             {
-                graphics.bigprint( -1, 30, "Space Station 2", tr, tg, tb, true);
-                if (game.besttimes[3] == -1)
-                {
-                    graphics.Print( -1, 75, "Not yet attempted", tr, tg, tb, true);
-                }
-                else
-                {
-                    graphics.Print( 16, 65, "BEST TIME  ", tr, tg, tb);
-                    graphics.Print( 16, 75, "BEST SHINY ", tr, tg, tb);
-                    graphics.Print( 16, 85, "BEST LIVES ", tr, tg, tb);
-                    graphics.Print( 110, 65, game.timetstring(game.besttimes[3]), tr, tg, tb);
-                    graphics.Print( 110, 75, help.String(game.besttrinkets[3])+"/5", tr, tg, tb);
-                    graphics.Print( 110, 85, help.String(game.bestlives[3]), tr, tg, tb);
-
-
-                    graphics.Print( 170, 65, "PAR TIME    3:20", tr, tg, tb);
-                    graphics.Print( 170, 85, "Best Rank", tr, tg, tb);
-                    switch(game.bestrank[3])
-                    {
-                    case 0:
-                        graphics.bigprint( 275, 82, "B", 225, 225, 225);
-                        break;
-                    case 1:
-                        graphics.bigprint( 275, 82, "A", 225, 225, 225);
-                        break;
-                    case 2:
-                        graphics.bigprint( 275, 82, "S", 225, 225, 225);
-                        break;
-                    case 3:
-                        graphics.bigprint( 275, 82, "V", 225, 225, 225);
-                        break;
-                    }
-                }
-
+                graphics.bigprint( -1, 30, loc::gettext("Space Station 2"), tr, tg, tb, true);
+                unlocked = true;
+                par = 200;
+                max_trinkets = 5;
             }
             else
             {
-                graphics.bigprint( -1, 30, "???", tr, tg, tb, true);
-                graphics.Print( -1, 60, "TO UNLOCK:", tr, tg, tb, true);
-                graphics.Print( -1, 75, "Rescue Vitellary", tr, tg, tb, true);
-                graphics.Print( -1, 85, "Find twelve trinkets", tr, tg, tb, true);
+                graphics.bigprint( -1, 30, loc::gettext("???"), tr, tg, tb, true);
+                graphics.Print( -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb, true);
+                graphics.Print( -1, 75, loc::gettext("Rescue Vitellary"), tr, tg, tb, true);
+                graphics.Print( -1, 85, loc::gettext("Find twelve trinkets"), tr, tg, tb, true);
             }
             break;
         case 4:
             if(game.unlock[13])
             {
-                graphics.bigprint( -1, 30, "The Warp Zone", tr, tg, tb, true);
-                if (game.besttimes[4] == -1)
-                {
-                    graphics.Print( -1, 75, "Not yet attempted", tr, tg, tb, true);
-                }
-                else
-                {
-                    graphics.Print( 16, 65, "BEST TIME  ", tr, tg, tb);
-                    graphics.Print( 16, 75, "BEST SHINY ", tr, tg, tb);
-                    graphics.Print( 16, 85, "BEST LIVES ", tr, tg, tb);
-                    graphics.Print( 110, 65, game.timetstring(game.besttimes[4]), tr, tg, tb);
-                    graphics.Print( 110, 75, help.String(game.besttrinkets[4])+"/1", tr, tg, tb);
-                    graphics.Print( 110, 85, help.String(game.bestlives[4]), tr, tg, tb);
-
-
-                    graphics.Print( 170, 65, "PAR TIME    2:00", tr, tg, tb);
-                    graphics.Print( 170, 85, "Best Rank", tr, tg, tb);
-                    switch(game.bestrank[4])
-                    {
-                    case 0:
-                        graphics.bigprint( 275, 82, "B", 225, 225, 225);
-                        break;
-                    case 1:
-                        graphics.bigprint( 275, 82, "A", 225, 225, 225);
-                        break;
-                    case 2:
-                        graphics.bigprint( 275, 82, "S", 225, 225, 225);
-                        break;
-                    case 3:
-                        graphics.bigprint( 275, 82, "V", 225, 225, 225);
-                        break;
-                    }
-                }
-
+                graphics.bigprint( -1, 30, loc::gettext("The Warp Zone"), tr, tg, tb, true);
+                unlocked = true;
+                par = 120;
+                max_trinkets = 1;
             }
             else
             {
-                graphics.bigprint( -1, 30, "???", tr, tg, tb, true);
-                graphics.Print( -1, 60, "TO UNLOCK:", tr, tg, tb, true);
-                graphics.Print( -1, 75, "Rescue Verdigris", tr, tg, tb, true);
-                graphics.Print( -1, 85, "Find fifteen trinkets", tr, tg, tb, true);
+                graphics.bigprint( -1, 30, loc::gettext("???"), tr, tg, tb, true);
+                graphics.Print( -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb, true);
+                graphics.Print( -1, 75, loc::gettext("Rescue Verdigris"), tr, tg, tb, true);
+                graphics.Print( -1, 85, loc::gettext("Find fifteen trinkets"), tr, tg, tb, true);
             }
             break;
         case 5:
             if(game.unlock[14])
             {
-                graphics.bigprint( -1, 30, "The Final Level", tr, tg, tb, true);
-                if (game.besttimes[5] == -1)
-                {
-                    graphics.Print( -1, 75, "Not yet attempted", tr, tg, tb, true);
-                }
-                else
-                {
-                    graphics.Print( 16, 65, "BEST TIME  ", tr, tg, tb);
-                    graphics.Print( 16, 75, "BEST SHINY ", tr, tg, tb);
-                    graphics.Print( 16, 85, "BEST LIVES ", tr, tg, tb);
-                    graphics.Print( 110, 65, game.timetstring(game.besttimes[5]), tr, tg, tb);
-                    graphics.Print( 110, 75, help.String(game.besttrinkets[5])+"/1", tr, tg, tb);
-                    graphics.Print( 110, 85, help.String(game.bestlives[5]), tr, tg, tb);
-
-
-                    graphics.Print( 170, 65, "PAR TIME    2:15", tr, tg, tb);
-                    graphics.Print( 170, 85, "Best Rank", tr, tg, tb);
-                    switch(game.bestrank[5])
-                    {
-                    case 0:
-                        graphics.bigprint( 275, 82, "B", 225, 225, 225);
-                        break;
-                    case 1:
-                        graphics.bigprint( 275, 82, "A", 225, 225, 225);
-                        break;
-                    case 2:
-                        graphics.bigprint( 275, 82, "S", 225, 225, 225);
-                        break;
-                    case 3:
-                        graphics.bigprint( 275, 82, "V", 225, 225, 225);
-                        break;
-                    }
-                }
-
+                graphics.bigprint( -1, 30, loc::gettext("The Final Level"), tr, tg, tb, true);
+                unlocked = true;
+                par = 135;
+                max_trinkets = 1;
             }
             else
             {
-                graphics.bigprint( -1, 30, "???", tr, tg, tb, true);
-                graphics.Print( -1, 60, "TO UNLOCK:", tr, tg, tb, true);
-                graphics.Print( -1, 75, "Complete the game", tr, tg, tb, true);
-                graphics.Print( -1, 85, "Find eighteen trinkets", tr, tg, tb, true);
+                graphics.bigprint( -1, 30, loc::gettext("???"), tr, tg, tb, true);
+                graphics.Print( -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb, true);
+                graphics.Print( -1, 75, loc::gettext("Complete the game"), tr, tg, tb, true);
+                graphics.Print( -1, 85, loc::gettext("Find eighteen trinkets"), tr, tg, tb, true);
             }
             break;
         }
+
+        if (unlocked)
+        {
+            if (game.besttimes[id_trial] == -1)
+            {
+                graphics.PrintWrap( -1, 75, loc::gettext("Not yet attempted"), tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print(16, 65, loc::gettext("RECORDS"), tr, tg, tb);
+                const char* label = loc::gettext("TIME");
+                int label_len = graphics.len(label);
+                graphics.Print(16, 75, label, tr, tg, tb);
+                label = loc::gettext("SHINY");
+                label_len = SDL_max(label_len, graphics.len(label));
+                graphics.Print(16, 85, label, tr, tg, tb);
+                label = loc::gettext("LIVES");
+                label_len = SDL_max(label_len, graphics.len(label));
+                graphics.Print(16, 95, label, tr, tg, tb);
+
+                graphics.Print(label_len+32, 75, game.timetstring(game.besttimes[id_trial]), tr, tg, tb);
+
+                char buffer[SCREEN_WIDTH_CHARS + 1];
+                SDL_snprintf(
+                    buffer, sizeof(buffer),
+                    loc::gettext("%d/%d"),
+                    game.besttrinkets[id_trial], max_trinkets
+                );
+                graphics.Print(label_len+32, 85, buffer, tr, tg, tb);
+                graphics.Print(label_len+32, 95, help.String(game.bestlives[id_trial]), tr, tg, tb);
+
+
+                graphics.Print(-1, 65, loc::gettext("PAR TIME"), tr, tg, tb, true);
+                graphics.Print(-1, 75, game.timetstring(par), tr, tg, tb, true);
+                const char* best_rank = loc::gettext("Best Rank");
+                int best_rank_len = graphics.len(best_rank);
+                graphics.Print(304-best_rank_len, 65, best_rank, tr, tg, tb);
+
+                const char* rank;
+                switch(game.bestrank[id_trial])
+                {
+                case 0:
+                    rank = loc::gettext("B");
+                    break;
+                case 1:
+                    rank = loc::gettext("A");
+                    break;
+                case 2:
+                    rank = loc::gettext("S");
+                    break;
+                case 3:
+                    rank = loc::gettext("V");
+                    break;
+                default:
+                    rank = "?";
+                }
+                int rank_w = graphics.len(rank);
+                graphics.bigprint(
+                    SDL_min((304-best_rank_len/2)-rank_w, 312-rank_w*2),
+                    79,
+                    rank,
+                    225, 225, 225
+                );
+            }
+        }
+
         break;
+    }
     case Menu::gamecompletecontinue:
         graphics.bigprint( -1, 25, loc::gettext("Congratulations!"), tr, tg, tb, true, 2);
 

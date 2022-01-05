@@ -321,14 +321,54 @@
     <string english="NUMBER OF DEATHS:" translation="AANTAL KEER DOOD:" explanation="amount of times the player died" max="32"/>
     <string english="SHINY TRINKETS:" translation="GLANZENDE ARTEFACTEN:" explanation="amount of trinkets collected" max="32"/>
     <string english=" / " translation=" / " explanation="inserted between two times, ex: 0:46.90 / 1:15.99"/>
+    <string english="%d/%d" translation="" explanation="ex: 2/5"/>
     <string english="%d of %d" translation="%d van %d" explanation="ex: 2 of 5"/>
     <string english="%s out of %s" translation="%s van de %s" explanation="ex: One out of Twenty, see numbers.xml" max="34"/>
     <string english="+1 Rank!" translation="+1 score!" explanation="rank was upgraded (B → A → S → V)" max="12"/>
     <string english="Rank:" translation="Score:" explanation="time trial rank"/>
-    <string english="B" translation="B" explanation="time trial rank"/>
-    <string english="A" translation="A" explanation="time trial rank"/>
-    <string english="S" translation="S" explanation="time trial rank"/>
-    <string english="V" translation="V" explanation="time trial rank"/>
+    <string english="B" translation="B" explanation="time trial rank" max="5"/>
+    <string english="A" translation="A" explanation="time trial rank" max="5"/>
+    <string english="S" translation="S" explanation="time trial rank" max="5"/>
+    <string english="V" translation="V" explanation="time trial rank" max="5"/>
+    <string english="space station 1" translation="" explanation="area name as menu option"/>
+    <string english="Space Station 1" translation="" explanation="area name as title" max="20"/>
+    <string english="space station 2" translation="" explanation="area name as menu option"/>
+    <string english="Space Station 2" translation="" explanation="area name as title" max="20"/>
+    <string english="the laboratory" translation="" explanation="area name as menu option"/>
+    <string english="The Laboratory" translation="" explanation="area name as title" max="20"/>
+    <string english="the tower" translation="" explanation="area name as menu option"/>
+    <string english="The Tower" translation="" explanation="area name as title" max="20"/>
+    <string english="the warp zone" translation="" explanation="area name as menu option"/>
+    <string english="The Warp Zone" translation="" explanation="area name as title" max="20"/>
+    <string english="the final level" translation="" explanation="area name as menu option"/>
+    <string english="The Final Level" translation="" explanation="area name as title" max="20"/>
+    <string english="???" translation="???" explanation="locked area" max="20"/>
+    <string english="Not yet attempted" translation="Nog geen poging gedaan" explanation="" max="38*2"/>
+    <string english="TO UNLOCK:" translation="" explanation="followed by `Rescue XX`/`Complete the game`, and then `Find XX trinkets`" max="40"/>
+    <string english="Rescue Violet" translation="" explanation="" max="40"/>
+    <string english="Rescue Victoria" translation="" explanation="" max="40"/>
+    <string english="Rescue Vermilion" translation="" explanation="" max="40"/>
+    <string english="Rescue Vitellary" translation="" explanation="" max="40"/>
+    <string english="Rescue Verdigris" translation="" explanation="" max="40"/>
+    <string english="Complete the game" translation="" explanation="" max="40"/>
+    <string english="Find three trinkets" translation="" explanation="" max="40"/>
+    <string english="Find six trinkets" translation="" explanation="" max="40"/>
+    <string english="Find nine trinkets" translation="" explanation="" max="40"/>
+    <string english="Find twelve trinkets" translation="" explanation="" max="40"/>
+    <string english="Find fifteen trinkets" translation="" explanation="" max="40"/>
+    <string english="Find eighteen trinkets" translation="" explanation="" max="40"/>
+    <string english="RECORDS" translation="RECORDS" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="12"/>
+    <string english="TIME" translation="TIJD" explanation="record time" max="7"/>
+    <string english="SHINY" translation="ARTE" explanation="record number of trinkets" max="7"/>
+    <string english="LIVES" translation="DOOD" explanation="record lowest number of deaths" max="7"/>
+    <string english="PAR TIME" translation="PAR-TIJD" explanation="followed by the goal time for this time trial" max="11"/>
+    <string english="TIME:" translation="TIJD:" explanation="in time trial. Stopwatch time, not too long"/>
+    <string english="DEATH:" translation="DOOD:" explanation="in time trial. Number of times player died, not too long"/>
+    <string english="SHINY:" translation="ARTE:" explanation="in time trial. Number of shiny trinkets collected, not too long"/>
+    <string english="PAR TIME:" translation="PAR-TIJD:" explanation="in time trial. Goal time for time trial"/>
+    <string english="Best Rank" translation="Beste score" explanation="ranks are B A S V" max="12"/>
+    <string english="GO!" translation="GO!" explanation="3, 2, 1, GO!" max="13"/>
+    <string english="Go!" translation="Go!" explanation="3, 2, 1, Go!" max="10"/>
     <string english="Congratulations!" translation="Gefeliciteerd!" explanation="title" max="20"/>
     <string english="Your save files have been updated." translation="Je opgeslagen gegevens zijn bijgewerkt." explanation="player completed game" max="38*6"/>
     <string english="If you want to keep exploring the game, select CONTINUE from the play menu." translation="Als je het spel verder wilt verkennen, kies dan HERVATTEN in het spelmenu." explanation="" max="38*9"/>
@@ -380,12 +420,6 @@
     <string english="[Press ENTER to stop]" translation="[Druk op ENTER om te stoppen]" explanation="stop super gravitron" max="40"/>
     <string english="SUPER GRAVITRON" translation="SUPER GRAVITRON" explanation="" max="20"/>
     <string english="SUPER GRAVITRON HIGHSCORE" translation="HIGHSCORE SUPER GRAVITRON" explanation="" max="38*4"/>
-    <string english="GO!" translation="GO!" explanation="3, 2, 1, GO!" max="13"/>
-    <string english="Go!" translation="Go!" explanation="3, 2, 1, Go!" max="10"/>
-    <string english="TIME:" translation="TIJD:" explanation="stopwatch time, not too long"/>
-    <string english="DEATH:" translation="DOOD:" explanation="number of times player died, not too long"/>
-    <string english="SHINY:" translation="ARTE:" explanation="number of shiny trinkets collected, not too long"/>
-    <string english="PAR TIME:" translation="PAR-TIJD:" explanation="goal time for time trial"/>
     <string english="MAP" translation="KAART" explanation="in-game menu" max="8"/>
     <string english="GRAV" translation="GRAV" explanation="in-game menu, Gravitron" max="8"/>
     <string english="SHIP" translation="SCHIP" explanation="in-game menu, spaceship" max="8"/>
@@ -629,13 +663,6 @@ Je hebt het geheime lab gevonden!" explanation="" max="37*4"/>
     <string english="You can&apos;t continue to the next room until she is safely across." translation="Je kunt niet naar de volgende kamer totdat ze veilig aan de overkant is." explanation="Intermission 1" max="34*4"/>
     <string english="Survive for" translation="Overleef" explanation="Gravitron. Line 1/2: Survive for 60 seconds!" max="20"/>
     <string english="60 seconds!" translation="60 seconden!" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20"/>
-    <string english="space station 1" translation="" explanation="area name as menu option"/>
-    <string english="space station 2" translation="" explanation="area name as menu option"/>
-    <string english="the laboratory" translation="" explanation="area name as menu option"/>
-    <string english="the tower" translation="" explanation="area name as menu option"/>
-    <string english="the warp zone" translation="" explanation="area name as menu option"/>
-    <string english="the final level" translation="" explanation="area name as menu option"/>
-    <string english="???" translation="" explanation="locked area as menu option"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
