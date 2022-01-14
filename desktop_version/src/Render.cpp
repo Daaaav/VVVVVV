@@ -291,9 +291,10 @@ static void menurender(void)
         }
         break;
     case Menu::graphicoptions:
-        switch (game.currentmenuoption)
+    {
+        int offset = 0;
+        if (game.currentmenuoption == offset + 0 && !gameScreen.isForcedFullscreen())
         {
-        case 0:
             graphics.bigprint( -1, 30, loc::gettext("Toggle Fullscreen"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Change to fullscreen/windowed mode."), tr, tg, tb, true);
 
@@ -305,34 +306,47 @@ static void menurender(void)
             {
                 graphics.PrintWrap( -1, 95, loc::gettext("Current mode: FULLSCREEN"), tr, tg, tb, true);
             }
-            break;
+        }
 
-        case 1:
+        if (gameScreen.isForcedFullscreen())
+        {
+            --offset;
+        }
+
+        if (game.currentmenuoption == offset + 1)
+        {
             graphics.bigprint( -1, 30, loc::gettext("Scaling Mode"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Choose letterbox/stretch/integer mode."), tr, tg, tb, true);
 
             switch (gameScreen.scalingMode)
             {
-            case 2:
-                graphics.PrintWrap( -1, 95, loc::gettext("Current mode: INTEGER"), tr, tg, tb, true);
+            case SCALING_INTEGER:
+                graphics.PrintWrap( -1, 85, loc::gettext("Current mode: INTEGER"), tr, tg, tb, true);
                 break;
-            case 1:
-                graphics.PrintWrap( -1, 95, loc::gettext("Current mode: STRETCH"), tr, tg, tb, true);
+            case SCALING_STRETCH:
+                graphics.PrintWrap( -1, 85, loc::gettext("Current mode: STRETCH"), tr, tg, tb, true);
                 break;
+            case SCALING_LETTERBOX:
             default:
                 graphics.PrintWrap( -1, 95, loc::gettext("Current mode: LETTERBOX"), tr, tg, tb, true);
                 break;
             }
-            break;
-        case 2:
+        }
+        if (game.currentmenuoption == offset + 2 && !gameScreen.isForcedFullscreen())
+        {
             graphics.bigprint(-1, 30, loc::gettext("Resize to Nearest"), tr, tg, tb, true);
             graphics.PrintWrap(-1, 65, loc::gettext("Resize to the nearest window size that is of an integer multiple."), tr, tg, tb, true);
             if (!gameScreen.isWindowed)
             {
                 graphics.PrintWrap(-1, 95, loc::gettext("You must be in windowed mode to use this option."), tr, tg, tb, true);
             }
-            break;
-        case 3:
+        }
+        if (gameScreen.isForcedFullscreen())
+        {
+            --offset;
+        }
+        if (game.currentmenuoption == offset + 3)
+        {
             graphics.bigprint( -1, 30, loc::gettext("Toggle Filter"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Change to nearest/linear filter."), tr, tg, tb, true);
 
@@ -344,13 +358,15 @@ static void menurender(void)
             {
                 graphics.PrintWrap( -1, 95, loc::gettext("Current mode: NEAREST"), tr, tg, tb, true);
             }
-            break;
+        }
 
-        case 4:
+        if (game.currentmenuoption == offset + 4)
+        {
             graphics.bigprint( -1, 30, loc::gettext("Analogue Mode"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("There is nothing wrong with your television set. Do not attempt to adjust the picture."), tr, tg, tb, true);
-            break;
-        case 5:
+        }
+        if (game.currentmenuoption == offset + 5)
+        {
             graphics.bigprint(-1, 30, loc::gettext("Toggle VSync"), tr, tg, tb, true);
             /* FIXME: Upgrade to SDL 2.0.18 and remove this ifdef when it releases! */
 #if SDL_VERSION_ATLEAST(2, 0, 17)
@@ -368,9 +384,9 @@ static void menurender(void)
             {
                 graphics.PrintWrap(-1, 85, loc::gettext("Current mode: VSYNC ON"), tr, tg, tb, true);
             }
-            break;
         }
         break;
+    }
     case Menu::audiooptions:
         switch (game.currentmenuoption)
         {
@@ -1682,17 +1698,20 @@ void gamerender(void)
 
     if ((map.extrarow==0 || (map.custommode && map.roomname[0] != '\0')) && !force_roomname_hidden)
     {
-        const char* translated_roomname;
+        const char* roomname;
+
+        graphics.footerrect.y = 230;
+
         if (map.finalmode)
         {
-            translated_roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.glitchname, map.roomname_special);
+            roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.glitchname, map.roomname_special);
         }
         else
         {
-            translated_roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
+            roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
         }
 
-        graphics.render_roomname(translated_roomname, roomname_r, roomname_g, roomname_b);
+        graphics.render_roomname(roomname, roomname_r, roomname_g, roomname_b);
     }
 
     if (map.roomtexton)

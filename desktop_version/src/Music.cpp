@@ -5,6 +5,7 @@
 #include <physfsrwops.h>
 
 #include "BinaryBlob.h"
+#include "FileSystemUtils.h"
 #include "Game.h"
 #include "Graphics.h"
 #include "Map.h"
@@ -12,8 +13,165 @@
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
+/* Begin SDL_mixer wrapper */
+
+#include <SDL_mixer.h>
+#include <vector>
+
+#define VVV_MAX_VOLUME MIX_MAX_VOLUME
+
+class SoundTrack
+{
+public:
+    SoundTrack(const char* fileName)
+    {
+        /* Parse WAV header, fill in FAudioBuffer, read PCM to malloc buffer */
+        unsigned char *mem;
+        size_t length;
+        FILESYSTEM_loadAssetToMemory(fileName, &mem, &length, false);
+        if (mem == NULL)
+        {
+            m_sound = NULL;
+            vlog_error("Unable to load WAV file %s", fileName);
+            SDL_assert(0 && "WAV file missing!");
+            return;
+        }
+        SDL_RWops *fileIn = SDL_RWFromConstMem(mem, length);
+        m_sound = Mix_LoadWAV_RW(fileIn, 1);
+        FILESYSTEM_freeMemory(&mem);
+
+        if (m_sound == NULL)
+        {
+            vlog_error("Unable to load WAV file: %s", Mix_GetError());
+        }
+    }
+
+    void Dispose()
+    {
+        /* Destroy all source voices, free buffer used by FAudioBuffer */
+        Mix_FreeChunk(m_sound);
+    }
+
+    void Play()
+    {
+        /* Fire-and-forget from a per-track FAudioSourceVoice pool */
+        if (Mix_PlayChannel(-1, m_sound, 0) == -1)
+        {
+            vlog_error("Unable to play WAV file: %s", Mix_GetError());
+        }
+    }
+
+    static void Init(int audio_rate, int audio_channels)
+    {
+        const Uint16 audio_format = AUDIO_S16SYS;
+        const int audio_buffers = 1024;
+
+        /* FAudioCreate, FAudio_CreateMasteringVoice */
+        if (Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0)
+        {
+            vlog_error("Unable to initialize audio: %s", Mix_GetError());
+            SDL_assert(0 && "Unable to initialize audio!");
+        }
+    }
+
+    static void Pause()
+    {
+        /* FAudio_StopEngine */
+        Mix_Pause(-1);
+    }
+
+    static void Resume()
+    {
+        /* FAudio_StartEngine */
+        Mix_Resume(-1);
+    }
+
+    static void SetVolume(int soundVolume)
+    {
+        /* FAudioVoice_SetVolume on all sounds. Yeah, all of them :/
+         * If we get desperate we can use a submix and set volume on that, but
+         * the submix is an extra mix stage so just loop all sounds manually...
+         */
+        Mix_Volume(-1, soundVolume);
+    }
+
+private:
+    Mix_Chunk *m_sound;
+};
+
+class MusicTrack
+{
+public:
+    MusicTrack(SDL_RWops *rw)
+    {
+        /* Open an stb_vorbis handle */
+        m_music = Mix_LoadMUS_RW(rw, 1);
+        if (m_music == NULL)
+        {
+            vlog_error("Unable to load Magic Binary Music file: %s", Mix_GetError());
+        }
+    }
+
+    void Dispose()
+    {
+        /* Free stb_vorbis */
+        Mix_FreeMusic(m_music);
+    }
+
+    bool Play(bool loop)
+    {
+        /* Create/Validate static FAudioSourceVoice, begin streaming */
+        if (Mix_PlayMusic(m_music, loop ? -1 : 0) == -1)
+        {
+            vlog_error("Mix_PlayMusic: %s", Mix_GetError());
+            return false;
+        }
+        return true;
+    }
+
+    static void Halt()
+    {
+        /* FAudioVoice_Destroy */
+        Mix_HaltMusic();
+    }
+
+    static bool IsHalted()
+    {
+        /* return musicVoice == NULL; */
+        return Mix_PausedMusic() == 1;
+    }
+
+    static void Pause()
+    {
+        /* FAudioSourceVoice_Pause */
+        Mix_PauseMusic();
+    }
+
+    static void Resume()
+    {
+        /* FAudioSourceVoice_Resume */
+        Mix_ResumeMusic();
+    }
+
+    static void SetVolume(int musicVolume)
+    {
+        /* FAudioSourceVoice_SetVolume */
+        Mix_VolumeMusic(musicVolume);
+    }
+
+private:
+    Mix_Music *m_music;
+};
+
+static std::vector<SoundTrack> soundTracks;
+static std::vector<MusicTrack> musicTracks;
+
+/* End SDL_mixer wrapper */
+
 musicclass::musicclass(void)
 {
+    SoundTrack::Init(44100, 2);
+
     safeToProcessMusic= false;
     m_doFadeInVol = false;
     m_doFadeOutVol = false;
@@ -172,17 +330,17 @@ void musicclass::destroy(void)
 {
     for (size_t i = 0; i < soundTracks.size(); ++i)
     {
-        Mix_FreeChunk(soundTracks[i].sound);
+        soundTracks[i].Dispose();
     }
     soundTracks.clear();
 
     // Before we free all the music: stop playing music, else SDL2_mixer
     // will call SDL_Delay() if we are fading, resulting in no-draw frames
-    Mix_HaltMusic();
+    MusicTrack::Halt();
 
     for (size_t i = 0; i < musicTracks.size(); ++i)
     {
-        Mix_FreeMusic(musicTracks[i].m_music);
+        musicTracks[i].Dispose();
     }
     musicTracks.clear();
 
@@ -234,16 +392,12 @@ void musicclass::play(int t)
     if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 0+num_mmmmmm_tracks || currentsong == 7+num_mmmmmm_tracks)))
     {
         // Level Complete theme, no fade in or repeat
-        if (Mix_PlayMusic(musicTracks[t].m_music, 0) == -1)
-        {
-            vlog_error("Mix_PlayMusic: %s", Mix_GetError());
-        }
-        else
+        if (musicTracks[t].Play(false))
         {
             m_doFadeInVol = false;
             m_doFadeOutVol = false;
-            musicVolume = MIX_MAX_VOLUME;
-            Mix_VolumeMusic(musicVolume);
+            musicVolume = VVV_MAX_VOLUME;
+            MusicTrack::SetVolume(musicVolume);
         }
     }
     else
@@ -264,11 +418,7 @@ void musicclass::play(int t)
                 quick_fade = true;
             }
         }
-        else if (Mix_PlayMusic(musicTracks[t].m_music, -1) == -1)
-        {
-            vlog_error("Mix_PlayMusic: %s", Mix_GetError());
-        }
-        else
+        else if (musicTracks[t].Play(true))
         {
             m_doFadeInVol = false;
             m_doFadeOutVol = false;
@@ -279,7 +429,7 @@ void musicclass::play(int t)
 
 void musicclass::resume()
 {
-    Mix_ResumeMusic();
+    MusicTrack::Resume();
 }
 
 void musicclass::resumefade(const int fadein_ms)
@@ -295,7 +445,7 @@ void musicclass::fadein(void)
 
 void musicclass::pause(void)
 {
-    Mix_PauseMusic();
+    MusicTrack::Pause();
 }
 
 void musicclass::haltdasmusik(void)
@@ -369,12 +519,12 @@ void musicclass::fadeMusicVolumeIn(int ms)
     musicVolume = 0;
 
     /* Fix 1-frame glitch */
-    Mix_VolumeMusic(0);
+    MusicTrack::SetVolume(0);
 
     fade.step_ms = 0;
     fade.duration_ms = ms;
     fade.start_volume = 0;
-    fade.end_volume = MIX_MAX_VOLUME;
+    fade.end_volume = VVV_MAX_VOLUME;
 }
 
 void musicclass::fadeMusicVolumeOut(const int fadeout_ms)
@@ -389,7 +539,7 @@ void musicclass::fadeMusicVolumeOut(const int fadeout_ms)
 
     fade.step_ms = 0;
     /* Duration is proportional to current volume. */
-    fade.duration_ms = fadeout_ms * musicVolume / MIX_MAX_VOLUME;
+    fade.duration_ms = fadeout_ms * musicVolume / VVV_MAX_VOLUME;
     fade.start_volume = musicVolume;
     fade.end_volume = 0;
 }
@@ -546,26 +696,42 @@ void musicclass::playef(int t)
     {
         return;
     }
-    int channel;
-
-    channel = Mix_PlayChannel(-1, soundTracks[t].sound, 0);
-    if(channel == -1)
-    {
-        vlog_error("Unable to play WAV file: %s", Mix_GetError());
-    }
+    soundTracks[t].Play();
 }
 
 void musicclass::pauseef(void)
 {
-    Mix_Pause(-1);
+    SoundTrack::Pause();
 }
 
 void musicclass::resumeef(void)
 {
-    Mix_Resume(-1);
+    SoundTrack::Resume();
 }
 
 bool musicclass::halted(void)
 {
-    return Mix_PausedMusic() == 1;
+    return MusicTrack::IsHalted();
+}
+
+void musicclass::updatemutestate(void)
+{
+    if (game.muted)
+    {
+        MusicTrack::SetVolume(0);
+        SoundTrack::SetVolume(0);
+    }
+    else
+    {
+        SoundTrack::SetVolume(VVV_MAX_VOLUME * user_sound_volume / USER_VOLUME_MAX);
+
+        if (game.musicmuted)
+        {
+            MusicTrack::SetVolume(0);
+        }
+        else
+        {
+            MusicTrack::SetVolume(musicVolume * user_music_volume / USER_VOLUME_MAX);
+        }
+    }
 }

@@ -26,7 +26,6 @@
 #include "RenderFixed.h"
 #include "Screen.h"
 #include "Script.h"
-#include "SoundSystem.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
@@ -874,24 +873,7 @@ static enum LoopCode loop_end(void)
         game.musicmutebutton--;
     }
 
-    if (game.muted)
-    {
-        Mix_VolumeMusic(0) ;
-        Mix_Volume(-1,0);
-    }
-    else
-    {
-        Mix_Volume(-1,MIX_MAX_VOLUME * music.user_sound_volume / USER_VOLUME_MAX);
-
-        if (game.musicmuted)
-        {
-            Mix_VolumeMusic(0);
-        }
-        else
-        {
-            Mix_VolumeMusic(music.musicVolume * music.user_music_volume / USER_VOLUME_MAX);
-        }
-    }
+    music.updatemutestate();
 
     if (key.resetWindow)
     {

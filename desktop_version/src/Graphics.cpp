@@ -3720,11 +3720,11 @@ void Graphics::render_roomname(const char* roomname, int r, int g, int b)
     if (translucentroomname)
     {
         SDL_BlitSurface(footerbuffer, NULL, backBuffer, &footerrect);
+        bprint(5, 231, roomname, r, g, b, true);
     }
     else
     {
         FillRect(backBuffer, footerrect, 0);
+        Print(5, 231, roomname, r, g, b, true);
     }
-
-    bprint(5, 231, roomname, r, g, b, true);
 }

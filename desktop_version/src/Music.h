@@ -1,10 +1,7 @@
 #ifndef MUSIC_H
 #define MUSIC_H
 
-#include <vector>
-
 #include "BinaryBlob.h"
-#include "SoundSystem.h"
 
 #define musicroom(rx, ry) ((rx) + ((ry) * 20))
 
@@ -45,10 +42,8 @@ public:
     void resumeef(void);
 
     bool halted(void);
+    void updatemutestate(void);
 
-    std::vector<SoundTrack> soundTracks;
-    std::vector<MusicTrack> musicTracks;
-    SoundSystem soundSystem;
     bool safeToProcessMusic;
 
     int nicechange; // -1 if no song queued

@@ -9,6 +9,7 @@
 #include "Graphics.h"
 #include "Localization.h"
 #include "Maths.h"
+#include "Screen.h"
 #include "Unused.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -1221,11 +1222,7 @@ static int PLATFORM_getOSDirectory(char* output, const size_t output_size)
 
 bool FILESYSTEM_openDirectoryEnabled(void)
 {
-    /* This is just a check to see if we're on a desktop or tenfoot setup.
-     * If you're working on a tenfoot-only build, add a def that always
-     * returns false!
-     */
-    return !SDL_GetHintBoolean("SteamTenfoot", SDL_FALSE);
+    return !gameScreen.isForcedFullscreen();
 }
 
 #if defined(__EMSCRIPTEN__)
