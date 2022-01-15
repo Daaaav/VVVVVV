@@ -691,7 +691,7 @@ int Graphics::PrintWrap(
         }
     }
 
-    return y;
+    return y + linespacing;
 }
 
 

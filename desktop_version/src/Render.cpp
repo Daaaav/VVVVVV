@@ -204,11 +204,11 @@ static void menurender(void)
                 int next_y = graphics.PrintWrap( -1, 65, loc::gettext("Flip the entire game vertically."), tr, tg, tb, true);
                 if (graphics.setflipmode)
                 {
-                    graphics.PrintWrap( -1, next_y+10, loc::gettext("Currently ENABLED!"), tr, tg, tb, true);
+                    graphics.PrintWrap( -1, next_y, loc::gettext("Currently ENABLED!"), tr, tg, tb, true);
                 }
                 else
                 {
-                    graphics.PrintWrap( -1, next_y+10, loc::gettext("Currently Disabled."), tr/2, tg/2, tb/2, true);
+                    graphics.PrintWrap( -1, next_y, loc::gettext("Currently Disabled."), tr/2, tg/2, tb/2, true);
                 }
             }
         }
@@ -221,11 +221,11 @@ static void menurender(void)
 
             if (!game.over30mode)
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Current mode: 30 FPS"), tr/2, tg/2, tb/2, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Current mode: 30 FPS"), tr/2, tg/2, tb/2, true);
             }
             else
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Current mode: Over 30 FPS"), tr, tg, tb, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Current mode: Over 30 FPS"), tr, tg, tb, true);
             }
             break;
         }
@@ -300,11 +300,11 @@ static void menurender(void)
 
             if (gameScreen.isWindowed)
             {
-                graphics.PrintWrap( -1, next_y+10, loc::gettext("Current mode: WINDOWED"), tr, tg, tb, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("Current mode: WINDOWED"), tr, tg, tb, true);
             }
             else
             {
-                graphics.PrintWrap( -1, next_y+10, loc::gettext("Current mode: FULLSCREEN"), tr, tg, tb, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("Current mode: FULLSCREEN"), tr, tg, tb, true);
             }
         }
 
@@ -321,14 +321,14 @@ static void menurender(void)
             switch (gameScreen.scalingMode)
             {
             case SCALING_INTEGER:
-                graphics.PrintWrap( -1, next_y+10, loc::gettext("Current mode: INTEGER"), tr, tg, tb, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("Current mode: INTEGER"), tr, tg, tb, true);
                 break;
             case SCALING_STRETCH:
-                graphics.PrintWrap( -1, next_y+10, loc::gettext("Current mode: STRETCH"), tr, tg, tb, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("Current mode: STRETCH"), tr, tg, tb, true);
                 break;
             case SCALING_LETTERBOX:
             default:
-                graphics.PrintWrap( -1, next_y+10, loc::gettext("Current mode: LETTERBOX"), tr, tg, tb, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("Current mode: LETTERBOX"), tr, tg, tb, true);
                 break;
             }
         }
@@ -338,7 +338,7 @@ static void menurender(void)
             int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Resize to the nearest window size that is of an integer multiple."), tr, tg, tb, true);
             if (!gameScreen.isWindowed)
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("You must be in windowed mode to use this option."), tr, tg, tb, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("You must be in windowed mode to use this option."), tr, tg, tb, true);
             }
         }
         if (gameScreen.isForcedFullscreen())
@@ -352,11 +352,11 @@ static void menurender(void)
 
             if (gameScreen.isFiltered)
             {
-                graphics.PrintWrap( -1, next_y+10, loc::gettext("Current mode: LINEAR"), tr, tg, tb, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("Current mode: LINEAR"), tr, tg, tb, true);
             }
             else
             {
-                graphics.PrintWrap( -1, next_y+10, loc::gettext("Current mode: NEAREST"), tr, tg, tb, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("Current mode: NEAREST"), tr, tg, tb, true);
             }
         }
 
@@ -380,11 +380,11 @@ static void menurender(void)
 
             if (!gameScreen.vsync)
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Current mode: VSYNC OFF"), tr/2, tg/2, tb/2, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Current mode: VSYNC OFF"), tr/2, tg/2, tb/2, true);
             }
             else
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Current mode: VSYNC ON"), tr, tg, tb, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Current mode: VSYNC ON"), tr, tg, tb, true);
             }
         }
         break;
@@ -421,7 +421,7 @@ static void menurender(void)
             {
                 soundtrack = loc::gettext("Current soundtrack: PPPPPP");
             }
-            graphics.PrintWrap(-1, next_y+10, soundtrack, tr, tg, tb, true);
+            graphics.PrintWrap(-1, next_y, soundtrack, tr, tg, tb, true);
             break;
         }
 
@@ -531,7 +531,7 @@ static void menurender(void)
     {
         graphics.bigprint( -1, 30, loc::gettext("Game Speed"), tr, tg, tb, true);
         int next_y = graphics.PrintWrap( -1, 65, loc::gettext("Select a new game speed below."), tr, tg, tb, true);
-        drawslowdowntext(next_y+10);
+        drawslowdowntext(next_y);
         break;
     }
     case Menu::newgamewarning:
@@ -548,8 +548,8 @@ static void menurender(void)
     {
         int next_y;
         next_y = graphics.PrintWrap( -1, 45, loc::gettext("Good luck!"), tr, tg, tb, true);
-        next_y = graphics.PrintWrap( -1, next_y+25, loc::gettext("You cannot save in this mode."), tr, tg, tb, true);
-        graphics.PrintWrap( -1, next_y+15, loc::gettext("Would you like to disable the cutscenes during the game?"), tr, tg, tb, true);
+        next_y = graphics.PrintWrap( -1, next_y+15, loc::gettext("You cannot save in this mode."), tr, tg, tb, true);
+        graphics.PrintWrap( -1, next_y+5, loc::gettext("Would you like to disable the cutscenes during the game?"), tr, tg, tb, true);
         break;
     }
     case Menu::controller:
@@ -649,11 +649,11 @@ static void menurender(void)
 
             if (roomname_translator::enabled)
             {
-                graphics.PrintWrap( -1, next_y+10, loc::gettext("Currently ENABLED!"), tr, tg, tb, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("Currently ENABLED!"), tr, tg, tb, true);
             }
             else
             {
-                graphics.PrintWrap( -1, next_y+10, loc::gettext("Currently Disabled."), tr/2, tg/2, tb/2, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("Currently Disabled."), tr/2, tg/2, tb/2, true);
             }
             break;
         }
@@ -693,7 +693,7 @@ static void menurender(void)
         {
             graphics.bigprint(-1, 30, loc::gettext("Glitchrunner Mode"), tr, tg, tb, true);
             int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Re-enable glitches that existed in previous versions of the game."), tr, tg, tb, true);
-            drawglitchrunnertext(next_y+10);
+            drawglitchrunnertext(next_y);
             break;
         }
         case 1:
@@ -702,11 +702,11 @@ static void menurender(void)
             int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Re-enable the 1-frame input delay from previous versions of the game."), tr, tg, tb, true);
             if (game.inputdelay)
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Input delay is ON"), tr, tg, tb, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Input delay is ON"), tr, tg, tb, true);
             }
             else
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Input delay is OFF"), tr / 2, tg / 2, tb / 2, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Input delay is OFF"), tr / 2, tg / 2, tb / 2, true);
             }
             break;
         }
@@ -728,7 +728,7 @@ static void menurender(void)
             }
 
             SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Interact button: %s"), button);
-            graphics.PrintWrap(-1, next_y+10, buffer, tr, tg, tb, true);
+            graphics.PrintWrap(-1, next_y, buffer, tr, tg, tb, true);
             break;
         }
         case 3:
@@ -736,9 +736,9 @@ static void menurender(void)
             graphics.bigprint(-1, 30, loc::gettext("Fake Load Screen"), tr, tg, tb, true);
             int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Disable the fake loading screen which appears on game launch."), tr, tg, tb, true);
             if (game.skipfakeload)
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Fake loading screen is OFF"), tr / 2, tg / 2, tb / 2, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Fake loading screen is OFF"), tr / 2, tg / 2, tb / 2, true);
             else
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Fake loading screen is ON"), tr, tg, tb, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Fake loading screen is ON"), tr, tg, tb, true);
             break;
         }
         case 4:
@@ -746,11 +746,11 @@ static void menurender(void)
             int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Toggle the in-game timer outside of time trials."), tr, tg, tb, true);
             if (game.showingametimer)
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("In-Game Timer is ON"), tr, tg, tb, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("In-Game Timer is ON"), tr, tg, tb, true);
             }
             else
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("In-Game Timer is OFF"), tr / 2, tg / 2, tb / 2, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("In-Game Timer is OFF"), tr / 2, tg / 2, tb / 2, true);
             }
             break;
         }
@@ -759,7 +759,7 @@ static void menurender(void)
     {
         graphics.bigprint(-1, 30, loc::gettext("Glitchrunner Mode"), tr, tg, tb, true);
         int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Select a new glitchrunner version below."), tr, tg, tb, true);
-        drawglitchrunnertext(next_y+10);
+        drawglitchrunnertext(next_y);
         break;
     }
     case Menu::advancedoptions:
@@ -771,11 +771,11 @@ static void menurender(void)
             int next_y = graphics.PrintWrap( -1, 65, loc::gettext("Toggle if the game will pause when the window is unfocused."), tr, tg, tb, true);
             if (game.disablepause)
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Unfocus pause is OFF"), tr/2, tg/2, tb/2, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Unfocus pause is OFF"), tr/2, tg/2, tb/2, true);
             }
             else
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Unfocus pause is ON"), tr, tg, tb, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Unfocus pause is ON"), tr, tg, tb, true);
             }
             break;
         }
@@ -785,11 +785,11 @@ static void menurender(void)
             int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Toggle if the audio will pause when the window is unfocused."), tr, tg, tb, true);
             if (game.disableaudiopause)
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Unfocus audio pause is OFF"), tr/2, tg/2, tb/2, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Unfocus audio pause is OFF"), tr/2, tg/2, tb/2, true);
             }
             else
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Unfocus audio pause is ON"), tr, tg, tb, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Unfocus audio pause is ON"), tr, tg, tb, true);
             }
             break;
         }
@@ -797,9 +797,9 @@ static void menurender(void)
             graphics.bigprint(-1, 30, loc::gettext("Room Name BG"), tr, tg, tb, true);
             int next_y = graphics.PrintWrap( -1, 65, loc::gettext("Lets you see through what is behind the name at the bottom of the screen."), tr, tg, tb, true);
             if (graphics.translucentroomname)
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Room name background is TRANSLUCENT"), tr/2, tg/2, tb/2, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Room name background is TRANSLUCENT"), tr/2, tg/2, tb/2, true);
             else
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Room name background is OPAQUE"), tr, tg, tb, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Room name background is OPAQUE"), tr, tg, tb, true);
             break;
         }
         break;
@@ -825,11 +825,11 @@ static void menurender(void)
             int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Explore the game freely without dying. (Can cause glitches.)"), tr, tg, tb, true);
             if (map.invincibility)
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Invincibility is ON."), tr, tg, tb, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Invincibility is ON."), tr, tg, tb, true);
             }
             else
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Invincibility is OFF."), tr / 2, tg / 2, tb / 2, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Invincibility is OFF."), tr / 2, tg / 2, tb / 2, true);
             }
             break;
         }
@@ -837,7 +837,7 @@ static void menurender(void)
         {
             graphics.bigprint(-1, 30, loc::gettext("Slowdown"), tr, tg, tb, true);
             int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Reduce the game speed."), tr, tg, tb, true);
-            drawslowdowntext(next_y+10);
+            drawslowdowntext(next_y);
             break;
         }
         case OFFSET+2:
@@ -846,11 +846,11 @@ static void menurender(void)
             int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Disable animated backgrounds in menus and during gameplay."), tr, tg, tb, true);
             if (!game.colourblindmode)
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Backgrounds are ON."), tr, tg, tb, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Backgrounds are ON."), tr, tg, tb, true);
             }
             else
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Backgrounds are OFF."), tr / 2, tg / 2, tb / 2, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Backgrounds are OFF."), tr / 2, tg / 2, tb / 2, true);
             }
             break;
         }
@@ -860,11 +860,11 @@ static void menurender(void)
             int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Disables screen shakes and flashes."), tr, tg, tb, true);
             if (!game.noflashingmode)
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Screen Effects are ON."), tr, tg, tb, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Screen Effects are ON."), tr, tg, tb, true);
             }
             else
             {
-                graphics.PrintWrap(-1, next_y+10, loc::gettext("Screen Effects are OFF."), tr / 2, tg / 2, tb / 2, true);
+                graphics.PrintWrap(-1, next_y, loc::gettext("Screen Effects are OFF."), tr / 2, tg / 2, tb / 2, true);
             }
             break;
         }
@@ -886,7 +886,7 @@ static void menurender(void)
                 text = loc::gettext("Text outlines are OFF.");
             }
 
-            graphics.bprint(-1, next_y+10, text, 255, 255, 255, true);
+            graphics.bprint(-1, next_y, text, 255, 255, 255, true);
             break;
         }
 
@@ -942,16 +942,16 @@ static void menurender(void)
             {
                 if (graphics.setflipmode)
                 {
-                    graphics.PrintWrap( -1, next_y+10, loc::gettext("Currently ENABLED!"), tr, tg, tb, true);
+                    graphics.PrintWrap( -1, next_y, loc::gettext("Currently ENABLED!"), tr, tg, tb, true);
                 }
                 else
                 {
-                    graphics.PrintWrap( -1, next_y+10, loc::gettext("Currently Disabled."), tr/2, tg/2, tb/2, true);
+                    graphics.PrintWrap( -1, next_y, loc::gettext("Currently Disabled."), tr/2, tg/2, tb/2, true);
                 }
             }
             else
             {
-                graphics.PrintWrap( -1, next_y+10, loc::gettext("TO UNLOCK: Complete the game."), tr, tg, tb, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("TO UNLOCK: Complete the game."), tr, tg, tb, true);
             }
             break;
         }
@@ -1359,7 +1359,7 @@ static void menurender(void)
     case Menu::showlevelspath:
     {
         int next_y = graphics.PrintWrap(-1, 40, loc::gettext("The levels path is:"), tr, tg, tb, true);
-        graphics.PrintWrap(0, next_y+10, FILESYSTEM_getUserLevelDirectory(), tr, tg, tb, false, 10, 320);
+        graphics.PrintWrap(0, next_y, FILESYSTEM_getUserLevelDirectory(), tr, tg, tb, false, 10, 320);
         break;
     }
     case Menu::errorsavingsettings:
