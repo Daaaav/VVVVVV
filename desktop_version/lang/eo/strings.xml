@@ -308,66 +308,66 @@
     <string english="Unbelievable! Well done!" translation="Nekredeble! Bonege farite!" explanation="player died after saving four crewmates" max="38*2"/>
     <string english="Er, how did you do that?" translation="Ee? Kiel vi faris tion?" explanation="player died even though they were finished, lol" max="38*2"/>
     <string english="WOW" translation="GRATULON" explanation="even bigger title" max="10"/>
-    <string english="You rescued all the crewmates!" translation="Vi savis ĉiujn ŝipanojn!" explanation="" max="40"/>
+    <string english="You rescued all the crewmates!" translation="Vi savis ĉiujn skipanojn!" explanation="" max="40"/>
     <string english="A new trophy has been awarded and placed in the secret lab to acknowledge your achievement!" translation="Vi premiiĝis per nova trofeo, kiu aperas en la sekreta labo por agnoski vian atingegon!" explanation="" max="38*4"/>
     <string english="[Trinkets found]" translation="[Kolektaĵoj trovitaj]" explanation="amount of shiny trinkets found" max="40"/>
     <string english="[Number of Deaths]" translation="[Nombro da mortoj]" explanation="" max="40"/>
     <string english="[Time Taken]" translation="[Tempo pasinta]" explanation="stopwatch time" max="40"/>
-    <string english="Trinkets Found:" translation="" explanation="game complete screen" max="21"/>
-    <string english="Game Time:" translation="" explanation="game complete screen" max="21"/>
-    <string english="Total Flips:" translation="" explanation="game complete screen" max="21"/>
-    <string english="Total Deaths:" translation="" explanation="game complete screen" max="21"/>
+    <string english="Trinkets Found:" translation="Kolektaĵoj trovitaj:" explanation="game complete screen" max="21"/>
+    <string english="Game Time:" translation="Tempo en ludo:" explanation="game complete screen" max="21"/>
+    <string english="Total Flips:" translation="Renversiĝoj:" explanation="game complete screen" max="21"/>
+    <string english="Total Deaths:" translation="Mortoj:" explanation="game complete screen" max="21"/>
     <string english="Results" translation="Rezultoj" explanation="bigger title" max="13"/>
     <string english="TIME TAKEN:" translation="TEMPO PASINTA:" explanation="time the player took playing the level" max="32"/>
     <string english="NUMBER OF DEATHS:" translation="NOMBRO DA MORTOJ:" explanation="amount of times the player died" max="32"/>
     <string english="SHINY TRINKETS:" translation="BRILAJ KOLEKTAĴOJ:" explanation="amount of trinkets collected" max="32"/>
-    <string english=" / " translation="" explanation="inserted between two times, ex: 0:46.90 / 1:15.99"/>
-    <string english="%d/%d" translation="" explanation="ex: 2/5"/>
+    <string english=" / " translation=" / " explanation="inserted between two times, ex: 0:46.90 / 1:15.99"/>
+    <string english="%d/%d" translation="%d/%d" explanation="ex: 2/5"/>
     <string english="%d of %d" translation="%d el %d" explanation="ex: 2 of 5"/>
-    <string english="%s out of %s" translation="" explanation="ex: One out of Twenty, see numbers.xml" max="34"/>
+    <string english="%s out of %s" translation="%s el %s" explanation="ex: One out of Twenty, see numbers.xml" max="34"/>
     <string english="+1 Rank!" translation="+1 rango!" explanation="rank was upgraded (B → A → S → V)" max="12"/>
     <string english="Rank:" translation="Rango:" explanation="time trial rank"/>
     <string english="B" translation="B" explanation="time trial rank" max="5"/>
     <string english="A" translation="A" explanation="time trial rank" max="5"/>
     <string english="S" translation="S" explanation="time trial rank" max="5"/>
     <string english="V" translation="V" explanation="time trial rank" max="5"/>
-    <string english="space station 1" translation="" explanation="area name as menu option"/>
-    <string english="Space Station 1" translation="" explanation="area name as title" max="20"/>
-    <string english="space station 2" translation="" explanation="area name as menu option"/>
-    <string english="Space Station 2" translation="" explanation="area name as title" max="20"/>
-    <string english="the laboratory" translation="" explanation="area name as menu option"/>
-    <string english="The Laboratory" translation="" explanation="area name as title" max="20"/>
-    <string english="the tower" translation="" explanation="area name as menu option"/>
-    <string english="The Tower" translation="" explanation="area name as title" max="20"/>
-    <string english="the warp zone" translation="" explanation="area name as menu option"/>
-    <string english="The Warp Zone" translation="" explanation="area name as title" max="20"/>
-    <string english="the final level" translation="" explanation="area name as menu option"/>
-    <string english="The Final Level" translation="" explanation="area name as title" max="20"/>
-    <string english="???" translation="" explanation="locked area" max="20"/>
-    <string english="Not yet attempted" translation="" explanation="" max="38*2"/>
-    <string english="TO UNLOCK:" translation="" explanation="followed by `Rescue XX`/`Complete the game`, and then `Find XX trinkets`" max="40"/>
-    <string english="Rescue Violet" translation="" explanation="" max="40"/>
-    <string english="Rescue Victoria" translation="" explanation="" max="40"/>
-    <string english="Rescue Vermilion" translation="" explanation="" max="40"/>
-    <string english="Rescue Vitellary" translation="" explanation="" max="40"/>
-    <string english="Rescue Verdigris" translation="" explanation="" max="40"/>
-    <string english="Complete the game" translation="" explanation="" max="40"/>
-    <string english="Find three trinkets" translation="" explanation="" max="40"/>
-    <string english="Find six trinkets" translation="" explanation="" max="40"/>
-    <string english="Find nine trinkets" translation="" explanation="" max="40"/>
-    <string english="Find twelve trinkets" translation="" explanation="" max="40"/>
-    <string english="Find fifteen trinkets" translation="" explanation="" max="40"/>
-    <string english="Find eighteen trinkets" translation="" explanation="" max="40"/>
-    <string english="RECORDS" translation="" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="12"/>
-    <string english="TIME" translation="" explanation="record time" max="7"/>
-    <string english="SHINY" translation="" explanation="record number of trinkets" max="7"/>
-    <string english="LIVES" translation="" explanation="record lowest number of deaths" max="7"/>
-    <string english="PAR TIME" translation="" explanation="followed by the goal time for this time trial" max="11"/>
+    <string english="space station 1" translation="kosmostacio 1" explanation="area name as menu option"/>
+    <string english="Space Station 1" translation="Kosmostacio 1" explanation="area name as title" max="20"/>
+    <string english="space station 2" translation="kosmostacio 2" explanation="area name as menu option"/>
+    <string english="Space Station 2" translation="Kosmostacio 2" explanation="area name as title" max="20"/>
+    <string english="the laboratory" translation="la laboratorio" explanation="area name as menu option"/>
+    <string english="The Laboratory" translation="La Laboratorio" explanation="area name as title" max="20"/>
+    <string english="the tower" translation="la turo" explanation="area name as menu option"/>
+    <string english="The Tower" translation="La Turo" explanation="area name as title" max="20"/>
+    <string english="the warp zone" translation="la teleportejo" explanation="area name as menu option"/>
+    <string english="The Warp Zone" translation="La Teleportejo" explanation="area name as title" max="20"/>
+    <string english="the final level" translation="la fina nivelo" explanation="area name as menu option"/>
+    <string english="The Final Level" translation="La Fina Nivelo" explanation="area name as title" max="20"/>
+    <string english="???" translation="???" explanation="locked area" max="20"/>
+    <string english="Not yet attempted" translation="Neprovita" explanation="" max="38*2"/>
+    <string english="TO UNLOCK:" translation="POR MALŜLOSI:" explanation="followed by `Rescue XX`/`Complete the game`, and then `Find XX trinkets`" max="40"/>
+    <string english="Rescue Violet" translation="Savi Violeton" explanation="" max="40"/>
+    <string english="Rescue Victoria" translation="Savi Viktorian" explanation="" max="40"/>
+    <string english="Rescue Vermilion" translation="Savi Vermiljon" explanation="" max="40"/>
+    <string english="Rescue Vitellary" translation="Savi Vitelarion" explanation="" max="40"/>
+    <string english="Rescue Verdigris" translation="Savi Verdigrison" explanation="" max="40"/>
+    <string english="Complete the game" translation="Kompletigi la ludon" explanation="" max="40"/>
+    <string english="Find three trinkets" translation="Trovi tri kolektaĵojn" explanation="" max="40"/>
+    <string english="Find six trinkets" translation="Trovi ses kolektaĵojn" explanation="" max="40"/>
+    <string english="Find nine trinkets" translation="Trovi naŭ kolektaĵojn" explanation="" max="40"/>
+    <string english="Find twelve trinkets" translation="Trovi dek du kolektaĵojn" explanation="" max="40"/>
+    <string english="Find fifteen trinkets" translation="Trovi dek kvin kolektaĵojn" explanation="" max="40"/>
+    <string english="Find eighteen trinkets" translation="Trovi dek ok kolektaĵojn" explanation="" max="40"/>
+    <string english="RECORDS" translation="REKORDOJ" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="12"/>
+    <string english="TIME" translation="TEMPO" explanation="record time" max="7"/>
+    <string english="SHINY" translation="BRILAĴO" explanation="record number of trinkets" max="7"/>
+    <string english="LIVES" translation="MORTOJ" explanation="record lowest number of deaths" max="7"/>
+    <string english="PAR TIME" translation="CELTEMPO" explanation="followed by the goal time for this time trial" max="11"/>
     <string english="TIME:" translation="TEMPO: " explanation="in time trial. Stopwatch time, not too long"/>
     <string english="DEATH:" translation="MORTO: " explanation="in time trial. Number of times player died, not too long"/>
     <string english="SHINY:" translation="BRILO: " explanation="in time trial. Number of shiny trinkets collected, not too long"/>
     <string english="PAR TIME:" translation="CELTEMPO:" explanation="in time trial. Goal time for time trial"/>
-    <string english="Best Rank" translation="" explanation="ranks are B A S V" max="12"/>
+    <string english="Best Rank" translation="Pleja rango" explanation="ranks are B A S V" max="12"/>
     <string english="GO!" translation="EK!" explanation="3, 2, 1, GO!" max="13"/>
     <string english="Go!" translation="Ek!" explanation="3, 2, 1, Go!" max="10"/>
     <string english="Congratulations!" translation="Gratulon!" explanation="title" max="20"/>
@@ -458,25 +458,25 @@
     <string english="quit to menu" translation="eliri al menuo" explanation="pause menu option" max="19"/>
     <string english="Press Left/Right to choose a Teleporter" translation="Dekstro/Mal.: elekti teleportilon" explanation="tight fit, so maybe `Left/Right: choose teleporter`" max="40"/>
     <string english="Press %s to Teleport" translation="Premu %s por teleportiĝi" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="40"/>
-    <string english="Press %s to explode" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
-    <string english="Press %s to talk to Violet" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to talk to Vitellary" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to talk to Vermilion" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to talk to Verdigris" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to talk to Victoria" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to activate terminal" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to activate terminals" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. there are 3 next to each other in the ship" max="37"/>
-    <string english="Press %s to interact" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Passion for Exploring" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pushing Onwards" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Positive Force" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Presenting VVVVVV" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Potential for Anything" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Predestined Fate" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pipe Dream" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Popular Potpourri" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pressure Cooker" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="ecroF evitisoP" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Press %s to explode" translation="Premu %s por eksplodi" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
+    <string english="Press %s to talk to Violet" translation="Premu %s por paroli kun Violeto" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to talk to Vitellary" translation="Premu %s por paroli kun Vitelario" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to talk to Vermilion" translation="Premu %s por paroli kun Vermiljo" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to talk to Verdigris" translation="Premu %s por paroli kun Verdigriso" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to talk to Victoria" translation="Premu %s por paroli kun Viktoria" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to activate terminal" translation="Premu %s por aktivigi terminalon" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press %s to activate terminals" translation="Premu %s por aktivigi terminalojn" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. there are 3 next to each other in the ship" max="37"/>
+    <string english="Press %s to interact" translation="Premu %s por interagi" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Passion for Exploring" translation="Passion for Exploring" explanation="song name should probably not be translated" max="37"/>
+    <string english="Pushing Onwards" translation="Pushing Onwards" explanation="song name should probably not be translated" max="37"/>
+    <string english="Positive Force" translation="Positive Force" explanation="song name should probably not be translated" max="37"/>
+    <string english="Presenting VVVVVV" translation="Presenting VVVVVV" explanation="song name should probably not be translated" max="37"/>
+    <string english="Potential for Anything" translation="Potential for Anything" explanation="song name should probably not be translated" max="37"/>
+    <string english="Predestined Fate" translation="Predestined Fate" explanation="song name should probably not be translated" max="37"/>
+    <string english="Pipe Dream" translation="Pipe Dream" explanation="song name should probably not be translated" max="37"/>
+    <string english="Popular Potpourri" translation="Popular Potpourri" explanation="song name should probably not be translated" max="37"/>
+    <string english="Pressure Cooker" translation="Pressure Cooker" explanation="song name should probably not be translated" max="37"/>
+    <string english="ecroF evitisoP" translation="ecroF evitisoP" explanation="song name should probably not be translated" max="37"/>
     <string english="Map Settings" translation="Mapagordoj" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20"/>
     <string english="edit scripts" translation="redakti skriptojn" explanation="level editor menu option"/>
     <string english="change music" translation="ŝanĝi muzikon" explanation="level editor menu option"/>
@@ -552,7 +552,7 @@
     <string english="Y: Script Box" translation="Y: Skriptskatolo" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
     <string english="U: Warp Token" translation="U: Teleportĵetono" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
     <string english="I: Warp Lines" translation="I: Teleportlinioj" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32"/>
-    <string english="O: Crewmate" translation="O: Ŝipano" explanation="editor tool. Crewmate that can be rescued" max="32"/>
+    <string english="O: Crewmate" translation="O: Skipano" explanation="editor tool. Crewmate that can be rescued" max="32"/>
     <string english="P: Start Point" translation="P: Komencejo" explanation="editor tool" max="32"/>
     <string english="START" translation="EKEJO" explanation="start point in level editor"/>
     <string english="SPACE ^  SHIFT ^" translation="SPACE ^  SHIFT ^" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32"/>
@@ -597,67 +597,73 @@
     <string english="Room warping disabled" translation="Ĉambro-volviĝo malebliĝis" explanation="level editor, no edges are connected and the player can go to other rooms" max="38*3"/>
     <string english="ERROR: No checkpoint to spawn at" translation="ERARO: Ne estas konservpunkto ĉi-ĉambre" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="ERARO: Altlimo de kolektaĵoj estas 100" explanation="editor, user tried to place another trinket" max="38*3"/>
-    <string english="ERROR: Max number of crewmates is 100" translation="ERARO: Altlimo de ŝipanoj estas 100" explanation="editor, user tried to place another crewmate" max="38*3"/>
-    <string english="Rolled credits" translation="" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
+    <string english="ERROR: Max number of crewmates is 100" translation="ERARO: Altlimo de skipanoj estas 100" explanation="editor, user tried to place another crewmate" max="38*3"/>
+    <string english="Rolled credits" translation="Agnoskoj montriĝis" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
     <string english="%d:%02d:%02d" translation="%d:%02d:%02d" explanation="time format H:MM:SS"/>
     <string english="%d:%02d:%02d.%02d" translation="%d:%02d:%02d,%02d" explanation="time format H:MM:SS.CC"/>
     <string english="%d:%02d" translation="%d:%02d" explanation="time format M:SS"/>
     <string english="%d:%02d.%02d" translation="%d:%02d,%02d" explanation="time format M:SS.CC"/>
     <string english="%d.%02d" translation="%d,%02d" explanation="time format S.CC"/>
-    <string english=".99" translation="" explanation="appended to time format for 99/100 seconds (example: 1:15.99)"/>
-    <string english="Level Complete!" translation="" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
-    <string english="Game Complete!" translation="" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
-    <string english="You have rescued a crew member!" translation="" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2"/>
-    <string english="All Crew Members Rescued!" translation="" explanation="" max="32"/>
-    <string english="All crewmates rescued!" translation="" explanation="" max="32"/>
-    <string english="Game Saved" translation="" explanation="" max="30"/>
-    <string english="Press arrow keys or WASD to move" translation="" explanation="" max="32*2"/>
-    <string english="Press ACTION to flip" translation="" explanation="" max="32*3"/>
-    <string english="Press ENTER to view map and quicksave" translation="" explanation="" max="32*3"/>
-    <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="" explanation="" max="34*3"/>
-    <string english="Help! Can anyone hear this message?" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
-    <string english="Verdigris? Are you out there? Are you ok?" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
-    <string english="Please help us! We&apos;ve crashed and need assistance!" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
-    <string english="Hello? Anyone out there?" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
-    <string english="This is Doctor Violet from the D.S.S. Souleye! Please respond!" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
-    <string english="Please... Anyone..." translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
-    <string english="Please be alright, everyone..." translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english=".99" translation=",99" explanation="appended to time format for 99/100 seconds (example: 1:15.99)"/>
+    <string english="Level Complete!" translation="Fino de nivelo!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
+    <string english="Game Complete!" translation="Fino de ludo!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
+    <string english="You have rescued a crew member!" translation="Vi savis skipanon!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2"/>
+    <string english="All Crew Members Rescued!" translation="Ĉiuj skipanoj estas savitaj!" explanation="" max="32"/>
+    <string english="All crewmates rescued!" translation="Ĉiuj skipanoj estas savitaj!" explanation="" max="32"/>
+    <string english="Game Saved" translation="Ludo konserviĝis" explanation="" max="30"/>
+    <string english="Press arrow keys or WASD to move" translation="Uzu sagoklavojn/WASD por moviĝi" explanation="" max="32*2"/>
+    <string english="Press ACTION to flip" translation="Premu AGBUTONON por renversiĝi" explanation="" max="32*3"/>
+    <string english="Press ENTER to view map and quicksave" translation="Premu ENTER por vidi mapon kaj rapidkonservi" explanation="" max="32*3"/>
+    <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="Se vi preferas, eblas premi (MAL)SUPRAN sagoklavon por renversiĝi." explanation="" max="34*3"/>
+    <string english="Help! Can anyone hear this message?" translation="Helpu! Ĉu iu ajn povas aŭdi ĉi tiun mesaĝon?" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Verdigris? Are you out there? Are you ok?" translation="Verdigriso? Ĉu vi estas? Ĉu vi enordas?" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Please help us! We&apos;ve crashed and need assistance!" translation="Bonvole helpu nin! Ni estas kraŝinte kaj bezonas asiston!" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Hello? Anyone out there?" translation="Ha lo? Ĉu iu ajn estas?" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="This is Doctor Violet from the D.S.S. Souleye! Please respond!" translation="Jen estas Doktoro Violeto de la kosmoŝipo Souleye! Bonvolu respondi!" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Please... Anyone..." translation="Iu ajn... mi petas..." explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Please be alright, everyone..." translation="Estu enordaj, ĉiuj, mi petas..." explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Congratulations!
 
-You have found a shiny trinket!" translation="" explanation="" max="37*4"/>
+You have found a shiny trinket!" translation="Gratulon!
+
+Vi trovis brilan kolektaĵon!" explanation="" max="37*4"/>
     <string english="Congratulations!
 
-You have found a lost crewmate!" translation="" explanation="" max="37*4"/>
+You have found a lost crewmate!" translation="Gratulon!
+
+Vi trovis perditan skipanon!" explanation="" max="37*4"/>
     <string english="Congratulations!
 
-You have found the secret lab!" translation="" explanation="" max="37*4"/>
-    <string english="The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu." translation="" explanation="" max="36*10"/>
-    <string english="Viridian" translation="" explanation="crewmate name (player)"/>
-    <string english="Violet" translation="" explanation="crewmate name"/>
-    <string english="Vitellary" translation="" explanation="crewmate name"/>
-    <string english="Vermilion" translation="" explanation="crewmate name"/>
-    <string english="Verdigris" translation="" explanation="crewmate name"/>
-    <string english="Victoria" translation="" explanation="crewmate name"/>
-    <string english="When you&apos;re standing on the floor, Vitellary will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you&apos;re standing on the floor, Vermilion will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you&apos;re standing on the floor, Verdigris will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you&apos;re standing on the floor, Victoria will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you&apos;re standing on the ceiling, Vitellary will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you&apos;re standing on the ceiling, Vermilion will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you&apos;re standing on the ceiling, Verdigris will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you&apos;re standing on the ceiling, Victoria will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you&apos;re NOT standing on the floor, Vitellary will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you&apos;re NOT standing on the floor, Vermilion will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you&apos;re NOT standing on the floor, Verdigris will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you&apos;re NOT standing on the floor, Victoria will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you&apos;re NOT standing on the ceiling, Vitellary will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you&apos;re NOT standing on the ceiling, Vermilion will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you&apos;re NOT standing on the ceiling, Verdigris will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you&apos;re NOT standing on the ceiling, Victoria will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="You can&apos;t continue to the next room until he is safely across." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="You can&apos;t continue to the next room until she is safely across." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="Survive for" translation="" explanation="Gravitron. Line 1/2: Survive for 60 seconds!" max="20"/>
-    <string english="60 seconds!" translation="" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20"/>
+You have found the secret lab!" translation="Gratulon!
+
+Vi trovis la sekretan labon!" explanation="" max="37*4"/>
+    <string english="The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu." translation="La sekreta labo estas aparta de la aliaj partoj de la ludo. Eblas reveni ĉi tien iam ajn, elektante SEKRETAN LABON en la ludmenuo." explanation="" max="36*10"/>
+    <string english="Viridian" translation="Viridiano" explanation="crewmate name (player)"/>
+    <string english="Violet" translation="Violeto" explanation="crewmate name"/>
+    <string english="Vitellary" translation="Vitelario" explanation="crewmate name"/>
+    <string english="Vermilion" translation="Vermiljo" explanation="crewmate name"/>
+    <string english="Verdigris" translation="Verdigriso" explanation="crewmate name"/>
+    <string english="Victoria" translation="Viktoria" explanation="crewmate name"/>
+    <string english="When you&apos;re standing on the floor, Vitellary will try to walk to you." translation="Kiam vi staras sur la planko, Vitelario provos marŝi al vi." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, Vermilion will try to walk to you." translation="Kiam vi staras sur la planko, Vermiljo provos marŝi al vi." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, Verdigris will try to walk to you." translation="Kiam vi staras sur la planko, Verdigriso provos marŝi al vi." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, Victoria will try to walk to you." translation="Kiam vi staras sur la planko, Viktoria provos marŝi al vi." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Vitellary will try to walk to you." translation="Kiam vi staras sur la plafono, Vitelario provos marŝi al vi." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Vermilion will try to walk to you." translation="Kiam vi staras sur la plafono, Vermiljo provos marŝi al vi." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Verdigris will try to walk to you." translation="Kiam vi staras sur la plafono, Verdigriso provos marŝi al vi." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Victoria will try to walk to you." translation="Kiam vi staras sur la plafono, Viktoria provos marŝi al vi." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Vitellary will stop and wait for you." translation="Kiam vi NE staras sur la planko, Vitelario haltos kaj atendos vin." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Vermilion will stop and wait for you." translation="Kiam vi NE staras sur la planko, Vermiljo haltos kaj atendos vin." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Verdigris will stop and wait for you." translation="Kiam vi NE staras sur la planko, Verdigriso haltos kaj atendos vin." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Victoria will stop and wait for you." translation="Kiam vi NE staras sur la planko, Viktoria haltos kaj atendos vin." explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Vitellary will stop and wait for you." translation="Kiam vi NE staras sur la plafono, Vitelario haltos kaj atendos vin." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Vermilion will stop and wait for you." translation="Kiam vi NE staras sur la plafono, Vermiljo haltos kaj atendos vin." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Verdigris will stop and wait for you." translation="Kiam vi NE staras sur la plafono, Verdigriso haltos kaj atendos vin." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Victoria will stop and wait for you." translation="Kiam vi NE staras sur la plafono, Viktoria haltos kaj atendos vin." explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="You can&apos;t continue to the next room until he is safely across." translation="Ne eblas pluiri al la sekva ĉambro, ĝis kiam li estas sekure transiĝinta." explanation="Intermission 1" max="34*4"/>
+    <string english="You can&apos;t continue to the next room until she is safely across." translation="Ne eblas pluiri al la sekva ĉambro, ĝis kiam ŝi estas sekure transiĝinta." explanation="Intermission 1" max="34*4"/>
+    <string english="Survive for" translation="Travivu" explanation="Gravitron. Line 1/2: Survive for 60 seconds!" max="20"/>
+    <string english="60 seconds!" translation="60 sekundojn!" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

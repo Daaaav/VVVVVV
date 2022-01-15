@@ -32,7 +32,7 @@
         <dialogue speaker="purple" english="If YOU can find a teleporter anywhere nearby, you should be able to teleport back to me!" translation="Se VI povas trovi teleportilon ie proksime, vi devus povi reteleportiĝi al mi!"/>
         <dialogue speaker="cyan" english="Ok! I&apos;ll try to find one!" translation="Bone! Mi provos trovi iun!"/>
         <dialogue speaker="purple" english="Good luck, Captain!" translation="Bonŝancon, Kapitano!"/>
-        <dialogue speaker="purple" english="I&apos;ll keep trying to find the rest of the crew..." translation="Mi plu penados trovi la aliajn ŝipanojn..."/>
+        <dialogue speaker="purple" english="I&apos;ll keep trying to find the rest of the crew..." translation="Mi plu penados trovi la aliajn skipanojn..."/>
     </cutscene>
     <cutscene id="trenchwarfare" explanation="">
         <dialogue speaker="cyan" english="Ohh! I wonder what that is?" translation="Ho! Kio estas tio?"/>
@@ -55,7 +55,7 @@
         <dialogue speaker="purple" english="It caused the ship to lose its quantum position, collapsing us into this dimension!" translation="Ĝi perdigis al la ŝipo ĝian kvantuman pozicion, ĵetante nin en tiun ĉi dimension!"/>
         <dialogue speaker="player" english="Oh no!" translation="Ho, ve!"/>
         <dialogue speaker="purple" english="But I think we should be able to fix the ship and get out of here..." translation="Sed mi pensas, ke ni povos ripari la ŝipon kaj eleskapi..."/>
-        <dialogue speaker="purple" english="... as long as we can find the rest of the crew." translation="...se nur ni trovas la aliajn ŝipanojn."/>
+        <dialogue speaker="purple" english="... as long as we can find the rest of the crew." translation="...se nur ni trovas la aliajn skipanojn."/>
         <dialogue speaker="purple" english="We really don&apos;t know anything about this place..." translation="Vere ne scias ni ion ajn pri tiu ĉi loko..."/>
         <dialogue speaker="purple" english="Our friends could be anywhere - they could be lost, or in danger!" translation="Niaj amikoj povas esti ie ajn - ili eĉ povus esti en danĝero!"/>
         <dialogue speaker="player" english="Can they teleport back here?" translation="Ĉu ili povas reteleportiĝi ĉi tien?"/>
@@ -79,7 +79,7 @@
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="Mi sentas min iom superŝarĝita, Doktoro."/>
         <dialogue speaker="player" english="Where do I begin?" translation="Kie mi komencu?"/>
         <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="Memoru, ke vi povas premi ENTER por kontroli, kie vi estas surmape!"/>
-        <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="Serĉu areojn, kie eble estas la ŝipanoj..."/>
+        <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="Serĉu areojn, kie eble estas la skipanoj..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="Se vi perdiĝas, vi povas reveni al la ŝipo per ajna teleportilo."/>
         <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="Kaj ne ĉagreniĝu! Ni ĉiujn trovos!"/>
         <dialogue speaker="purple" english="Everything will be ok!" translation="Ĉio finiĝos bone!"/>
@@ -315,7 +315,7 @@
     </cutscene>
     <cutscene id="int1yellow_6" explanation="">
         <dialogue speaker="yellow" english="I wonder if there&apos;s anything else in this dimension worth exploring?" translation="Mi scivolas, ĉu estas io ajn plu esplorinda en tiu ĉi dimensio..."/>
-        <dialogue speaker="player" english="Maybe... but we should probably just focus on finding the rest of the crew for now..." translation="Eble... sed dummomente, ni vere devus koncentriĝi pri trovi la aliajn ŝipanojn."/>
+        <dialogue speaker="player" english="Maybe... but we should probably just focus on finding the rest of the crew for now..." translation="Eble... sed dummomente, ni vere devus koncentriĝi pri trovi la aliajn skipanojn."/>
     </cutscene>
     <cutscene id="int1yellow_7" explanation="">
         <dialogue speaker="yellow" english="At last!" translation="Finfine!"/>
@@ -375,7 +375,7 @@
     </cutscene>
     <cutscene id="talkpurple_5" explanation="">
         <dialogue speaker="purple" english="Vermilion called in to say hello!" translation="Vermiljo alvokis por diri saluton!"/>
-        <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find the rest of the crew!" translation="Li vere antaŭĝojas pri helpi vin trovi la aliajn ŝipanojn!"/>
+        <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find the rest of the crew!" translation="Li vere antaŭĝojas pri helpi vin trovi la aliajn skipanojn!"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Victoria!" translation="Li vere antaŭĝojas pri helpi vin trovi Viktorian!"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Vitellary!" translation="Li vere antaŭĝojas pri helpi vin trovi Vitelarion!"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Verdigris!" translation="Li vere antaŭĝojas pri helpi vin trovi Verdigrison!"/>
@@ -468,7 +468,7 @@
     </cutscene>
     <cutscene id="talkred_5" explanation="">
         <dialogue speaker="red" english="It&apos;s great to be back!" translation="Bonegas esti ĉi tie denove!"/>
-        <dialogue speaker="red" english="I can&apos;t wait to help you find the rest of the crew!" translation="Mi antaŭĝojas helpi vin trovi la aliajn ŝipanojn!"/>
+        <dialogue speaker="red" english="I can&apos;t wait to help you find the rest of the crew!" translation="Mi antaŭĝojas helpi vin trovi la aliajn skipanojn!"/>
         <dialogue speaker="red" english="It&apos;ll be like old times, huh, Captain?" translation="Estos kiel tempoj malnovaj, ĉu ne, Kapitano?"/>
     </cutscene>
     <cutscene id="talkred_6" explanation="">
