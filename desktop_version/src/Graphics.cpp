@@ -656,9 +656,18 @@ int Graphics::PrintWrap(
     const int g,
     const int b,
     const bool cen /*= false*/,
-    const int linespacing /*= 10*/,
-    const int maxwidth /*= 304*/
+    int linespacing /*= -1*/,
+    int maxwidth /*= -1*/
 ) {
+    if (linespacing == -1)
+    {
+        linespacing = 10;
+    }
+    if (maxwidth == -1)
+    {
+        maxwidth = 304;
+    }
+
     const char* str = s.c_str();
     /* Screen width is 320 pixels. The shortest a char can be is 6 pixels wide.
      * 320 / 6 is 54, rounded up. 4 bytes per char. */
