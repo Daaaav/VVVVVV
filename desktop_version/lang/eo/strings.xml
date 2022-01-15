@@ -344,7 +344,7 @@
     <string english="the final level" translation="la fina nivelo" explanation="area name as menu option"/>
     <string english="The Final Level" translation="La Fina Nivelo" explanation="area name as title" max="20"/>
     <string english="???" translation="???" explanation="locked area" max="20"/>
-    <string english="Not yet attempted" translation="Neprovita" explanation="" max="38*2"/>
+    <string english="Not yet attempted" translation="Ne jam provita" explanation="" max="38*2"/>
     <string english="TO UNLOCK:" translation="POR MALŜLOSI:" explanation="followed by `Rescue XX`/`Complete the game`, and then `Find XX trinkets`" max="40"/>
     <string english="Rescue Violet" translation="Savi Violeton" explanation="" max="40"/>
     <string english="Rescue Victoria" translation="Savi Viktorian" explanation="" max="40"/>
