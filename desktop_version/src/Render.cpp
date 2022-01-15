@@ -1728,8 +1728,6 @@ void gamerender(void)
     {
         const char* roomname;
 
-        graphics.footerrect.y = 230;
-
         if (map.finalmode)
         {
             roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.glitchname, map.roomname_special);
