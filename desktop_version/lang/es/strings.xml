@@ -66,7 +66,8 @@
     <string english="soundtrack" translation="banda sonora" explanation="menu option"/>
     <string english="Soundtrack" translation="Banda Sonora" explanation="title" max="20"/>
     <string english="Toggle between MMMMMM and PPPPPP." translation="Cambiar entre MMMMMM y PPPPPP." explanation="" max="38*2"/>
-    <string english="Current soundtrack: %s" translation="Banda sonora actual: %s" explanation="" max="38*3"/>
+    <string english="Current soundtrack: PPPPPP" translation="Banda sonora actual: PPPPPP" explanation="" max="38*3"/>
+    <string english="Current soundtrack: MMMMMM" translation="Banda sonora actual: MMMMMM" explanation="" max="38*3"/>
     <string english="toggle fullscreen" translation="pantalla completa" explanation="menu option"/>
     <string english="Toggle Fullscreen" translation="Pantalla Completa" explanation="title" max="20"/>
     <string english="Change to fullscreen/windowed mode." translation="Cambiar a Pantalla Completa/Ventana." explanation="" max="38*3"/>
@@ -129,8 +130,8 @@
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="Tu apoyo me hace posible el poder continuar creando los juegos que quiero hacer, ahora y en el futuro." explanation="credits" max="38*5"/>
     <string english="Thank you!" translation="Gracias!" explanation="credits" max="38*5"/>
     <string english="Good luck!" translation="Buena Suerte!" explanation="" max="38*3"/>
-    <string english="You cannot save in this mode." translation="No puedes guardar en este modo." explanation="" max="38*2"/>
-    <string english="Would you like to disable the cutscenes during the game?" translation="Te gustaría desactivar las escenas durante el juego?" explanation="" max="38*7"/>
+    <string english="You cannot save in this mode." translation="No puedes guardar en este modo." explanation="" max="38*3"/>
+    <string english="Would you like to disable the cutscenes during the game?" translation="Te gustaría desactivar las escenas durante el juego?" explanation="" max="38*6"/>
     <string english="disable cutscenes" translation="desactivar escenas" explanation="menu option"/>
     <string english="enable cutscenes" translation="activar escenas" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="sensibilidad del analogico" explanation="menu option"/>

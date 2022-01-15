@@ -66,7 +66,8 @@
     <string english="soundtrack" translation="sontrako" explanation="menu option"/>
     <string english="Soundtrack" translation="Sontrako" explanation="title" max="20"/>
     <string english="Toggle between MMMMMM and PPPPPP." translation="Baskuligi inter MMMMMM kaj PPPPPP." explanation="" max="38*2"/>
-    <string english="Current soundtrack: %s" translation="Nuna sontrako: %s" explanation="" max="38*3"/>
+    <string english="Current soundtrack: PPPPPP" translation="Nuna sontrako: PPPPPP" explanation="" max="38*3"/>
+    <string english="Current soundtrack: MMMMMM" translation="Nuna sontrako: MMMMMM" explanation="" max="38*3"/>
     <string english="toggle fullscreen" translation="baskuligi plenekranecon" explanation="menu option"/>
     <string english="Toggle Fullscreen" translation="Plenekraneco" explanation="title" max="20"/>
     <string english="Change to fullscreen/windowed mode." translation="Ŝanĝi al plenekrana/fenestra reĝimo." explanation="" max="38*3"/>
@@ -129,8 +130,8 @@
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="Via subteno ebligas por mi daŭre fari la ludojn, kiujn mi volas fari, nun kaj estontecen." explanation="credits" max="38*5"/>
     <string english="Thank you!" translation="Dankegon!" explanation="credits" max="38*5"/>
     <string english="Good luck!" translation="Bonŝancon!" explanation="" max="38*3"/>
-    <string english="You cannot save in this mode." translation="Vi ne povas konservi ĉi-reĝime." explanation="" max="38*2"/>
-    <string english="Would you like to disable the cutscenes during the game?" translation="Ĉu vi volas malebligi la interscenojn dumlude?" explanation="" max="38*7"/>
+    <string english="You cannot save in this mode." translation="Vi ne povas konservi ĉi-reĝime." explanation="" max="38*3"/>
+    <string english="Would you like to disable the cutscenes during the game?" translation="Ĉu vi volas malebligi la interscenojn dumlude?" explanation="" max="38*6"/>
     <string english="disable cutscenes" translation="malebligi interscenojn" explanation="menu option"/>
     <string english="enable cutscenes" translation="ebligi interscenojn" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="sentemo de analogbastono" explanation="menu option"/>

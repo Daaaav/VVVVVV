@@ -648,7 +648,7 @@ bool Graphics::next_wrap_s(
     return retval;
 }
 
-void Graphics::PrintWrap(
+int Graphics::PrintWrap(
     const int x,
     int y,
     std::string s,
@@ -690,6 +690,8 @@ void Graphics::PrintWrap(
             y += linespacing;
         }
     }
+
+    return y;
 }
 
 

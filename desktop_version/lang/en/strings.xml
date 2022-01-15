@@ -66,7 +66,8 @@
     <string english="soundtrack" translation="" explanation="menu option"/>
     <string english="Soundtrack" translation="" explanation="title" max="20"/>
     <string english="Toggle between MMMMMM and PPPPPP." translation="" explanation="" max="38*2"/>
-    <string english="Current soundtrack: %s" translation="" explanation="" max="38*3"/>
+    <string english="Current soundtrack: PPPPPP" translation="" explanation="" max="38*3"/>
+    <string english="Current soundtrack: MMMMMM" translation="" explanation="" max="38*3"/>
     <string english="toggle fullscreen" translation="" explanation="menu option"/>
     <string english="Toggle Fullscreen" translation="" explanation="title" max="20"/>
     <string english="Change to fullscreen/windowed mode." translation="" explanation="" max="38*3"/>
@@ -129,8 +130,8 @@
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="" explanation="credits" max="38*5"/>
     <string english="Thank you!" translation="" explanation="credits" max="38*5"/>
     <string english="Good luck!" translation="" explanation="" max="38*3"/>
-    <string english="You cannot save in this mode." translation="" explanation="" max="38*2"/>
-    <string english="Would you like to disable the cutscenes during the game?" translation="" explanation="" max="38*7"/>
+    <string english="You cannot save in this mode." translation="" explanation="" max="38*3"/>
+    <string english="Would you like to disable the cutscenes during the game?" translation="" explanation="" max="38*6"/>
     <string english="disable cutscenes" translation="" explanation="menu option"/>
     <string english="enable cutscenes" translation="" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="" explanation="menu option"/>
