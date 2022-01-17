@@ -2,29 +2,29 @@
 <roomnames>
     <roomname x="0" y="18" english="Single-slit Experiment" translation="" explanation=""/>
     <roomname x="0" y="19" english="Don&apos;t Flip Out" translation="" explanation=""/>
-    <roomname x="1" y="0" english="I&apos;m Sorry" translation="" explanation="There are a few more rooms if you go above the spike on the bottom!"/>
-    <roomname x="1" y="1" english="Please Forgive Me!" translation="" explanation=""/>
+    <roomname x="1" y="0" english="I&apos;m Sorry" translation="Mi pardonpetas" explanation="There are a few more rooms if you go above the spike on the bottom!"/>
+    <roomname x="1" y="1" english="Please Forgive Me!" translation="Pardonu min do!" explanation=""/>
     <roomname x="1" y="17" english="Rascasse" translation="" explanation=""/>
-    <roomname x="1" y="18" english="Keep Going" translation="" explanation=""/>
+    <roomname x="1" y="18" english="Keep Going" translation="Iru plu" explanation=""/>
     <roomname x="1" y="19" english="Shuffled Hallway" translation="" explanation=""/>
     <roomname x="2" y="0" english="Kids His Age Bounce" translation="" explanation=""/>
-    <roomname x="2" y="1" english="Playing Foosball" translation="" explanation=""/>
+    <roomname x="2" y="1" english="Playing Foosball" translation="Tablofutbalo" explanation=""/>
     <roomname x="2" y="4" english="Philadelphia Experiment" translation="" explanation=""/>
-    <roomname x="2" y="16" english="Get Ready To Bounce" translation="" explanation=""/>
-    <roomname x="2" y="17" english="It&apos;s Perfectly Safe" translation="" explanation=""/>
-    <roomname x="2" y="18" english="Young Man, It&apos;s Worth the Challenge" translation="" explanation=""/>
+    <roomname x="2" y="16" english="Get Ready To Bounce" translation="Pretiĝu por la saltado" explanation=""/>
+    <roomname x="2" y="17" english="It&apos;s Perfectly Safe" translation="Estas tute sekure" explanation=""/>
+    <roomname x="2" y="18" english="Young Man, It&apos;s Worth the Challenge" translation="Malfacile sed kolektinde" explanation=""/>
     <roomname x="2" y="19" english="Double-slit Experiment" translation="" explanation=""/>
-    <roomname x="3" y="0" english="Merge" translation="" explanation=""/>
-    <roomname x="3" y="1" english="A Difficult Chord" translation="" explanation=""/>
-    <roomname x="3" y="4" english="Why So Blue?" translation="" explanation=""/>
+    <roomname x="3" y="0" english="Merge" translation="Kunfandiĝo" explanation=""/>
+    <roomname x="3" y="1" english="A Difficult Chord" translation="Malfacila akordo" explanation=""/>
+    <roomname x="3" y="4" english="Why So Blue?" translation="Blue senĝue" explanation=""/>
     <roomname x="3" y="16" english="Brought to you by the letter G" translation="" explanation=""/>
     <roomname x="3" y="17" english="Thorny Exchange" translation="" explanation=""/>
-    <roomname x="3" y="18" english="Square Root" translation="" explanation=""/>
+    <roomname x="3" y="18" english="Square Root" translation="Kvadrata radiko" explanation=""/>
     <roomname x="3" y="19" english="They Call Him Flipper" translation="" explanation=""/>
     <roomname x="4" y="0" english="Vibrating String Problem" translation="" explanation=""/>
     <roomname x="4" y="1" english="The Living Dead End" translation="" explanation=""/>
-    <roomname x="4" y="2" english="AAAAAA" translation="" explanation=""/>
-    <roomname x="4" y="3" english="Diode" translation="" explanation=""/>
+    <roomname x="4" y="2" english="AAAAAA" translation="AAAAAA" explanation=""/>
+    <roomname x="4" y="3" english="Diode" translation="Diodo" explanation=""/>
     <roomname x="4" y="4" english="I Smell Ozone" translation="" explanation=""/>
     <roomname x="4" y="16" english="Free Your Mind" translation="" explanation=""/>
     <roomname x="4" y="17" english="I Changed My Mind, Thelma..." translation="" explanation=""/>
@@ -34,159 +34,159 @@
     <roomname x="5" y="1" english="Anomaly" translation="" explanation=""/>
     <roomname x="5" y="16" english="In a Single Bound" translation="" explanation=""/>
     <roomname x="5" y="17" english="Indirect Jump Vector" translation="" explanation=""/>
-    <roomname x="6" y="0" english="Topsy Turvyism" translation="" explanation=""/>
+    <roomname x="6" y="0" english="Topsy Turvyism" translation="Tienreenismo" explanation=""/>
     <roomname x="6" y="1" english="Purest Unobtainium" translation="" explanation=""/>
     <roomname x="6" y="16" english="Barani, Barani" translation="" explanation=""/>
     <roomname x="6" y="17" english="Safety Dance" translation="" explanation=""/>
     <roomname x="7" y="0" english="Standing Wave" translation="" explanation=""/>
-    <roomname x="7" y="15" english="Entanglement Generator" translation="" explanation=""/>
+    <roomname x="7" y="15" english="Entanglement Generator" translation="Generilo de envolviĝo" explanation=""/>
     <roomname x="7" y="16" english="Heady Heights" translation="" explanation=""/>
-    <roomname x="7" y="17" english="Exhausted?" translation="" explanation=""/>
+    <roomname x="7" y="17" english="Exhausted?" translation="Ĉu vi jam lacas?" explanation=""/>
     <roomname x="7" y="18" english="The Tantalizing Trinket" translation="" explanation=""/>
     <roomname x="7" y="19" english="The Bernoulli Principle" translation="" explanation=""/>
-    <roomname x="8" y="9" english="Teleporter Divot" translation="" explanation=""/>
-    <roomname x="9" y="9" english="The Tower" translation="" explanation=""/>
-    <roomname x="10" y="4" english="Seeing Red" translation="" explanation=""/>
+    <roomname x="8" y="9" english="Teleporter Divot" translation="Teleportila disrompaĵo" explanation=""/>
+    <roomname x="9" y="9" english="The Tower" translation="La Turo" explanation=""/>
+    <roomname x="10" y="4" english="Seeing Red" translation="Ruĝiĝanta vido" explanation=""/>
     <roomname x="10" y="5" english="Energize" translation="" explanation=""/>
     <roomname x="10" y="6" english="Down Under" translation="" explanation=""/>
-    <roomname x="10" y="7" english="A Deception" translation="" explanation=""/>
+    <roomname x="10" y="7" english="A Deception" translation="Trompaĵo" explanation=""/>
     <roomname x="11" y="4" english="Building Apport" translation="" explanation=""/>
-    <roomname x="11" y="5" english="Frown Upside Down" translation="" explanation=""/>
-    <roomname x="11" y="6" english="Shenanigan" translation="" explanation=""/>
-    <roomname x="11" y="7" english="Prize for the Reckless" translation="" explanation=""/>
+    <roomname x="11" y="5" english="Frown Upside Down" translation="Malmalrideto" explanation=""/>
+    <roomname x="11" y="6" english="Shenanigan" translation="Lerta danco" explanation=""/>
+    <roomname x="11" y="7" english="Prize for the Reckless" translation="Premio por troriskuloj" explanation=""/>
     <roomname x="11" y="11" english="Conveying a New Idea" translation="" explanation=""/>
-    <roomname x="11" y="12" english="One Way Room" translation="" explanation=""/>
+    <roomname x="11" y="12" english="One Way Room" translation="Unuvoja ĉambro" explanation=""/>
     <roomname x="11" y="13" english="Boldly To Go" translation="" explanation=""/>
-    <roomname x="11" y="14" english="The Filter" translation="" explanation=""/>
+    <roomname x="11" y="14" english="The Filter" translation="La filtrilo" explanation=""/>
     <roomname x="12" y="3" english="Security Sweep" translation="" explanation=""/>
     <roomname x="12" y="4" english="Gantry and Dolly" translation="" explanation=""/>
-    <roomname x="12" y="5" english="The Yes Men" translation="" explanation=""/>
+    <roomname x="12" y="5" english="The Yes Men" translation="La jesuloj" explanation=""/>
     <roomname x="12" y="6" english="Stop and Reflect" translation="" explanation=""/>
     <roomname x="12" y="7" english="V Stitch" translation="" explanation=""/>
     <roomname x="12" y="11" english="Upstream Downstream" translation="" explanation=""/>
-    <roomname x="12" y="12" english="The High Road is Low" translation="" explanation=""/>
+    <roomname x="12" y="12" english="The High Road is Low" translation="La alta vojo malaltas" explanation=""/>
     <roomname x="12" y="13" english="Give Me A V" translation="" explanation=""/>
-    <roomname x="12" y="14" english="Outer Hull" translation="" explanation=""/>
+    <roomname x="12" y="14" english="Outer Hull" translation="Ekstera kareno" explanation=""/>
     <roomname x="13" y="0" english="It&apos;s Not Easy Being Green" translation="" explanation=""/>
     <roomname x="13" y="3" english="Linear Collider" translation="" explanation=""/>
     <roomname x="13" y="4" english="Comms Relay" translation="" explanation=""/>
     <roomname x="13" y="5" english="Welcome Aboard" translation="" explanation=""/>
-    <roomname x="13" y="6" english="Trench Warfare" translation="" explanation=""/>
-    <roomname x="13" y="7" english="B-B-B-Busted" translation="" explanation=""/>
-    <roomname x="13" y="8" english="Level Complete!" translation="" explanation=""/>
-    <roomname x="13" y="9" english="Lighter Than Air" translation="" explanation=""/>
-    <roomname x="13" y="10" english="The Solution is Dilution" translation="" explanation=""/>
+    <roomname x="13" y="6" english="Trench Warfare" translation="Militado el la tranĉeoj" explanation=""/>
+    <roomname x="13" y="7" english="B-B-B-Busted" translation="Trafita de trafiko" explanation=""/>
+    <roomname x="13" y="8" english="Level Complete!" translation="Fino de la nivelo" explanation=""/>
+    <roomname x="13" y="9" english="Lighter Than Air" translation="Malpeze ol aero" explanation=""/>
+    <roomname x="13" y="10" english="The Solution is Dilution" translation="Diluante poluante" explanation=""/>
     <roomname x="13" y="11" english="The Cuckoo" translation="" explanation=""/>
     <roomname x="13" y="12" english="Backsliders" translation="" explanation=""/>
-    <roomname x="13" y="13" english="Select Track" translation="" explanation=""/>
+    <roomname x="13" y="13" english="Select Track" translation="Elektu trakon" explanation=""/>
     <roomname x="14" y="0" english="Green Dudes Can&apos;t Flip" translation="" explanation=""/>
     <roomname x="14" y="1" english="This is how it is" translation="" explanation=""/>
-    <roomname x="14" y="2" english="That&apos;s Why I Have To Kill You" translation="" explanation=""/>
+    <roomname x="14" y="2" english="That&apos;s Why I Have To Kill You" translation="Tial mi devas mortigi vin" explanation=""/>
     <roomname x="14" y="3" english="Atmospheric Filtering Unit" translation="" explanation=""/>
-    <roomname x="14" y="4" english="It&apos;s a Secret to Nobody" translation="" explanation=""/>
+    <roomname x="14" y="4" english="It&apos;s a Secret to Nobody" translation="Sekreto por neniu" explanation=""/>
     <roomname x="14" y="5" english="Conundrum" translation="" explanation=""/>
     <roomname x="14" y="6" english="Boo! Think Fast!" translation="" explanation=""/>
     <roomname x="14" y="7" english="The Sensible Room" translation="" explanation=""/>
     <roomname x="14" y="8" english="The Hanged Man, Reversed" translation="" explanation=""/>
     <roomname x="14" y="9" english="Green Grotto" translation="" explanation=""/>
     <roomname x="14" y="10" english="Manic Mine" translation="" explanation=""/>
-    <roomname x="14" y="11" english="Clarion Call" translation="" explanation=""/>
+    <roomname x="14" y="11" english="Clarion Call" translation="Traaera elsendado" explanation=""/>
     <roomname x="14" y="12" english="Gordian Knot" translation="" explanation=""/>
-    <roomname x="14" y="13" english="You Chose... Poorly" translation="" explanation=""/>
+    <roomname x="14" y="13" english="You Chose... Poorly" translation="Vi elektis... malbone" explanation=""/>
     <roomname x="15" y="0" english="Murdering Twinmaker" translation="" explanation=""/>
-    <roomname x="15" y="1" english="A Bisected Spiral" translation="" explanation=""/>
+    <roomname x="15" y="1" english="A Bisected Spiral" translation="Dusekciita spiralo" explanation=""/>
     <roomname x="15" y="2" english="Take the Red Pill" translation="" explanation=""/>
-    <roomname x="15" y="3" english="Traffic Jam" translation="" explanation=""/>
-    <roomname x="15" y="4" english="Leap of Faith" translation="" explanation=""/>
-    <roomname x="15" y="5" english="Solitude" translation="" explanation=""/>
+    <roomname x="15" y="3" english="Traffic Jam" translation="Trafikŝtopiĝo" explanation=""/>
+    <roomname x="15" y="4" english="Leap of Faith" translation="Fidanta saltego" explanation=""/>
+    <roomname x="15" y="5" english="Solitude" translation="Sole senvole" explanation=""/>
     <roomname x="15" y="6" english="Driller" translation="" explanation=""/>
     <roomname x="15" y="7" english="Exhaust Chute" translation="" explanation=""/>
     <roomname x="15" y="8" english="Sorrow" translation="" explanation=""/>
     <roomname x="15" y="9" english="doomS" translation="" explanation=""/>
     <roomname x="15" y="10" english="Swoop" translation="" explanation=""/>
     <roomname x="15" y="11" english="Chinese Rooms" translation="" explanation=""/>
-    <roomname x="15" y="12" english="You Just Keep Coming Back" translation="" explanation=""/>
+    <roomname x="15" y="12" english="You Just Keep Coming Back" translation="Revizito" explanation=""/>
     <roomname x="15" y="13" english="Hyperspace Bypass 5" translation="" explanation=""/>
-    <roomname x="16" y="0" english="I Love You" translation="" explanation=""/>
+    <roomname x="16" y="0" english="I Love You" translation="Mi amas vin" explanation=""/>
     <roomname x="16" y="1" english="As you like it" translation="" explanation=""/>
-    <roomname x="16" y="2" english="Short Circuit" translation="" explanation=""/>
-    <roomname x="16" y="3" english="Twisty Little Passages" translation="" explanation=""/>
-    <roomname x="16" y="6" english="Quicksand" translation="" explanation=""/>
+    <roomname x="16" y="2" english="Short Circuit" translation="Kurta cirkvito" explanation=""/>
+    <roomname x="16" y="3" english="Twisty Little Passages" translation="Serpentaj pasaĵetoj" explanation=""/>
+    <roomname x="16" y="6" english="Quicksand" translation="Movsablo" explanation=""/>
     <roomname x="16" y="7" english="The Tomb of Mad Carew" translation="" explanation=""/>
     <roomname x="16" y="8" english="Parabolica" translation="" explanation=""/>
-    <roomname x="16" y="9" english="$eeing Dollar $ign$" translation="" explanation=""/>
-    <roomname x="16" y="10" english="What Lies Beneath?" translation="" explanation=""/>
-    <roomname x="16" y="11" english="Spikes Do!" translation="" explanation=""/>
-    <roomname x="16" y="12" english="Ha Ha Ha Not Really" translation="" explanation=""/>
-    <roomname x="16" y="13" english="Plain Sailing from Here On" translation="" explanation=""/>
-    <roomname x="17" y="0" english="As we go up, we go down" translation="" explanation=""/>
-    <roomname x="17" y="1" english="Maze With No Entrance" translation="" explanation=""/>
+    <roomname x="16" y="9" english="$eeing Dollar $ign$" translation="$pesmilaj $ignoj" explanation=""/>
+    <roomname x="16" y="10" english="What Lies Beneath?" translation="Kio sube kuŝas?" explanation=""/>
+    <roomname x="16" y="11" english="Spikes Do!" translation="Pikaĵoj ja!" explanation=""/>
+    <roomname x="16" y="12" english="Ha Ha Ha Not Really" translation="Ha ha ha, ne vere" explanation=""/>
+    <roomname x="16" y="13" english="Plain Sailing from Here On" translation="Tutglate ekde nun" explanation=""/>
+    <roomname x="17" y="0" english="As we go up, we go down" translation="Ju pli supren, des pli malsupren" explanation=""/>
+    <roomname x="17" y="1" english="Maze With No Entrance" translation="Labirinto sen enirejo" explanation=""/>
     <roomname x="17" y="2" english="The Brown Gate" translation="" explanation=""/>
     <roomname x="17" y="3" english="Edge Games" translation="" explanation=""/>
     <roomname x="17" y="7" english="Brass Sent Us Under The Top" translation="" explanation=""/>
-    <roomname x="17" y="8" english="The Warning" translation="" explanation=""/>
-    <roomname x="17" y="9" english="Just Pick Yourself Down" translation="" explanation=""/>
-    <roomname x="17" y="10" english="If You Fall Up" translation="" explanation=""/>
+    <roomname x="17" y="8" english="The Warning" translation="La averto" explanation=""/>
+    <roomname x="17" y="9" english="Just Pick Yourself Down" translation="Simple malleviĝu" explanation=""/>
+    <roomname x="17" y="10" english="If You Fall Up" translation="Se vi falas al plafono" explanation=""/>
     <roomname x="17" y="11" english="Chipper Cipher" translation="" explanation=""/>
     <roomname x="18" y="0" english="Time to get serious" translation="" explanation=""/>
     <roomname x="18" y="1" english="Wheeler&apos;s Wormhole" translation="" explanation=""/>
     <roomname x="18" y="2" english="Sweeney&apos;s Maze" translation="" explanation=""/>
-    <roomname x="18" y="3" english="Mind The Gap" translation="" explanation=""/>
+    <roomname x="18" y="3" english="Mind The Gap" translation="Atentu pri la fendo" explanation=""/>
     <roomname x="18" y="7" english="A Wrinkle in Time" translation="" explanation=""/>
-    <roomname x="18" y="8" english="Getting Here is Half the Fun" translation="" explanation=""/>
-    <roomname x="18" y="9" english="Your Bitter Tears... Delicious" translation="" explanation=""/>
-    <roomname x="18" y="10" english="Easy Mode Unlocked" translation="" explanation=""/>
-    <roomname x="18" y="11" english="Vici!" translation="" explanation=""/>
-    <roomname x="18" y="12" english="Vidi" translation="" explanation=""/>
-    <roomname x="18" y="13" english="Veni" translation="" explanation=""/>
-    <roomname x="18" y="14" english="Doing Things The Hard Way" translation="" explanation=""/>
+    <roomname x="18" y="8" english="Getting Here is Half the Fun" translation="Duonvoje de la amuzo" explanation=""/>
+    <roomname x="18" y="9" english="Your Bitter Tears... Delicious" translation="Amaraj larmoj" explanation=""/>
+    <roomname x="18" y="10" english="Easy Mode Unlocked" translation="Facila reĝimo" explanation=""/>
+    <roomname x="18" y="11" english="Vici!" translation="Mi venkis!" explanation=""/>
+    <roomname x="18" y="12" english="Vidi" translation="Mi vidis" explanation=""/>
+    <roomname x="18" y="13" english="Veni" translation="Mi venis" explanation=""/>
+    <roomname x="18" y="14" english="Doing Things The Hard Way" translation="La malfacila metodo" explanation=""/>
     <roomname x="19" y="0" english="To The Batcave!" translation="" explanation=""/>
-    <roomname x="19" y="1" english="Ascending and Descending" translation="" explanation=""/>
+    <roomname x="19" y="1" english="Ascending and Descending" translation="Suprenirante kaj male" explanation=""/>
     <roomname x="19" y="2" english="Shockwave Rider" translation="" explanation=""/>
-    <roomname x="19" y="3" english="This will make you flip" translation="" explanation=""/>
+    <roomname x="19" y="3" english="This will make you flip" translation="Renversigaĵo" explanation=""/>
     <roomname x="41" y="51" english="1950 Silverstone Grand V" translation="" explanation=""/>
-    <roomname x="41" y="52" english="DIY V Repair" translation="" explanation=""/>
-    <roomname x="41" y="56" english="Now Take My Lead" translation="" explanation=""/>
-    <roomname x="42" y="52" english="Party Time!" translation="" explanation=""/>
-    <roomname x="42" y="56" english="What Are You Waiting For?" translation="" explanation=""/>
+    <roomname x="41" y="52" english="DIY V Repair" translation="V-riparejo" explanation=""/>
+    <roomname x="41" y="56" english="Now Take My Lead" translation="Sekvu mian gvidadon" explanation=""/>
+    <roomname x="42" y="52" english="Party Time!" translation="Festotempo!" explanation=""/>
+    <roomname x="42" y="56" english="What Are You Waiting For?" translation="Kion vi atendas nun?" explanation=""/>
     <roomname x="43" y="51" english="The Voon Show" translation="" explanation=""/>
-    <roomname x="43" y="52" english="Upstairs, Downstairs" translation="" explanation=""/>
-    <roomname x="43" y="56" english="Don&apos;t Get Ahead of Yourself!" translation="" explanation=""/>
-    <roomname x="44" y="51" english="Vertigo" translation="" explanation=""/>
-    <roomname x="44" y="52" english="Timeslip" translation="" explanation=""/>
-    <roomname x="44" y="56" english="Very Good" translation="" explanation=""/>
+    <roomname x="43" y="52" english="Upstairs, Downstairs" translation="La ambaŭdirektaj ŝtupoj" explanation=""/>
+    <roomname x="43" y="56" english="Don&apos;t Get Ahead of Yourself!" translation="Zorge antaŭeniru!" explanation=""/>
+    <roomname x="44" y="51" english="Vertigo" translation="Vertiĝo" explanation=""/>
+    <roomname x="44" y="52" english="Timeslip" translation="Tempglito" explanation=""/>
+    <roomname x="44" y="56" english="Very Good" translation="Tre bone" explanation=""/>
     <roomname x="45" y="52" english="Three&apos;s Company" translation="" explanation=""/>
-    <roomname x="45" y="56" english="Must I Do Everything For You?" translation="" explanation=""/>
+    <roomname x="45" y="56" english="Must I Do Everything For You?" translation="Ĉu mi devas fari ĉion por vi?" explanation=""/>
     <roomname x="46" y="54" english="Temporary Fault..." translation="" explanation=""/>
-    <roomname x="46" y="56" english="Now Stay Close To Me..." translation="" explanation=""/>
+    <roomname x="46" y="56" english="Now Stay Close To Me..." translation="Restu proksime al mi..." explanation=""/>
     <roomname x="47" y="52" english="Cosmic Creepers" translation="" explanation=""/>
     <roomname x="47" y="54" english="Do Not Adjust the V-hold" translation="" explanation=""/>
-    <roomname x="47" y="56" english="...But Not Too Close" translation="" explanation=""/>
-    <roomname x="48" y="52" english="The Villi People" translation="" explanation=""/>
+    <roomname x="47" y="56" english="...But Not Too Close" translation="...Sed ne troproksime" explanation=""/>
+    <roomname x="48" y="52" english="The Villi People" translation="Vilusoj" explanation=""/>
     <roomname x="48" y="54" english="Regular Service Will Return Shortly" translation="" explanation=""/>
-    <roomname x="48" y="56" english="Don&apos;t Be Afraid" translation="" explanation=""/>
-    <roomname x="49" y="52" english="Panic Room" translation="" explanation=""/>
-    <roomname x="49" y="54" english="Origami Room" translation="" explanation=""/>
-    <roomname x="49" y="56" english="Do as I Say..." translation="" explanation=""/>
+    <roomname x="48" y="56" english="Don&apos;t Be Afraid" translation="Iru sentime" explanation=""/>
+    <roomname x="49" y="52" english="Panic Room" translation="Panikĉambro" explanation=""/>
+    <roomname x="49" y="54" english="Origami Room" translation="Origamiĉambro" explanation=""/>
+    <roomname x="49" y="56" english="Do as I Say..." translation="Faru laŭ mia komando..." explanation=""/>
     <roomname x="50" y="51" english="The V Stooges" translation="" explanation=""/>
     <roomname x="50" y="52" english="1954 World Cup Vinyl" translation="" explanation=""/>
-    <roomname x="50" y="56" english="...Not as I Do" translation="" explanation=""/>
-    <roomname x="51" y="53" english="The Final Challenge" translation="" explanation=""/>
-    <roomname x="51" y="56" english="Mind Your Head" translation="" explanation=""/>
+    <roomname x="50" y="56" english="...Not as I Do" translation="...Ne laŭ mia farado" explanation=""/>
+    <roomname x="51" y="53" english="The Final Challenge" translation="La fina defio" explanation=""/>
+    <roomname x="51" y="56" english="Mind Your Head" translation="Atentu pri la kapo" explanation=""/>
     <roomname x="52" y="53" english="The Last Straw" translation="" explanation=""/>
-    <roomname x="52" y="56" english="Do Try To Keep Up" translation="" explanation=""/>
-    <roomname x="53" y="48" english="Whee Sports" translation="" explanation=""/>
+    <roomname x="52" y="56" english="Do Try To Keep Up" translation="Tenu la rapidecon" explanation=""/>
+    <roomname x="53" y="48" english="Whee Sports" translation="Falo sen kialo" explanation=""/>
     <roomname x="53" y="49" english="Whizz Down The Shaft" translation="" explanation=""/>
-    <roomname x="53" y="50" english="The Gravitron" translation="" explanation=""/>
-    <roomname x="53" y="51" english="Tunnel of Terror" translation="" explanation=""/>
-    <roomname x="53" y="52" english="House of Mirrors" translation="" explanation=""/>
-    <roomname x="53" y="53" english="W" translation="" explanation=""/>
-    <roomname x="53" y="56" english="You&apos;re Falling Behind" translation="" explanation=""/>
-    <roomname x="54" y="48" english="VVVVVV" translation="" explanation=""/>
-    <roomname x="54" y="49" english="VVVVV" translation="" explanation=""/>
-    <roomname x="54" y="50" english="VVVV" translation="" explanation=""/>
-    <roomname x="54" y="51" english="VVV" translation="" explanation=""/>
-    <roomname x="54" y="52" english="VV" translation="" explanation=""/>
-    <roomname x="54" y="53" english="V" translation="" explanation=""/>
-    <roomname x="54" y="56" english="Class Dismissed!" translation="" explanation=""/>
+    <roomname x="53" y="50" english="The Gravitron" translation="La Gravitĉambro" explanation=""/>
+    <roomname x="53" y="51" english="Tunnel of Terror" translation="Tunelo de teruro" explanation=""/>
+    <roomname x="53" y="52" english="House of Mirrors" translation="Domo de speguloj" explanation=""/>
+    <roomname x="53" y="53" english="W" translation="Vavo" explanation=""/>
+    <roomname x="53" y="56" english="You&apos;re Falling Behind" translation="Vi maldevancas" explanation=""/>
+    <roomname x="54" y="48" english="VVVVVV" translation="VVVVVV" explanation=""/>
+    <roomname x="54" y="49" english="VVVVV" translation="VVVVV" explanation=""/>
+    <roomname x="54" y="50" english="VVVV" translation="VVVV" explanation=""/>
+    <roomname x="54" y="51" english="VVV" translation="VVV" explanation=""/>
+    <roomname x="54" y="52" english="VV" translation="VV" explanation=""/>
+    <roomname x="54" y="53" english="V" translation="V" explanation=""/>
+    <roomname x="54" y="56" english="Class Dismissed!" translation="Fino de la klaso" explanation=""/>
 </roomnames>

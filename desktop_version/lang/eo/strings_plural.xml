@@ -26,9 +26,11 @@
         <translation form="1" translation="%s ŝipano restas"/>
     </string>
     <string english_plural="%s remain" english_singular="%s remains" explanation="You have rescued a crew member! XX remain" max="32">
-        <translation form="0" translation=""/>
+        <translation form="0" translation="%s restas"/>
+        <translation form="1" translation="%s restas"/>
     </string>
     <string english_plural="Hardest Room (with %d deaths)" english_singular="Hardest Room (with %d death)" explanation="game complete screen" max="40">
-        <translation form="0" translation=""/>
+        <translation form="0" translation="Plej malfacila ĉambro (kun %d mortoj)"/>
+        <translation form="1" translation="Plej malfacila ĉambro (kun %d morto)"/>
     </string>
 </strings_plural>
