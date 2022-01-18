@@ -542,7 +542,7 @@ namespace loc
         *roomx %= 100;
         *roomy %= 100;
 
-        if (*roomx == 9 && *roomy == 4)
+        if (!custom_level && *roomx == 9 && *roomy == 4)
         {
             // The Tower has two rooms, unify them
             *roomy = 9;
