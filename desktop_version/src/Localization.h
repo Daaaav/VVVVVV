@@ -30,6 +30,7 @@ namespace loc
         unsigned short padtowidth; // pad to X pixels (0 to disable)
     };
 
+    extern bool lang_set;
     extern std::string lang;
     extern std::string lang_custom;
     extern LangMeta langmeta;

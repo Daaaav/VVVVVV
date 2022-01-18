@@ -4375,6 +4375,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
             loc::lang = std::string(pText);
         }
 
+        if (SDL_strcmp(pKey, "lang_set") == 0)
+        {
+            loc::lang_set = help.Int(pText);
+        }
+
         if (SDL_strcmp(pKey, "roomname_translator") == 0 && loc::show_translator_menu)
         {
             roomname_translator::set_enabled(help.Int(pText));
@@ -4643,6 +4648,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct Screen
     xml::update_tag(dataNode, "controllerSensitivity", key.sensitivity);
 
     xml::update_tag(dataNode, "lang", loc::lang.c_str());
+    xml::update_tag(dataNode, "lang_set", (int) loc::lang_set);
     xml::update_tag(dataNode, "roomname_translator", (int) roomname_translator::enabled);
 }
 

@@ -8,6 +8,7 @@
 
 namespace loc
 {
+    bool lang_set = false;
     std::string lang = "en";
     std::string lang_custom = "";
     LangMeta langmeta;

@@ -602,6 +602,14 @@ int main(int argc, char *argv[])
         game.gamestate = TITLEMODE;
     if (game.slowdown == 0) game.slowdown = 30;
 
+    if (!loc::lang_set)
+    {
+        game.gamestate = TITLEMODE;
+        game.menustart = true;
+        game.createmenu(Menu::language);
+        game.currentmenuoption = loc::languagelist_curlang;
+    }
+
     //Check to see if you've already unlocked some achievements here from before the update
     if (game.swnbestrank > 0){
         if(game.swnbestrank >= 1) game.unlockAchievement("vvvvvvsupgrav5");

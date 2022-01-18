@@ -1111,7 +1111,18 @@ static void menuactionpress(void)
             {
                 loc::lang = loc::languagelist[game.currentmenuoption].code;
                 loc::loadtext();
-                game.returnmenu();
+                if (!loc::lang_set)
+                {
+                    /* Make the title screen appear, we haven't seen it yet */
+                    game.menustart = false;
+                    loc::lang_set = true;
+                    game.createmenu(Menu::mainmenu);
+                    game.currentmenuoption = 0;
+                }
+                else
+                {
+                    game.returnmenu();
+                }
                 map.nexttowercolour();
                 game.savestatsandsettings_menu();
             }
@@ -2041,7 +2052,16 @@ void titleinput(void)
         && game.menucountdown <= 0
         && (key.isDown(27) || key.isDown(game.controllerButton_esc)))
         {
-            music.playef(11);
+            if (game.currentmenuname == Menu::language && !loc::lang_set)
+            {
+                /* Don't exit from the initial language screen,
+                 * you can't do this on the loading/title screen either. */
+                return;
+            }
+            else
+            {
+                music.playef(11);
+            }
             if (game.menutestmode)
             {
                 game.menutestmode = false;
