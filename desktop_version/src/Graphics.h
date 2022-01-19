@@ -42,7 +42,7 @@ public:
 
     void drawcoloredtile(int x, int y, int t, int r, int g, int b);
 
-    void drawmenu(int cr, int cg, int cb, bool levelmenu = false);
+    void drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu);
 
     void processfade(void);
     void setfade(const int amount);

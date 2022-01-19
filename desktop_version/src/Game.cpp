@@ -6279,6 +6279,12 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                 else
                     option(loc::languagelist[i].nativename);
             }
+            for (size_t j = 5; j <= 29; j++)
+            {
+                char buffer[25];
+                SDL_snprintf(buffer, sizeof(buffer), "language %ld", j);
+                option(buffer);
+            }
 
             menuyoff = 70-(menuoptions.size()*10);
             maxspacing = 5;

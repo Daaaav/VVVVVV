@@ -605,7 +605,8 @@ static void menurender(void)
         }
         else if ((unsigned)game.currentmenuoption < loc::languagelist.size())
         {
-            graphics.PrintWrap(-1, 15, loc::languagelist[game.currentmenuoption].credit, tr, tg, tb, true);
+            graphics.PrintWrap(-1, 8, loc::languagelist[game.currentmenuoption].credit, tr/2, tg/2, tb/2, true);
+            graphics.Print(-1, 230, loc::languagelist[game.currentmenuoption].action_hint, tr/2, tg/2, tb/2, true);
         }
         break;
     case Menu::translator_main:
@@ -1434,7 +1435,7 @@ void titlerender(void)
         if(tg>255) tg=255;
         if (tb < 0) tb = 0;
         if(tb>255) tb=255;
-        graphics.drawmenu(tr, tg, tb, game.currentmenuname == Menu::levellist);
+        graphics.drawmenu(tr, tg, tb, game.currentmenuname);
     }
 
     graphics.drawfade();

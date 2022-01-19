@@ -98,6 +98,8 @@ namespace loc
                 meta.nativename = std::string(pText);
             else if (SDL_strcmp(pKey, "credit") == 0)
                 meta.credit = std::string(pText);
+            else if (SDL_strcmp(pKey, "action_hint") == 0)
+                meta.action_hint = std::string(pText);
             else if (SDL_strcmp(pKey, "autowordwrap") == 0)
                 meta.autowordwrap = help.Int(pText);
             else if (SDL_strcmp(pKey, "toupper") == 0)

@@ -146,9 +146,11 @@ This file contains some general information about this translation. It contains 
 
 * active: If 0, this language will not be shown in the languages menu
 
-* nativename: The name of the language in itself, fully in lowercase (so not "spanish" or "Español", but "español")
+* nativename: The name of the language in itself, fully in lowercase (so not "spanish" or "Español", but "español"). A language name can be at most 16 characters wide (in the 8x8 font)
 
-* credit: You can fill in credit here that will appear on the language screen, like "Spanish translation by X". May be in your language.
+* credit: You can fill in credit here that will appear on the language screen, like "Spanish translation by X". May be in your language. Max 38*2 @8x8
+
+* action_hint: This is displayed at the bottom of the language screen when your language is highlighted, to show that Space/Z/V sets the selected option as the language. Max 40 @8x8
 
 * autowordwrap: Whether automatic wordwrapping is enabled. Can be disabled for CJK (in which case newlines have to be inserted manually in text)
 

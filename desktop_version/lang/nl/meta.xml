@@ -8,6 +8,9 @@
     <!-- English translation by X -->
     <credit>Nederlandse vertaling door Dav999</credit>
 
+    <!-- On the language screen, hard limit 40 8x8 characters. Space/Z/V sets this as the language -->
+    <action_hint>Druk op spatie, Z, of V om te kiezen</action_hint>
+
     <!-- Enable automatic word wrapping instead of having to manually insert newlines -->
     <autowordwrap>1</autowordwrap>
 

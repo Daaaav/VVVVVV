@@ -2017,10 +2017,29 @@ void titleinput(void)
     game.press_map = false;
     game.press_interact = false;
 
+    bool lang_press_horizontal = false;
+
     if (graphics.flipmode)
     {
         if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_a) ||  key.isDown(KEYBOARD_s) || key.controllerWantsRight(true)) game.press_left = true;
         if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_UP)  || key.isDown(KEYBOARD_d) ||  key.isDown(KEYBOARD_w) || key.controllerWantsLeft(true)) game.press_right = true;
+    }
+    else if (game.currentmenuname == Menu::language)
+    {
+        if (key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_w) || key.controllerWantsUp())
+        {
+            game.press_left = true;
+        }
+        if (key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_s) || key.controllerWantsDown())
+        {
+            game.press_right = true;
+        }
+        if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false)
+        || key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d) || key.controllerWantsRight(false))
+        {
+            lang_press_horizontal = true;
+            game.press_right = true;
+        }
     }
     else
     {
@@ -2112,7 +2131,63 @@ void titleinput(void)
         {
             if (game.slidermode == SLIDER_NONE)
             {
-                if (game.press_left)
+                if (game.currentmenuname == Menu::language)
+                {
+                    /* The language screen has two columns and navigation in four directions.
+                     * The second column may have one less option than the first. */
+                    int n_options = game.menuoptions.size();
+                    int twocol_voptions = n_options - (n_options/2);
+
+                    if (lang_press_horizontal)
+                    {
+                        if (game.currentmenuoption < twocol_voptions)
+                        {
+                            game.currentmenuoption += twocol_voptions;
+                            if (game.currentmenuoption >= n_options)
+                            {
+                                game.currentmenuoption = n_options - 1;
+                            }
+                        }
+                        else
+                        {
+                            game.currentmenuoption -= twocol_voptions;
+                        }
+                    }
+                    else
+                    {
+                        /* Vertical movement */
+                        int min_option;
+                        int max_option;
+                        if (game.currentmenuoption < twocol_voptions)
+                        {
+                            min_option = 0;
+                            max_option = twocol_voptions-1;
+                        }
+                        else
+                        {
+                            min_option = twocol_voptions;
+                            max_option = n_options-1;
+                        }
+
+                        if (game.press_left) /* Up, lol */
+                        {
+                            game.currentmenuoption--;
+                            if (game.currentmenuoption < min_option)
+                            {
+                                game.currentmenuoption = max_option;
+                            }
+                        }
+                        else if (game.press_right) /* Down, lol */
+                        {
+                            game.currentmenuoption++;
+                            if (game.currentmenuoption > max_option)
+                            {
+                                game.currentmenuoption = min_option;
+                            }
+                        }
+                    }
+                }
+                else if (game.press_left)
                 {
                     game.currentmenuoption--;
                 }

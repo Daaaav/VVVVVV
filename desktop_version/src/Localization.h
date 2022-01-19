@@ -13,6 +13,7 @@ namespace loc
         std::string code;
         std::string nativename;
         std::string credit;
+        std::string action_hint;
         bool autowordwrap; // = true; enable automatic wordwrapping
         bool toupper; // = true; enable automatic full-caps for menu options
         bool toupper_i_dot; // = false; enable Turkish i mapping when uppercasing

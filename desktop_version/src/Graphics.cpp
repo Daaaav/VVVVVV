@@ -1725,8 +1725,18 @@ void Graphics::setfade(const int amount)
     oldfadeamount = amount;
 }
 
-void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
+void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
 {
+    /* The MenuName is only used for some special cases,
+     * like the levels list and the language screen. */
+
+    unsigned int twocol_voptions;
+    if (menu == Menu::language)
+    {
+        size_t n_options = game.menuoptions.size();
+        twocol_voptions = n_options - (n_options/2);
+    }
+
     for (size_t i = 0; i < game.menuoptions.size(); i++)
     {
         MenuOption& opt = game.menuoptions[i];
@@ -1747,11 +1757,21 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
             fb = 128;
         }
 
-        int x = i*game.menuspacing + game.menuxoff;
-        int y = 140 + i*12 + game.menuyoff;
+        int x, y;
+        if (menu == Menu::language)
+        {
+            int name_len = len(opt.text);
+            x = (i < twocol_voptions ? 80 : 240) - name_len/2;
+            y = 36 + (i % twocol_voptions)*12;
+        }
+        else
+        {
+            x = i*game.menuspacing + game.menuxoff;
+            y = 140 + i*12 + game.menuyoff;
+        }
 
 #ifndef NO_CUSTOM_LEVELS
-        if (levelmenu)
+        if (menu == Menu::levellist)
         {
             size_t separator;
             if (cl.ListOfMetaData.size() > 8)

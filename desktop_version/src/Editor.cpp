@@ -1248,7 +1248,7 @@ void editorrender(void)
         if(tb>255) tb=255;
         editormenurender(tr, tg, tb);
 
-        graphics.drawmenu(tr, tg, tb);
+        graphics.drawmenu(tr, tg, tb, game.currentmenuname);
     }
     else if (ed.textmod)
     {
