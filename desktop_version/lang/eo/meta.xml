@@ -9,7 +9,7 @@
     <credit>Esperanta traduko de Reese Rivers</credit>
 
     <!-- On the language screen, hard limit 40 8x8 characters. Space/Z/V sets this as the language -->
-    <action_hint>Press Space, Z, or V to select</action_hint>
+    <action_hint>Premu spaceton, Z aŭ V por elekti</action_hint>
 
     <!-- Enable automatic word wrapping instead of having to manually insert newlines -->
     <autowordwrap>1</autowordwrap>
