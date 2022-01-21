@@ -107,24 +107,23 @@
     <string english="sound volume" translation="geluidsvolume" explanation="audio menu option"/>
     <string english="Sound Volume" translation="Geluidsvolume" explanation="title" max="20"/>
     <string english="Change the volume of sound effects." translation="Wijzig het volume van geluidseffecten." explanation="" max="38*3"/>
+    <string english="Credits" translation="Credits" explanation="credits" max="13"/>
     <string english="VVVVVV is a game by" translation="VVVVVV is een spel door" explanation="credits" max="40"/>
-    <string english="Terry Cavanagh" translation="Terry Cavanagh" explanation="credits" max="20"/>
     <string english="and features music by" translation="en heeft muziek door" explanation="credits" max="40"/>
-    <string english="Magnus P~lsson" translation="Magnus P~lsson" explanation="credits" max="20"/>
     <string english="Roomnames are by" translation="Kamernamen door" explanation="credits" max="40"/>
-    <string english="Bennett Foddy" translation="Bennett Foddy" explanation="credits" max="20"/>
     <string english="C++ version by" translation="C++-versie door" explanation="credits" max="40"/>
-    <string english="Simon Roth" translation="Simon Roth" explanation="credits" max="20"/>
-    <string english="Ethan Lee" translation="Ethan Lee" explanation="credits" max="20"/>
-    <string english="Misa Kai" translation="" explanation="credits" max="20"/>
-    <string english="Beta Testing by" translation="Bètatesting door" explanation="credits" max="40"/>
-    <string english="Sam Kaplan" translation="Sam Kaplan" explanation="credits" max="20"/>
-    <string english="Pauli Kohberger" translation="Pauli Kohberger" explanation="credits" max="20"/>
-    <string english="Ending Picture by" translation="Eindafbeelding door" explanation="credits" max="40"/>
+    <string english="Beta Testing by" translation="Bètatesting door" explanation="credits" max="30"/>
+    <string english="Ending Picture by" translation="Eindafbeelding door" explanation="credits" max="30"/>
+    <string english="Created by" translation="Gemaakt door" explanation="credits" max="30"/>
+    <string english="With Music by" translation="Met muziek van" explanation="credits" max="30"/>
+    <string english="Rooms Named by" translation="Kamernamen door" explanation="credits" max="30"/>
+    <string english="C++ Port by" translation="C++-versie door" explanation="credits" max="30"/>
+    <string english="Patrons" translation="Patrons" explanation="credits, people who donated a certain amount before the game originally released" max="13"/>
     <string english="VVVVVV is supported by the following patrons" translation="VVVVVV is ondersteund door de volgende patrons" explanation="credits" max="38*3"/>
     <string english="and also by" translation="en ook door" explanation="credits, VVVVVV is also supported by the following people" max="38*2"/>
+    <string english="and" translation="en" explanation="credits. This list of names, AND furthermore, this other list of names" max="38"/>
+    <string english="GitHub Contributors" translation="GitHub-bijdragers" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
     <string english="With contributions on GitHub from" translation="Met bijdragen op GitHub van" explanation="credits" max="38*3"/>
-    <string english="and" translation="en" explanation="This person, AND furthermore, these other persons" max="38"/>
     <string english="and thanks also to:" translation="en ook met dank aan:" explanation="credits, and thanks also to ... you!" max="38*3"/>
     <string english="You!" translation="Jou!" explanation="credits, and thanks also to ... you!"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="Jouw ondersteuning maakt het mogelijk voor mij om de spellen te blijven maken die ik wil maken, nu en in de toekomst." explanation="credits" max="38*5"/>
@@ -644,6 +643,13 @@ Je hebt het geheime lab gevonden!" explanation="" max="37*4"/>
     <string english="Vermilion" translation="" explanation="crewmate name"/>
     <string english="Verdigris" translation="" explanation="crewmate name"/>
     <string english="Victoria" translation="" explanation="crewmate name"/>
+    <string english="Starring" translation="Met in de hoofdrol" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Captain Viridian" translation="Kapitein Viridian" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Doctor Violet" translation="Doctor Violet" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Professor Vitellary" translation="Professor Vitellary" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Officer Vermilion" translation="Officier Vermilion" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Chief Verdigris" translation="Meester Verdigris" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Doctor Victoria" translation="Doctor Victoria" explanation="credits roll. Starring the following 6 crew members"/>
     <string english="When you&apos;re standing on the floor, Vitellary will try to walk to you." translation="Als je op de grond staat, zal Vitellary naar je toe proberen te lopen." explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re standing on the floor, Vermilion will try to walk to you." translation="Als je op de grond staat, zal Vermilion naar je toe proberen te lopen." explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re standing on the floor, Verdigris will try to walk to you." translation="Als je op de grond staat, zal Verdigris naar je toe proberen te lopen." explanation="Intermission 1" max="34*4"/>
@@ -664,6 +670,8 @@ Je hebt het geheime lab gevonden!" explanation="" max="37*4"/>
     <string english="You can&apos;t continue to the next room until she is safely across." translation="Je kunt niet naar de volgende kamer totdat ze veilig aan de overkant is." explanation="Intermission 1" max="34*4"/>
     <string english="Survive for" translation="Overleef" explanation="Gravitron. Line 1/2: Survive for 60 seconds!" max="20"/>
     <string english="60 seconds!" translation="60 seconden!" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20"/>
+    <string english="Thanks for" translation="Bedankt voor" explanation="credits. Line 1/2: Thanks for playing!" max="20"/>
+    <string english="playing!" translation="het spelen!" explanation="credits. Line 2/2: Thanks for playing!" max="20"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

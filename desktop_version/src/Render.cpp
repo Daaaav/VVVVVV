@@ -429,29 +429,29 @@ static void menurender(void)
         break;
     case Menu::credits:
         graphics.Print( -1, 50, loc::gettext("VVVVVV is a game by"), tr, tg, tb, true);
-        graphics.bigprint( 40, 65, loc::gettext("Terry Cavanagh"), tr, tg, tb, true, 2);
+        graphics.bigprint( 40, 65, "Terry Cavanagh", tr, tg, tb, true, 2);
 
         graphics.drawimagecol(7, -1, 86, true);
 
         graphics.Print( -1, 120, loc::gettext("and features music by"), tr, tg, tb, true);
-        graphics.bigprint( 40, 135, loc::gettext("Magnus P~lsson"), tr, tg, tb, true, 2);
+        graphics.bigprint( 40, 135, "Magnus P~lsson", tr, tg, tb, true, 2);
         graphics.drawimagecol(8, -1, 156, true);
         break;
     case Menu::credits2:
         graphics.Print( -1, 50, loc::gettext("Roomnames are by"), tr, tg, tb, true);
-        graphics.bigprint( 40, 65, loc::gettext("Bennett Foddy"), tr, tg, tb, true);
+        graphics.bigprint( 40, 65, "Bennett Foddy", tr, tg, tb, true);
         graphics.drawimagecol(9, -1, 86, true);
         graphics.Print( -1, 110, loc::gettext("C++ version by"), tr, tg, tb, true);
-        graphics.bigprint( 40, 125, loc::gettext("Simon Roth"), tr, tg, tb, true);
-        graphics.bigprint( 40, 145, loc::gettext("Ethan Lee"), tr, tg, tb, true);
-        graphics.bigprint( 40, 165, loc::gettext("Misa Kai"), tr, tg, tb, true);
+        graphics.bigprint( 40, 125, "Simon Roth", tr, tg, tb, true);
+        graphics.bigprint( 40, 145, "Ethan Lee", tr, tg, tb, true);
+        graphics.bigprint( 40, 165, "Misa Kai", tr, tg, tb, true);
         break;
     case Menu::credits25:
         graphics.Print( -1, 40, loc::gettext("Beta Testing by"), tr, tg, tb, true);
-        graphics.bigprint( 40, 55, loc::gettext("Sam Kaplan"), tr, tg, tb, true);
-        graphics.bigprint( 40, 75, loc::gettext("Pauli Kohberger"), tr, tg, tb, true);
+        graphics.bigprint( 40, 55, "Sam Kaplan", tr, tg, tb, true);
+        graphics.bigprint( 40, 75, "Pauli Kohberger", tr, tg, tb, true);
         graphics.Print( -1, 130, loc::gettext("Ending Picture by"), tr, tg, tb, true);
-        graphics.bigprint( 40, 145, loc::gettext("Pauli Kohberger"), tr, tg, tb, true);
+        graphics.bigprint( 40, 145, "Pauli Kohberger", tr, tg, tb, true);
         break;
     case Menu::credits3:
     {
@@ -1468,63 +1468,62 @@ void gamecompleterender(void)
         graphics.drawsprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
     }
 
-    // TODO LOC. Maybe some of the text needs to be made a _bit_ smaller, or it's too tight (even "Thanks for playing!"). Maybe indicate in translation file "GitHub Contributors" doesn't _really_ need "GitHub" or could be replaced with "Code", and maybe auto-wrap "Thanks for playing"
-    if (graphics.onscreen(290 + position)) graphics.bigprint( -1, 290 + position, "Starring", tr, tg, tb, true, 2);
+    if (graphics.onscreen(290 + position)) graphics.bigprint( -1, 290 + position, loc::gettext("Starring"), tr, tg, tb, true, 2);
 
     if (graphics.onscreen(320 + position))
     {
         graphics.drawcrewman(70, 320 + position, 0, true);
-        graphics.Print(100, 330 + position, "Captain Viridian", tr, tg, tb);
+        graphics.Print(100, 330 + position, loc::gettext("Captain Viridian"), tr, tg, tb);
     }
     if (graphics.onscreen(350 + position))
     {
         graphics.drawcrewman(70, 350 + position, 1, true);
-        graphics.Print(100, 360 + position, "Doctor Violet", tr, tg, tb);
+        graphics.Print(100, 360 + position, loc::gettext("Doctor Violet"), tr, tg, tb);
     }
     if (graphics.onscreen(380 + position))
     {
         graphics.drawcrewman(70, 380 + position, 2, true);
-        graphics.Print(100, 390 + position, "Professor Vitellary", tr, tg, tb);
+        graphics.Print(100, 390 + position, loc::gettext("Professor Vitellary"), tr, tg, tb);
     }
     if (graphics.onscreen(410 + position))
     {
         graphics.drawcrewman(70, 410 + position, 3, true);
-        graphics.Print(100, 420 + position, "Officer Vermilion", tr, tg, tb);
+        graphics.Print(100, 420 + position, loc::gettext("Officer Vermilion"), tr, tg, tb);
     }
     if (graphics.onscreen(440 + position))
     {
         graphics.drawcrewman(70, 440 + position, 4, true);
-        graphics.Print(100, 450 + position, "Chief Verdigris", tr, tg, tb);
+        graphics.Print(100, 450 + position, loc::gettext("Chief Verdigris"), tr, tg, tb);
     }
     if (graphics.onscreen(470 + position))
     {
         graphics.drawcrewman(70, 470 + position, 5, true);
-        graphics.Print(100, 480 + position, "Doctor Victoria", tr, tg, tb);
+        graphics.Print(100, 480 + position, loc::gettext("Doctor Victoria"), tr, tg, tb);
     }
 
-    if (graphics.onscreen(520 + position)) graphics.bigprint( -1, 520 + position, "Credits", tr, tg, tb, true, 3);
+    if (graphics.onscreen(520 + position)) graphics.bigprint( -1, 520 + position, loc::gettext("Credits"), tr, tg, tb, true, 3);
 
     if (graphics.onscreen(560 + position))
     {
-        graphics.Print(40, 560 + position, "Created by", tr, tg, tb);
+        graphics.Print(40, 560 + position, loc::gettext("Created by"), tr, tg, tb);
         graphics.bigprint(60, 570 + position, "Terry Cavanagh", tr, tg, tb);
     }
 
     if (graphics.onscreen(600 + position))
     {
-        graphics.Print(40, 600 + position, "With Music by", tr, tg, tb);
+        graphics.Print(40, 600 + position, loc::gettext("With Music by"), tr, tg, tb);
         graphics.bigprint(60, 610 + position, "Magnus P~lsson", tr, tg, tb);
     }
 
     if (graphics.onscreen(640 + position))
     {
-        graphics.Print(40, 640 + position, "Rooms Named by", tr, tg, tb);
+        graphics.Print(40, 640 + position, loc::gettext("Rooms Named by"), tr, tg, tb);
         graphics.bigprint(60, 650 + position, "Bennett Foddy", tr, tg, tb);
     }
 
     if (graphics.onscreen(710 + position))
     {
-        graphics.Print(40, 680 + position, "C++ Port by", tr, tg, tb);
+        graphics.Print(40, 680 + position, loc::gettext("C++ Port by"), tr, tg, tb);
         graphics.bigprint(60, 690 + position, "Simon Roth", tr, tg, tb);
         graphics.bigprint(60, 710 + position, "Ethan Lee", tr, tg, tb);
         graphics.bigprint(60, 730 + position, "Misa Kai", tr, tg, tb);
@@ -1533,18 +1532,18 @@ void gamecompleterender(void)
 
     if (graphics.onscreen(770 + position))
     {
-        graphics.Print(40, 760 + position, "Beta Testing by", tr, tg, tb);
+        graphics.Print(40, 760 + position, loc::gettext("Beta Testing by"), tr, tg, tb);
         graphics.bigprint(60, 770 + position, "Sam Kaplan", tr, tg, tb);
         graphics.bigprint(60, 790 + position, "Pauli Kohberger", tr, tg, tb);
     }
 
     if (graphics.onscreen(820 + position))
     {
-        graphics.Print(40, 820 + position, "Ending Picture by", tr, tg, tb);
+        graphics.Print(40, 820 + position, loc::gettext("Ending Picture by"), tr, tg, tb);
         graphics.bigprint(60, 830 + position, "Pauli Kohberger", tr, tg, tb);
     }
 
-    if (graphics.onscreen(910 + position)) graphics.bigprint( -1, 890 + position, "Patrons", tr, tg, tb, true, 3);
+    if (graphics.onscreen(910 + position)) graphics.bigprint( -1, 890 + position, loc::gettext("Patrons"), tr, tg, tb, true, 3);
 
     int creditOffset = 950;
 
@@ -1558,7 +1557,7 @@ void gamecompleterender(void)
     }
 
     creditOffset += 10;
-    if (graphics.onscreen(creditOffset + position)) graphics.Print( -1, creditOffset + position, "and", tr, tg, tb, true);
+    if (graphics.onscreen(creditOffset + position)) graphics.Print( -1, creditOffset + position, loc::gettext("and"), tr, tg, tb, true);
     creditOffset += 20;
 
     for (size_t i = 0; i < SDL_arraysize(Credits::patrons); i += 1)
@@ -1571,7 +1570,7 @@ void gamecompleterender(void)
     }
 
     creditOffset += 20;
-    if (graphics.onscreen(creditOffset + position)) graphics.bigprint(40, creditOffset + position, "GitHub Contributors", tr, tg, tb, true);
+    if (graphics.onscreen(creditOffset + position)) graphics.bigprint(40, creditOffset + position, loc::gettext("GitHub Contributors"), tr, tg, tb, true);
     creditOffset += 30;
 
     for (size_t i = 0; i < SDL_arraysize(Credits::githubfriends); i += 1)
@@ -1584,7 +1583,12 @@ void gamecompleterender(void)
     }
 
     creditOffset += 140;
-    if (graphics.onscreen(creditOffset + position)) graphics.bigprint( -1, creditOffset + position, "Thanks for playing!", tr, tg, tb, true, 2);
+    if (graphics.onscreen(creditOffset + position))
+    {
+        graphics.bigprint(-1, creditOffset + position, loc::gettext("Thanks for"), tr, tg, tb, true, 2);
+        creditOffset += 20;
+        graphics.bigprint(-1, creditOffset + position, loc::gettext("playing!"), tr, tg, tb, true, 2);
+    }
 
     graphics.drawfade();
 

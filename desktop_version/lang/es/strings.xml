@@ -107,24 +107,23 @@
     <string english="sound volume" translation="" explanation="audio menu option"/>
     <string english="Sound Volume" translation="" explanation="title" max="20"/>
     <string english="Change the volume of sound effects." translation="" explanation="" max="38*3"/>
+    <string english="Credits" translation="" explanation="credits" max="13"/>
     <string english="VVVVVV is a game by" translation="VVVVVV es un juego por" explanation="credits" max="40"/>
-    <string english="Terry Cavanagh" translation="Terry Cavanagh" explanation="credits" max="20"/>
     <string english="and features music by" translation="y presenta música por" explanation="credits" max="40"/>
-    <string english="Magnus P~lsson" translation="Magnus P~lsson" explanation="credits" max="20"/>
     <string english="Roomnames are by" translation="Titulo de las habitación por" explanation="credits" max="40"/>
-    <string english="Bennett Foddy" translation="Bennett Foddy" explanation="credits" max="20"/>
     <string english="C++ version by" translation="Version de C++ por" explanation="credits" max="40"/>
-    <string english="Simon Roth" translation="Simon Roth" explanation="credits" max="20"/>
-    <string english="Ethan Lee" translation="Ethan Lee" explanation="credits" max="20"/>
-    <string english="Misa Kai" translation="" explanation="credits" max="20"/>
-    <string english="Beta Testing by" translation="Testeo de beta por" explanation="credits" max="40"/>
-    <string english="Sam Kaplan" translation="Sam Kaplan" explanation="credits" max="20"/>
-    <string english="Pauli Kohberger" translation="Pauli Kohberger" explanation="credits" max="20"/>
-    <string english="Ending Picture by" translation="Imagen final por" explanation="credits" max="40"/>
+    <string english="Beta Testing by" translation="Testeo de beta por" explanation="credits" max="30"/>
+    <string english="Ending Picture by" translation="Imagen final por" explanation="credits" max="30"/>
+    <string english="Created by" translation="" explanation="credits" max="30"/>
+    <string english="With Music by" translation="" explanation="credits" max="30"/>
+    <string english="Rooms Named by" translation="" explanation="credits" max="30"/>
+    <string english="C++ Port by" translation="" explanation="credits" max="30"/>
+    <string english="Patrons" translation="" explanation="credits, people who donated a certain amount before the game originally released" max="13"/>
     <string english="VVVVVV is supported by the following patrons" translation="VVVVVV es apoyado por las siguientes personas" explanation="credits" max="38*3"/>
     <string english="and also by" translation="y también por" explanation="credits, VVVVVV is also supported by the following people" max="38*2"/>
+    <string english="and" translation="" explanation="credits. This list of names, AND furthermore, this other list of names" max="38"/>
+    <string english="GitHub Contributors" translation="" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
     <string english="With contributions on GitHub from" translation="Con contribuciones de GitHub desde" explanation="credits" max="38*3"/>
-    <string english="and" translation="" explanation="This person, AND furthermore, these other persons" max="38"/>
     <string english="and thanks also to:" translation="Y también gracias a:" explanation="credits, and thanks also to ... you!" max="38*3"/>
     <string english="You!" translation="Ti!" explanation="credits, and thanks also to ... you!"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="Tu apoyo me hace posible el poder continuar creando los juegos que quiero hacer, ahora y en el futuro." explanation="credits" max="38*5"/>
@@ -638,6 +637,13 @@ You have found the secret lab!" translation="" explanation="" max="37*4"/>
     <string english="Vermilion" translation="" explanation="crewmate name"/>
     <string english="Verdigris" translation="" explanation="crewmate name"/>
     <string english="Victoria" translation="" explanation="crewmate name"/>
+    <string english="Starring" translation="" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Captain Viridian" translation="" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Doctor Violet" translation="" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Professor Vitellary" translation="" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Officer Vermilion" translation="" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Chief Verdigris" translation="" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Doctor Victoria" translation="" explanation="credits roll. Starring the following 6 crew members"/>
     <string english="When you&apos;re standing on the floor, Vitellary will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re standing on the floor, Vermilion will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re standing on the floor, Verdigris will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
@@ -658,6 +664,8 @@ You have found the secret lab!" translation="" explanation="" max="37*4"/>
     <string english="You can&apos;t continue to the next room until she is safely across." translation="" explanation="Intermission 1" max="34*4"/>
     <string english="Survive for" translation="" explanation="Gravitron. Line 1/2: Survive for 60 seconds!" max="20"/>
     <string english="60 seconds!" translation="" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20"/>
+    <string english="Thanks for" translation="" explanation="credits. Line 1/2: Thanks for playing!" max="20"/>
+    <string english="playing!" translation="" explanation="credits. Line 2/2: Thanks for playing!" max="20"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
