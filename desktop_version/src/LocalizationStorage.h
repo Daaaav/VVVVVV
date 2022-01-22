@@ -48,8 +48,6 @@ namespace loc
     #endif
 
 
-    const char* map_store_404(hashmap* map, const char* eng);
-
     void resettext_custom(void);
     void unloadtext_custom(void);
 
@@ -65,7 +63,7 @@ namespace loc
     bool save_roomname_to_file(const std::string& langcode, bool custom_level, int roomx, int roomy, const char* tra, const char* explanation);
     bool save_roomname_explanation_to_files(bool custom_level, int roomx, int roomy, const char* explanation);
 
-    const char* map_lookup_text(hashmap* map, const char* eng, const char* fallback, bool* ext_found);
+    const char* map_lookup_text(hashmap* map, const char* eng, const char* fallback);
 
     char* add_disambiguator(char disambiguator, const char* original_string, size_t* ext_alloc_len);
 }

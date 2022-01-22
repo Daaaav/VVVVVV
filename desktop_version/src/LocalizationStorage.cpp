@@ -129,15 +129,7 @@ namespace loc
             tra = "";
         }
         const char* tb_eng = textbook_store(textbook, eng);
-        const char* tb_tra;
-        if (test_mode)
-        {
-            tb_tra = textbook_store(textbook, ("✓" + std::string(tra[0] == '\0' ? eng : tra)).c_str());
-        }
-        else
-        {
-            tb_tra = textbook_store(textbook, tra);
-        }
+        const char* tb_tra = textbook_store(textbook, tra);
 
         if (tb_eng == NULL || tb_tra == NULL)
         {
@@ -145,22 +137,6 @@ namespace loc
         }
 
         hashmap_set(map, (void*) tb_eng, SDL_strlen(tb_eng), (uintptr_t) tb_tra);
-    }
-
-    const char* map_store_404(hashmap* map, const char* eng)
-    {
-        /* Store a "string not found" translation, only called in test mode */
-        const char* tb_eng = textbook_store(&textbook_main, eng);
-        const char* tb_tra = textbook_store(&textbook_main, ("❌" + std::string(eng)).c_str());
-
-        if (tb_eng == NULL || tb_tra == NULL)
-        {
-            return eng;
-        }
-
-        hashmap_set(map, (void*) tb_eng, SDL_strlen(tb_eng), (uintptr_t) tb_tra);
-
-        return tb_tra;
     }
 
     void callback_free_map_value(void* key, size_t ksize, uintptr_t value, void* usr)
@@ -708,7 +684,7 @@ namespace loc
         resettext();
         loadmeta(langmeta);
 
-        if (lang == "en" && !test_mode)
+        if (lang == "en")
         {
             if (show_translator_menu)
             {
@@ -779,7 +755,7 @@ namespace loc
                 const char* eng = pElem->Attribute("english");
                 if (eng != NULL)
                 {
-                    pElem->SetAttribute("translation", map_lookup_text(map_translation, eng, "", NULL));
+                    pElem->SetAttribute("translation", map_lookup_text(map_translation, eng, ""));
                 }
             }
 
@@ -820,7 +796,7 @@ namespace loc
                             return;
                         }
 
-                        subElem->SetAttribute("translation", map_lookup_text(map_translation_plural, key, "", NULL));
+                        subElem->SetAttribute("translation", map_lookup_text(map_translation_plural, key, ""));
 
                         SDL_free(key);
                     }
@@ -934,25 +910,18 @@ namespace loc
     }
 
 
-    const char* map_lookup_text(hashmap* map, const char* eng, const char* fallback, bool* ext_found)
+    const char* map_lookup_text(hashmap* map, const char* eng, const char* fallback)
     {
         uintptr_t ptr_tra;
         bool found = hashmap_get(map, (void*) eng, SDL_strlen(eng), &ptr_tra);
         const char* tra = (const char*) ptr_tra;
 
-        bool found_nonempty = found && tra != NULL && tra[0] != '\0';
-
-        if (ext_found != NULL)
+        if (found && tra != NULL && tra[0] != '\0')
         {
-            *ext_found = found_nonempty;
+            return tra;
         }
 
-        if (!found_nonempty)
-        {
-            return fallback;
-        }
-
-        return tra;
+        return fallback;
     }
 
     char* add_disambiguator(char disambiguator, const char* original_string, size_t* ext_alloc_len)

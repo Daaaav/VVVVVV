@@ -6307,7 +6307,6 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::translator_maintenance:
         option(loc::gettext("sync language files"));
         option(loc::gettext("global statistics"), false);
-        option(loc::gettext("toggle test mode"));
         option(loc::gettext("return"));
         menuyoff = 0;
         break;

@@ -1205,11 +1205,6 @@ static void menuactionpress(void)
             map.nexttowercolour();
             break;
         case 2:
-            // toggle extraction test mode
-            loc::test_mode = !loc::test_mode;
-            loc::loadtext();
-            break;
-        case 3:
             // return
             game.returnmenu();
             map.nexttowercolour();

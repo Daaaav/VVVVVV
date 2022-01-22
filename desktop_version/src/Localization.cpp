@@ -12,7 +12,6 @@ namespace loc
     std::string lang = "en";
     std::string lang_custom = "";
     LangMeta langmeta;
-    bool test_mode = false;
 
     // language screen list
     std::vector<LangMeta> languagelist;
@@ -26,20 +25,12 @@ namespace loc
 
     const char* gettext(const char* eng)
     {
-        if (lang == "en" && !test_mode)
+        if (lang == "en")
         {
             return eng;
         }
 
-        bool found;
-        const char* tra = map_lookup_text(map_translation, eng, eng, &found);
-
-        if (!found && test_mode)
-        {
-            return map_store_404(map_translation, eng);
-        }
-
-        return tra;
+        return map_lookup_text(map_translation, eng, eng);
     }
 
     const char* gettext_plural_english(const char* eng_plural, const char* eng_singular, int n)
@@ -74,7 +65,7 @@ namespace loc
             char* key = add_disambiguator(form+1, eng_plural, NULL);
             if (key != NULL)
             {
-                const char* tra = map_lookup_text(map_translation_plural, key, NULL, NULL);
+                const char* tra = map_lookup_text(map_translation_plural, key, NULL);
 
                 SDL_free(key);
 
@@ -248,20 +239,12 @@ namespace loc
 
     const char* gettext_roomname_special(const char* eng)
     {
-        if (lang == "en" && !test_mode)
+        if (lang == "en")
         {
             return eng;
         }
 
-        bool found;
-        const char* tra = map_lookup_text(map_translation_roomnames_special, eng, eng, &found);
-
-        if (!found && test_mode)
-        {
-            return map_store_404(map_translation_roomnames_special, eng);
-        }
-
-        return tra;
+        return map_lookup_text(map_translation_roomnames_special, eng, eng);
     }
 
     bool is_cutscene_translated(const std::string& script_id)
