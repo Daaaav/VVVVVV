@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
 <cutscenes>
     <cutscene id="intro" explanation="">
         <dialogue speaker="cyan" english="Uh oh..." translation="O jee..."/>

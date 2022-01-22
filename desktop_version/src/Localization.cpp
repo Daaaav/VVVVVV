@@ -26,7 +26,20 @@ namespace loc
 
     const char* gettext(const char* eng)
     {
-        return map_lookup_text(map_translation, eng);
+        if (lang == "en" && !test_mode)
+        {
+            return eng;
+        }
+
+        bool found;
+        const char* tra = map_lookup_text(map_translation, eng, eng, &found);
+
+        if (!found && test_mode)
+        {
+            return map_store_404(map_translation, eng);
+        }
+
+        return tra;
     }
 
     const char* gettext_plural_english(const char* eng_plural, const char* eng_singular, int n)
@@ -57,18 +70,15 @@ namespace loc
                 n_ix = SDL_abs(n % 100) + 100;
             }
 
-            size_t alloc_len;
             char form = number_plural_form[n_ix];
-            char* key = add_disambiguator(form+1, eng_plural, &alloc_len);
+            char* key = add_disambiguator(form+1, eng_plural, NULL);
             if (key != NULL)
             {
-                uintptr_t ptr_tra;
-                bool found = hashmap_get(map_translation_plural, (void*) key, alloc_len-1, &ptr_tra);
-                const char* tra = (const char*) ptr_tra;
+                const char* tra = map_lookup_text(map_translation_plural, key, NULL, NULL);
 
                 SDL_free(key);
 
-                if (found && tra != NULL && tra[0] != '\0')
+                if (tra != NULL)
                 {
                     return tra;
                 }
@@ -238,7 +248,20 @@ namespace loc
 
     const char* gettext_roomname_special(const char* eng)
     {
-        return map_lookup_text(map_translation_roomnames_special, eng);
+        if (lang == "en" && !test_mode)
+        {
+            return eng;
+        }
+
+        bool found;
+        const char* tra = map_lookup_text(map_translation_roomnames_special, eng, eng, &found);
+
+        if (!found && test_mode)
+        {
+            return map_store_404(map_translation_roomnames_special, eng);
+        }
+
+        return tra;
     }
 
     bool is_cutscene_translated(const std::string& script_id)

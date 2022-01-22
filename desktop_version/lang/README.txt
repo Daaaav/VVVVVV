@@ -24,6 +24,21 @@ VVVVVV will show a "translator" menu in the main menu if either:
 
 For maintainers: To add new strings, add them to the English strings.xml, and use the option to sync all languages from the translator menu. This will add the new strings to all translated language files.
 
+The language file sync option has differing support for the language files. As indicated in the menu itself, it handles each file as follows:
+
+[Full syncing EN→All]
+For these files, the English version of the file is fully copied and overwrites every language's version, while all existing translations are inserted for every language. This means newly added strings are copied to every language, and removed strings are simultaneously removed from every language, bringing them fully up-to-date.
+  - strings.xml
+  - strings_plural.xml
+
+[Syncing not supported]
+These files are untouched by the syncing feature. In the case of roomnames.xml, room name translation mode can be used to set explanations
+  - meta.xml
+  - numbers.xml
+  - cutscenes.xml
+  - roomnames.xml
+  - roomnames_special.xml
+
 
 
 === L O W E R C A S E   A N D   U P P E R C A S E ===
@@ -185,7 +200,17 @@ The following attributes may be found for each string:
 
 == strings_plural.xml ==
 
-TODO, but see "NUMBERS AND PLURAL FORMS" above.
+See "NUMBERS AND PLURAL FORMS" above.
+
+You can define the plural forms in numbers.xml.
+
+Then, simply add translations for each form you set up in numbers.xml. For example:
+
+    <translation form="0" translation="Shows up for all numbers with form=0"/>
+    <translation form="1" translation="Shows up for all numbers with form=1"/>
+    <translation form="2" translation="Shows up for all numbers with form=2"/>
+
+%s indicates a word will be filled in (like twelve), and %d means a number (12)
 
 
 == numbers.xml ==

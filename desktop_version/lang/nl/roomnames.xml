@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- You can translate these in-game to get better context! See README.txt -->
 <roomnames>
     <roomname x="0" y="18" english="Single-slit Experiment" translation="" explanation=""/>
     <roomname x="0" y="19" english="Don&apos;t Flip Out" translation="" explanation=""/>

@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    You can define the plural forms in numbers.xml. More info about this in README.txt
-
-    Then, simply add translations for each form you set up in numbers.xml. For example:
-
-        <translation form="0" translation="Shows up for all numbers with form=0"/>
-        <translation form="1" translation="Shows up for all numbers with form=1"/>
-        <translation form="2" translation="Shows up for all numbers with form=2"/>
--->
+<!-- Please read README.txt for information about the language files -->
 <strings_plural>
     <string english_plural="You rescued %s crewmates" english_singular="You rescued %s crewmate" explanation="These two strings are displayed underneath each other (1/2)" max="40">
         <translation form="0" translation="Vi savis %s ŝipanojn"/>
         <translation form="1" translation="Vi savis %s ŝipanon"/>
     </string>
-    <string english_plural="and found %s trinkets." english_singular="and found %s trinket." explanation="These two strings are displayed underneath each other (2/2)" max="40">
+    <string english_plural="and found %s trinkets." english_singular="and found %s trinket." explanation="These two strings are displayed underneath each other (2/2)" max="38*2">
         <translation form="0" translation="kaj trovis %s kolektaĵojn."/>
         <translation form="1" translation="kaj trovis %s kolektaĵon."/>
     </string>

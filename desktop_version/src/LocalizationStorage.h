@@ -32,7 +32,7 @@ namespace loc
         LS_INTERN hashmap* map_translation;
         LS_INTERN hashmap* map_translation_plural;
         LS_INTERN std::string number[102]; /* [101] for Lots */
-        LS_INTERN char number_plural_form[200]; /* [0..99] for 0..99, [100..199] for *00..*99 */
+        LS_INTERN unsigned char number_plural_form[200]; /* [0..99] for 0..99, [100..199] for *00..*99 */
         LS_INTERN hashmap* map_translation_cutscene;
         LS_INTERN hashmap* map_translation_cutscene_custom;
         LS_INTERN hashmap* map_translation_roomnames_special;
@@ -47,6 +47,8 @@ namespace loc
         LS_INTERN const char* explanation_roomnames_custom[CUSTOM_MAP_MAX_Y+1][CUSTOM_MAP_MAX_X+1];
     #endif
 
+
+    const char* map_store_404(hashmap* map, const char* eng);
 
     void resettext_custom(void);
     void unloadtext_custom(void);
@@ -63,7 +65,7 @@ namespace loc
     bool save_roomname_to_file(const std::string& langcode, bool custom_level, int roomx, int roomy, const char* tra, const char* explanation);
     bool save_roomname_explanation_to_files(bool custom_level, int roomx, int roomy, const char* explanation);
 
-    const char* map_lookup_text(hashmap* map, const char* eng);
+    const char* map_lookup_text(hashmap* map, const char* eng, const char* fallback, bool* ext_found);
 
     char* add_disambiguator(char disambiguator, const char* original_string, size_t* ext_alloc_len);
 }

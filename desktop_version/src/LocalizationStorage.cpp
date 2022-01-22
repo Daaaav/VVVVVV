@@ -27,6 +27,13 @@
         subelem = subelem->NextSiblingElement() \
     )
 
+#define EXPECT_ELEM(elem, expect) \
+    if (SDL_strcmp(elem->Value(), expect) != 0) \
+    { \
+        continue; \
+    } \
+    do { } while (false)
+
 namespace loc
 {
     bool inited = false;
@@ -248,17 +255,14 @@ namespace loc
 
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
-            const char* pKey = pElem->Value();
+            EXPECT_ELEM(pElem, "string");
 
-            if (SDL_strcmp(pKey, "string") == 0)
-            {
-                map_store_translation(
-                    &textbook_main,
-                    map_translation,
-                    pElem->Attribute("english"),
-                    pElem->Attribute("translation")
-                );
-            }
+            map_store_translation(
+                &textbook_main,
+                map_translation,
+                pElem->Attribute("english"),
+                pElem->Attribute("translation")
+            );
         }
     }
 
@@ -275,40 +279,34 @@ namespace loc
 
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
-            const char* pKey = pElem->Value();
+            EXPECT_ELEM(pElem, "string");
 
-            if (SDL_strcmp(pKey, "string") == 0)
+            const char* eng_plural = pElem->Attribute("english_plural");
+            if (eng_plural == NULL)
             {
-                const char* eng_plural = pElem->Attribute("english_plural");
-                if (eng_plural == NULL)
+                continue;
+            }
+
+            tinyxml2::XMLElement* subElem;
+            FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
+            {
+                EXPECT_ELEM(subElem, "translation");
+
+                char form = subElem->IntAttribute("form", 0);
+                char* key = add_disambiguator(form+1, eng_plural, NULL);
+                if (key == NULL)
                 {
                     continue;
                 }
 
-                tinyxml2::XMLElement* subElem;
-                FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
-                {
-                    const char* pSubKey = subElem->Value();
+                map_store_translation(
+                    &textbook_main,
+                    map_translation_plural,
+                    key,
+                    subElem->Attribute("translation")
+                );
 
-                    if (SDL_strcmp(pSubKey, "translation") == 0)
-                    {
-                        char form = subElem->IntAttribute("form", 0);
-                        char* key = add_disambiguator(form+1, eng_plural, NULL);
-                        if (key == NULL)
-                        {
-                            continue;
-                        }
-
-                        map_store_translation(
-                            &textbook_main,
-                            map_translation_plural,
-                            key,
-                            subElem->Attribute("translation")
-                        );
-
-                        SDL_free(key);
-                    }
-                }
+                SDL_free(key);
             }
         }
     }
@@ -417,78 +415,72 @@ namespace loc
 
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
-            const char* pKey = pElem->Value();
+            EXPECT_ELEM(pElem, "cutscene");
 
-            if (SDL_strcmp(pKey, "cutscene") == 0)
+            const char* script_id = textbook_store(textbook, pElem->Attribute("id"));
+            if (script_id == NULL)
             {
-                const char* script_id = textbook_store(textbook, pElem->Attribute("id"));
-                if (script_id == NULL)
+                continue;
+            }
+
+            hashmap* cutscene_map = hashmap_create();
+            hashmap_set_free(
+                map,
+                (void*) script_id,
+                SDL_strlen(script_id),
+                (uintptr_t) cutscene_map,
+                callback_free_map_value,
+                NULL
+            );
+
+            tinyxml2::XMLElement* subElem;
+            FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
+            {
+                EXPECT_ELEM(subElem, "dialogue");
+
+                const char* eng = subElem->Attribute(original);
+                const char* tra = subElem->Attribute("translation");
+                if (eng == NULL || tra == NULL)
                 {
                     continue;
                 }
-
-                hashmap* cutscene_map = hashmap_create();
-                hashmap_set_free(
-                    map,
-                    (void*) script_id,
-                    SDL_strlen(script_id),
-                    (uintptr_t) cutscene_map,
-                    callback_free_map_value,
-                    NULL
-                );
-
-                tinyxml2::XMLElement* subElem;
-                FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
+                const std::string eng_unwrapped = graphics.string_unwordwrap(eng);
+                char* eng_prefixed = add_disambiguator(subElem->UnsignedAttribute("case", 1), eng_unwrapped.c_str(), NULL);
+                if (eng_prefixed == NULL)
                 {
-                    const char* pSubKey = subElem->Value();
-
-                    if (SDL_strcmp(pSubKey, "dialogue") == 0)
-                    {
-                        const char* eng = subElem->Attribute(original);
-                        const char* tra = subElem->Attribute("translation");
-                        if (eng == NULL || tra == NULL)
-                        {
-                            continue;
-                        }
-                        const std::string eng_unwrapped = graphics.string_unwordwrap(eng);
-                        char* eng_prefixed = add_disambiguator(subElem->UnsignedAttribute("case", 1), eng_unwrapped.c_str(), NULL);
-                        if (eng_prefixed == NULL)
-                        {
-                            continue;
-                        }
-                        const char* tb_eng = textbook_store(textbook, eng_prefixed);
-                        const char* tb_tra = textbook_store(textbook, tra);
-                        SDL_free(eng_prefixed);
-                        if (tb_eng == NULL || tb_tra == NULL)
-                        {
-                            continue;
-                        }
-                        TextboxFormat format;
-                        format.text = tb_tra;
-                        format.tt = subElem->BoolAttribute("tt", false);
-                        format.centertext = subElem->BoolAttribute("centertext", false);
-                        format.pad_left = subElem->UnsignedAttribute("pad_left", 0);
-                        format.pad_right = subElem->UnsignedAttribute("pad_right", 0);
-                        unsigned short pad = subElem->UnsignedAttribute("pad", 0);
-                        format.pad_left += pad;
-                        format.pad_right += pad;
-                        format.wraplimit = subElem->UnsignedAttribute("wraplimit",
-                            36*8 - (format.pad_left+format.pad_right)*8
-                        );
-                        format.padtowidth = subElem->UnsignedAttribute("padtowidth", 0);
-
-                        const TextboxFormat* tb_format = (TextboxFormat*) textbook_store_raw(
-                            textbook,
-                            &format,
-                            sizeof(TextboxFormat)
-                        );
-                        if (tb_format == NULL)
-                        {
-                            continue;
-                        }
-                        hashmap_set(cutscene_map, (void*) tb_eng, SDL_strlen(tb_eng), (uintptr_t) tb_format);
-                    }
+                    continue;
                 }
+                const char* tb_eng = textbook_store(textbook, eng_prefixed);
+                const char* tb_tra = textbook_store(textbook, tra);
+                SDL_free(eng_prefixed);
+                if (tb_eng == NULL || tb_tra == NULL)
+                {
+                    continue;
+                }
+                TextboxFormat format;
+                format.text = tb_tra;
+                format.tt = subElem->BoolAttribute("tt", false);
+                format.centertext = subElem->BoolAttribute("centertext", false);
+                format.pad_left = subElem->UnsignedAttribute("pad_left", 0);
+                format.pad_right = subElem->UnsignedAttribute("pad_right", 0);
+                unsigned short pad = subElem->UnsignedAttribute("pad", 0);
+                format.pad_left += pad;
+                format.pad_right += pad;
+                format.wraplimit = subElem->UnsignedAttribute("wraplimit",
+                    36*8 - (format.pad_left+format.pad_right)*8
+                );
+                format.padtowidth = subElem->UnsignedAttribute("padtowidth", 0);
+
+                const TextboxFormat* tb_format = (TextboxFormat*) textbook_store_raw(
+                    textbook,
+                    &format,
+                    sizeof(TextboxFormat)
+                );
+                if (tb_format == NULL)
+                {
+                    continue;
+                }
+                hashmap_set(cutscene_map, (void*) tb_eng, SDL_strlen(tb_eng), (uintptr_t) tb_format);
             }
         }
     }
@@ -506,34 +498,31 @@ namespace loc
 
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
-            const char* pKey = pElem->Value();
+            EXPECT_ELEM(pElem, "number");
 
-            if (SDL_strcmp(pKey, "number") == 0)
+            const char* value_str = pElem->Attribute("value");
+            bool is_lots = SDL_strcmp(value_str, "lots") == 0;
+            int value = help.Int(value_str);
+            if (is_lots)
             {
-                const char* value_str = pElem->Attribute("value");
-                bool is_lots = SDL_strcmp(value_str, "lots") == 0;
-                int value = help.Int(value_str);
-                if (is_lots)
+                value = 101;
+            }
+            if ((value >= 0 && value <= 100) || is_lots)
+            {
+                const char* tra = pElem->Attribute("translation");
+                if (tra == NULL)
                 {
-                    value = 101;
+                    tra = "";
                 }
-                if ((value >= 0 && value <= 100) || is_lots)
+                number[value] = std::string(tra);
+            }
+            if (value >= 0 && value <= 199 && !is_lots)
+            {
+                int form = pElem->IntAttribute("form", 0);
+                number_plural_form[value] = form;
+                if (value < 100)
                 {
-                    const char* tra = pElem->Attribute("translation");
-                    if (tra == NULL)
-                    {
-                        tra = "";
-                    }
-                    number[value] = std::string(tra);
-                }
-                if (value >= 0 && value <= 199 && !is_lots)
-                {
-                    int form = pElem->IntAttribute("form", 0);
-                    number_plural_form[value] = form;
-                    if (value < 100)
-                    {
-                        number_plural_form[value+100] = form;
-                    }
+                    number_plural_form[value+100] = form;
                 }
             }
         }
@@ -637,48 +626,45 @@ namespace loc
 
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
-            const char* pKey = pElem->Value();
+            EXPECT_ELEM(pElem, "roomname");
 
-            if (SDL_strcmp(pKey, "roomname") == 0)
+            int x = pElem->IntAttribute("x", -1);
+            int y = pElem->IntAttribute("y", -1);
+
+            if (custom_level)
             {
-                int x = pElem->IntAttribute("x", -1);
-                int y = pElem->IntAttribute("y", -1);
-
-                if (custom_level)
+                /* Extra safeguard: make sure the original room name matches! */
+                const char* original_roomname = pElem->Attribute(original);
+                if (original_roomname == NULL)
                 {
-                    /* Extra safeguard: make sure the original room name matches! */
-                    const char* original_roomname = pElem->Attribute(original);
-                    if (original_roomname == NULL)
+                    continue;
+                }
+                #if !defined(NO_CUSTOM_LEVELS)
+                    const RoomProperty* const room = cl.getroomprop(x, y);
+                    if (SDL_strcmp(original_roomname, room->roomname.c_str()) != 0)
                     {
                         continue;
                     }
-                    #if !defined(NO_CUSTOM_LEVELS)
-                        const RoomProperty* const room = cl.getroomprop(x, y);
-                        if (SDL_strcmp(original_roomname, room->roomname.c_str()) != 0)
-                        {
-                            continue;
-                        }
-                    #else
-                        continue;
-                    #endif
+                #else
+                    continue;
+                #endif
 
-                    n_untranslated_roomnames_custom++;
-                    n_unexplained_roomnames_custom++;
-                }
-                else
-                {
-                    n_untranslated_roomnames++;
-                    n_unexplained_roomnames++;
-                }
-
-                store_roomname_translation(
-                    custom_level,
-                    x,
-                    y,
-                    pElem->Attribute("translation"),
-                    show_translator_menu ? pElem->Attribute("explanation") : NULL
-                );
+                n_untranslated_roomnames_custom++;
+                n_unexplained_roomnames_custom++;
             }
+            else
+            {
+                n_untranslated_roomnames++;
+                n_unexplained_roomnames++;
+            }
+
+            store_roomname_translation(
+                custom_level,
+                x,
+                y,
+                pElem->Attribute("translation"),
+                show_translator_menu ? pElem->Attribute("explanation") : NULL
+            );
         }
     }
 
@@ -695,17 +681,14 @@ namespace loc
 
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
-            const char* pKey = pElem->Value();
+            EXPECT_ELEM(pElem, "roomname");
 
-            if (SDL_strcmp(pKey, "roomname") == 0)
-            {
-                map_store_translation(
-                    &textbook_main,
-                    map_translation_roomnames_special,
-                    pElem->Attribute("english"),
-                    pElem->Attribute("translation")
-                );
-            }
+            map_store_translation(
+                &textbook_main,
+                map_translation_roomnames_special,
+                pElem->Attribute("english"),
+                pElem->Attribute("translation")
+            );
         }
     }
 
@@ -774,8 +757,9 @@ namespace loc
 
     void sync_lang_file(const std::string& langcode)
     {
-        // Update translation files for the given language with new strings from template.
-        // This basically takes the template, fills in existing translations, and saves.
+        /* Update translation files for the given language with new strings from template.
+         * This basically takes the template, fills in existing translations, and saves.
+         * Any FILESYSTEM_saveTiXml2Document() writes to main lang dir */
         vlog_info("Syncing %s with templates...", langcode.c_str());
 
         lang = langcode;
@@ -784,32 +768,67 @@ namespace loc
         tinyxml2::XMLDocument doc;
         tinyxml2::XMLHandle hDoc(&doc);
         tinyxml2::XMLElement* pElem;
+        tinyxml2::XMLElement* subElem;
 
-        if (!load_lang_doc("strings", doc, "en"))
+        if (load_lang_doc("strings", doc, "en"))
         {
-            return;
-        }
-
-        FOR_EACH_XML_ELEMENT(hDoc, pElem)
-        {
-            const char* pKey = pElem->Value();
-
-            if (SDL_strcmp(pKey, "string") == 0)
+            FOR_EACH_XML_ELEMENT(hDoc, pElem)
             {
+                EXPECT_ELEM(pElem, "string");
+
                 const char* eng = pElem->Attribute("english");
-                uintptr_t ptr_tra;
-                bool found = hashmap_get(map_translation, (void*) eng, SDL_strlen(eng), &ptr_tra);
-                const char* tra = (const char*) ptr_tra;
-                if (!found)
+                if (eng != NULL)
                 {
-                    tra = "";
+                    pElem->SetAttribute("translation", map_lookup_text(map_translation, eng, "", NULL));
                 }
-                pElem->SetAttribute("translation", tra);
             }
+
+            FILESYSTEM_saveTiXml2Document((langcode + "/strings.xml").c_str(), doc);
         }
 
-        // Writing to main lang dir
-        FILESYSTEM_saveTiXml2Document((langcode + "/strings.xml").c_str(), doc);
+        if (load_lang_doc("strings_plural", doc, "en"))
+        {
+            /* Form 255 is technically invalid, but we have to account for it */
+            bool form_id_used[256];
+            SDL_zeroa(form_id_used);
+            for (int num = 0; num < 200; num++)
+            {
+                form_id_used[number_plural_form[num]] = true;
+            }
+
+            FOR_EACH_XML_ELEMENT(hDoc, pElem)
+            {
+                EXPECT_ELEM(pElem, "string");
+
+                pElem->DeleteChildren();
+
+                const char* eng_plural = pElem->Attribute("english_plural");
+
+                for (int form_id = 0; form_id < 255; form_id++)
+                {
+                    if (form_id_used[form_id] && eng_plural != NULL)
+                    {
+                        subElem = doc.NewElement("translation");
+                        pElem->LinkEndChild(subElem);
+
+                        subElem->SetAttribute("form", form_id);
+
+                        char* key = add_disambiguator(form_id+1, eng_plural, NULL);
+                        if (key == NULL)
+                        {
+                            /* Are we out of memory? Stop, don't blank our language files... */
+                            return;
+                        }
+
+                        subElem->SetAttribute("translation", map_lookup_text(map_translation_plural, key, "", NULL));
+
+                        SDL_free(key);
+                    }
+                }
+            }
+
+            FILESYSTEM_saveTiXml2Document((langcode + "/strings_plural.xml").c_str(), doc);
+        }
     }
 
     void sync_lang_files(void)
@@ -857,25 +876,22 @@ namespace loc
         bool found = false;
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
-            const char* pKey = pElem->Value();
+            EXPECT_ELEM(pElem, "roomname");
 
-            if (SDL_strcmp(pKey, "roomname") == 0)
+            int x = pElem->IntAttribute("x", -1);
+            int y = pElem->IntAttribute("y", -1);
+
+            if (x == roomx && y == roomy)
             {
-                int x = pElem->IntAttribute("x", -1);
-                int y = pElem->IntAttribute("y", -1);
-
-                if (x == roomx && y == roomy)
+                if (explanation != NULL)
                 {
-                    if (explanation != NULL)
-                    {
-                        pElem->SetAttribute("explanation", explanation);
-                    }
-                    if (tra != NULL)
-                    {
-                        pElem->SetAttribute("translation", tra);
-                    }
-                    found = true;
+                    pElem->SetAttribute("explanation", explanation);
                 }
+                if (tra != NULL)
+                {
+                    pElem->SetAttribute("translation", tra);
+                }
+                found = true;
             }
         }
 
@@ -918,24 +934,22 @@ namespace loc
     }
 
 
-    const char* map_lookup_text(hashmap* map, const char* eng)
+    const char* map_lookup_text(hashmap* map, const char* eng, const char* fallback, bool* ext_found)
     {
-        if (lang == "en" && !test_mode)
-        {
-            return eng;
-        }
-
         uintptr_t ptr_tra;
         bool found = hashmap_get(map, (void*) eng, SDL_strlen(eng), &ptr_tra);
         const char* tra = (const char*) ptr_tra;
 
-        if (!found || tra == NULL || tra[0] == '\0')
+        bool found_nonempty = found && tra != NULL && tra[0] != '\0';
+
+        if (ext_found != NULL)
         {
-            if (test_mode)
-            {
-                return map_store_404(map, eng);
-            }
-            return eng;
+            *ext_found = found_nonempty;
+        }
+
+        if (!found_nonempty)
+        {
+            return fallback;
         }
 
         return tra;
