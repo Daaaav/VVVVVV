@@ -57,10 +57,10 @@
     <string english="clear custom level data" translation="" explanation="menu option"/>
     <string english="Clear Data" translation="" explanation="title" max="20"/>
     <string english="Delete your main game save data and unlocked play modes." translation="" explanation="" max="38*5"/>
-    <string english="Delete your custom level save data and completion stars." translation="" explanation="" max="38*5"/>
+    <string english="Delete your custom level save data and completion stars." translation="" explanation="completion stars: when completing a level you get either 1 or 2 stars" max="38*5"/>
     <string english="Are you sure? This will delete your current saves..." translation="" explanation="" max="38*7"/>
     <string english="Are you sure you want to delete all your saved data?" translation="" explanation="" max="38*7"/>
-    <string english="Are you sure you want to delete your quicksave?" translation="" explanation="" max="38*7"/>
+    <string english="Are you sure you want to delete your quicksave?" translation="" explanation="only the quicksave of a custom level" max="38*7"/>
     <string english="no! don&apos;t delete" translation="" explanation="menu option"/>
     <string english="yes, delete everything" translation="" explanation="menu option"/>
     <string english="yes, delete save" translation="" explanation="menu option"/>
@@ -123,7 +123,7 @@
     <string english="VVVVVV is supported by the following patrons" translation="" explanation="credits" max="38*3"/>
     <string english="and also by" translation="" explanation="credits, VVVVVV is also supported by the following people" max="38*2"/>
     <string english="and" translation="" explanation="credits. This list of names, AND furthermore, this other list of names" max="38"/>
-    <string english="GitHub Contributors" translation="" explanation="credits. This doesn't _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
+    <string english="GitHub Contributors" translation="" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
     <string english="With contributions on GitHub from" translation="" explanation="credits" max="38*3"/>
     <string english="and thanks also to:" translation="" explanation="credits, and thanks also to ... you!" max="38*3"/>
     <string english="You!" translation="" explanation="credits, and thanks also to ... you!"/>
@@ -143,11 +143,11 @@
     <string english="bind menu" translation="" explanation="menu option"/>
     <string english="bind restart" translation="" explanation="menu option. In-game death key to restart at checkpoint"/>
     <string english="bind interact" translation="" explanation="menu option"/>
-    <string english="Flip is bound to: " translation="" explanation="controller binds, bound to A, B, X, Y, etc" max="32"/>
-    <string english="Enter is bound to: " translation="" explanation="controller binds, bound to A, B, X, Y, etc" max="32"/>
-    <string english="Menu is bound to: " translation="" explanation="controller binds, bound to A, B, X, Y, etc" max="32"/>
-    <string english="Restart is bound to: " translation="" explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc" max="32"/>
-    <string english="Interact is bound to: " translation="" explanation="controller binds, bound to A, B, X, Y, etc" max="32"/>
+    <string english="Flip is bound to: " translation="" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Enter is bound to: " translation="" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Menu is bound to: " translation="" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Restart is bound to: " translation="" explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Interact is bound to: " translation="" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="ERROR: No language files found." translation="" explanation="" max="38*3"/>
     <string english="Language folder:" translation="" explanation="" max="39"/>
     <string english="Repository language folder:" translation="" explanation="Language folder from the Git repository" max="39"/>
@@ -156,7 +156,7 @@
     <string english="Some options that are useful for translators and developers." translation="" explanation="" max="38*6"/>
     <string english="maintenance" translation="" explanation="menu option, menu that allows you to apply maintenance to translations"/>
     <string english="Maintenance" translation="" explanation="title" max="20"/>
-    <string english="Sync all language files after adding new strings, and check whether everything can be translated." translation="" explanation="" max="38*6"/>
+    <string english="Sync all language files after adding new strings." translation="" explanation="" max="38*6"/>
     <string english="language statistics" translation="" explanation="menu option"/>
     <string english="Count the amount of untranslated strings for this language." translation="" explanation="" max="38*6"/>
     <string english="Count the amount of untranslated strings for each language." translation="" explanation="translation maintenance menu" max="38*6"/>
@@ -198,7 +198,7 @@
     <string english="In-Game Timer is OFF" translation="" explanation="" max="38*2"/>
     <string english="interact button" translation="" explanation="menu option"/>
     <string english="Interact Button" translation="" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
-    <string english="Toggle whether you interact with prompts using ENTER or E." translation="" explanation="" max="38*5"/>
+    <string english="Toggle whether you interact with prompts using ENTER or E." translation="" explanation="prompts: see the `Press %s to talk to .../activate terminal/teleport` below" max="38*5"/>
     <string english="E" translation="" explanation="keyboard key E"/>
     <string english="ENTER" translation="" explanation="keyboard key ENTER"/>
     <string english="Interact button: %s" translation="" explanation="keyboard key (E or ENTER) is filled in for %s"/>
@@ -288,7 +288,7 @@
     <string english="Play the entire game without dying once." translation="" explanation="" max="38*4"/>
     <string english="No Death Mode is not available with slowdown or invincibility." translation="" explanation="" max="38*3"/>
     <string english="unlock no death mode" translation="" explanation="menu option"/>
-    <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="" explanation="ranks are B A S V" max="38*3"/>
+    <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="" explanation="ranks are B A S V, see below" max="38*3"/>
     <string english="flip mode" translation="" explanation="menu option, mirrors the entire game vertically"/>
     <string english="Flip Mode" translation="" explanation="title, mirrors the entire game vertically" max="20"/>
     <string english="Flip the entire game vertically." translation="" explanation="" max="38*2"/>
@@ -324,7 +324,7 @@
     <string english="%d/%d" translation="" explanation="ex: 2/5"/>
     <string english="%d of %d" translation="" explanation="ex: 2 of 5"/>
     <string english="%s out of %s" translation="" explanation="ex: One out of Twenty, see numbers.xml" max="34"/>
-    <string english="+1 Rank!" translation="" explanation="rank was upgraded (B → A → S → V)" max="12"/>
+    <string english="+1 Rank!" translation="" explanation="time trial rank was upgraded (B → A → S → V). B is minimum, which is purposefully high (see it as 7/10) - S is a popular rank above A in a lot of games, so VVVVVV added a rank above that." max="12"/>
     <string english="Rank:" translation="" explanation="time trial rank"/>
     <string english="B" translation="" explanation="time trial rank" max="5"/>
     <string english="A" translation="" explanation="time trial rank" max="5"/>
@@ -383,7 +383,7 @@
     <string english="show level folder path" translation="" explanation="menu option"/>
     <string english="return" translation="" explanation="menu option"/>
     <string english="return to levels" translation="" explanation="menu option"/>
-    <string english="no, don't show me" translation="" explanation="menu option"/>
+    <string english="no, don&apos;t show me" translation="" explanation="menu option"/>
     <string english="yes, reveal the path" translation="" explanation="menu option. Path to the levels folder"/>
     <string english="return to play menu" translation="" explanation="menu option" max="36"/>
     <string english="try again" translation="" explanation="menu option, retry time trial" max="36"/>
@@ -404,7 +404,6 @@
     <string english="ACTION = Space, Z, or V" translation="" explanation="title screen" max="38*3"/>
     <string english="[Press ENTER to return to editor]" translation="" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press ACTION to advance text -" translation="" explanation="to dismiss a textbox" max="40"/>
-    <string english="- Press %s to Teleport -" translation="" explanation="keyboard key (E or ENTER) is filled in for %s" max="40"/>
     <string english="Press ACTION to continue" translation="" explanation="" max="34"/>
     <string english="Current Time" translation="" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="" explanation="super gravitron, best stopwatch time" max="20"/>
@@ -455,8 +454,9 @@
     <string english="yes, quit" translation="" explanation="quit program"/>
     <string english="return to game" translation="" explanation="pause menu option" max="27"/>
     <string english="quit to menu" translation="" explanation="pause menu option" max="19"/>
-    <string english="Press Left/Right to choose a Teleporter" translation="" explanation="tight fit, so maybe `Left/Right: choose teleporter`" max="40"/>
+    <string english="Press Left/Right to choose a Teleporter" translation="" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40"/>
     <string english="Press %s to Teleport" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="40"/>
+    <string english="- Press %s to Teleport -" translation="" explanation="keyboard key (E or ENTER) is filled in for %s" max="40"/>
     <string english="Press %s to explode" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
     <string english="Press %s to talk to Violet" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
     <string english="Press %s to talk to Vitellary" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
@@ -616,7 +616,7 @@
     <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="" explanation="" max="34*3"/>
     <string english="Help! Can anyone hear this message?" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Verdigris? Are you out there? Are you ok?" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
-    <string english="Please help us! We've crashed and need assistance!" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Please help us! We&apos;ve crashed and need assistance!" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Hello? Anyone out there?" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="This is Doctor Violet from the D.S.S. Souleye! Please respond!" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Please... Anyone..." translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
@@ -644,24 +644,24 @@ You have found the secret lab!" translation="" explanation="" max="37*4"/>
     <string english="Officer Vermilion" translation="" explanation="credits roll. Starring the following 6 crew members"/>
     <string english="Chief Verdigris" translation="" explanation="credits roll. Starring the following 6 crew members"/>
     <string english="Doctor Victoria" translation="" explanation="credits roll. Starring the following 6 crew members"/>
-    <string english="When you're standing on the floor, Vitellary will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you're standing on the floor, Vermilion will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you're standing on the floor, Verdigris will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you're standing on the floor, Victoria will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you're standing on the ceiling, Vitellary will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you're standing on the ceiling, Vermilion will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you're standing on the ceiling, Verdigris will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you're standing on the ceiling, Victoria will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you're NOT standing on the floor, Vitellary will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you're NOT standing on the floor, Vermilion will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you're NOT standing on the floor, Verdigris will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you're NOT standing on the floor, Victoria will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="When you're NOT standing on the ceiling, Vitellary will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you're NOT standing on the ceiling, Vermilion will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you're NOT standing on the ceiling, Verdigris will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you're NOT standing on the ceiling, Victoria will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="You can't continue to the next room until he is safely across." translation="" explanation="Intermission 1" max="34*4"/>
-    <string english="You can't continue to the next room until she is safely across." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, Vitellary will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, Vermilion will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, Verdigris will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, Victoria will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Vitellary will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Vermilion will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Verdigris will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, Victoria will try to walk to you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Vitellary will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Vermilion will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Verdigris will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, Victoria will stop and wait for you." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Vitellary will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Vermilion will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Verdigris will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Victoria will stop and wait for you." translation="" explanation="Intermission 1 in flip mode" max="34*4"/>
+    <string english="You can&apos;t continue to the next room until he is safely across." translation="" explanation="Intermission 1" max="34*4"/>
+    <string english="You can&apos;t continue to the next room until she is safely across." translation="" explanation="Intermission 1" max="34*4"/>
     <string english="Survive for" translation="" explanation="Gravitron. Line 1/2: Survive for 60 seconds!" max="20"/>
     <string english="60 seconds!" translation="" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20"/>
     <string english="Thanks for" translation="" explanation="credits. Line 1/2: Thanks for playing!" max="20"/>

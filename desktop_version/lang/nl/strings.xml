@@ -16,10 +16,10 @@
     <string english="quit" translation="afsluiten" explanation="main menu option"/>
     <string english="gameplay" translation="spel" explanation="options menu option"/>
     <string english="Gameplay Options" translation="Spelopties" explanation="title" max="20"/>
-    <string english="Adjust various gameplay settings." translation="" explanation="" max="38*5"/>
+    <string english="Adjust various gameplay settings." translation="Pas diverse spelopties aan." explanation="" max="38*5"/>
     <string english="graphics" translation="grafisch" explanation="options menu option"/>
     <string english="Graphics Options" translation="Grafische opties" explanation="title" max="20"/>
-    <string english="Adjust screen settings." translation="" explanation="" max="38*5"/>
+    <string english="Adjust screen settings." translation="Pas scherminstellingen aan." explanation="" max="38*5"/>
     <string english="audio" translation="audio" explanation="options menu option"/>
     <string english="Audio Options" translation="Audio-opties" explanation="title" max="20"/>
     <string english="Adjust volume settings and soundtrack." translation="Pas het volume of de soundtrack aan." explanation="" max="38*5"/>
@@ -37,8 +37,8 @@
     <string english="ERROR: No levels found." translation="FOUT: Geen levels gevonden." explanation="" max="38*3"/>
     <string english="by %s" translation="door %s" explanation="%s: author of level"/>
     <string english="ERROR: This level has no start point!" translation="FOUT: Dit level heeft geen startpunt!" explanation="" max="38*5"/>
-    <string english="ERROR" translation="" explanation="title" max="20"/>
-    <string english="WARNING" translation="" explanation="title" max="20"/>
+    <string english="ERROR" translation="FOUT" explanation="title" max="20"/>
+    <string english="WARNING" translation="WAARSCHUWING" explanation="title" max="20"/>
     <string english="unlock play modes" translation="spelmodi ontgrendelen" explanation="menu option"/>
     <string english="Unlock Play Modes" translation="Ontgrendel spelmodi" explanation="title" max="20"/>
     <string english="Unlock parts of the game normally unlocked as you progress." translation="Ontgrendel delen van het spel die normaal tijdens je voortgang worden ontgrendeld." explanation="" max="38*5"/>
@@ -53,17 +53,17 @@
     <string english="language" translation="taal" explanation="menu option"/>
     <string english="Language" translation="Taal" explanation="title" max="20"/>
     <string english="Change the language." translation="Wijzig de taal." explanation="" max="38*5"/>
-    <string english="clear main game data" translation="" explanation="menu option"/>
-    <string english="clear custom level data" translation="" explanation="menu option"/>
+    <string english="clear main game data" translation="data hoofdspel wissen" explanation="menu option"/>
+    <string english="clear custom level data" translation="data spelerlevels wissen" explanation="menu option"/>
     <string english="Clear Data" translation="Data wissen" explanation="title" max="20"/>
-    <string english="Delete your main game save data and unlocked play modes." translation="" explanation="" max="38*5"/>
-    <string english="Delete your custom level save data and completion stars." translation="" explanation="" max="38*5"/>
+    <string english="Delete your main game save data and unlocked play modes." translation="Verwijder je opgeslagen gegevens en ontgrendelde spelmodi van het hoofdspel." explanation="" max="38*5"/>
+    <string english="Delete your custom level save data and completion stars." translation="Verwijder je opgeslagen gegevens en voortgang van spelerlevels." explanation="completion stars: when completing a level you get either 1 or 2 stars" max="38*5"/>
     <string english="Are you sure? This will delete your current saves..." translation="Weet je het zeker? Dit zal je huidige opgeslagen gegevens verwijderen..." explanation="" max="38*7"/>
     <string english="Are you sure you want to delete all your saved data?" translation="Weet je zeker dat je al je opgeslagen gegevens wilt verwijderen?" explanation="" max="38*7"/>
-    <string english="Are you sure you want to delete your quicksave?" translation="" explanation="" max="38*7"/>
+    <string english="Are you sure you want to delete your quicksave?" translation="Weet je zeker dat je je quicksave wilt verwijderen?" explanation="only the quicksave of a custom level" max="38*7"/>
     <string english="no! don&apos;t delete" translation="nee! niet verwijderen" explanation="menu option"/>
     <string english="yes, delete everything" translation="ja, alles verwijderen" explanation="menu option"/>
-    <string english="yes, delete save" translation="" explanation="menu option"/>
+    <string english="yes, delete save" translation="ja, verwijderen" explanation="menu option"/>
     <string english="soundtrack" translation="soundtrack" explanation="menu option"/>
     <string english="Soundtrack" translation="Soundtrack" explanation="title" max="20"/>
     <string english="Toggle between MMMMMM and PPPPPP." translation="Schakel tussen MMMMMM en PPPPPP." explanation="" max="38*2"/>
@@ -138,73 +138,73 @@
     <string english="Low" translation="Laag" explanation="analog stick sensitivity"/>
     <string english="Medium" translation="Gemiddeld" explanation="analog stick sensitivity"/>
     <string english="High" translation="Hoog" explanation="analog stick sensitivity"/>
-    <string english="bind flip" translation="omkeren binden" explanation="menu option"/>
-    <string english="bind enter" translation="enter binden" explanation="menu option"/>
-    <string english="bind menu" translation="menu binden" explanation="menu option"/>
-    <string english="bind restart" translation="herstarten binden" explanation="menu option. In-game death key to restart at checkpoint"/>
-    <string english="bind interact" translation="" explanation="menu option"/>
-    <string english="Flip is bound to: " translation="Omkeren is gebonden aan: " explanation="controller binds, bound to A, B, X, Y, etc" max="32"/>
-    <string english="Enter is bound to: " translation="Enter is gebonden aan: " explanation="controller binds, bound to A, B, X, Y, etc" max="32"/>
-    <string english="Menu is bound to: " translation="Menu is gebonden aan: " explanation="controller binds, bound to A, B, X, Y, etc" max="32"/>
-    <string english="Restart is bound to: " translation="Herstarten is gebonden aan: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc" max="32"/>
-    <string english="Interact is bound to: " translation="" explanation="controller binds, bound to A, B, X, Y, etc" max="32"/>
+    <string english="bind flip" translation="omkeren toewijzen" explanation="menu option"/>
+    <string english="bind enter" translation="enter toewijzen" explanation="menu option"/>
+    <string english="bind menu" translation="menu toewijzen" explanation="menu option"/>
+    <string english="bind restart" translation="herstarten toewijzen" explanation="menu option. In-game death key to restart at checkpoint"/>
+    <string english="bind interact" translation="gebruiken toewijzen" explanation="menu option"/>
+    <string english="Flip is bound to: " translation="Omkeren is toegewezen aan: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Enter is bound to: " translation="Enter is toegewezen aan: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Menu is bound to: " translation="Menu is toegewezen aan: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Restart is bound to: " translation="Herstarten is toegewezen aan: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Interact is bound to: " translation="Interactie is toegewezen aan: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="ERROR: No language files found." translation="FOUT: Geen taalbestanden gevonden." explanation="" max="38*3"/>
-    <string english="Language folder:" translation="" explanation="" max="39"/>
-    <string english="Repository language folder:" translation="" explanation="Language folder from the Git repository" max="39"/>
-    <string english="translator options" translation="" explanation="menu option"/>
-    <string english="Translator options" translation="" explanation="title" max="20"/>
-    <string english="Some options that are useful for translators and developers." translation="" explanation="" max="38*6"/>
-    <string english="maintenance" translation="" explanation="menu option, menu that allows you to apply maintenance to translations"/>
-    <string english="Maintenance" translation="" explanation="title" max="20"/>
-    <string english="Sync all language files after adding new strings, and check whether everything can be translated." translation="" explanation="" max="38*6"/>
-    <string english="language statistics" translation="" explanation="menu option"/>
-    <string english="Count the amount of untranslated strings for this language." translation="" explanation="" max="38*6"/>
+    <string english="Language folder:" translation="Talenmap:" explanation="" max="39"/>
+    <string english="Repository language folder:" translation="Talenmap van repository:" explanation="Language folder from the Git repository" max="39"/>
+    <string english="translator options" translation="vertaler-opties" explanation="menu option"/>
+    <string english="Translator options" translation="Vertaler-opties" explanation="title" max="20"/>
+    <string english="Some options that are useful for translators and developers." translation="Diverse opties die nuttig zijn voor vertalers en ontwikkelaars." explanation="" max="38*6"/>
+    <string english="maintenance" translation="onderhoud" explanation="menu option, menu that allows you to apply maintenance to translations"/>
+    <string english="Maintenance" translation="Onderhoud" explanation="title" max="20"/>
+    <string english="Sync all language files after adding new strings." translation="Synchroniseer alle taalbestanden na het toevoegen van nieuwe tekst." explanation="" max="38*6"/>
+    <string english="language statistics" translation="taalstatistieken" explanation="menu option"/>
+    <string english="Count the amount of untranslated strings for this language." translation="Tel het aantal onvertaalde strings voor deze taal." explanation="" max="38*6"/>
     <string english="Count the amount of untranslated strings for each language." translation="Tel het aantal onvertaalde strings voor elke taal." explanation="translation maintenance menu" max="38*6"/>
-    <string english="translate room names" translation="" explanation="menu option"/>
-    <string english="Translate rooms" translation="" explanation="title" max="20"/>
-    <string english="Enable room name translation mode, so you can translate room names in context." translation="" explanation="" max="38*4"/>
-    <string english="menu test" translation="" explanation="menu option"/>
-    <string english="Menu test" translation="" explanation="title" max="20"/>
-    <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="" explanation="" max="38*6"/>
-    <string english="limits check" translation="" explanation="menu option"/>
-    <string english="Limits check" translation="" explanation="title" max="20"/>
-    <string english="Find translations that don&apos;t fit within their defined bounds." translation="" explanation="" max="38*6"/>
+    <string english="translate room names" translation="vertaal kamernamen" explanation="menu option"/>
+    <string english="Translate rooms" translation="Vertaal kamernamen" explanation="title" max="20"/>
+    <string english="Enable room name translation mode, so you can translate room names in context." translation="Schakel kamernaam-vertaalmodus in, zodat je kamernamen in context kunt vertalen." explanation="" max="38*4"/>
+    <string english="menu test" translation="menutest" explanation="menu option"/>
+    <string english="Menu test" translation="Menutest" explanation="title" max="20"/>
+    <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="De meeste menu&apos;s in het spel doorlopen. De menu&apos;s zullen niet echt werken, alle opties zullen in plaats daarvan naar het volgende menu leiden. Druk op Escape om te stoppen." explanation="" max="38*6"/>
+    <string english="limits check" translation="limietcontrole" explanation="menu option"/>
+    <string english="Limits check" translation="Limietcontrole" explanation="title" max="20"/>
+    <string english="Find translations that don&apos;t fit within their defined bounds." translation="Vind vertalingen die niet binnen hun gedefinieerde grenzen passen." explanation="" max="38*6"/>
     <string english="sync language files" translation="sync taalbestanden" explanation="menu option"/>
     <string english="Sync language files" translation="Sync taalbestanden" explanation="title, translation maintenance menu" max="20"/>
     <string english="sync" translation="synchroniseren" explanation="menu option, verb"/>
     <string english="Merge all new strings from the template files into the translation files, keeping existing translations." translation="Voeg alle nieuwe strings uit de sjabloonbestanden samen met de vertaalde bestanden, waarbij bestaande vertalingen behouden blijven." explanation="translation maintenance menu" max="38*6"/>
-    <string english="global statistics" translation="" explanation="menu option"/>
+    <string english="global statistics" translation="globale statistieken" explanation="menu option"/>
     <string english="Statistics" translation="Statistieken" explanation="title, translation maintenance menu" max="20"/>
     <string english="If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Make a backup, just in case." translation="Als nieuwe strings zijn toegevoegd aan de Engelse sjabloontaalbestanden zal deze functie ze invoegen in de taalbestanden van alle talen. Maak een backup, voor het geval dat." explanation="translation maintenance menu" max="38*7"/>
-    <string english="Full syncing EN→All:" translation="" explanation="translation maintenance menu. The following list of language files can be fully synced from English to all other languages by pressing this button - new strings will be inserted in all languages"/>
-    <string english="Syncing not supported:" translation="" explanation="translation maintenance menu. The following list of language files are untouched by the sync button"/>
+    <string english="Full syncing EN→All:" translation="Volledige synchronisatie EN→Alles:" explanation="translation maintenance menu. The following list of language files can be fully synced from English to all other languages by pressing this button - new strings will be inserted in all languages"/>
+    <string english="Syncing not supported:" translation="Synchronisatie niet ondersteund:" explanation="translation maintenance menu. The following list of language files are untouched by the sync button"/>
     <string english="advanced options" translation="geavanceerde opties" explanation="menu option"/>
     <string english="Advanced Options" translation="Geavanceerde opties" explanation="title" max="20"/>
-    <string english="All other gameplay settings." translation="" explanation="description for advanced options" max="38*5"/>
+    <string english="All other gameplay settings." translation="Alle overige spelinstellingen." explanation="description for advanced options" max="38*5"/>
     <string english="unfocus pause" translation="automatisch pauzescherm" explanation="menu option. Turns the pause screen on/off, which shows up when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto pause screen"/>
     <string english="Unfocus Pause" translation="Pauzescherm" explanation="title. Turns the pause screen on/off, which shows up when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto pause screen" max="20"/>
     <string english="Toggle if the game will pause when the window is unfocused." translation="Schakel tussen wel en niet pauzeren wanneer het venster inactief is." explanation="" max="38*3"/>
     <string english="Unfocus pause is OFF" translation="Automatisch pauzescherm staat UIT" explanation="Making another window active will not show the pause screen." max="38*2"/>
     <string english="Unfocus pause is ON" translation="Automatisch pauzescherm staat AAN" explanation="Making another window active will show the pause screen." max="38*2"/>
-    <string english="unfocus audio pause" translation="" explanation="menu option. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause"/>
-    <string english="Unfocus Audio" translation="" explanation="title. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause" max="20"/>
-    <string english="Toggle if the audio will pause when the window is unfocused." translation="" explanation="" max="38*3"/>
-    <string english="Unfocus audio pause is OFF" translation="" explanation="Making another window active will leave the music keep playing." max="38*2"/>
-    <string english="Unfocus audio pause is ON" translation="" explanation="Making another window active will pause the music." max="38*2"/>
-    <string english="toggle in-game timer" translation="" explanation="menu option"/>
-    <string english="In-Game Timer" translation="" explanation="title" max="20"/>
-    <string english="Toggle the in-game timer outside of time trials." translation="" explanation="" max="38*3"/>
-    <string english="In-Game Timer is ON" translation="" explanation="" max="38*2"/>
-    <string english="In-Game Timer is OFF" translation="" explanation="" max="38*2"/>
-    <string english="interact button" translation="" explanation="menu option"/>
-    <string english="Interact Button" translation="" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
-    <string english="Toggle whether you interact with prompts using ENTER or E." translation="" explanation="" max="38*5"/>
-    <string english="E" translation="" explanation="keyboard key E"/>
-    <string english="ENTER" translation="" explanation="keyboard key ENTER"/>
-    <string english="Interact button: %s" translation="" explanation="keyboard key (E or ENTER) is filled in for %s"/>
+    <string english="unfocus audio pause" translation="automatisch audio pauzeren" explanation="menu option. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause"/>
+    <string english="Unfocus Audio" translation="Autom. audiopauze" explanation="title. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause" max="20"/>
+    <string english="Toggle if the audio will pause when the window is unfocused." translation="Schakel tussen wel en niet audio pauzeren wanneer het venster inactief is." explanation="" max="38*3"/>
+    <string english="Unfocus audio pause is OFF" translation="Automatisch audio pauzeren staat UIT" explanation="Making another window active will leave the music keep playing." max="38*2"/>
+    <string english="Unfocus audio pause is ON" translation="Automatisch audio pauzeren staat AAN" explanation="Making another window active will pause the music." max="38*2"/>
+    <string english="toggle in-game timer" translation="timer in spel" explanation="menu option"/>
+    <string english="In-Game Timer" translation="Timer in spel" explanation="title" max="20"/>
+    <string english="Toggle the in-game timer outside of time trials." translation="Schakel de timer in het spel buiten races tegen de klok in of uit." explanation="" max="38*3"/>
+    <string english="In-Game Timer is ON" translation="Timer in spel staat AAN" explanation="" max="38*2"/>
+    <string english="In-Game Timer is OFF" translation="Timer in spel staat UIT" explanation="" max="38*2"/>
+    <string english="interact button" translation="interactie-knop" explanation="menu option"/>
+    <string english="Interact Button" translation="Interactie-knop" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
+    <string english="Toggle whether you interact with prompts using ENTER or E." translation="Wijzig of interacties met bemanningsleden en objecten werken met ENTER of E." explanation="prompts: see the `Press %s to talk to .../activate terminal/teleport` below" max="38*5"/>
+    <string english="E" translation="E" explanation="keyboard key E"/>
+    <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER"/>
+    <string english="Interact button: %s" translation="Interactie-knop: %s" explanation="keyboard key (E or ENTER) is filled in for %s"/>
     <string english="fake load screen" translation="nep-laadscherm" explanation="menu option"/>
     <string english="Fake Load Screen" translation="Nep-laadscherm" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20"/>
-    <string english="Disable the fake loading screen which appears on game launch." translation="" explanation="" max="38*3"/>
+    <string english="Disable the fake loading screen which appears on game launch." translation="Schakel het neppe laadscherm dat verschijnt bij het opstarten van het spel uit." explanation="" max="38*3"/>
     <string english="Fake loading screen is OFF" translation="Nep-laadscherm staat UIT" explanation="allows the loading screen which counts to 100% to be turned off" max="38*3"/>
     <string english="Fake loading screen is ON" translation="Nep-laadscherm staat AAN" explanation="allows the loading screen which counts to 100% to be turned off" max="38*3"/>
     <string english="room name background" translation="kamernaamachtergrond" explanation="menu option, background behind room names"/>
@@ -214,16 +214,16 @@
     <string english="Room name background is OPAQUE" translation="Kamernaamachtergrond is ONDOORZICHTIG" explanation="" max="38*2"/>
     <string english="speedrun options" translation="speedrunopties" explanation="menu option"/>
     <string english="Speedrunner Options" translation="Speedrunneropties" explanation="title" max="20"/>
-    <string english="Access some advanced settings that might be of interest to speedrunners." translation="" explanation="description for speedrunner options" max="38*5"/>
+    <string english="Access some advanced settings that might be of interest to speedrunners." translation="Een aantal geavanceerde instellingen die interessant kunnen zijn voor speedrunners." explanation="description for speedrunner options" max="38*5"/>
     <string english="glitchrunner mode" translation="glitchrunnermodus" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster"/>
     <string english="Glitchrunner Mode" translation="Glitchrunnermodus" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20"/>
     <string english="Re-enable glitches that existed in previous versions of the game." translation="Herstel glitches die bestonden in vorige versies van het spel." explanation="glitchrunner mode" max="38*3"/>
     <string english="Glitchrunner mode is OFF" translation="Glitchrunnermodus staat UIT" explanation="" max="38*2"/>
-    <string english="Glitchrunner mode is %s" translation="" explanation="a version number is filled in for %s, such as 2.0 or 2.2" max="38*2"/>
-    <string english="Select a new glitchrunner version below." translation="" explanation="" max="38*3"/>
-    <string english="none" translation="" explanation="menu option, do not emulate any older version"/>
-    <string english="2.0" translation="" explanation="VVVVVV version number"/>
-    <string english="2.2" translation="" explanation="VVVVVV version number"/>
+    <string english="Glitchrunner mode is %s" translation="Glitchrunnermodus staat op %s" explanation="a version number is filled in for %s, such as 2.0 or 2.2" max="38*2"/>
+    <string english="Select a new glitchrunner version below." translation="Kies hieronder een nieuwe glitchrunner-versie." explanation="" max="38*3"/>
+    <string english="none" translation="geen" explanation="menu option, do not emulate any older version"/>
+    <string english="2.0" translation="2.0" explanation="VVVVVV version number"/>
+    <string english="2.2" translation="2.2" explanation="VVVVVV version number"/>
     <string english="input delay" translation="invoervertraging" explanation="menu option, enable 1 frame of delay after pressing input"/>
     <string english="Input Delay" translation="Invoervertraging" explanation="title, enable 1 frame of delay after pressing input" max="20"/>
     <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="Schakel de invoervertraging van 1 frame uit vorige versies van het spel weer in." explanation="input delay" max="38*2"/>
@@ -234,7 +234,7 @@
     <string english="Disable screen effects, enable slowdown modes or invincibility." translation="Schakel schermeffecten uit, schakel vertraging of onkwetsbaarheid in." explanation="" max="38*5"/>
     <string english="animated backgrounds" translation="geanimeerde achtergronden" explanation="menu option"/>
     <string english="Backgrounds" translation="Achtergronden" explanation="title" max="20"/>
-    <string english="Disable animated backgrounds in menus and during gameplay." translation="" explanation="" max="38*3"/>
+    <string english="Disable animated backgrounds in menus and during gameplay." translation="Schakel geanimeerde achtergronden in menu&apos;s en tijdens het spel uit." explanation="" max="38*3"/>
     <string english="Backgrounds are ON." translation="Achtergronden staan AAN." explanation="" max="38*2"/>
     <string english="Backgrounds are OFF." translation="Achtergronden staan UIT." explanation="" max="38*2"/>
     <string english="screen effects" translation="schermeffecten" explanation="menu option"/>
@@ -288,7 +288,7 @@
     <string english="Play the entire game without dying once." translation="Speel het gehele spel zonder ook maar één keer dood te gaan." explanation="" max="38*4"/>
     <string english="No Death Mode is not available with slowdown or invincibility." translation="Éénlevenmodus is niet beschikbaar met vertraging of onkwetsbaarheid." explanation="" max="38*3"/>
     <string english="unlock no death mode" translation="éénlevenmodus ontgrendelen" explanation="menu option"/>
-    <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="OM TE ONTGRENDELEN: Behaal een S-score of hoger in ten minste 4 races tegen de klok." explanation="ranks are B A S V" max="38*3"/>
+    <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="OM TE ONTGRENDELEN: Behaal een S-score of hoger in ten minste 4 races tegen de klok." explanation="ranks are B A S V, see below" max="38*3"/>
     <string english="flip mode" translation="spiegelmodus" explanation="menu option, mirrors the entire game vertically"/>
     <string english="Flip Mode" translation="Spiegelmodus" explanation="title, mirrors the entire game vertically" max="20"/>
     <string english="Flip the entire game vertically." translation="Spiegelt het gehele spel verticaal." explanation="" max="38*2"/>
@@ -324,39 +324,39 @@
     <string english="%d/%d" translation="" explanation="ex: 2/5"/>
     <string english="%d of %d" translation="%d van %d" explanation="ex: 2 of 5"/>
     <string english="%s out of %s" translation="%s van de %s" explanation="ex: One out of Twenty, see numbers.xml" max="34"/>
-    <string english="+1 Rank!" translation="+1 score!" explanation="rank was upgraded (B → A → S → V)" max="12"/>
+    <string english="+1 Rank!" translation="+1 score!" explanation="time trial rank was upgraded (B → A → S → V). B is minimum, which is purposefully high (see it as 7/10) - S is a popular rank above A in a lot of games, so VVVVVV added a rank above that." max="12"/>
     <string english="Rank:" translation="Score:" explanation="time trial rank"/>
     <string english="B" translation="B" explanation="time trial rank" max="5"/>
     <string english="A" translation="A" explanation="time trial rank" max="5"/>
     <string english="S" translation="S" explanation="time trial rank" max="5"/>
     <string english="V" translation="V" explanation="time trial rank" max="5"/>
-    <string english="space station 1" translation="" explanation="area name as menu option"/>
-    <string english="Space Station 1" translation="" explanation="area name as title" max="20"/>
-    <string english="space station 2" translation="" explanation="area name as menu option"/>
-    <string english="Space Station 2" translation="" explanation="area name as title" max="20"/>
-    <string english="the laboratory" translation="" explanation="area name as menu option"/>
-    <string english="The Laboratory" translation="" explanation="area name as title" max="20"/>
-    <string english="the tower" translation="" explanation="area name as menu option"/>
-    <string english="The Tower" translation="" explanation="area name as title" max="20"/>
-    <string english="the warp zone" translation="" explanation="area name as menu option"/>
-    <string english="The Warp Zone" translation="" explanation="area name as title" max="20"/>
-    <string english="the final level" translation="" explanation="area name as menu option"/>
-    <string english="The Final Level" translation="" explanation="area name as title" max="20"/>
+    <string english="space station 1" translation="ruimtestation 1" explanation="area name as menu option"/>
+    <string english="Space Station 1" translation="Ruimtestation 1" explanation="area name as title" max="20"/>
+    <string english="space station 2" translation="ruimtestation 2" explanation="area name as menu option"/>
+    <string english="Space Station 2" translation="Ruimtestation 2" explanation="area name as title" max="20"/>
+    <string english="the laboratory" translation="het laboratorium" explanation="area name as menu option"/>
+    <string english="The Laboratory" translation="Het Laboratorium" explanation="area name as title" max="20"/>
+    <string english="the tower" translation="de toren" explanation="area name as menu option"/>
+    <string english="The Tower" translation="De Toren" explanation="area name as title" max="20"/>
+    <string english="the warp zone" translation="de wikkelzone" explanation="area name as menu option"/>
+    <string english="The Warp Zone" translation="De Wikkelzone" explanation="area name as title" max="20"/>
+    <string english="the final level" translation="het eindlevel" explanation="area name as menu option"/>
+    <string english="The Final Level" translation="Het Eindlevel" explanation="area name as title" max="20"/>
     <string english="???" translation="???" explanation="locked area" max="20"/>
     <string english="Not yet attempted" translation="Nog geen poging gedaan" explanation="" max="38*2"/>
-    <string english="TO UNLOCK:" translation="" explanation="followed by `Rescue XX`/`Complete the game`, and then `Find XX trinkets`" max="40"/>
-    <string english="Rescue Violet" translation="" explanation="" max="40"/>
-    <string english="Rescue Victoria" translation="" explanation="" max="40"/>
-    <string english="Rescue Vermilion" translation="" explanation="" max="40"/>
-    <string english="Rescue Vitellary" translation="" explanation="" max="40"/>
-    <string english="Rescue Verdigris" translation="" explanation="" max="40"/>
-    <string english="Complete the game" translation="" explanation="" max="40"/>
-    <string english="Find three trinkets" translation="" explanation="" max="40"/>
-    <string english="Find six trinkets" translation="" explanation="" max="40"/>
-    <string english="Find nine trinkets" translation="" explanation="" max="40"/>
-    <string english="Find twelve trinkets" translation="" explanation="" max="40"/>
-    <string english="Find fifteen trinkets" translation="" explanation="" max="40"/>
-    <string english="Find eighteen trinkets" translation="" explanation="" max="40"/>
+    <string english="TO UNLOCK:" translation="OM TE ONTGRENDELEN:" explanation="followed by `Rescue XX`/`Complete the game`, and then `Find XX trinkets`" max="40"/>
+    <string english="Rescue Violet" translation="Red Violet" explanation="" max="40"/>
+    <string english="Rescue Victoria" translation="Red Victoria" explanation="" max="40"/>
+    <string english="Rescue Vermilion" translation="Red Vermilion" explanation="" max="40"/>
+    <string english="Rescue Vitellary" translation="Red Vitellary" explanation="" max="40"/>
+    <string english="Rescue Verdigris" translation="Red Verdigris" explanation="" max="40"/>
+    <string english="Complete the game" translation="Voltooi het spel" explanation="" max="40"/>
+    <string english="Find three trinkets" translation="Vind drie artefacten" explanation="" max="40"/>
+    <string english="Find six trinkets" translation="Vind zes artefacten" explanation="" max="40"/>
+    <string english="Find nine trinkets" translation="Vind negen artefacten" explanation="" max="40"/>
+    <string english="Find twelve trinkets" translation="Vind twaalf artefacten" explanation="" max="40"/>
+    <string english="Find fifteen trinkets" translation="Vind vijftien artefacten" explanation="" max="40"/>
+    <string english="Find eighteen trinkets" translation="Vind achttien artefacten" explanation="" max="40"/>
     <string english="RECORDS" translation="RECORDS" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="12"/>
     <string english="TIME" translation="TIJD" explanation="record time" max="7"/>
     <string english="SHINY" translation="ARTE" explanation="record number of trinkets" max="7"/>
@@ -382,9 +382,9 @@
     <string english="open level folder" translation="levelsmap openen" explanation="menu option"/>
     <string english="show level folder path" translation="toon pad naar levelsmap" explanation="menu option"/>
     <string english="return" translation="terug" explanation="menu option"/>
-    <string english="return to levels" translation="" explanation="menu option"/>
-    <string english="no, don&apos;t show me" translation="" explanation="menu option"/>
-    <string english="yes, reveal the path" translation="" explanation="menu option. Path to the levels folder"/>
+    <string english="return to levels" translation="terug naar levels" explanation="menu option"/>
+    <string english="no, don&apos;t show me" translation="nee, niet laten zien" explanation="menu option"/>
+    <string english="yes, reveal the path" translation="ja, laat pad zien" explanation="menu option. Path to the levels folder"/>
     <string english="return to play menu" translation="terug naar spelmenu" explanation="menu option" max="36"/>
     <string english="try again" translation="probeer opnieuw" explanation="menu option, retry time trial" max="36"/>
     <string english="ok" translation="oké" explanation="button"/>
@@ -395,16 +395,15 @@
     <string english="silence" translation="niet meer tonen" explanation="menu option, silence error message - do not show this message again"/>
     <string english="continue from save" translation="opgeslagen spel laden" explanation="menu option"/>
     <string english="start from beginning" translation="vanaf het begin starten" explanation="menu option"/>
-    <string english="delete save" translation="" explanation="menu option"/>
+    <string english="delete save" translation="save verwijderen" explanation="menu option"/>
     <string english="back to levels" translation="terug naar levels" explanation="menu option"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Kopieer .vvvvvv-bestanden naar de levelsmap om nieuwe spelerlevels te installeren." explanation="" max="38*3"/>
-    <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="" explanation="" max="38*4"/>
-    <string english="The levels path is:" translation="" explanation="" max="40"/>
+    <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Weet je zeker dat je het levelspad wil laten zien? Dit kan gevoelige informatie onthullen als je aan het streamen bent." explanation="" max="38*4"/>
+    <string english="The levels path is:" translation="Het levelspad is:" explanation="" max="40"/>
     <string english="[ Press ACTION to Start ]" translation="[ Druk op ACTIE om te beginnen ]" explanation="title screen" max="38*2"/>
     <string english="ACTION = Space, Z, or V" translation="ACTIE = Spatie, Z, of V" explanation="title screen" max="38*3"/>
     <string english="[Press ENTER to return to editor]" translation="[Druk op ENTER om terug te gaan]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press ACTION to advance text -" translation="- Druk op ACTIE om verder te gaan -" explanation="to dismiss a textbox" max="40"/>
-    <string english="- Press %s to Teleport -" translation="" explanation="keyboard key (E or ENTER) is filled in for %s" max="40"/>
     <string english="Press ACTION to continue" translation="Druk op ACTIE om verder te gaan" explanation="" max="34"/>
     <string english="Current Time" translation="Huidige tijd" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Beste tijd" explanation="super gravitron, best stopwatch time" max="20"/>
@@ -434,7 +433,7 @@
     <string english="Missing..." translation="Vermist..." explanation="" max="15"/>
     <string english="Cannot Save in Level Replay" translation="Kan niet opslaan tijdens opnieuw spelen van een level" explanation="" max="38*7"/>
     <string english="Cannot Save in No Death Mode" translation="Kan niet opslaan in éénlevenmodus" explanation="" max="38*7"/>
-    <string english="How&apos;d you get here?" translation="" explanation="" max="38*7"/>
+    <string english="How&apos;d you get here?" translation="Hoe ben je hier gekomen?" explanation="" max="38*7"/>
     <string english="Cannot Save in Secret Lab" translation="Kan niet opslaan in geheim lab" explanation="" max="38*7"/>
     <string english="ERROR: Could not save game!" translation="FOUT: Kon spel niet opslaan!" explanation="" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="FOUT: Kon instellingenbestand niet opslaan!" explanation="" max="38*2"/>
@@ -455,8 +454,9 @@
     <string english="yes, quit" translation="ja, afsluiten" explanation="quit program"/>
     <string english="return to game" translation="terug naar het spel" explanation="pause menu option" max="27"/>
     <string english="quit to menu" translation="stoppen" explanation="pause menu option" max="19"/>
-    <string english="Press Left/Right to choose a Teleporter" translation="Links/Rechts: kies teleporter" explanation="tight fit, so maybe `Left/Right: choose teleporter`" max="40"/>
+    <string english="Press Left/Right to choose a Teleporter" translation="Links/Rechts: kies teleporter" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40"/>
     <string english="Press %s to Teleport" translation="Druk op %s om te teleporteren" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="40"/>
+    <string english="- Press %s to Teleport -" translation="- Druk op %s om te teleporteren -" explanation="keyboard key (E or ENTER) is filled in for %s" max="40"/>
     <string english="Press %s to explode" translation="%s: Ontploffen" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
     <string english="Press %s to talk to Violet" translation="%s: Praten met Violet" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
     <string english="Press %s to talk to Vitellary" translation="%s: Praten met Vitellary" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
@@ -466,16 +466,16 @@
     <string english="Press %s to activate terminal" translation="%s: Terminal activeren" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
     <string english="Press %s to activate terminals" translation="%s: Terminals activeren" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press %s to interact" translation="%s: Interactie" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Passion for Exploring" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pushing Onwards" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Positive Force" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Presenting VVVVVV" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Potential for Anything" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Predestined Fate" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pipe Dream" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Popular Potpourri" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pressure Cooker" translation="" explanation="song name should probably not be translated" max="37"/>
-    <string english="ecroF evitisoP" translation="" explanation="song name should probably not be translated" max="37"/>
+    <string english="Passion for Exploring" translation="Passion for Exploring" explanation="song name should probably not be translated" max="37"/>
+    <string english="Pushing Onwards" translation="Pushing Onwards" explanation="song name should probably not be translated" max="37"/>
+    <string english="Positive Force" translation="Positive Force" explanation="song name should probably not be translated" max="37"/>
+    <string english="Presenting VVVVVV" translation="Presenting VVVVVV" explanation="song name should probably not be translated" max="37"/>
+    <string english="Potential for Anything" translation="Potential for Anything" explanation="song name should probably not be translated" max="37"/>
+    <string english="Predestined Fate" translation="Predestined Fate" explanation="song name should probably not be translated" max="37"/>
+    <string english="Pipe Dream" translation="Pipe Dream" explanation="song name should probably not be translated" max="37"/>
+    <string english="Popular Potpourri" translation="Popular Potpourri" explanation="song name should probably not be translated" max="37"/>
+    <string english="Pressure Cooker" translation="Pressure Cooker" explanation="song name should probably not be translated" max="37"/>
+    <string english="ecroF evitisoP" translation="ecroF evitisoP" explanation="song name should probably not be translated" max="37"/>
     <string english="Map Settings" translation="Levelinstellingen" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20"/>
     <string english="edit scripts" translation="scripts bewerken" explanation="level editor menu option"/>
     <string english="change music" translation="muziek wijzigen" explanation="level editor menu option"/>
@@ -575,7 +575,7 @@
     <string english="Space Station" translation="Ruimtestation" explanation="editor tileset name, Now using Space Station Tileset"/>
     <string english="Outside" translation="Buiten" explanation="editor tileset name, Now using Outside Tileset"/>
     <string english="Lab" translation="Lab" explanation="editor tileset name, Now using Lab Tileset"/>
-    <string english="Warp Zone" translation="Warpzone" explanation="editor tileset name, Now using Warp Zone Tileset. The Warp Zone got its name because its rooms wrap around, but think Star Trek"/>
+    <string english="Warp Zone" translation="Wikkelzone" explanation="editor tileset name, Now using Warp Zone Tileset. The Warp Zone got its name because its rooms wrap around, but think Star Trek"/>
     <string english="Ship" translation="Schip" explanation="editor tileset name, Now using Ship Tileset. Spaceship"/>
     <string english="Now using %s Tileset" translation="Geschakeld naar %s-tileset" explanation="level editor, user changed the tileset of the room to %s (like Ship, Lab, etc)" max="38*3"/>
     <string english="Tileset Colour Changed" translation="Tilesetkleur aangepast" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
@@ -597,7 +597,7 @@
     <string english="ERROR: No checkpoint to spawn at" translation="FOUT: Geen checkpoint om op te starten" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="FOUT: Maximumaantal trinkets is 100" explanation="editor, user tried to place another trinket" max="38*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="FOUT: Maximumaantal bemanningsleden is 100" explanation="editor, user tried to place another crewmate" max="38*3"/>
-    <string english="Rolled credits" translation="" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
+    <string english="Rolled credits" translation="Credits getoond" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
     <string english="%d:%02d:%02d" translation="%d:%02d:%02d" explanation="time format H:MM:SS"/>
     <string english="%d:%02d:%02d.%02d" translation="%d:%02d:%02d,%02d" explanation="time format H:MM:SS.CC"/>
     <string english="%d:%02d" translation="%d:%02d" explanation="time format M:SS"/>
@@ -637,12 +637,12 @@ You have found the secret lab!" translation="Gefeliciteerd!
 
 Je hebt het geheime lab gevonden!" explanation="" max="37*4"/>
     <string english="The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu." translation="Het geheime lab is gescheiden van de rest van het spel. Je kunt hier nu altijd terugkeren door de nieuwe optie GEHEIM LAB te kiezen in het speelmenu." explanation="" max="36*10"/>
-    <string english="Viridian" translation="" explanation="crewmate name (player)"/>
-    <string english="Violet" translation="" explanation="crewmate name"/>
-    <string english="Vitellary" translation="" explanation="crewmate name"/>
-    <string english="Vermilion" translation="" explanation="crewmate name"/>
-    <string english="Verdigris" translation="" explanation="crewmate name"/>
-    <string english="Victoria" translation="" explanation="crewmate name"/>
+    <string english="Viridian" translation="Viridian" explanation="crewmate name (player)"/>
+    <string english="Violet" translation="Violet" explanation="crewmate name"/>
+    <string english="Vitellary" translation="Vitellary" explanation="crewmate name"/>
+    <string english="Vermilion" translation="Vermilion" explanation="crewmate name"/>
+    <string english="Verdigris" translation="Verdigris" explanation="crewmate name"/>
+    <string english="Victoria" translation="Victoria" explanation="crewmate name"/>
     <string english="Starring" translation="Met in de hoofdrol" explanation="credits roll. Starring the following 6 crew members"/>
     <string english="Captain Viridian" translation="Kapitein Viridian" explanation="credits roll. Starring the following 6 crew members"/>
     <string english="Doctor Violet" translation="Doctor Violet" explanation="credits roll. Starring the following 6 crew members"/>

@@ -8,6 +8,8 @@
 #include "Game.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
+#include "Localization.h"
+#include "LocalizationStorage.h"
 #include "Music.h"
 #include "Screen.h"
 #include "Vlogging.h"
@@ -162,6 +164,13 @@ void KeyPoll::Poll(void)
             if ((altpressed && (returnpressed || fpressed)) || f11pressed)
             {
                 fullscreenkeybind = true;
+            }
+
+            if (loc::show_translator_menu && evt.key.keysym.sym == SDLK_F12)
+            {
+                /* Reload language files */
+                loc::loadtext();
+                music.playef(4);
             }
 
             if (textentry())

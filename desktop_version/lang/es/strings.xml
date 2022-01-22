@@ -57,10 +57,10 @@
     <string english="clear custom level data" translation="" explanation="menu option"/>
     <string english="Clear Data" translation="Limpiar Datos" explanation="title" max="20"/>
     <string english="Delete your main game save data and unlocked play modes." translation="" explanation="" max="38*5"/>
-    <string english="Delete your custom level save data and completion stars." translation="" explanation="" max="38*5"/>
+    <string english="Delete your custom level save data and completion stars." translation="" explanation="completion stars: when completing a level you get either 1 or 2 stars" max="38*5"/>
     <string english="Are you sure? This will delete your current saves..." translation="Estás seguro? Esto eliminara tus datos..." explanation="" max="38*7"/>
     <string english="Are you sure you want to delete all your saved data?" translation="Estás seguro que quieres eliminar todos tus datos?" explanation="" max="38*7"/>
-    <string english="Are you sure you want to delete your quicksave?" translation="" explanation="" max="38*7"/>
+    <string english="Are you sure you want to delete your quicksave?" translation="" explanation="only the quicksave of a custom level" max="38*7"/>
     <string english="no! don&apos;t delete" translation="no!, no borrar" explanation="menu option"/>
     <string english="yes, delete everything" translation="si, borrar todo" explanation="menu option"/>
     <string english="yes, delete save" translation="" explanation="menu option"/>
@@ -143,11 +143,11 @@
     <string english="bind menu" translation="asociar menu" explanation="menu option"/>
     <string english="bind restart" translation="" explanation="menu option. In-game death key to restart at checkpoint"/>
     <string english="bind interact" translation="" explanation="menu option"/>
-    <string english="Flip is bound to: " translation="Voltear esta asociado a:" explanation="controller binds, bound to A, B, X, Y, etc" max="32"/>
-    <string english="Enter is bound to: " translation="enter esta asociado a:" explanation="controller binds, bound to A, B, X, Y, etc" max="32"/>
-    <string english="Menu is bound to: " translation="Menú esta asociado a:" explanation="controller binds, bound to A, B, X, Y, etc" max="32"/>
-    <string english="Restart is bound to: " translation="" explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc" max="32"/>
-    <string english="Interact is bound to: " translation="" explanation="controller binds, bound to A, B, X, Y, etc" max="32"/>
+    <string english="Flip is bound to: " translation="Voltear esta asociado a:" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Enter is bound to: " translation="enter esta asociado a:" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Menu is bound to: " translation="Menú esta asociado a:" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Restart is bound to: " translation="" explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Interact is bound to: " translation="" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="ERROR: No language files found." translation="ERROR: No se encontraron archivos de idioma." explanation="" max="38*3"/>
     <string english="Language folder:" translation="" explanation="" max="39"/>
     <string english="Repository language folder:" translation="" explanation="Language folder from the Git repository" max="39"/>
@@ -156,7 +156,7 @@
     <string english="Some options that are useful for translators and developers." translation="" explanation="" max="38*6"/>
     <string english="maintenance" translation="" explanation="menu option, menu that allows you to apply maintenance to translations"/>
     <string english="Maintenance" translation="" explanation="title" max="20"/>
-    <string english="Sync all language files after adding new strings, and check whether everything can be translated." translation="" explanation="" max="38*6"/>
+    <string english="Sync all language files after adding new strings." translation="" explanation="" max="38*6"/>
     <string english="language statistics" translation="" explanation="menu option"/>
     <string english="Count the amount of untranslated strings for this language." translation="" explanation="" max="38*6"/>
     <string english="Count the amount of untranslated strings for each language." translation="Cantidad de textos sin traducir de cada idioma." explanation="translation maintenance menu" max="38*6"/>
@@ -198,7 +198,7 @@
     <string english="In-Game Timer is OFF" translation="" explanation="" max="38*2"/>
     <string english="interact button" translation="" explanation="menu option"/>
     <string english="Interact Button" translation="" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
-    <string english="Toggle whether you interact with prompts using ENTER or E." translation="" explanation="" max="38*5"/>
+    <string english="Toggle whether you interact with prompts using ENTER or E." translation="" explanation="prompts: see the `Press %s to talk to .../activate terminal/teleport` below" max="38*5"/>
     <string english="E" translation="" explanation="keyboard key E"/>
     <string english="ENTER" translation="" explanation="keyboard key ENTER"/>
     <string english="Interact button: %s" translation="" explanation="keyboard key (E or ENTER) is filled in for %s"/>
@@ -288,7 +288,7 @@
     <string english="Play the entire game without dying once." translation="Juega al juego entero sin morir una vez." explanation="" max="38*4"/>
     <string english="No Death Mode is not available with slowdown or invincibility." translation="El Modo Sin Muertes no está disponible con desaceleración o invencibilidad." explanation="" max="38*3"/>
     <string english="unlock no death mode" translation="desbloquear modo sin muertes" explanation="menu option"/>
-    <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="PARA LIBERAR: Consigue un rango-S o superior en al menos 4 pruebas a contrarreloj." explanation="ranks are B A S V" max="38*3"/>
+    <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="PARA LIBERAR: Consigue un rango-S o superior en al menos 4 pruebas a contrarreloj." explanation="ranks are B A S V, see below" max="38*3"/>
     <string english="flip mode" translation="modo volteado" explanation="menu option, mirrors the entire game vertically"/>
     <string english="Flip Mode" translation="Modo volteado" explanation="title, mirrors the entire game vertically" max="20"/>
     <string english="Flip the entire game vertically." translation="" explanation="" max="38*2"/>
@@ -324,7 +324,7 @@
     <string english="%d/%d" translation="" explanation="ex: 2/5"/>
     <string english="%d of %d" translation="%d de %d" explanation="ex: 2 of 5"/>
     <string english="%s out of %s" translation="" explanation="ex: One out of Twenty, see numbers.xml" max="34"/>
-    <string english="+1 Rank!" translation="+1 Rango!" explanation="rank was upgraded (B → A → S → V)" max="12"/>
+    <string english="+1 Rank!" translation="+1 Rango!" explanation="time trial rank was upgraded (B → A → S → V). B is minimum, which is purposefully high (see it as 7/10) - S is a popular rank above A in a lot of games, so VVVVVV added a rank above that." max="12"/>
     <string english="Rank:" translation="Rango:" explanation="time trial rank"/>
     <string english="B" translation="B" explanation="time trial rank" max="5"/>
     <string english="A" translation="A" explanation="time trial rank" max="5"/>
@@ -404,7 +404,6 @@
     <string english="ACTION = Space, Z, or V" translation="ACCIÓN = Espacio, Z o V" explanation="title screen" max="38*3"/>
     <string english="[Press ENTER to return to editor]" translation="[Presiona ENTER para volver al editor]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press ACTION to advance text -" translation="- Presiona ACCIÓN para seguir el texto -" explanation="to dismiss a textbox" max="40"/>
-    <string english="- Press %s to Teleport -" translation="" explanation="keyboard key (E or ENTER) is filled in for %s" max="40"/>
     <string english="Press ACTION to continue" translation="" explanation="" max="34"/>
     <string english="Current Time" translation="Tiempo actual" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Mejor tiempo" explanation="super gravitron, best stopwatch time" max="20"/>
@@ -455,8 +454,9 @@
     <string english="yes, quit" translation="si, salir" explanation="quit program"/>
     <string english="return to game" translation="volver al juego" explanation="pause menu option" max="27"/>
     <string english="quit to menu" translation="salir al menu" explanation="pause menu option" max="19"/>
-    <string english="Press Left/Right to choose a Teleporter" translation="Izq/Der: elegir teletransportador" explanation="tight fit, so maybe `Left/Right: choose teleporter`" max="40"/>
+    <string english="Press Left/Right to choose a Teleporter" translation="Izq/Der: elegir teletransportador" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40"/>
     <string english="Press %s to Teleport" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="40"/>
+    <string english="- Press %s to Teleport -" translation="" explanation="keyboard key (E or ENTER) is filled in for %s" max="40"/>
     <string english="Press %s to explode" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
     <string english="Press %s to talk to Violet" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
     <string english="Press %s to talk to Vitellary" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>

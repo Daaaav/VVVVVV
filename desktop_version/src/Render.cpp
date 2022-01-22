@@ -618,7 +618,7 @@ static void menurender(void)
             break;
         case 1:
             graphics.bigprint( -1, 30, loc::gettext("Maintenance"), tr, tg, tb, true);
-            graphics.PrintWrap( -1, 65, loc::gettext("Sync all language files after adding new strings, and check whether everything can be translated."), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Sync all language files after adding new strings."), tr, tg, tb, true);
             break;
         }
         {
