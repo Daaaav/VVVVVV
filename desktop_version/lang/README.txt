@@ -31,13 +31,13 @@ For these files, the English version of the file is fully copied and overwrites 
   - strings.xml
   - strings_plural.xml
   - cutscenes.xml
-
-[Syncing not supported]
-These files are untouched by the syncing feature. In the case of roomnames.xml, room name translation mode can be used to set explanations
-  - meta.xml
-  - numbers.xml
   - roomnames.xml
   - roomnames_special.xml
+
+[Syncing not supported]
+These files are untouched by the syncing feature.
+  - meta.xml
+  - numbers.xml
 
 
 

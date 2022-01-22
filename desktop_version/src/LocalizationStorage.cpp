@@ -736,8 +736,8 @@ namespace loc
 
     void sync_lang_file(const std::string& langcode)
     {
-        /* Update translation files for the given language with new strings from template.
-         * This basically takes the template, fills in existing translations, and saves.
+        /* Update translation files for the given language with new strings from templates.
+         * This basically takes the (English) templates, fills in existing translations, and saves.
          * Any FILESYSTEM_saveTiXml2Document() writes to main lang dir */
         vlog_info("Syncing %s with templates...", langcode.c_str());
 
@@ -846,7 +846,8 @@ namespace loc
                     char* eng_prefixed = add_disambiguator(subElem->UnsignedAttribute("case", 1), eng_unwrapped.c_str(), &alloc_len);
                     if (eng_prefixed == NULL)
                     {
-                        continue;
+                        /* Out of memory or something, stop */
+                        return;
                     }
 
                     uintptr_t ptr_format;
@@ -893,6 +894,36 @@ namespace loc
             }
 
             FILESYSTEM_saveTiXml2Document((langcode + "/cutscenes.xml").c_str(), doc);
+        }
+
+        if (load_lang_doc("roomnames", doc, "en"))
+        {
+            FOR_EACH_XML_ELEMENT(hDoc, pElem)
+            {
+                EXPECT_ELEM(pElem, "roomname");
+
+                pElem->SetAttribute("translation",
+                    get_roomname_translation(false, pElem->UnsignedAttribute("x"), pElem->UnsignedAttribute("y"))
+                );
+            }
+
+            FILESYSTEM_saveTiXml2Document((langcode + "/roomnames.xml").c_str(), doc);
+        }
+
+        if (load_lang_doc("roomnames_special", doc, "en"))
+        {
+            FOR_EACH_XML_ELEMENT(hDoc, pElem)
+            {
+                EXPECT_ELEM(pElem, "roomname");
+
+                const char* eng = pElem->Attribute("english");
+                if (eng != NULL)
+                {
+                    pElem->SetAttribute("translation", map_lookup_text(map_translation_roomnames_special, eng, ""));
+                }
+            }
+
+            FILESYSTEM_saveTiXml2Document((langcode + "/roomnames_special.xml").c_str(), doc);
         }
     }
 
