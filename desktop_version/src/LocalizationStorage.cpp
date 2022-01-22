@@ -442,9 +442,12 @@ namespace loc
                 unsigned short pad = subElem->UnsignedAttribute("pad", 0);
                 format.pad_left += pad;
                 format.pad_right += pad;
-                format.wraplimit = subElem->UnsignedAttribute("wraplimit",
-                    36*8 - (format.pad_left+format.pad_right)*8
-                );
+                format.wraplimit_raw = subElem->UnsignedAttribute("wraplimit", 0);
+                format.wraplimit = format.wraplimit_raw;
+                if (format.wraplimit == 0)
+                {
+                    format.wraplimit = 36*8 - (format.pad_left+format.pad_right)*8;
+                }
                 format.padtowidth = subElem->UnsignedAttribute("padtowidth", 0);
 
                 const TextboxFormat* tb_format = (TextboxFormat*) textbook_store_raw(
@@ -804,6 +807,92 @@ namespace loc
             }
 
             FILESYSTEM_saveTiXml2Document((langcode + "/strings_plural.xml").c_str(), doc);
+        }
+
+        if (load_lang_doc("cutscenes", doc, "en"))
+        {
+            FOR_EACH_XML_ELEMENT(hDoc, pElem)
+            {
+                EXPECT_ELEM(pElem, "cutscene");
+
+                const char* cutscene_id = pElem->Attribute("id");
+                if (cutscene_id == NULL)
+                {
+                    continue;
+                }
+
+                hashmap* map = map_translation_cutscene;
+
+                uintptr_t ptr_cutscene_map;
+                bool found = hashmap_get(map, (void*) cutscene_id, SDL_strlen(cutscene_id), &ptr_cutscene_map);
+                hashmap* cutscene_map = (hashmap*) ptr_cutscene_map;
+                if (!found || cutscene_map == NULL)
+                {
+                    continue;
+                }
+
+                FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
+                {
+                    EXPECT_ELEM(subElem, "dialogue");
+
+                    const char* eng = subElem->Attribute("english");
+                    if (eng == NULL)
+                    {
+                        continue;
+                    }
+
+                    size_t alloc_len;
+                    const std::string eng_unwrapped = graphics.string_unwordwrap(eng);
+                    char* eng_prefixed = add_disambiguator(subElem->UnsignedAttribute("case", 1), eng_unwrapped.c_str(), &alloc_len);
+                    if (eng_prefixed == NULL)
+                    {
+                        continue;
+                    }
+
+                    uintptr_t ptr_format;
+                    found = hashmap_get(cutscene_map, (void*) eng_prefixed, alloc_len-1, &ptr_format);
+                    const TextboxFormat* format = (TextboxFormat*) ptr_format;
+
+                    SDL_free(eng_prefixed);
+
+                    if (!found || format == NULL)
+                    {
+                        continue;
+                    }
+
+                    subElem->DeleteAttribute("tt");
+                    subElem->DeleteAttribute("wraplimit");
+                    subElem->DeleteAttribute("centertext");
+                    subElem->DeleteAttribute("pad");
+                    subElem->DeleteAttribute("pad_left");
+                    subElem->DeleteAttribute("pad_right");
+                    subElem->DeleteAttribute("padtowidth");
+
+                    if (format->text != NULL)
+                        subElem->SetAttribute("translation", format->text);
+                    if (format->tt)
+                        subElem->SetAttribute("tt", 1);
+                    if (format->wraplimit_raw != 0)
+                        subElem->SetAttribute("wraplimit", format->wraplimit_raw);
+                    if (format->centertext)
+                        subElem->SetAttribute("centertext", 1);
+                    if (format->pad_left == format->pad_right && format->pad_left != 0)
+                    {
+                        subElem->SetAttribute("pad", format->pad_left);
+                    }
+                    else
+                    {
+                        if (format->pad_left != 0)
+                            subElem->SetAttribute("pad_left", format->pad_left);
+                        if (format->pad_right != 0)
+                            subElem->SetAttribute("pad_right", format->pad_right);
+                    }
+                    if (format->padtowidth != 0)
+                        subElem->SetAttribute("padtowidth", format->padtowidth);
+                }
+            }
+
+            FILESYSTEM_saveTiXml2Document((langcode + "/cutscenes.xml").c_str(), doc);
         }
     }
 

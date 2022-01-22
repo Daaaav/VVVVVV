@@ -24,6 +24,7 @@ namespace loc
     {
         const char* text;
         unsigned short wraplimit; // = 36*8-pad_left-pad_right; no effect if tt or !langmeta.autowordwrap
+        unsigned short wraplimit_raw; // original value of wraplimit, only used for language file sync
         bool tt; // teletype, don't auto-wordwrap
         bool centertext; // whether the text should be centered inside the box
         unsigned char pad_left; // pad with X characters

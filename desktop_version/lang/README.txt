@@ -30,12 +30,12 @@ The language file sync option has differing support for the language files. As i
 For these files, the English version of the file is fully copied and overwrites every language's version, while all existing translations are inserted for every language. This means newly added strings are copied to every language, and removed strings are simultaneously removed from every language, bringing them fully up-to-date.
   - strings.xml
   - strings_plural.xml
+  - cutscenes.xml
 
 [Syncing not supported]
 These files are untouched by the syncing feature. In the case of roomnames.xml, room name translation mode can be used to set explanations
   - meta.xml
   - numbers.xml
-  - cutscenes.xml
   - roomnames.xml
   - roomnames_special.xml
 

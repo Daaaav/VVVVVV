@@ -381,7 +381,6 @@
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Vitellary!" translation="Li vere antaŭĝojas pri helpi vin trovi Vitelarion!"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Verdigris!" translation="Li vere antaŭĝojas pri helpi vin trovi Verdigrison!"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Vermilion!" translation="Li vere antaŭĝojas pri helpi vin trovi Vermiljon!"/>
-        <!-- i wish vermilion well on his journey of self-discovery -->
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find you!" translation="Li vere antaŭĝojas pri helpi vin trovi vin!"/>
     </cutscene>
     <cutscene id="talkpurple_6" explanation="">
