@@ -121,7 +121,7 @@ static void inline drawglitchrunnertext(const int y)
     else
     {
         const char* mode_string = loc::gettext(GlitchrunnerMode_enum_to_string(mode));
-        SDL_snprintf(buffer, sizeof(buffer), "Glitchrunner mode is %s", mode_string);
+        SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Glitchrunner mode is %s"), mode_string);
     }
 
     graphics.PrintWrap(-1, y, buffer, tempr, tempg, tempb, true);
@@ -558,7 +558,6 @@ static void menurender(void)
         switch (game.currentmenuoption)
         {
         case 0:
-            //graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
             graphics.Print(32, 75, loc::gettext("Low"), tr, tg, tb);
             graphics.Print(-1, 75, loc::gettext("Medium"), tr, tg, tb, true);
             #define HIGHLABEL loc::gettext("High")
@@ -1387,7 +1386,7 @@ static void menurender(void)
     }
     case Menu::warninglevellist:
         graphics.bigprint(-1, 45, loc::gettext("WARNING"), tr, tg, tb, true);
-        graphics.PrintWrap(-1, 65, FILESYSTEM_getLevelDirError(), tr, tg, tb, true, 10, 304);
+        graphics.PrintWrap(-1, 65, FILESYSTEM_getLevelDirError(), tr, tg, tb, true);
         break;
     default:
         break;
@@ -2378,7 +2377,7 @@ void maprender(void)
                 graphics.PrintWrap(0, 40, loc::gettext("SUPER GRAVITRON HIGHSCORE"), 196, 196, 255 - help.glow, true);
 
                 std::string tempstring = help.timestring(game.swnrecord);
-                graphics.Print( 240, 90, "Best Time", 196, 196, 255 - help.glow, true);
+                graphics.Print( 240, 90, loc::gettext("Best Time"), 196, 196, 255 - help.glow, true);
                 graphics.bigrprint( 300, 104, tempstring, 196, 196, 255 - help.glow, true, 2);
 
                 switch(game.swnbestrank)

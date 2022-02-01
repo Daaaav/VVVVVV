@@ -92,199 +92,199 @@
         <dialogue speaker="player" english="I&apos;m worried about Verdigris, Doctor!" translation="Ik maak me zorgen om Verdigris, Doctor!"/>
         <dialogue speaker="player" english="I&apos;m worried about Vermilion, Doctor!" translation="Ik maak me zorgen om Vermilion, Doctor!"/>
         <dialogue speaker="player" english="I&apos;m worried about you, Doctor!" translation="Ik maak me zorgen om jou, Doctor!"/>
-        <dialogue speaker="purple" english="Oh - well, don&apos;t worry, they&apos;ll show up!" translation="Oh - maak je geen zorgen, die komt heus wel weer tevoorschijn!"/>
+        <dialogue speaker="purple" english="Oh - well, don&apos;t worry, they&apos;ll show up!" translation="Ah - maak je geen zorgen, die komt heus wel weer tevoorschijn!"/>
         <dialogue speaker="purple" english="Here! Have a lollipop!" translation="Hier! Neem een lolly!"/>
     </cutscene>
     <cutscene id="trinketcollector" explanation="">
-        <dialogue speaker="cyan" english="This seems like a good place to store anything I find out there..." translation=""/>
-        <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation=""/>
+        <dialogue speaker="cyan" english="This seems like a good place to store anything I find out there..." translation="Dit lijkt me wel een goede plek om dingen te bewaren die ik buiten vind..."/>
+        <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation="Victoria is er gek op om de interessante dingen te bestuderen die we tijdens onze avonturen vinden!"/>
     </cutscene>
     <cutscene id="newtrinketcollector" explanation="">
-        <dialogue speaker="cyan" english="This seems like a good place to store those shiny things." translation=""/>
-        <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation=""/>
+        <dialogue speaker="cyan" english="This seems like a good place to store those shiny things." translation="Dit lijkt me wel een goede plek om die glanzende dingen te bewaren."/>
+        <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation="Victoria is er gek op om de interessante dingen te bestuderen die we tijdens onze avonturen vinden!"/>
     </cutscene>
     <cutscene id="new2trinketcollector" explanation="">
-        <dialogue speaker="cyan" english="I hope she&apos;s ok..." translation=""/>
+        <dialogue speaker="cyan" english="I hope she&apos;s ok..." translation="Ik hoop dat ze in orde is..."/>
     </cutscene>
     <cutscene id="rescuegreen" explanation="nuance: `she&apos;s BACK on the ship` means more `she&apos;s home` and not `she has returned to the ship`. She has never left the ship">
-        <dialogue speaker="green" english="Captain! I&apos;ve been so worried!" translation=""/>
-        <dialogue speaker="player" english="Chief Verdigris! You&apos;re ok!" translation=""/>
-        <dialogue speaker="green" english="I&apos;ve been trying to get out, but I keep going around in circles..." translation=""/>
-        <dialogue speaker="player" english="I&apos;ve come from the ship. I&apos;m here to teleport you back to it." translation=""/>
-        <dialogue speaker="green" english="Is everyone else alright? Is Violet..." translation=""/>
-        <dialogue speaker="player" english="She&apos;s fine - she&apos;s back on the ship!" translation=""/>
-        <dialogue speaker="green" english="Oh! Great - Let&apos;s get going, then!" translation=""/>
+        <dialogue speaker="green" english="Captain! I&apos;ve been so worried!" translation="Kapitein! Ik heb me zo&apos;n zorgen gemaakt!"/>
+        <dialogue speaker="player" english="Chief Verdigris! You&apos;re ok!" translation="Meester Verdigris! Je bent in orde!"/>
+        <dialogue speaker="green" english="I&apos;ve been trying to get out, but I keep going around in circles..." translation="Ik heb geprobeerd een uitweg te vinden, maar ik blijf maar rondjes draaien..."/>
+        <dialogue speaker="player" english="I&apos;ve come from the ship. I&apos;m here to teleport you back to it." translation="Ik ben op het schip geweest. Ik ben hier om je terug naar het schip te teleporteren."/>
+        <dialogue speaker="green" english="Is everyone else alright? Is Violet..." translation="Is iedereen oké? Is Violet..."/>
+        <dialogue speaker="player" english="She&apos;s fine - she&apos;s back on the ship!" translation="Niets aan de hand - ze is veilig op het schip!"/>
+        <dialogue speaker="green" english="Oh! Great - Let&apos;s get going, then!" translation="Ah! Mooi - Laten we gaan!"/>
     </cutscene>
     <cutscene id="rescueblue" explanation="">
-        <dialogue speaker="blue" english="Oh no! Captain! Are you stuck here too?" translation=""/>
-        <dialogue speaker="player" english="It&apos;s ok - I&apos;m here to rescue you!" translation=""/>
-        <dialogue speaker="player" english="Let me explain everything..." translation=""/>
-        <dialogue speaker="blue" english="What? I didn&apos;t understand any of that!" translation=""/>
-        <dialogue speaker="player" english="Oh... well, don&apos;t worry." translation=""/>
-        <dialogue speaker="player" english="Follow me! Everything will be alright!" translation=""/>
-        <dialogue speaker="blue" english="Sniff... Really?" translation=""/>
-        <dialogue speaker="blue" english="Ok then!" translation=""/>
+        <dialogue speaker="blue" english="Oh no! Captain! Are you stuck here too?" translation="O nee! Kapitein! Zit je ook hier vast?"/>
+        <dialogue speaker="player" english="It&apos;s ok - I&apos;m here to rescue you!" translation="Niks aan de hand - Ik ben hier om je te redden!"/>
+        <dialogue speaker="player" english="Let me explain everything..." translation="Ik zal alles uitleggen..."/>
+        <dialogue speaker="blue" english="What? I didn&apos;t understand any of that!" translation="Wat? Daar begreep ik niks van!"/>
+        <dialogue speaker="player" english="Oh... well, don&apos;t worry." translation="Oh... ach ja, geen zorgen."/>
+        <dialogue speaker="player" english="Follow me! Everything will be alright!" translation="Volg mij! Alles komt goed!"/>
+        <dialogue speaker="blue" english="Sniff... Really?" translation="Snik... Echt?"/>
+        <dialogue speaker="blue" english="Ok then!" translation="Oké dan!"/>
     </cutscene>
     <cutscene id="rescuered" explanation="">
-        <dialogue speaker="red" english="Captain!" translation=""/>
-        <dialogue speaker="red" english="Am I ever glad to see you! I thought I was the only one to escape the ship..." translation=""/>
-        <dialogue speaker="player" english="Vermilion! I knew you&apos;d be ok!" translation=""/>
-        <dialogue speaker="red" english="So, what&apos;s the situation?" translation=""/>
-        <dialogue speaker="red" english="I see! Well, we&apos;d better get back then." translation=""/>
-        <dialogue speaker="red" english="There&apos;s a teleporter in the next room." translation=""/>
+        <dialogue speaker="red" english="Captain!" translation="Kapitein!"/>
+        <dialogue speaker="red" english="Am I ever glad to see you! I thought I was the only one to escape the ship..." translation="Ik ben zo blij je te zien! Ik dacht dat ik de enige was die veilig van het schip gekomen was..."/>
+        <dialogue speaker="player" english="Vermilion! I knew you&apos;d be ok!" translation="Vermilion! Ik wist dat je in orde zou zijn!"/>
+        <dialogue speaker="red" english="So, what&apos;s the situation?" translation="Dus wat is de situatie?"/>
+        <dialogue speaker="red" english="I see! Well, we&apos;d better get back then." translation="Begrepen! We kunnen dus maar beter teruggaan."/>
+        <dialogue speaker="red" english="There&apos;s a teleporter in the next room." translation="Er is hiernaast een teleporter."/>
     </cutscene>
     <cutscene id="rescueyellow" explanation="">
-        <dialogue speaker="yellow" english="Ah, Viridian! You got off the ship alright too?" translation=""/>
-        <dialogue speaker="player" english="It&apos;s good to see you&apos;re alright, Professor!" translation=""/>
-        <dialogue speaker="yellow" english="Is the ship ok?" translation=""/>
-        <dialogue speaker="player" english="It&apos;s badly damaged, but Violet&apos;s been working on fixing it." translation=""/>
-        <dialogue speaker="player" english="We could really use your help..." translation=""/>
-        <dialogue speaker="yellow" english="Ah, of course!" translation=""/>
-        <dialogue speaker="yellow" english="The background interference in this dimension prevented the ship from finding a teleporter when we crashed!" translation=""/>
-        <dialogue speaker="yellow" english="We&apos;ve all been teleported to different locations!" translation=""/>
-        <dialogue speaker="player" english="Er, that sounds about right!" translation=""/>
-        <dialogue speaker="yellow" english="Let&apos;s get back to the ship, then!" translation=""/>
-        <dialogue speaker="yellow" english="After you, Captain!" translation=""/>
+        <dialogue speaker="yellow" english="Ah, Viridian! You got off the ship alright too?" translation="Ah, Viridian! Jij bent dus ook veilig van het schip gekomen?"/>
+        <dialogue speaker="player" english="It&apos;s good to see you&apos;re alright, Professor!" translation="Goed om te zien dat je in orde bent, Professor!"/>
+        <dialogue speaker="yellow" english="Is the ship ok?" translation="Is het schip oké?"/>
+        <dialogue speaker="player" english="It&apos;s badly damaged, but Violet&apos;s been working on fixing it." translation="Het is ernstig beschadigd, maar Violet is bezig geweest om het te repareren."/>
+        <dialogue speaker="player" english="We could really use your help..." translation="We kunnen jouw hulp goed gebruiken..."/>
+        <dialogue speaker="yellow" english="Ah, of course!" translation="Ah, natuurlijk!"/>
+        <dialogue speaker="yellow" english="The background interference in this dimension prevented the ship from finding a teleporter when we crashed!" translation="De achtergrondinterferentie in deze dimensie heeft ervoor gezorgd dat het schip geen teleporter kon vinden toen we neerstortten!"/>
+        <dialogue speaker="yellow" english="We&apos;ve all been teleported to different locations!" translation="We zijn allemaal naar een andere plek geteleporteerd!"/>
+        <dialogue speaker="player" english="Er, that sounds about right!" translation="Uh, dat zou goed kunnen!"/>
+        <dialogue speaker="yellow" english="Let&apos;s get back to the ship, then!" translation="Laten we dan maar naar het schip gaan!"/>
+        <dialogue speaker="yellow" english="After you, Captain!" translation="Na jou, Kapitein!"/>
     </cutscene>
     <cutscene id="int1blue_1" explanation="">
-        <dialogue speaker="blue" english="Waaaa!" translation="" case="1"/>
-        <dialogue speaker="blue" english="Captain! Are you ok?" translation=""/>
-        <dialogue speaker="player" english="I&apos;m ok... this... this isn&apos;t the ship..." translation=""/>
-        <dialogue speaker="player" english="Where are we?" translation=""/>
-        <dialogue speaker="blue" english="Waaaa!" translation="" case="2"/>
-        <dialogue speaker="player" english="Something&apos;s gone wrong... We should look for a way back!" translation=""/>
+        <dialogue speaker="blue" english="Waaaa!" translation="Waaaa!" case="1"/>
+        <dialogue speaker="blue" english="Captain! Are you ok?" translation="Kapitein! Gaat het?"/>
+        <dialogue speaker="player" english="I&apos;m ok... this... this isn&apos;t the ship..." translation="Het gaat wel... dit... dit is niet het schip..."/>
+        <dialogue speaker="player" english="Where are we?" translation="Waar zijn we?"/>
+        <dialogue speaker="blue" english="Waaaa!" translation="Waaaa!" case="2"/>
+        <dialogue speaker="player" english="Something&apos;s gone wrong... We should look for a way back!" translation="Er is iets misgegaan... We moeten een weg terug zoeken!"/>
     </cutscene>
     <cutscene id="int1blue_2" explanation="">
-        <dialogue speaker="player" english="Follow me! I&apos;ll help you!" translation=""/>
-        <dialogue speaker="blue" english="Promise you won&apos;t leave without me!" translation=""/>
-        <dialogue speaker="player" english="I promise! Don&apos;t worry!" translation=""/>
+        <dialogue speaker="player" english="Follow me! I&apos;ll help you!" translation="Volg mij! Ik help je!"/>
+        <dialogue speaker="blue" english="Promise you won&apos;t leave without me!" translation="Beloof me dat je niet zonder mij weggaat!"/>
+        <dialogue speaker="player" english="I promise! Don&apos;t worry!" translation="Ik beloof het! Geen zorgen!"/>
     </cutscene>
     <cutscene id="int1blue_3" explanation="">
-        <dialogue speaker="player" english="Are you ok down there, Doctor?" translation=""/>
-        <dialogue speaker="blue" english="I wanna go home!" translation=""/>
-        <dialogue speaker="blue" english="Where are we? How did we even get here?" translation=""/>
-        <dialogue speaker="player" english="Well, Violet did say that the interference in the dimension we crashed in was causing problems with the teleporters..." translation=""/>
-        <dialogue speaker="player" english="I guess something went wrong..." translation=""/>
-        <dialogue speaker="player" english="But if we can find another teleporter, I think we can get back to the ship!" translation=""/>
-        <dialogue speaker="blue" english="Sniff..." translation=""/>
+        <dialogue speaker="player" english="Are you ok down there, Doctor?" translation="Gaat alles daar beneden, Doctor?"/>
+        <dialogue speaker="blue" english="I wanna go home!" translation="Ik wil naar huis!"/>
+        <dialogue speaker="blue" english="Where are we? How did we even get here?" translation="Waar zijn we? Hoe zijn we hier eigenlijk gekomen?"/>
+        <dialogue speaker="player" english="Well, Violet did say that the interference in the dimension we crashed in was causing problems with the teleporters..." translation="Nou, Violet zei dat de interferentie in de dimensie waar we zijn neergestort problemen heeft veroorzaakt met de teleporters..."/>
+        <dialogue speaker="player" english="I guess something went wrong..." translation="Blijkbaar is er iets foutgegaan..."/>
+        <dialogue speaker="player" english="But if we can find another teleporter, I think we can get back to the ship!" translation="Maar als we een andere teleporter kunnen vinden denk ik dat we terug kunnen naar het schip!"/>
+        <dialogue speaker="blue" english="Sniff..." translation="Snik..."/>
     </cutscene>
     <cutscene id="int1blue_4" explanation="">
-        <dialogue speaker="blue" english="Captain! Captain! Wait for me!" translation=""/>
-        <dialogue speaker="blue" english="Please don&apos;t leave me behind! I don&apos;t mean to be a burden!" translation=""/>
-        <dialogue speaker="blue" english="I&apos;m scared!" translation=""/>
-        <dialogue speaker="player" english="Oh... don&apos;t worry Victoria, I&apos;ll look after you!" translation=""/>
+        <dialogue speaker="blue" english="Captain! Captain! Wait for me!" translation="Kapitein! Kapitein! Wacht op mij!"/>
+        <dialogue speaker="blue" english="Please don&apos;t leave me behind! I don&apos;t mean to be a burden!" translation="Laat me alsjeblieft niet achter! Ik wil niet lastig zijn!"/>
+        <dialogue speaker="blue" english="I&apos;m scared!" translation="Ik ben bang!"/>
+        <dialogue speaker="player" english="Oh... don&apos;t worry Victoria, I&apos;ll look after you!" translation="Oh... geen zorgen Victoria, ik zal op je letten!"/>
     </cutscene>
     <cutscene id="int1blue_5" explanation="">
-        <dialogue speaker="blue" english="We&apos;re never going to get out of here, are we?" translation=""/>
-        <dialogue speaker="player" english="I.. I don&apos;t know..." translation=""/>
-        <dialogue speaker="player" english="I don&apos;t know where we are or how we&apos;re going to get out..." translation=""/>
+        <dialogue speaker="blue" english="We&apos;re never going to get out of here, are we?" translation="We komen hier nooit meer uit, of wel?"/>
+        <dialogue speaker="player" english="I.. I don&apos;t know..." translation="Ik.. Ik weet het niet..."/>
+        <dialogue speaker="player" english="I don&apos;t know where we are or how we&apos;re going to get out..." translation="Ik weet niet waar we zijn of hoe we hier uit gaan komen..."/>
     </cutscene>
     <cutscene id="int1blue_6" explanation="">
-        <dialogue speaker="blue" english="We&apos;re going to be lost forever!" translation=""/>
-        <dialogue speaker="player" english="Ok, come on... Things aren&apos;t that bad." translation=""/>
-        <dialogue speaker="player" english="I have a feeling that we&apos;re nearly home!" translation=""/>
-        <dialogue speaker="player" english="We can&apos;t be too far from another teleporter!" translation=""/>
-        <dialogue speaker="blue" english="I hope you&apos;re right, captain..." translation=""/>
+        <dialogue speaker="blue" english="We&apos;re going to be lost forever!" translation="We zijn voor altijd verdwaald!"/>
+        <dialogue speaker="player" english="Ok, come on... Things aren&apos;t that bad." translation="Oké, kom op... Zo erg is het niet."/>
+        <dialogue speaker="player" english="I have a feeling that we&apos;re nearly home!" translation="Ik heb een gevoel dat we bijna thuis zijn!"/>
+        <dialogue speaker="player" english="We can&apos;t be too far from another teleporter!" translation="We kunnen niet al te ver van een andere teleporter zijn!"/>
+        <dialogue speaker="blue" english="I hope you&apos;re right, captain..." translation="Ik hoop dat je gelijk hebt, kapitein..."/>
     </cutscene>
     <cutscene id="int1blue_7" explanation="">
-        <dialogue speaker="blue" english="Captain! You were right! It&apos;s a teleporter!" translation=""/>
-        <dialogue speaker="player" english="Phew! You had me worried for a while there... I thought we were never going to find one." translation=""/>
-        <dialogue speaker="blue" english="What? Really?" translation=""/>
-        <dialogue speaker="player" english="Anyway, let&apos;s go back to the ship." translation=""/>
+        <dialogue speaker="blue" english="Captain! You were right! It&apos;s a teleporter!" translation="Kapitein! Je had gelijk! Het is een teleporter!"/>
+        <dialogue speaker="player" english="Phew! You had me worried for a while there... I thought we were never going to find one." translation="Pfieuw! Je maakte me echt even ongerust... Ik dacht dat we er geen meer zouden vinden."/>
+        <dialogue speaker="blue" english="What? Really?" translation="Wat? Echt?"/>
+        <dialogue speaker="player" english="Anyway, let&apos;s go back to the ship." translation="Hoe dan ook, laten we teruggaan naar het schip."/>
     </cutscene>
     <cutscene id="int1green_1" explanation="">
-        <dialogue speaker="green" english="Huh? This isn&apos;t the ship..." translation=""/>
-        <dialogue speaker="green" english="Captain! What&apos;s going on?" translation=""/>
-        <dialogue speaker="player" english="I... I don&apos;t know!" translation=""/>
-        <dialogue speaker="player" english="Where are we?" translation=""/>
-        <dialogue speaker="green" english="Uh oh, this isn&apos;t good... Something must have gone wrong with the teleporter!" translation=""/>
-        <dialogue speaker="player" english="Ok... no need to panic!" translation=""/>
-        <dialogue speaker="player" english="Let&apos;s look for another teleporter!" translation=""/>
+        <dialogue speaker="green" english="Huh? This isn&apos;t the ship..." translation="Huh? Dit is niet het schip..."/>
+        <dialogue speaker="green" english="Captain! What&apos;s going on?" translation="Kapitein! Wat is hier aan de hand?"/>
+        <dialogue speaker="player" english="I... I don&apos;t know!" translation="Ik... Geen idee!"/>
+        <dialogue speaker="player" english="Where are we?" translation="Waar zijn we?"/>
+        <dialogue speaker="green" english="Uh oh, this isn&apos;t good... Something must have gone wrong with the teleporter!" translation="O jee, dit is niet best... Er moet iets fout zijn gegaan met de teleporter!"/>
+        <dialogue speaker="player" english="Ok... no need to panic!" translation="Oké... geen reden tot paniek!"/>
+        <dialogue speaker="player" english="Let&apos;s look for another teleporter!" translation="Laten we op zoek gaan naar een andere teleporter!"/>
     </cutscene>
     <cutscene id="int1green_2" explanation="">
-        <dialogue speaker="player" english="Let&apos;s go this way!" translation=""/>
-        <dialogue speaker="green" english="After you, Captain!" translation=""/>
+        <dialogue speaker="player" english="Let&apos;s go this way!" translation="Laten we deze kant op gaan!"/>
+        <dialogue speaker="green" english="After you, Captain!" translation="Na jou, Kapitein!"/>
     </cutscene>
     <cutscene id="int1green_3" explanation="">
-        <dialogue speaker="green" english="So Violet&apos;s back on the ship? She&apos;s really ok?" translation=""/>
-        <dialogue speaker="player" english="She&apos;s fine! She helped me find my way back!" translation=""/>
-        <dialogue speaker="green" english="Oh, phew! I was worried about her." translation=""/>
-        <dialogue speaker="green" english="Captain, I have a secret..." translation=""/>
-        <dialogue speaker="green" english="I really like Violet!" translation=""/>
-        <dialogue speaker="player" english="Is that so?" translation=""/>
-        <dialogue speaker="green" english="Please promise you won&apos;t tell her!" translation=""/>
+        <dialogue speaker="green" english="So Violet&apos;s back on the ship? She&apos;s really ok?" translation="Dus Violet is gewoon op het schip? Is ze echt in orde?"/>
+        <dialogue speaker="player" english="She&apos;s fine! She helped me find my way back!" translation="Het gaat prima met haar! Ze heeft mij geholpen om de weg terug te vinden!"/>
+        <dialogue speaker="green" english="Oh, phew! I was worried about her." translation="O, pfieuw! Ik maakte me zorgen over haar."/>
+        <dialogue speaker="green" english="Captain, I have a secret..." translation="Kapitein, ik heb een geheimpje..."/>
+        <dialogue speaker="green" english="I really like Violet!" translation="Ik vind Violet echt leuk!"/>
+        <dialogue speaker="player" english="Is that so?" translation="Is dat zo?"/>
+        <dialogue speaker="green" english="Please promise you won&apos;t tell her!" translation="Beloof me dat je het niet aan haar vertelt!"/>
     </cutscene>
     <cutscene id="int1green_4" explanation="">
-        <dialogue speaker="green" english="Hey again!" translation=""/>
-        <dialogue speaker="player" english="Hey!" translation=""/>
-        <dialogue speaker="player" english="Are you doing ok?" translation=""/>
-        <dialogue speaker="green" english="I think so! I really hope we can find a way back to the ship..." translation=""/>
+        <dialogue speaker="green" english="Hey again!" translation="Hé!"/>
+        <dialogue speaker="player" english="Hey!" translation="Hoi!"/>
+        <dialogue speaker="player" english="Are you doing ok?" translation="Gaat het?"/>
+        <dialogue speaker="green" english="I think so! I really hope we can find a way back to the ship..." translation="Ik denk het! Ik hoop echt dat we een weg terug naar het schip kunnen vinden..."/>
     </cutscene>
     <cutscene id="int1green_5" explanation="">
-        <dialogue speaker="green" english="So, about Violet..." translation=""/>
-        <dialogue speaker="player" english="Um, yeah?" translation=""/>
-        <dialogue speaker="green" english="Do you have any advice?" translation=""/>
-        <dialogue speaker="player" english="Oh!" translation=""/>
-        <dialogue speaker="player" english="Hmm..." translation=""/>
-        <dialogue speaker="player" english="Um... you should... be yourself!" translation=""/>
-        <dialogue speaker="green" english="Oh." translation=""/>
-        <dialogue speaker="green" english="Thanks Captain!" translation=""/>
+        <dialogue speaker="green" english="So, about Violet..." translation="Dus, over Violet..."/>
+        <dialogue speaker="player" english="Um, yeah?" translation="Uh, ja?"/>
+        <dialogue speaker="green" english="Do you have any advice?" translation="Heb je nog wat advies?"/>
+        <dialogue speaker="player" english="Oh!" translation="O!"/>
+        <dialogue speaker="player" english="Hmm..." translation="Hmm..."/>
+        <dialogue speaker="player" english="Um... you should... be yourself!" translation="Ehm... je moet... jezelf zijn!"/>
+        <dialogue speaker="green" english="Oh." translation="Ah."/>
+        <dialogue speaker="green" english="Thanks Captain!" translation="Bedankt Kapitein!"/>
     </cutscene>
     <cutscene id="int1green_6" explanation="">
-        <dialogue speaker="player" english="So, do you think you&apos;ll be able to fix the ship?" translation=""/>
-        <dialogue speaker="green" english="Depends on how bad it is... I think so, though!" translation=""/>
-        <dialogue speaker="green" english="It&apos;s not very hard, really. The basic dimensional warping engine design is pretty simple, and if we can get that working we shouldn&apos;t have any trouble getting home." translation=""/>
-        <dialogue speaker="player" english="Oh! Good!" translation=""/>
+        <dialogue speaker="player" english="So, do you think you&apos;ll be able to fix the ship?" translation="Dus, denk je dat je het schip zal kunnen maken?"/>
+        <dialogue speaker="green" english="Depends on how bad it is... I think so, though!" translation="Hangt ervan af hoe erg het is... Maar ik denk het wel!"/>
+        <dialogue speaker="green" english="It&apos;s not very hard, really. The basic dimensional warping engine design is pretty simple, and if we can get that working we shouldn&apos;t have any trouble getting home." translation="Het is eigenlijk niet zo heel moeilijk. Het basisontwerp van de dimensionale wikkelaandrijving is best eenvoudig, en als we dat aan de praat krijgen zouden we geen enkele moeite moeten hebben om thuis te komen."/>
+        <dialogue speaker="player" english="Oh! Good!" translation="Ah! Mooi!"/>
     </cutscene>
     <cutscene id="int1green_7" explanation="">
-        <dialogue speaker="green" english="Finally! A teleporter!" translation=""/>
-        <dialogue speaker="green" english="I was getting worried we wouldn&apos;t find one..." translation=""/>
-        <dialogue speaker="player" english="Let&apos;s head back to the ship!" translation=""/>
+        <dialogue speaker="green" english="Finally! A teleporter!" translation="Eindelijk! Een teleporter!"/>
+        <dialogue speaker="green" english="I was getting worried we wouldn&apos;t find one..." translation="Ik begon me zorgen te maken dat we er geen meer zouden vinden..."/>
+        <dialogue speaker="player" english="Let&apos;s head back to the ship!" translation="Laten we terugkeren naar het schip!"/>
     </cutscene>
     <cutscene id="int1red_1" explanation="">
-        <dialogue speaker="red" english="Wow! Where are we?" translation=""/>
-        <dialogue speaker="player" english="This... isn&apos;t right... Something must have gone wrong with the teleporter!" translation=""/>
-        <dialogue speaker="red" english="Oh well... We can work it out when we get back to the ship!" translation=""/>
-        <dialogue speaker="red" english="Let&apos;s go exploring!" translation=""/>
-        <dialogue speaker="player" english="Ok then!" translation=""/>
+        <dialogue speaker="red" english="Wow! Where are we?" translation="Wauw! Waar zijn we?"/>
+        <dialogue speaker="player" english="This... isn&apos;t right... Something must have gone wrong with the teleporter!" translation="Dit... klopt niet... Er moet iets mis zijn gegaan met de teleporter!"/>
+        <dialogue speaker="red" english="Oh well... We can work it out when we get back to the ship!" translation="Ach ja... We kunnen dat uitvogelen wanneer we weer op het schip zijn!"/>
+        <dialogue speaker="red" english="Let&apos;s go exploring!" translation="Laten we gaan verkennen!"/>
+        <dialogue speaker="player" english="Ok then!" translation="Oké dan!"/>
     </cutscene>
     <cutscene id="int1red_2" explanation="">
-        <dialogue speaker="player" english="Follow me!" translation=""/>
-        <dialogue speaker="red" english="Aye aye, Captain!" translation=""/>
+        <dialogue speaker="player" english="Follow me!" translation="Volg mij!"/>
+        <dialogue speaker="red" english="Aye aye, Captain!" translation="Aye aye, Kapitein!"/>
     </cutscene>
     <cutscene id="int1red_3" explanation="">
-        <dialogue speaker="red" english="Hey Viridian... how did the crash happen, exactly?" translation=""/>
-        <dialogue speaker="player" english="Oh, I don&apos;t really know - some sort of interference..." translation=""/>
-        <dialogue speaker="player" english="...or something sciencey like that. It&apos;s not really my area." translation=""/>
-        <dialogue speaker="red" english="Ah! Well, do you think we&apos;ll be able to fix the ship and go home?" translation=""/>
-        <dialogue speaker="player" english="Of course! Everything will be ok!" translation=""/>
+        <dialogue speaker="red" english="Hey Viridian... how did the crash happen, exactly?" translation="Hé Viridian... hoe is de crash precies gebeurd?"/>
+        <dialogue speaker="player" english="Oh, I don&apos;t really know - some sort of interference..." translation="Eh, dat weet Ik niet echt - een of andere interferentie..."/>
+        <dialogue speaker="player" english="...or something sciencey like that. It&apos;s not really my area." translation="...of zoiets wetenschappelijks. Het is niet echt mijn vakgebied."/>
+        <dialogue speaker="red" english="Ah! Well, do you think we&apos;ll be able to fix the ship and go home?" translation="Ah! Goed, denk je dat we het schip kunnen maken en naar huis kunnen gaan?"/>
+        <dialogue speaker="player" english="Of course! Everything will be ok!" translation="Uiteraard! Alles komt goed!"/>
     </cutscene>
     <cutscene id="int1red_4" explanation="">
-        <dialogue speaker="red" english="Hi again! You doing ok?" translation=""/>
-        <dialogue speaker="player" english="I think so! But I really want to get back to the ship..." translation=""/>
-        <dialogue speaker="red" english="We&apos;ll be ok! If we can find a teleporter somewhere we should be able to get back!" translation=""/>
+        <dialogue speaker="red" english="Hi again! You doing ok?" translation="Daar zijn we weer! Alles goed?"/>
+        <dialogue speaker="player" english="I think so! But I really want to get back to the ship..." translation="Ik denk het! Maar ik wil wel heel graag terug naar het schip..."/>
+        <dialogue speaker="red" english="We&apos;ll be ok! If we can find a teleporter somewhere we should be able to get back!" translation="We redden het wel! Als we ergens een teleporter kunnen vinden moeten we terug kunnen komen!"/>
     </cutscene>
     <cutscene id="int1red_5" explanation="">
-        <dialogue speaker="red" english="Are we there yet?" translation=""/>
-        <dialogue speaker="player" english="We&apos;re getting closer, I think..." translation=""/>
-        <dialogue speaker="player" english="I hope..." translation=""/>
+        <dialogue speaker="red" english="Are we there yet?" translation="Zijn we er al?"/>
+        <dialogue speaker="player" english="We&apos;re getting closer, I think..." translation="We komen dichterbij, denk ik..."/>
+        <dialogue speaker="player" english="I hope..." translation="Hoop ik..."/>
     </cutscene>
     <cutscene id="int1red_6" explanation="">
-        <dialogue speaker="player" english="I wonder where we are, anyway?" translation=""/>
-        <dialogue speaker="player" english="This seems different from that dimension we crashed in, somehow..." translation=""/>
-        <dialogue speaker="red" english="I dunno... But we must be close to a teleporter by now..." translation=""/>
+        <dialogue speaker="player" english="I wonder where we are, anyway?" translation="Waar zouden we eigenlijk zijn?"/>
+        <dialogue speaker="player" english="This seems different from that dimension we crashed in, somehow..." translation="Dit lijkt op een of andere manier anders dan de dimensie waar we zijn neergestort..."/>
+        <dialogue speaker="red" english="I dunno... But we must be close to a teleporter by now..." translation="Weet ik niet... Maar we moeten nu wel in de buurt van een teleporter zijn..."/>
     </cutscene>
     <cutscene id="int1red_7" explanation="">
-        <dialogue speaker="player" english="We&apos;re there!" translation=""/>
-        <dialogue speaker="red" english="See? I told you! Let&apos;s get back to the ship!" translation=""/>
+        <dialogue speaker="player" english="We&apos;re there!" translation="We zijn er!"/>
+        <dialogue speaker="red" english="See? I told you! Let&apos;s get back to the ship!" translation="Zie je? Ik zei het! Laten we teruggaan naar het schip!"/>
     </cutscene>
     <cutscene id="int1yellow_1" explanation="">
-        <dialogue speaker="yellow" english="Oooh! This is interesting..." translation=""/>
-        <dialogue speaker="yellow" english="Captain! Have you been here before?" translation=""/>
-        <dialogue speaker="player" english="What? Where are we?" translation=""/>
-        <dialogue speaker="yellow" english="I suspect something deflected our teleporter transmission! This is somewhere new..." translation=""/>
-        <dialogue speaker="player" english="Oh no!" translation=""/>
-        <dialogue speaker="player" english="We should try to find a teleporter and get back to the ship..." translation=""/>
+        <dialogue speaker="yellow" english="Oooh! This is interesting..." translation="Oooh! Dit is interessant..."/>
+        <dialogue speaker="yellow" english="Captain! Have you been here before?" translation="Kapitein! Ben je hier al eens geweest?"/>
+        <dialogue speaker="player" english="What? Where are we?" translation="Wat? Waar zijn we?"/>
+        <dialogue speaker="yellow" english="I suspect something deflected our teleporter transmission! This is somewhere new..." translation="Ik vermoed dat iets onze teleportertransmissie heeft afgewend! Dit is een nieuwe plek..."/>
+        <dialogue speaker="player" english="Oh no!" translation="O nee!"/>
+        <dialogue speaker="player" english="We should try to find a teleporter and get back to the ship..." translation="We moeten proberen een teleporter te vinden en terug naar het schip te komen..."/>
     </cutscene>
     <cutscene id="int1yellow_2" explanation="">
         <dialogue speaker="player" english="Follow me!" translation=""/>

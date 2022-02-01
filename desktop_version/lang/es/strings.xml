@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Please read README.txt for information about the language files -->
 <strings>
-    <string english="LOADING..." translation="" explanation="on loading screen, followed by percentage" max="26"/>
+    <string english="LOADING... %2d%%" translation="" explanation="on loading screen. %2d = number from 0-100, %% = one percent sign" max="26"/>
     <string english="Game paused" translation="Juego pausado" explanation="pause screen" max="40"/>
     <string english="[click to resume]" translation="[Click para continuar]" explanation="pause screen" max="40"/>
     <string english="Press M to mute in game" translation="Presiona M para silenciar el juego" explanation="pause screen" max="40"/>
@@ -430,7 +430,9 @@
     <string english="[ GRAVITRON ]" translation="[ GRAVITRON ]" explanation="in-game menu" max="40"/>
     <string english="NO SIGNAL" translation="SIN SEÑAL" explanation=""/>
     <string english="Press ACTION to warp to the ship." translation="Presiona ACCIÓN para transportar la nave." explanation="spaceship. Warp = teleport" max="38*7"/>
-    <string english="Missing..." translation="Faltando..." explanation="" max="15"/>
+    <string english="Missing..." translation="Faltando..." explanation="this crew member is missing" max="15"/>
+    <string english="Rescued!" translation="" explanation="this crew member is not missing anymore" max="15"/>
+    <string english="(that&apos;s you!)" translation="" explanation="this crew member is you (Viridian)" max="15"/>
     <string english="Cannot Save in Level Replay" translation="No puedes guardar en una repeticion de nivel" explanation="" max="38*7"/>
     <string english="Cannot Save in No Death Mode" translation="No puedes guardar en el Modo Sin Muertes" explanation="" max="38*7"/>
     <string english="How&apos;d you get here?" translation="" explanation="" max="38*7"/>
@@ -631,13 +633,13 @@ You have found a lost crewmate!" translation="" explanation="" max="37*4"/>
 
 You have found the secret lab!" translation="" explanation="" max="37*4"/>
     <string english="The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu." translation="" explanation="" max="36*10"/>
-    <string english="Viridian" translation="" explanation="crewmate name (player)"/>
-    <string english="Violet" translation="" explanation="crewmate name"/>
-    <string english="Vitellary" translation="" explanation="crewmate name"/>
-    <string english="Vermilion" translation="" explanation="crewmate name"/>
-    <string english="Verdigris" translation="" explanation="crewmate name"/>
-    <string english="Victoria" translation="" explanation="crewmate name"/>
-    <string english="Starring" translation="" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Viridian" translation="" explanation="crewmate name (player)" max="15"/>
+    <string english="Violet" translation="" explanation="crewmate name" max="15"/>
+    <string english="Vitellary" translation="" explanation="crewmate name" max="15"/>
+    <string english="Vermilion" translation="" explanation="crewmate name" max="15"/>
+    <string english="Verdigris" translation="" explanation="crewmate name" max="15"/>
+    <string english="Victoria" translation="" explanation="crewmate name" max="15"/>
+    <string english="Starring" translation="" explanation="credits roll. Starring the following 6 crew members" max="20"/>
     <string english="Captain Viridian" translation="" explanation="credits roll. Starring the following 6 crew members"/>
     <string english="Doctor Violet" translation="" explanation="credits roll. Starring the following 6 crew members"/>
     <string english="Professor Vitellary" translation="" explanation="credits roll. Starring the following 6 crew members"/>
@@ -666,8 +668,28 @@ You have found the secret lab!" translation="" explanation="" max="37*4"/>
     <string english="60 seconds!" translation="" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20"/>
     <string english="Thanks for" translation="" explanation="credits. Line 1/2: Thanks for playing!" max="20"/>
     <string english="playing!" translation="" explanation="credits. Line 2/2: Thanks for playing!" max="20"/>
-    <string english="" translation="" explanation=""/>
-    <string english="" translation="" explanation=""/>
-    <string english="" translation="" explanation=""/>
+    <string english="SPACE STATION 1 MASTERED" translation="" explanation="achievement/trophy title" max="38*2"/>
+    <string english="LABORATORY MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="THE TOWER MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="SPACE STATION 2 MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="WARP ZONE MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="FINAL LEVEL MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="Obtain a V Rank in this Time Trial" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="GAME COMPLETE" translation="" explanation="achievement/trophy title" max="38*2"/>
+    <string english="Complete the game" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="FLIP MODE COMPLETE" translation="" explanation="achievement/trophy title" max="38*2"/>
+    <string english="Complete the game in flip mode" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 50 deaths" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 100 deaths" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 250 deaths" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 500 deaths" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 5 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 10 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 15 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 20 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 30 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 1 minute on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="MASTER OF THE UNIVERSE" translation="" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
+    <string english="Complete the game in no death mode" translation="" explanation="achievement/trophy description" max="38*2"/>
     <string english="" translation="" explanation=""/>
 </strings>

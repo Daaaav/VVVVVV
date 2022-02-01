@@ -14,15 +14,15 @@
         <translation form="1" translation="En je hebt %s artefact gevonden."/>
     </string>
     <string english_plural="%s crewmates remain" english_singular="%s crewmate remains" explanation="" max="40">
-        <translation form="0" translation=""/>
-        <translation form="1" translation=""/>
+        <translation form="0" translation="%s bemanningsleden te gaan"/>
+        <translation form="1" translation="%s bemanningslid te gaan"/>
     </string>
     <string english_plural="%s remain" english_singular="%s remains" explanation="You have rescued a crew member! XX remain" max="32">
         <translation form="0" translation="Nog %s te gaan"/>
         <translation form="1" translation="Nog %s te gaan"/>
     </string>
     <string english_plural="Hardest Room (with %d deaths)" english_singular="Hardest Room (with %d death)" explanation="game complete screen" max="40">
-        <translation form="0" translation=""/>
-        <translation form="1" translation=""/>
+        <translation form="0" translation="Moeilijkste kamer (%d keer dood)"/>
+        <translation form="1" translation="Moeilijkste kamer (%d keer dood)"/>
     </string>
 </strings_plural>

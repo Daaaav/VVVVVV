@@ -1,3 +1,4 @@
+#include "Constants.h"
 #include "Enums.h"
 #include "Game.h"
 #include "Graphics.h"
@@ -120,13 +121,11 @@ void preloaderrender(void)
   }
 
   if (print_percentage) {
-    std::string percentage = std::string(loc::gettext("LOADING...")) + " " + help.String(int(pre_fakepercent)) + "%";
-    int percentage_len = graphics.len(percentage);
-    if (pre_fakepercent < 10) {
-      // Make the 9->10 transition less noticeable, as it has always been
-      percentage_len += graphics.len(" ");
-    }
-    graphics.Print(282-percentage_len, 204, percentage, 124, 112, 218, false);
+    char buffer[SCREEN_WIDTH_CHARS + 1];
+    SDL_snprintf(buffer, sizeof(buffer), loc::gettext("LOADING... %2d%%"), pre_fakepercent);
+
+    int percentage_len = graphics.len(buffer);
+    graphics.Print(282-percentage_len, 204, buffer, 124, 112, 218, false);
   }
 
   graphics.drawfade();

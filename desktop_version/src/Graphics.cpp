@@ -909,22 +909,22 @@ void Graphics::printcrewname( int x, int y, int t )
     switch(t)
     {
     case 0:
-        Print(x, y, "Viridian", 16, 240, 240,false );
+        Print(x, y, loc::gettext("Viridian"), 16, 240, 240,false);
         break;
     case 1:
-        Print(x, y, "Violet", 240, 16, 240,false);
+        Print(x, y, loc::gettext("Violet"), 240, 16, 240,false);
         break;
     case 2:
-        Print(x, y, "Vitellary", 240, 240, 16,false);
+        Print(x, y, loc::gettext("Vitellary"), 240, 240, 16,false);
         break;
     case 3:
-        Print(x, y, "Vermilion", 240, 16, 16,false);
+        Print(x, y, loc::gettext("Vermilion"), 240, 16, 16,false);
         break;
     case 4:
-        Print(x, y, "Verdigris", 16, 240, 16,false);
+        Print(x, y, loc::gettext("Verdigris"), 16, 240, 16,false);
         break;
     case 5:
-        Print(x, y, "Victoria", 16, 16, 240,false);
+        Print(x, y, loc::gettext("Victoria"), 16, 16, 240,false);
         break;
     }
 }
@@ -935,22 +935,22 @@ void Graphics::printcrewnamedark( int x, int y, int t )
     switch(t)
     {
     case 0:
-        Print(x, y, "Viridian", 128,128,128,false);
+        Print(x, y, loc::gettext("Viridian"), 128,128,128,false);
         break;
     case 1:
-        Print(x, y, "Violet", 128,128,128,false);
+        Print(x, y, loc::gettext("Violet"), 128,128,128,false);
         break;
     case 2:
-        Print(x, y, "Vitellary", 128,128,128,false);
+        Print(x, y, loc::gettext("Vitellary"), 128,128,128,false);
         break;
     case 3:
-        Print(x, y, "Vermilion", 128,128,128,false);
+        Print(x, y, loc::gettext("Vermilion"), 128,128,128,false);
         break;
     case 4:
-        Print(x, y, "Verdigris", 128,128,128,false);
+        Print(x, y, loc::gettext("Verdigris"), 128,128,128,false);
         break;
     case 5:
-        Print(x, y, "Victoria", 128,128,128,false);
+        Print(x, y, loc::gettext("Victoria"), 128,128,128,false);
         break;
     }
 }
@@ -961,22 +961,22 @@ void Graphics::printcrewnamestatus( int x, int y, int t )
     switch(t)
     {
     case 0:
-        Print(x, y, "(that's you!)", 12, 140, 140,false);
+        Print(x, y, loc::gettext("(that's you!)"), 12, 140, 140,false);
         break;
     case 1:
-        Print(x, y, "Rescued!", 140, 12, 140,false);
+        Print(x, y, loc::gettext("Rescued!"), 140, 12, 140,false);
         break;
     case 2:
-        Print(x, y, "Rescued!", 140, 140, 12,false);
+        Print(x, y, loc::gettext("Rescued!"), 140, 140, 12,false);
         break;
     case 3:
-        Print(x, y, "Rescued!", 140, 12, 12,false);
+        Print(x, y, loc::gettext("Rescued!"), 140, 12, 12,false);
         break;
     case 4:
-        Print(x, y, "Rescued!", 12, 140, 12,false);
+        Print(x, y, loc::gettext("Rescued!"), 12, 140, 12,false);
         break;
     case 5:
-        Print(x, y, "Rescued!", 12, 12, 140,false);
+        Print(x, y, loc::gettext("Rescued!"), 12, 12, 140,false);
         break;
     }
 }
@@ -1959,74 +1959,94 @@ void Graphics::drawtrophytext(void)
         temp2 = 196;
         temp3 = 255 - help.glow;
     }
+
+    /* These were originally all at the top of the screen, but might be too tight for localization.
+     * It probably makes sense to make them all have a top text now, but for now this is probably fine.
+     * Look at the Steam achievements, they have pretty logical titles that should probably be used. */
+    const char* top_text = NULL;
+    const char* bottom_text = NULL;
+
     switch(obj.trophytype)
     {
     case 1:
-        bprint( -1, 6, "SPACE STATION 1 MASTERED", temp, temp2, temp3, true);
-        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        top_text = loc::gettext("SPACE STATION 1 MASTERED");
+        bottom_text = loc::gettext("Obtain a V Rank in this Time Trial");
         break;
     case 2:
-        bprint( -1, 6, "LABORATORY MASTERED", temp, temp2, temp3, true);
-        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        top_text = loc::gettext("LABORATORY MASTERED");
+        bottom_text = loc::gettext("Obtain a V Rank in this Time Trial");
         break;
     case 3:
-        bprint( -1, 6, "THE TOWER MASTERED", temp, temp2, temp3, true);
-        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        top_text = loc::gettext("THE TOWER MASTERED");
+        bottom_text = loc::gettext("Obtain a V Rank in this Time Trial");
         break;
     case 4:
-        bprint( -1, 6, "SPACE STATION 2 MASTERED", temp, temp2, temp3, true);
-        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        top_text = loc::gettext("SPACE STATION 2 MASTERED");
+        bottom_text = loc::gettext("Obtain a V Rank in this Time Trial");
         break;
     case 5:
-        bprint( -1, 6, "WARP ZONE MASTERED", temp, temp2, temp3, true);
-        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        top_text = loc::gettext("WARP ZONE MASTERED");
+        bottom_text = loc::gettext("Obtain a V Rank in this Time Trial");
         break;
     case 6:
-        bprint( -1, 6, "FINAL LEVEL MASTERED", temp, temp2, temp3, true);
-        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        top_text = loc::gettext("FINAL LEVEL MASTERED");
+        bottom_text = loc::gettext("Obtain a V Rank in this Time Trial");
         break;
     case 7:
-        bprint( -1, 6, "GAME COMPLETE", temp, temp2, temp3, true);
-        bprint( -1, 16, "Complete the game", temp, temp2, temp3, true);
+        top_text = loc::gettext("GAME COMPLETE");
+        bottom_text = loc::gettext("Complete the game");
         break;
     case 8:
-        bprint( -1, 6, "FLIP MODE COMPLETE", temp, temp2, temp3, true);
-        bprint( -1, 16, "Complete the game in flip mode", temp, temp2, temp3, true);
+        top_text = loc::gettext("FLIP MODE COMPLETE");
+        bottom_text = loc::gettext("Complete the game in flip mode");
         break;
     case 9:
-        bprint( -1, 11, "Win with less than 50 deaths", temp, temp2, temp3, true);
+        bottom_text = loc::gettext("Win with less than 50 deaths");
         break;
     case 10:
-        bprint( -1, 11, "Win with less than 100 deaths", temp, temp2, temp3, true);
+        bottom_text = loc::gettext("Win with less than 100 deaths");
         break;
     case 11:
-        bprint( -1, 11, "Win with less than 250 deaths", temp, temp2, temp3, true);
+        bottom_text = loc::gettext("Win with less than 250 deaths");
         break;
     case 12:
-        bprint( -1, 11, "Win with less than 500 deaths", temp, temp2, temp3, true);
+        bottom_text = loc::gettext("Win with less than 500 deaths");
         break;
     case 13:
-        bprint( -1, 11, "Last 5 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bottom_text = loc::gettext("Last 5 seconds on the Super Gravitron");
         break;
     case 14:
-        bprint( -1, 11, "Last 10 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bottom_text = loc::gettext("Last 10 seconds on the Super Gravitron");
         break;
     case 15:
-        bprint( -1, 11, "Last 15 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bottom_text = loc::gettext("Last 15 seconds on the Super Gravitron");
         break;
     case 16:
-        bprint( -1, 11, "Last 20 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bottom_text = loc::gettext("Last 20 seconds on the Super Gravitron");
         break;
     case 17:
-        bprint( -1, 11, "Last 30 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bottom_text = loc::gettext("Last 30 seconds on the Super Gravitron");
         break;
     case 18:
-        bprint( -1, 11, "Last 1 minute on the Super Gravitron", temp, temp2, temp3, true);
+        bottom_text = loc::gettext("Last 1 minute on the Super Gravitron");
         break;
     case 20:
-        bprint( -1, 6, "MASTER OF THE UNIVERSE", temp, temp2, temp3, true);
-        bprint( -1, 16, "Complete the game in no death mode", temp, temp2, temp3, true);
+        top_text = loc::gettext("MASTER OF THE UNIVERSE");
+        bottom_text = loc::gettext("Complete the game in no death mode");
         break;
+    }
+
+    /* These were `bprint` before */
+    short lines;
+    if (top_text != NULL)
+    {
+        string_wordwrap(top_text, 304, &lines);
+        PrintWrap(-1, 11-(lines-1)*5, top_text, temp, temp2, temp3, true);
+    }
+    if (bottom_text != NULL)
+    {
+        string_wordwrap(bottom_text, 304, &lines);
+        PrintWrap(-1, 221-(lines-1)*5, bottom_text, temp, temp2, temp3, true);
     }
 }
 
