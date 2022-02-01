@@ -46,6 +46,8 @@ namespace loc
     extern int n_unexplained_roomnames_custom;
 
 
+    LangMeta* get_langmeta(void);
+
     const char* gettext(const char* eng);
     const char* gettext_plural(const char* eng_plural, const char* eng_singular, int count);
     void gettext_plural_fill(char* buf, size_t buf_len, const char* eng_plural, const char* eng_singular, int count);

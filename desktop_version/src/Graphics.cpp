@@ -594,7 +594,7 @@ bool Graphics::next_wrap(
         switch (str[idx])
         {
         case ' ':
-            if (loc::langmeta.autowordwrap)
+            if (loc::get_langmeta()->autowordwrap)
             {
                 lenfromlastspace = idx;
                 lastspace = *start;
@@ -799,7 +799,7 @@ std::string Graphics::string_wordwrap_balanced(const std::string& s, int maxwidt
     // Goal is to have all lines in textboxes be about as long and to avoid wrapping just one word to a new line.
     // CJK will need to have autowordwrap disabled and have manually inserted newlines.
 
-    if (!loc::langmeta.autowordwrap)
+    if (!loc::get_langmeta()->autowordwrap)
     {
         return s;
     }

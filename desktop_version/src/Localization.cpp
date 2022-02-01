@@ -4,6 +4,7 @@
 
 #include <utf8/unchecked.h>
 
+#include "Game.h"
 #include "UtilityClass.h"
 
 namespace loc
@@ -22,6 +23,16 @@ namespace loc
     int n_unexplained_roomnames = 0;
     int n_untranslated_roomnames_custom = 0;
     int n_unexplained_roomnames_custom = 0;
+
+    LangMeta* get_langmeta(void)
+    {
+        if (game.currentmenuname == Menu::language && (unsigned)game.currentmenuoption < languagelist.size())
+        {
+            return &languagelist[game.currentmenuoption];
+        }
+
+        return &langmeta;
+    }
 
     const char* gettext(const char* eng)
     {
@@ -277,7 +288,7 @@ namespace loc
         // Supports important Latin (1 and A), Cyrillic and Greek
 
         // Turkish i?
-        if (langmeta.toupper_i_dot && ch == 'i') return 0x130;
+        if (get_langmeta()->toupper_i_dot && ch == 'i') return 0x130;
 
         // a-z?
         if ('a' <= ch && ch <= 'z') return ch - 0x20;
@@ -334,7 +345,7 @@ namespace loc
     std::string toupper(const std::string& lower)
     {
         // Convert a UTF-8 string to uppercase
-        if (!langmeta.toupper)
+        if (!get_langmeta()->toupper)
             return lower;
 
         std::string upper = std::string();
@@ -346,7 +357,7 @@ namespace loc
         {
             ch = utf8::unchecked::next(iter);
 
-            if (langmeta.toupper_lower_escape_char && ch == '~')
+            if (get_langmeta()->toupper_lower_escape_char && ch == '~')
             {
                 ignorenext = true;
                 continue;
@@ -370,7 +381,7 @@ namespace loc
         // To be clear: does not convert to lowercase!
         // (Hence why not_toupper is the best I could come up with for now to prevent anyone thinking it's just a tolower)
 
-        if (!langmeta.toupper_lower_escape_char)
+        if (!get_langmeta()->toupper_lower_escape_char)
             return _s;
 
         std::string s = std::string(_s);
