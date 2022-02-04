@@ -684,10 +684,10 @@ static void menurender(void)
         int next_y = graphics.PrintWrap(-1, 20, loc::gettext("If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Make a backup, just in case."), tr, tg, tb, true);
 
         graphics.Print(-1, next_y, loc::gettext("Full syncing EN→All:"), tr, tg, tb, true);
-        next_y = graphics.PrintWrap(-1, next_y+10, "strings.xml\nstrings_plural.xml\ncutscenes.xml\nroomnames.xml\nroomnames_special.xml", tr/2, tg/2, tb/2, true);
+        next_y = graphics.PrintWrap(-1, next_y+10, "meta.xml\nstrings.xml\nstrings_plural.xml\ncutscenes.xml\nroomnames.xml\nroomnames_special.xml", tr/2, tg/2, tb/2, true);
 
         graphics.Print(-1, next_y, loc::gettext("Syncing not supported:"), tr, tg, tb, true);
-        graphics.PrintWrap(-1, next_y+10, "meta.xml\nnumbers.xml", tr/2, tg/2, tb/2, true);
+        graphics.PrintWrap(-1, next_y+10, "numbers.xml", tr/2, tg/2, tb/2, true);
         break;
     }
     case Menu::speedrunneroptions:

@@ -29,7 +29,8 @@ For maintainers: To add new strings, add them to the English strings.xml, and us
 The language file sync option has differing support for the language files. As indicated in the menu itself, it handles each file as follows:
 
 [Full syncing EN→All]
-For these files, the English version of the file is fully copied and overwrites every language's version, while all existing translations are inserted for every language. This means newly added strings are copied to every language, and removed strings are simultaneously removed from every language, bringing them fully up-to-date.
+For these files, the English version of the file is fully copied and overwrites every language's version, while all existing translations and customizations are inserted for every language. This means newly added strings are copied to every language, and removed strings are simultaneously removed from every language, bringing them fully up-to-date.
+  - meta.xml
   - strings.xml
   - strings_plural.xml
   - cutscenes.xml
@@ -38,7 +39,6 @@ For these files, the English version of the file is fully copied and overwrites 
 
 [Syncing not supported]
 These files are untouched by the syncing feature.
-  - meta.xml
   - numbers.xml
 
 

@@ -719,6 +719,7 @@ namespace loc
 
         std::vector<std::string> codes = FILESYSTEM_getLanguageCodes();
         size_t opt = 0;
+        languagelist_curlang = 0;
         for (size_t i = 0; i < codes.size(); i++)
         {
             LangMeta meta;
@@ -748,6 +749,53 @@ namespace loc
         tinyxml2::XMLHandle hDoc(&doc);
         tinyxml2::XMLElement* pElem;
         tinyxml2::XMLElement* subElem;
+
+        if (load_lang_doc("meta", doc, "en"))
+        {
+            FOR_EACH_XML_ELEMENT(hDoc, pElem)
+            {
+                const char* pKey = pElem->Value();
+
+                if (SDL_strcmp(pKey, "active") == 0)
+                    pElem->SetText((int) langmeta.active);
+                else if (SDL_strcmp(pKey, "nativename") == 0)
+                    pElem->SetText(langmeta.nativename.c_str());
+                else if (SDL_strcmp(pKey, "credit") == 0)
+                    pElem->SetText(langmeta.credit.c_str());
+                else if (SDL_strcmp(pKey, "action_hint") == 0)
+                    pElem->SetText(langmeta.action_hint.c_str());
+                else if (SDL_strcmp(pKey, "autowordwrap") == 0)
+                    pElem->SetText((int) langmeta.autowordwrap);
+                else if (SDL_strcmp(pKey, "toupper") == 0)
+                    pElem->SetText((int) langmeta.toupper);
+                else if (SDL_strcmp(pKey, "toupper_i_dot") == 0)
+                    pElem->SetText((int) langmeta.toupper_i_dot);
+                else if (SDL_strcmp(pKey, "toupper_lower_escape_char") == 0)
+                    pElem->SetText((int) langmeta.toupper_lower_escape_char);
+            }
+
+            /* This part exists because we want to preserve blank lines between the commented
+             * options for clarity, so we have to take matters into our own hands. */
+            for (
+                tinyxml2::XMLNode* pNode = hDoc.FirstChildElement().FirstChild().ToNode();
+                pNode != NULL;
+                pNode = pNode->NextSibling()
+            )
+            {
+                tinyxml2::XMLComment* pCom = pNode->ToComment();
+                if (pCom != NULL)
+                {
+                    tinyxml2::XMLNode* pPrevNode = pCom->PreviousSibling();
+                    if (pPrevNode != NULL)
+                    {
+                        doc.FirstChildElement()->InsertAfterChild(pPrevNode, doc.NewText("\n\n    "));
+                    }
+                    doc.FirstChildElement()->InsertAfterChild(pCom, doc.NewText("\n    "));
+                }
+            }
+
+            FILESYSTEM_saveTiXml2Document((langcode + "/meta.xml").c_str(), doc);
+        }
 
         if (load_lang_doc("strings", doc, "en"))
         {
