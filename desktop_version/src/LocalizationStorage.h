@@ -2,6 +2,7 @@
 #define LOCALIZATIONSTORAGE_H
 
 #include "Textbook.h"
+#include "XMLUtils.h"
 
 extern "C"
 {
@@ -25,7 +26,7 @@ extern "C"
 
 namespace loc
 {
-    #if defined(LOCALIZATION_CPP) || defined(LOCALIZATIONSTORAGE_CPP)
+    #if defined(LOCALIZATION_CPP) || defined(LOCALIZATIONSTORAGE_CPP) || defined(LOCALIZATIONMAINT_CPP)
         LS_INTERN Textbook textbook_main;
         LS_INTERN Textbook textbook_custom;
 
@@ -48,6 +49,13 @@ namespace loc
     #endif
 
 
+    bool load_lang_doc(
+        const std::string& cat,
+        tinyxml2::XMLDocument& doc,
+        const std::string& langcode = lang,
+        const std::string& asset_cat = ""
+    );
+
     void resettext_custom(void);
     void unloadtext_custom(void);
 
@@ -58,10 +66,6 @@ namespace loc
     void loadtext(void);
     void loadtext_custom(const char* custom_path);
     void loadlanguagelist(void);
-    void sync_lang_files(void);
-
-    bool save_roomname_to_file(const std::string& langcode, bool custom_level, int roomx, int roomy, const char* tra, const char* explanation);
-    bool save_roomname_explanation_to_files(bool custom_level, int roomx, int roomy, const char* explanation);
 
     const char* map_lookup_text(hashmap* map, const char* eng, const char* fallback);
 

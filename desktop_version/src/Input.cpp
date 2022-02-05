@@ -11,6 +11,7 @@
 #include "Graphics.h"
 #include "KeyPoll.h"
 #include "Localization.h"
+#include "LocalizationMaint.h"
 #include "LocalizationStorage.h"
 #include "MakeAndPlay.h"
 #include "Map.h"

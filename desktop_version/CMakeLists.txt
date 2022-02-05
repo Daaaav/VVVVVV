@@ -90,6 +90,7 @@ set(VVV_SRC
     src/KeyPoll.cpp
     src/Labclass.cpp
     src/Localization.cpp
+    src/LocalizationMaint.cpp
     src/LocalizationStorage.cpp
     src/Logic.cpp
     src/Map.cpp
