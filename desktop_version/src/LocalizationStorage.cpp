@@ -9,30 +9,8 @@
 #include "Graphics.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
+#include "XMLUtils.h"
 
-#define FOR_EACH_XML_ELEMENT(doc, elem) \
-    for ( \
-        elem = doc \
-            .FirstChildElement() \
-            .FirstChildElement() \
-            .ToElement(); \
-        elem != NULL; \
-        elem = elem->NextSiblingElement() \
-    )
-
-#define FOR_EACH_XML_SUB_ELEMENT(elem, subelem) \
-    for ( \
-        subelem = elem->FirstChildElement(); \
-        subelem != NULL; \
-        subelem = subelem->NextSiblingElement() \
-    )
-
-#define EXPECT_ELEM(elem, expect) \
-    if (SDL_strcmp(elem->Value(), expect) != 0) \
-    { \
-        continue; \
-    } \
-    do { } while (false)
 
 namespace loc
 {
