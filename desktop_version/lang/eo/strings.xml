@@ -108,22 +108,22 @@
     <string english="sound volume" translation="son-laŭteco" explanation="audio menu option"/>
     <string english="Sound Volume" translation="Laŭteco de sonoj" explanation="title" max="20"/>
     <string english="Change the volume of sound effects." translation="Ŝanĝi la laŭtecon de sonefikoj." explanation="" max="38*3"/>
-    <string english="Credits" translation="" explanation="credits" max="13"/>
+    <string english="Credits" translation="Agnoskoj" explanation="credits" max="13"/>
     <string english="VVVVVV is a game by" translation="VVVVVV estas ludo de" explanation="credits" max="40"/>
     <string english="and features music by" translation="kaj enhavas muzikon de" explanation="credits" max="40"/>
     <string english="Roomnames are by" translation="Ĉambronomoj de" explanation="credits" max="40"/>
     <string english="C++ version by" translation="Versio C++ de" explanation="credits" max="40"/>
     <string english="Beta Testing by" translation="Beta-testado de" explanation="credits" max="30"/>
     <string english="Ending Picture by" translation="Fina bildo de" explanation="credits" max="30"/>
-    <string english="Created by" translation="" explanation="credits" max="30"/>
-    <string english="With Music by" translation="" explanation="credits" max="30"/>
-    <string english="Rooms Named by" translation="" explanation="credits" max="30"/>
-    <string english="C++ Port by" translation="" explanation="credits" max="30"/>
-    <string english="Patrons" translation="" explanation="credits, people who donated a certain amount before the game originally released" max="13"/>
-    <string english="VVVVVV is supported by the following patrons" translation="VVVVVV estas subtenata de la sekvaj homoj" explanation="credits" max="38*3"/>
+    <string english="Created by" translation="Kreis" explanation="credits" max="30"/>
+    <string english="With Music by" translation="Kun muziko de" explanation="credits" max="30"/>
+    <string english="Rooms Named by" translation="Nomis ĉambrojn" explanation="credits" max="30"/>
+    <string english="C++ Port by" translation="Porto al C++ de" explanation="credits" max="30"/>
+    <string english="Patrons" translation="Subtenintoj" explanation="credits, people who donated a certain amount before the game originally released" max="13"/>
+    <string english="VVVVVV is supported by the following patrons" translation="VVVVVV estas subtenita de la sekvaj homoj" explanation="credits" max="38*3"/>
     <string english="and also by" translation="kaj ankaŭ de" explanation="credits, VVVVVV is also supported by the following people" max="38*2"/>
     <string english="and" translation="kaj" explanation="credits. This list of names, AND furthermore, this other list of names" max="38"/>
-    <string english="GitHub Contributors" translation="" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
+    <string english="GitHub Contributors" translation="Kod-kontribuantoj" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
     <string english="With contributions on GitHub from" translation="Kun kontribuoj ĉe GitHub de" explanation="credits" max="38*3"/>
     <string english="and thanks also to:" translation="kaj dankon ankaŭ al:" explanation="credits, and thanks also to ... you!" max="38*3"/>
     <string english="You!" translation="Vi!" explanation="credits, and thanks also to ... you!"/>
@@ -417,8 +417,8 @@
     <string english="New Record!" translation="Nova rekordo!" explanation="" max="20"/>
     <string english="New Trophy!" translation="Nova trofeo!" explanation="" max="20"/>
     <string english="[Press ENTER to stop]" translation="[Premu ENTER por haltigi]" explanation="stop super gravitron" max="40"/>
-    <string english="SUPER GRAVITRON" translation="SUPER-GRAVITĈAMBRO" explanation="" max="20"/>
-    <string english="SUPER GRAVITRON HIGHSCORE" translation="ALTPOENTARO DE SUPER-GRAVITĈAMBRO" explanation="" max="38*4"/>
+    <string english="SUPER GRAVITRON" translation="SUPERGRAVITRONO" explanation="" max="20"/>
+    <string english="SUPER GRAVITRON HIGHSCORE" translation="ALTPOENTARO DE SUPERGRAVITRONO" explanation="" max="38*4"/>
     <string english="MAP" translation="MAPO" explanation="in-game menu" max="8"/>
     <string english="GRAV" translation="GRAV" explanation="in-game menu, Gravitron" max="8"/>
     <string english="SHIP" translation="ŜIPO" explanation="in-game menu, spaceship" max="8"/>
@@ -427,7 +427,7 @@
     <string english="SAVE" translation="KONSERVI" explanation="in-game menu" max="8"/>
     <string english="[ PAUSE ]" translation="[ PAŬZO ]" explanation="in-game menu" max="40"/>
     <string english="[ QUIT ]" translation="[ ELIRI ]" explanation="in-game menu" max="40"/>
-    <string english="[ GRAVITRON ]" translation="[ GRAVITĈAMBRO ]" explanation="in-game menu" max="40"/>
+    <string english="[ GRAVITRON ]" translation="[ GRAVITRONO ]" explanation="in-game menu" max="40"/>
     <string english="NO SIGNAL" translation="SENSIGNALE" explanation=""/>
     <string english="Press ACTION to warp to the ship." translation="Premu AGBUTONON por teleportiĝi al la ŝipo." explanation="spaceship. Warp = teleport" max="38*7"/>
     <string english="Missing..." translation="Mankas..." explanation="this crew member is missing" max="15"/>
@@ -449,11 +449,11 @@
     <string english="no, keep playing" translation="ne, ludu plu" explanation="" max="28"/>
     <string english="[ NO, KEEP PLAYING ]" translation="[ NE, LUDU PLU ]" explanation="" max="32"/>
     <string english="no, return" translation="ne, revenu" explanation=""/>
-    <string english="yes, quit to menu" translation="jes, eliri al menuo" explanation="" max="24"/>
-    <string english="[ YES, QUIT TO MENU ]" translation="[ JES, ELIRI AL MENUO ]" explanation="" max="28"/>
+    <string english="yes, quit to menu" translation="jes, eliru al menuo" explanation="" max="24"/>
+    <string english="[ YES, QUIT TO MENU ]" translation="[ JES, ELIRU AL MENUO ]" explanation="" max="28"/>
     <string english="yes, return" translation="jes, revenu" explanation="" max="24"/>
     <string english="[ YES, RETURN ]" translation="[ JES, REVENU ]" explanation="" max="28"/>
-    <string english="yes, quit" translation="jes, eliri" explanation="quit program"/>
+    <string english="yes, quit" translation="jes, eliru" explanation="quit program"/>
     <string english="return to game" translation="reveni al ludo" explanation="pause menu option" max="27"/>
     <string english="quit to menu" translation="eliri al menuo" explanation="pause menu option" max="19"/>
     <string english="Press Left/Right to choose a Teleporter" translation="Premu ←/→ por elekti teleportilon" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40"/>
@@ -517,7 +517,7 @@
     <string english="yes, save and quit" translation="jes, konservu kaj eliru" explanation="level editor menu option"/>
     <string english="no, quit without saving" translation="ne, eliru sen konservi" explanation="level editor menu option"/>
     <string english="return to editor" translation="reen al redaktilo" explanation="level editor menu option"/>
-    <string english="Untitled Level" translation="Netitolita nivelo" explanation="" max="20"/>
+    <string english="Untitled Level" translation="Sentitola nivelo" explanation="" max="20"/>
     <string english="Unknown" translation="Nekonato" explanation="by Unknown [author]"/>
     <string english="Tile:" translation="Kahelo:" explanation="editor, selected " max="34"/>
     <string english="SCRIPT BOX: Click on top left" translation="SKRIPTSKATOLO: Alklaku supran maldekstron" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
@@ -645,13 +645,13 @@ Vi trovis la sekretan labon!" explanation="" max="37*4"/>
     <string english="Vermilion" translation="Vermiljo" explanation="crewmate name" max="15"/>
     <string english="Verdigris" translation="Verdigriso" explanation="crewmate name" max="15"/>
     <string english="Victoria" translation="Viktoria" explanation="crewmate name" max="15"/>
-    <string english="Starring" translation="" explanation="credits roll. Starring the following 6 crew members" max="20"/>
-    <string english="Captain Viridian" translation="" explanation="credits roll. Starring the following 6 crew members"/>
-    <string english="Doctor Violet" translation="" explanation="credits roll. Starring the following 6 crew members"/>
-    <string english="Professor Vitellary" translation="" explanation="credits roll. Starring the following 6 crew members"/>
-    <string english="Officer Vermilion" translation="" explanation="credits roll. Starring the following 6 crew members"/>
-    <string english="Chief Verdigris" translation="" explanation="credits roll. Starring the following 6 crew members"/>
-    <string english="Doctor Victoria" translation="" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Starring" translation="Stelumis" explanation="credits roll. Starring the following 6 crew members" max="20"/>
+    <string english="Captain Viridian" translation="Kapitano Viridiano" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Doctor Violet" translation="Doktoro Violeto" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Professor Vitellary" translation="Profesoro Vitelario" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Officer Vermilion" translation="Oficiro Vermiljo" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Chief Verdigris" translation="Ĉefo Verdigriso" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Doctor Victoria" translation="Doktoro Viktoria" explanation="credits roll. Starring the following 6 crew members"/>
     <string english="When you&apos;re standing on the floor, Vitellary will try to walk to you." translation="Kiam vi staras sur la planko, Vitelario provos marŝi al vi." explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re standing on the floor, Vermilion will try to walk to you." translation="Kiam vi staras sur la planko, Vermiljo provos marŝi al vi." explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re standing on the floor, Verdigris will try to walk to you." translation="Kiam vi staras sur la planko, Verdigriso provos marŝi al vi." explanation="Intermission 1" max="34*4"/>
@@ -672,30 +672,30 @@ Vi trovis la sekretan labon!" explanation="" max="37*4"/>
     <string english="You can&apos;t continue to the next room until she is safely across." translation="Ne eblas pluiri al la sekva ĉambro, ĝis kiam ŝi estas sekure transiĝinta." explanation="Intermission 1" max="34*4"/>
     <string english="Survive for" translation="Travivu" explanation="Gravitron. Line 1/2: Survive for 60 seconds!" max="20"/>
     <string english="60 seconds!" translation="60 sekundojn!" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20"/>
-    <string english="Thanks for" translation="" explanation="credits. Line 1/2: Thanks for playing!" max="20"/>
-    <string english="playing!" translation="" explanation="credits. Line 2/2: Thanks for playing!" max="20"/>
-    <string english="SPACE STATION 1 MASTERED" translation="" explanation="achievement/trophy title" max="38*2"/>
-    <string english="LABORATORY MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="THE TOWER MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="SPACE STATION 2 MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="WARP ZONE MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="FINAL LEVEL MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="Obtain a V Rank in this Time Trial" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="GAME COMPLETE" translation="" explanation="achievement/trophy title" max="38*2"/>
+    <string english="Thanks for" translation="Dankon" explanation="credits. Line 1/2: Thanks for playing!" max="20"/>
+    <string english="playing!" translation="pro ludi!" explanation="credits. Line 2/2: Thanks for playing!" max="20"/>
+    <string english="SPACE STATION 1 MASTERED" translation="KOSMOSTACIO 1 TUTVENKITA" explanation="achievement/trophy title" max="38*2"/>
+    <string english="LABORATORY MASTERED" translation="LABORATORIO TUTVENKITA" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="THE TOWER MASTERED" translation="LA TURO TUTVENKITA" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="SPACE STATION 2 MASTERED" translation="KOSMOSTACIO 2 TUTVENKITA" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="WARP ZONE MASTERED" translation="TELEPORTEJO TUTVENKITA" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="FINAL LEVEL MASTERED" translation="FINA NIVELO TUTVENKITA" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="Obtain a V Rank in this Time Trial" translation="Obteni rangon V en tiu ĉi tempoprovo" explanation="achievement/trophy description" max="38*2"/>
+    <string english="GAME COMPLETE" translation="LUDO KOMPLETIGITA" explanation="achievement/trophy title" max="38*2"/>
     <string english="Complete the game" translation="Kompletigi la ludon" explanation="achievement/trophy description" max="38*2"/>
-    <string english="FLIP MODE COMPLETE" translation="" explanation="achievement/trophy title" max="38*2"/>
-    <string english="Complete the game in flip mode" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Win with less than 50 deaths" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Win with less than 100 deaths" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Win with less than 250 deaths" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Win with less than 500 deaths" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 5 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 10 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 15 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 20 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 30 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 1 minute on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="MASTER OF THE UNIVERSE" translation="" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
-    <string english="Complete the game in no death mode" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="FLIP MODE COMPLETE" translation="RENVERSA REĜIMO KOMPLETIGITA" explanation="achievement/trophy title" max="38*2"/>
+    <string english="Complete the game in flip mode" translation="Kompletigi la ludon en renversa reĝimo" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 50 deaths" translation="Venki kun malpli ol 50 mortoj" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 100 deaths" translation="Venki kun malpli ol 100 mortoj" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 250 deaths" translation="Venki kun malpli ol 250 mortoj" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 500 deaths" translation="Venki kun malpli ol 500 mortoj" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 5 seconds on the Super Gravitron" translation="Travivi 5 sekundojn en la Supergravitrono" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 10 seconds on the Super Gravitron" translation="Travivi 10 sekundojn en la Supergravitrono" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 15 seconds on the Super Gravitron" translation="Travivi 15 sekundojn en la Supergravitrono" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 20 seconds on the Super Gravitron" translation="Travivi 20 sekundojn en la Supergravitrono" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 30 seconds on the Super Gravitron" translation="Travivi 30 sekundojn en la Supergravitrono" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 1 minute on the Super Gravitron" translation="Travivi 1 minuton en la Supergravitrono" explanation="achievement/trophy description" max="38*2"/>
+    <string english="MASTER OF THE UNIVERSE" translation="MAJSTRO DE L&apos; UNIVERSO" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
+    <string english="Complete the game in no death mode" translation="Kompletigi la ludon en mortula reĝimo" explanation="achievement/trophy description" max="38*2"/>
     <string english="" translation="" explanation=""/>
 </strings>
