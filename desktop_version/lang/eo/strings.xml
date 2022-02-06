@@ -170,7 +170,7 @@
     <string english="Limits check" translation="Limkontrolado" explanation="title" max="20"/>
     <string english="Find translations that don&apos;t fit within their defined bounds." translation="Trovi tradukojn, kiuj tro longas por la difinitaj limoj." explanation="" max="38*6"/>
     <string english="sync language files" translation="sinkronigi lingvodosierojn" explanation="menu option"/>
-    <string english="Sync language files" translation="Sinkronigi lingvodosierojn" explanation="title, translation maintenance menu" max="20"/>
+    <string english="Sync language files" translation="Sinkronigado" explanation="title, translation maintenance menu" max="20"/>
     <string english="sync" translation="sinkronigi" explanation="menu option, verb"/>
     <string english="Merge all new strings from the template files into the translation files, keeping existing translations." translation="Kunfandi ĉiujn novajn ĉenojn de la ŝablonaj dosieroj en la tradukdosierojn, konservante ekzistantajn tradukojn." explanation="translation maintenance menu" max="38*6"/>
     <string english="global statistics" translation="ĉieaj statistikoj" explanation="menu option"/>
