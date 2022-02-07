@@ -4,6 +4,7 @@
 
 #include <tinyxml2.h>
 
+#include "Constants.h"
 #include "CustomLevels.h"
 #include "FileSystemUtils.h"
 #include "Graphics.h"
@@ -17,6 +18,8 @@ namespace loc
     bool inited_custom = false;
 
     char* custom_level_path = NULL;
+
+    std::vector<TextOverflow> text_overflows;
 
     bool load_lang_doc(
         const std::string& cat,
@@ -57,6 +60,8 @@ namespace loc
         meta.toupper = true;
         meta.toupper_i_dot = false;
         meta.toupper_lower_escape_char = false;
+        meta.font_w = 8;
+        meta.font_h = 8;
 
         tinyxml2::XMLDocument doc;
         tinyxml2::XMLHandle hDoc(&doc);
@@ -97,6 +102,7 @@ namespace loc
 
     void map_store_translation(Textbook* textbook, hashmap* map, const char* eng, const char* tra)
     {
+        /* Add the texts to the given textbook and set the translation in the given hashmap. */
         if (eng == NULL)
         {
             return;
@@ -114,6 +120,25 @@ namespace loc
         }
 
         hashmap_set(map, (void*) tb_eng, SDL_strlen(tb_eng), (uintptr_t) tb_tra);
+    }
+
+    char form_for_count(int n)
+    {
+        int n_ix;
+        if (n > -100 && n < 100)
+        {
+            /* Plural forms for negative numbers are debatable in any language I'd imagine...
+             * But they shouldn't appear anyway unless there's a bug or you're asking for it.
+             * Or do YOU ever get -10 deaths while collecting -1 trinket? */
+            n_ix = SDL_abs(n);
+        }
+        else
+        {
+            /* Plural forms for 100 and above always just keep repeating. Thank goodness. */
+            n_ix = SDL_abs(n % 100) + 100;
+        }
+
+        return number_plural_form[n_ix];
     }
 
     void callback_free_map_value(void* key, size_t ksize, uintptr_t value, void* usr)
@@ -195,7 +220,128 @@ namespace loc
         resettext_custom();
     }
 
-    void loadtext_strings(void)
+    bool parse_max(const char* max, unsigned short* max_w, unsigned short* max_h)
+    {
+        /* Parse a max string, like "33" or "33*3", into two shorts */
+        if (max == NULL)
+        {
+            return false;
+        }
+
+        char* max_mut = SDL_strdup(max);
+
+        char* asterisk = SDL_strchr(max_mut, '*');
+        if (asterisk != NULL)
+        {
+            asterisk[0] = '\0';
+            *max_h = (unsigned short) help.Int(&asterisk[1], 0);
+        }
+        else
+        {
+            *max_h = 1;
+        }
+        *max_w = (unsigned short) help.Int(max_mut, 0);
+
+        SDL_free(max_mut);
+
+        return *max_w != 0 && *max_h != 0;
+    }
+
+    bool max_check_string(const char* str, const char* max)
+    {
+        /* Stores a detected overflow in the overflows vector, returns true if this happened */
+        unsigned short max_w, max_h;
+        if (str == NULL || !parse_max(max, &max_w, &max_h))
+        {
+            return false;
+        }
+
+        /* Special case that must ALWAYS be 2 lines even when the font is bigger */
+        if (SDL_strcmp(str, "You have rescued a crew member!") == 0 && max_h == 1)
+        {
+            max_h = 2;
+        }
+
+        unsigned short max_w_px = max_w * get_langmeta()->font_w;
+        unsigned short max_h_px = max_h * SDL_max(10, get_langmeta()->font_h);
+
+        bool does_overflow = false;
+
+        if (max_h == 1)
+        {
+            does_overflow = graphics.len(str) > (int) max_w_px;
+        }
+        else
+        {
+            short lines;
+            graphics.string_wordwrap(str, max_w_px, &lines);
+            does_overflow = lines > (short) max_h;
+        }
+
+        if (does_overflow)
+        {
+            TextOverflow overflow;
+            overflow.lang = lang;
+            overflow.text = textbook_store(&textbook_main, str);
+            overflow.max_w = max_w;
+            overflow.max_h = max_h;
+            overflow.max_w_px = max_w_px;
+            overflow.max_h_px = max_h_px;
+            overflow.multiline = max_h > 1;
+
+            text_overflows.push_back(overflow);
+
+            vlog_warn("\"%s\" DOESN'T FIT into %s which is %dx%d or %dx%dpx",
+                str, max, max_w, max_h, max_w_px, max_h_px
+            );
+        }
+        else
+        {
+            vlog_debug("\"%s\" fits into %s which is %dx%d or %dx%dpx",
+                str, max, max_w, max_h, max_w_px, max_h_px
+            );
+        }
+
+        return does_overflow;
+    }
+
+    void max_check_string_plural(char form, const char* str, const char* max, unsigned int expect, char* buf, size_t buf_len)
+    {
+        if (str == NULL)
+        {
+            return;
+        }
+
+        if (SDL_strstr(str, "%d") != NULL)
+        {
+            /* Treat `expect` as a single example, it's the number of digits that's most important */
+            if (form_for_count(expect) == form)
+            {
+                SDL_snprintf(buf, buf_len, str, expect);
+
+                max_check_string(buf, max);
+            }
+        }
+        else
+        {
+            /* Test all numbers from 0 to `expect`, since number words have differing lengths */
+            for (unsigned int test = 0; test <= expect; test++)
+            {
+                if (form_for_count(test) == form)
+                {
+                    SDL_snprintf(buf, buf_len, str, help.number_words(test).c_str());
+
+                    if (max_check_string(buf, max))
+                    {
+                        /* One is enough */
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    void loadtext_strings(bool check_max)
     {
         tinyxml2::XMLDocument doc;
         tinyxml2::XMLHandle hDoc(&doc);
@@ -216,10 +362,15 @@ namespace loc
                 pElem->Attribute("english"),
                 pElem->Attribute("translation")
             );
+
+            if (check_max)
+            {
+                max_check_string(pElem->Attribute("translation"), pElem->Attribute("max"));
+            }
         }
     }
 
-    void loadtext_strings_plural(void)
+    void loadtext_strings_plural(bool check_max)
     {
         tinyxml2::XMLDocument doc;
         tinyxml2::XMLHandle hDoc(&doc);
@@ -229,6 +380,20 @@ namespace loc
         {
             return;
         }
+
+        /* Buffer for the max check, only if needed */
+        char* max_check_buffer = NULL;
+        size_t max_check_buffer_len = 20*SCREEN_WIDTH_CHARS + 1;
+        if (check_max)
+        {
+            max_check_buffer = (char*) SDL_malloc(max_check_buffer_len);
+            if (max_check_buffer == NULL)
+            {
+                SDL_assert(0 && "Error checking limits for plural strings - can't alloc buffer!");
+                check_max = false;
+            }
+        }
+
 
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
@@ -260,7 +425,21 @@ namespace loc
                 );
 
                 SDL_free(key);
+
+                if (check_max)
+                {
+                    max_check_string_plural(
+                        form, subElem->Attribute("translation"),
+                        pElem->Attribute("max"), pElem->UnsignedAttribute("expect", 101),
+                        max_check_buffer, max_check_buffer_len
+                    );
+                }
             }
+        }
+
+        if (max_check_buffer != NULL)
+        {
+            SDL_free(max_check_buffer);
         }
     }
 
@@ -659,7 +838,7 @@ namespace loc
         loadtext_roomnames(true);
     }
 
-    void loadtext(void)
+    void loadtext(bool check_max)
     {
         resettext();
         loadmeta(langmeta);
@@ -676,8 +855,8 @@ namespace loc
         else
         {
             loadtext_numbers();
-            loadtext_strings();
-            loadtext_strings_plural();
+            loadtext_strings(check_max);
+            loadtext_strings_plural(check_max);
             loadtext_cutscenes(false);
             loadtext_roomnames(false);
             loadtext_roomnames_special();

@@ -16,7 +16,7 @@ To create a new language, simply copy the `en` folder, and start by filling out 
 
 === T R A N S L A T O R   M E N U ===
 
-The translator menu has options for both translators and maintainers - it allows testing menus, translating room names within the game, syncing all languages with the English template file, and getting statistics on translation progress.
+The translator menu has options for both translators and maintainers - it allows testing menus, translating room names within the game, syncing all languages with the English template file, getting statistics on translation progress, and more.
 
 VVVVVV will show a "translator" menu in the main menu if either:
 - The "lang" folder is NOT next to data.zip, and the game is running somewhere within a "desktop_version" folder, and desktop_version/lang IS found. This normally happens when compiling the game from source;
@@ -24,7 +24,7 @@ VVVVVV will show a "translator" menu in the main menu if either:
 
 When the translator menu is unlocked, you can also press F12 anywhere in the game to reload the current language files. So you can save translations and immediately preview them (except for menu buttons and the current cutscene dialogue, which can't be reloaded on the fly). You will hear a coin sound when the language files have been reloaded via F12.
 
-For maintainers: To add new strings, add them to the English strings.xml, and use the option to sync all languages from the translator menu. This will add the new strings to all translated language files.
+For maintainers: To add new strings, add them to only the English strings.xml or strings_plural.xml, and use the option to sync all languages from the translator menu. This will copy the new strings to all translated language files.
 
 The language file sync option has differing support for the language files. As indicated in the menu itself, it handles each file as follows:
 
@@ -73,18 +73,16 @@ VVVVVV's resolution is 320x240, and the default font is 8x8, which means there i
 Strings are usually annotated with their limits (for example, max="38*3"). This can be formatted like one of the following:
   (A) 33
   (B) 33*3
-  (C) 22 @12x12
-  (D) 22*2 @12x12
 
-(A) if it's a single number (for example "33"): the hard maximum number of characters that are known to fit, assuming the 8x8 font. Being exactly on the limit may not look good, so try to go at least a character under it if possible.
+(A) if it's a single number (for example "33"): the hard maximum number of characters that are known to fit. Being exactly on the limit may not look good, so try to go at least a character under it if possible.
 
-(B) if X*Y (for example 33*3): the text should fit within an area of X characters wide and Y lines high, assuming the 8x8 font. The text is automatically word-wrapped to fit (unless disabled in meta.xml). If automatic word-wrapping is disabled, you need to manually insert newlines with |, or possibly as a literal newline (may be &#10; in XML).
+(B) if X*Y (for example 33*3): the text should fit within an area of X characters wide and Y lines high. The text is automatically word-wrapped to fit (unless disabled in meta.xml). If automatic word-wrapping is disabled, you need to manually insert newlines with |, or possibly as a literal newline (may be &#10; in XML).
 
-(C/D) if it looks like "22 @12x12" or "22*2 @12x12", this means the same as the options above, but the limits have been adapted to the size of the font (12x12 in this example). To get this notation, either use the maintenance option to sync language files from within VVVVVV, or use the Excel document. Ensure the correct font is set in meta.xml first.
+If your language uses a font with a different size than 8x8, there will be two limits given: `max`, which is the original limit based on the 8x8 font, and `max_local`, which is adapted to the size of your font. To get this notation, either use the maintenance option to sync language files from within VVVVVV, or use the Excel document. Ensure the correct font is set in meta.xml first.
 
-The maximum lengths are not always given. Notoriously, menu option buttons are placed diagonally, thus they have maximums that are hard to look up. Even more so, making an option differ too much in length from the other options might even make it look out of place. Best thing to do there is probably just translate as usual and then test all menus. However, menus do automatically reposition based on the text length, so worst-case scenario, if an option is 36 characters long, all options are displayed right underneath each other.
+The translator menu has an option ("limits check") to automatically find strings that break the given limits. There may be a few cases where this detection isn't perfect, but it should be a helpful quality assurance tool.
 
-TODO: rename autowordwrap to manual_wordwrap, and invert how it works (and allow | for manual linewraps)
+The maximum lengths are not always given. Notoriously, menu option buttons are placed diagonally, thus they have maximums that are hard to look up. Even more so, making an option differ too much in length from the other options might make it look out of place. Best thing to do there is probably just translate as usual and then test all menus via the "menu test" option in the translator menu. However, menus do automatically reposition based on the text length, so worst-case scenario, if an option is 36 characters long, all options are displayed right underneath each other.
 
 
 
@@ -213,6 +211,8 @@ Then, simply add translations for each form you set up in numbers.xml. For examp
     <translation form="2" translation="Shows up for all numbers with form=2"/>
 
 %s indicates a word will be filled in (like twelve), and %d means a number (12)
+
+The `expect` attribute indicates how high the values are that you may expect to be filled in. For example, expect="20" means any value above 20 will probably not be used in this string. This is mainly needed so that the limits check knows not to worry about a number like "seventy seven" making the string too long, but it may also be a useful context clue.
 
 
 == numbers.xml ==

@@ -63,6 +63,7 @@ namespace Menu
         language,
         translator_main,
         translator_options,
+        translator_options_limitscheck,
         translator_maintenance,
         translator_maintenance_sync,
         cleardatamenu,

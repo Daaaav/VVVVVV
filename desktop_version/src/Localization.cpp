@@ -18,6 +18,7 @@ namespace loc
     std::vector<LangMeta> languagelist;
     int languagelist_curlang;
     bool show_translator_menu;
+    size_t limitscheck_current_overflow;
 
     int n_untranslated_roomnames = 0;
     int n_unexplained_roomnames = 0;
@@ -58,21 +59,7 @@ namespace loc
     {
         if (lang != "en")
         {
-            int n_ix;
-            if (n > -100 && n < 100)
-            {
-                /* Plural forms for negative numbers are debatable in any language I'd imagine...
-                 * But they shouldn't appear anyway unless there's a bug or you're asking for it.
-                 * Or do YOU ever get -10 deaths while collecting -1 trinket? */
-                n_ix = SDL_abs(n);
-            }
-            else
-            {
-                /* Plural forms for 100 and above always just keep repeating. Thank goodness. */
-                n_ix = SDL_abs(n % 100) + 100;
-            }
-
-            char form = number_plural_form[n_ix];
+            char form = form_for_count(n);
             char* key = add_disambiguator(form+1, eng_plural, NULL);
             if (key != NULL)
             {

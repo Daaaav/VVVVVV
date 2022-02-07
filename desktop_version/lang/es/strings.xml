@@ -157,9 +157,6 @@
     <string english="maintenance" translation="" explanation="menu option, menu that allows you to apply maintenance to translations"/>
     <string english="Maintenance" translation="" explanation="title" max="20"/>
     <string english="Sync all language files after adding new strings." translation="" explanation="" max="38*6"/>
-    <string english="language statistics" translation="" explanation="menu option"/>
-    <string english="Count the amount of untranslated strings for this language." translation="" explanation="" max="38*6"/>
-    <string english="Count the amount of untranslated strings for each language." translation="Cantidad de textos sin traducir de cada idioma." explanation="translation maintenance menu" max="38*6"/>
     <string english="translate room names" translation="" explanation="menu option"/>
     <string english="Translate rooms" translation="" explanation="title" max="20"/>
     <string english="Enable room name translation mode, so you can translate room names in context." translation="" explanation="" max="38*4"/>
@@ -167,14 +164,21 @@
     <string english="Menu test" translation="" explanation="title" max="20"/>
     <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="" explanation="" max="38*6"/>
     <string english="limits check" translation="" explanation="menu option"/>
+    <string english="global limits check" translation="" explanation="menu option"/>
     <string english="Limits check" translation="" explanation="title" max="20"/>
     <string english="Find translations that don&apos;t fit within their defined bounds." translation="" explanation="" max="38*6"/>
+    <string english="No text overflows found!" translation="" explanation="limits check. no strings go outside their max bounds" max="38*6"/>
+    <string english="No text overflows left!" translation="" explanation="limits check. we have seen all strings that go outside their max bounds" max="38*6"/>
+    <string english="Note that this detection isn&apos;t perfect." translation="" explanation="limits check" max="38*6"/>
     <string english="sync language files" translation="sincronizar archivos de idioma" explanation="menu option"/>
     <string english="Sync language files" translation="Sincronizar idiomas" explanation="title, translation maintenance menu" max="20"/>
     <string english="sync" translation="sincronizar" explanation="menu option, verb"/>
     <string english="Merge all new strings from the template files into the translation files, keeping existing translations." translation="Combinar todas las cadenas de los archivos de plantilla a los archivos de traducción, dejando traducciones existentes." explanation="translation maintenance menu" max="38*6"/>
+    <string english="language statistics" translation="" explanation="menu option"/>
     <string english="global statistics" translation="" explanation="menu option"/>
     <string english="Statistics" translation="Estadísticas" explanation="title, translation maintenance menu" max="20"/>
+    <string english="Count the amount of untranslated strings for this language." translation="" explanation="" max="38*6"/>
+    <string english="Count the amount of untranslated strings for each language." translation="Cantidad de textos sin traducir de cada idioma." explanation="translation maintenance menu" max="38*6"/>
     <string english="If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Make a backup, just in case." translation="Si nuevos textos se añadieron a los archivos de la plantilla de Ingles, esta caracteristica los insertara en los archivos de todos los idiomas. Hacer un respaldo, por si acaso." explanation="translation maintenance menu" max="38*7"/>
     <string english="Full syncing EN→All:" translation="" explanation="translation maintenance menu. The following list of language files can be fully synced from English to all other languages by pressing this button - new strings will be inserted in all languages"/>
     <string english="Syncing not supported:" translation="" explanation="translation maintenance menu. The following list of language files are untouched by the sync button"/>
@@ -226,7 +230,7 @@
     <string english="2.2" translation="" explanation="VVVVVV version number"/>
     <string english="input delay" translation="" explanation="menu option, enable 1 frame of delay after pressing input"/>
     <string english="Input Delay" translation="" explanation="title, enable 1 frame of delay after pressing input" max="20"/>
-    <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="" explanation="input delay" max="38*2"/>
+    <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="" explanation="input delay" max="38*3"/>
     <string english="Input delay is ON" translation="" explanation="" max="38*2"/>
     <string english="Input delay is OFF" translation="" explanation="" max="38*2"/>
     <string english="accessibility" translation="" explanation="menu option"/>

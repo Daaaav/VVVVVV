@@ -12,11 +12,24 @@ void textbook_init(Textbook* textbook)
 void textbook_clear(Textbook* textbook)
 {
     short p;
+
+    if (textbook->protect)
+    {
+        return;
+    }
+
     for (p = 0; p < textbook->pages_used; p++)
     {
         SDL_free(textbook->page[p]);
     }
     textbook->pages_used = 0;
+}
+
+void textbook_set_protected(Textbook* textbook, SDL_bool protect)
+{
+    /* A protected textbook is silently not cleared when requested.
+     * Not a memory leak as long as you unprotect and clear at some point. */
+    textbook->protect = protect;
 }
 
 const void* textbook_store_raw(Textbook* textbook, const void* data, size_t data_len)

@@ -49,12 +49,26 @@ namespace loc
     #endif
 
 
+    struct TextOverflow
+    {
+        std::string lang;
+        const char* text;
+        unsigned short max_w, max_h;
+        unsigned short max_w_px, max_h_px;
+        bool multiline;
+    };
+
+    extern std::vector<TextOverflow> text_overflows;
+
+
     bool load_lang_doc(
         const std::string& cat,
         tinyxml2::XMLDocument& doc,
         const std::string& langcode = lang,
         const std::string& asset_cat = ""
     );
+
+    char form_for_count(int n);
 
     void resettext_custom(void);
     void unloadtext_custom(void);
@@ -63,7 +77,7 @@ namespace loc
 
     bool fix_room_coords(bool custom_level, int* roomx, int* roomy);
 
-    void loadtext(void);
+    void loadtext(bool check_max);
     void loadtext_custom(const char* custom_path);
     void loadlanguagelist(void);
 

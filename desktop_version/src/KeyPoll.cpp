@@ -169,7 +169,7 @@ void KeyPoll::Poll(void)
             if (loc::show_translator_menu && evt.key.keysym.sym == SDLK_F12)
             {
                 /* Reload language files */
-                loc::loadtext();
+                loc::loadtext(false);
                 music.playef(4);
             }
 

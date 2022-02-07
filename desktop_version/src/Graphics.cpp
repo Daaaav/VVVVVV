@@ -663,6 +663,8 @@ int Graphics::PrintWrap(
     {
         linespacing = 10;
     }
+    linespacing = SDL_max(linespacing, loc::get_langmeta()->font_h);
+
     if (maxwidth == -1)
     {
         maxwidth = 304;

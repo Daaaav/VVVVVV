@@ -6294,13 +6294,19 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("language statistics"), false);
         option(loc::gettext("translate room names"));
         option(loc::gettext("menu test"));
-        option(loc::gettext("limits check"), false);
+        option(loc::gettext("limits check"));
         option(loc::gettext("return"));
         menuyoff = 0;
+        break;
+    case Menu::translator_options_limitscheck:
+        option(loc::gettext("next page"));
+        option(loc::gettext("return"));
+        menuyoff = 64;
         break;
     case Menu::translator_maintenance:
         option(loc::gettext("sync language files"));
         option(loc::gettext("global statistics"), false);
+        option(loc::gettext("global limits check"));
         option(loc::gettext("return"));
         menuyoff = 0;
         break;

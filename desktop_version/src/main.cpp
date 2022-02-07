@@ -592,7 +592,7 @@ int main(int argc, char *argv[])
         gameScreen.init(&screen_settings);
     }
 
-    loc::loadtext();
+    loc::loadtext(false);
     loc::loadlanguagelist();
     game.createmenu(Menu::mainmenu);
 

@@ -1111,7 +1111,7 @@ static void menuactionpress(void)
             if ((unsigned)game.currentmenuoption < loc::languagelist.size())
             {
                 loc::lang = loc::languagelist[game.currentmenuoption].code;
-                loc::loadtext();
+                loc::loadtext(false);
                 if (!loc::lang_set)
                 {
                     /* Make the title screen appear, we haven't seen it yet */
@@ -1179,11 +1179,31 @@ static void menuactionpress(void)
             break;
         case 3:
             // limits check
-            // TODO
             music.playef(11);
+            loc::local_limits_check();
+            game.createmenu(Menu::translator_options_limitscheck);
             map.nexttowercolour();
             break;
         case 4:
+            // return
+            music.playef(11);
+            game.returnmenu();
+            map.nexttowercolour();
+            break;
+        }
+        break;
+    case Menu::translator_options_limitscheck:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            // next
+            if (loc::limitscheck_current_overflow < loc::text_overflows.size())
+            {
+                music.playef(11);
+                loc::limitscheck_current_overflow++;
+            }
+            break;
+        case 1:
             // return
             music.playef(11);
             game.returnmenu();
@@ -1206,6 +1226,12 @@ static void menuactionpress(void)
             map.nexttowercolour();
             break;
         case 2:
+            // global limits check
+            loc::global_limits_check();
+            game.createmenu(Menu::translator_options_limitscheck);
+            map.nexttowercolour();
+            break;
+        case 3:
             // return
             game.returnmenu();
             map.nexttowercolour();

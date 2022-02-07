@@ -18,6 +18,8 @@ namespace loc
         bool toupper; // = true; enable automatic full-caps for menu options
         bool toupper_i_dot; // = false; enable Turkish i mapping when uppercasing
         bool toupper_lower_escape_char; // = false; enable ~ to mark lowercase letters for uppercasing
+        unsigned char font_w;
+        unsigned char font_h;
     };
 
     struct TextboxFormat
@@ -39,6 +41,7 @@ namespace loc
     extern std::vector<LangMeta> languagelist;
     extern int languagelist_curlang;
     extern bool show_translator_menu;
+    extern size_t limitscheck_current_overflow;
 
     extern int n_untranslated_roomnames;
     extern int n_unexplained_roomnames;

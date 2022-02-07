@@ -20,7 +20,7 @@ namespace loc
         vlog_info("Syncing %s with templates...", langcode.c_str());
 
         lang = langcode;
-        loadtext();
+        loadtext(false);
 
         tinyxml2::XMLDocument doc;
         tinyxml2::XMLHandle hDoc(&doc);
@@ -269,7 +269,7 @@ namespace loc
 
         FILESYSTEM_restoreWriteDir();
         lang = oldlang;
-        loadtext();
+        loadtext(false);
     }
 
     bool save_roomname_to_file(const std::string& langcode, bool custom_level, int roomx, int roomy, const char* tra, const char* explanation)
@@ -352,5 +352,37 @@ namespace loc
         }
 
         return any && success;
+    }
+
+    void local_limits_check(void)
+    {
+        text_overflows.clear();
+        loadtext(true);
+        limitscheck_current_overflow = 0;
+    }
+
+    void global_limits_check(void)
+    {
+        text_overflows.clear();
+
+        std::string oldlang = lang;
+
+        textbook_set_protected(&textbook_main, SDL_TRUE);
+
+        for (size_t i = 0; i < languagelist.size(); i++)
+        {
+            if (languagelist[i].code != "en")
+            {
+                lang = languagelist[i].code;
+                loadtext(true);
+            }
+        }
+
+        lang = oldlang;
+        loadtext(false);
+
+        textbook_set_protected(&textbook_main, SDL_FALSE);
+
+        limitscheck_current_overflow = 0;
     }
 }

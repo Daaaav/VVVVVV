@@ -7,6 +7,9 @@ namespace loc
 
     bool save_roomname_to_file(const std::string& langcode, bool custom_level, int roomx, int roomy, const char* tra, const char* explanation);
     bool save_roomname_explanation_to_files(bool custom_level, int roomx, int roomy, const char* explanation);
+
+    void local_limits_check(void);
+    void global_limits_check(void);
 }
 
 #endif /* LOCALIZATIONMAINT_H */

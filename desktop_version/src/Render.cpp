@@ -11,6 +11,7 @@
 #include "GraphicsUtil.h"
 #include "KeyPoll.h"
 #include "Localization.h"
+#include "LocalizationStorage.h"
 #include "MakeAndPlay.h"
 #include "Map.h"
 #include "Maths.h"
@@ -667,6 +668,57 @@ static void menurender(void)
             break;
         }
         break;
+    case Menu::translator_options_limitscheck:
+    {
+        size_t of = loc::limitscheck_current_overflow;
+        if (of >= loc::text_overflows.size())
+        {
+            int next_y;
+            if (loc::text_overflows.empty())
+            {
+                next_y = graphics.PrintWrap(-1, 20, loc::gettext("No text overflows found!"), tr, tg, tb, true);
+            }
+            else
+            {
+                next_y = graphics.PrintWrap(-1, 20, loc::gettext("No text overflows left!"), tr, tg, tb, true);
+            }
+
+            graphics.PrintWrap(-1, next_y, loc::gettext("Note that this detection isn't perfect."), tr, tg, tb, true);
+        }
+        else
+        {
+            loc::TextOverflow& overflow = loc::text_overflows[of];
+
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            SDL_snprintf(buffer, sizeof(buffer), "%ld/%ld    %d*%d (%dx%d)    [%s]",
+                of+1, loc::text_overflows.size(),
+                overflow.max_w, overflow.max_h,
+                overflow.max_w_px, overflow.max_h_px,
+                overflow.lang.c_str()
+            );
+            graphics.Print(10, 10, buffer, tr/2, tg/2, tb/2);
+
+            int box_x = SDL_min(10, (320-overflow.max_w_px)/2);
+            int box_h = overflow.max_h_px - SDL_max(0, 10-loc::get_langmeta()->font_h);
+            FillRect(graphics.backBuffer, box_x-1, 30-1, overflow.max_w_px+2, box_h+2, tr/3, tg/3, tb/3);
+
+            int wraplimit;
+            if (overflow.multiline)
+            {
+                wraplimit = overflow.max_w_px;
+            }
+            else
+            {
+                wraplimit = 320-box_x;
+            }
+
+            if (overflow.text != NULL)
+            {
+                graphics.PrintWrap(box_x, 30, overflow.text, tr, tg, tb, false, -1, wraplimit);
+            }
+        }
+        break;
+    }
     case Menu::translator_maintenance:
         switch (game.currentmenuoption)
         {
@@ -677,6 +729,10 @@ static void menurender(void)
         case 1:
             graphics.bigprint( -1, 30, loc::gettext("Statistics"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Count the amount of untranslated strings for each language."), tr, tg, tb, true);
+            break;
+        case 2:
+            graphics.bigprint( -1, 30, loc::gettext("Limits check"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Find translations that don't fit within their defined bounds."), tr, tg, tb, true);
         }
         break;
     case Menu::translator_maintenance_sync:
@@ -1015,7 +1071,7 @@ static void menurender(void)
         {
             graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.ndmresultcrewstats[i], true);
         }
-        char buffer[SCREEN_WIDTH_CHARS + 1];
+        char buffer[2*SCREEN_WIDTH_CHARS + 1];
         loc::gettext_plural_fill(buffer, sizeof(buffer), "You rescued %s crewmates", "You rescued %s crewmate", game.ndmresultcrewrescued);
         graphics.Print(0, 100, buffer, tr, tg, tb, true);
 
@@ -1062,7 +1118,7 @@ static void menurender(void)
         }
         graphics.Print(0, 100, loc::gettext("You rescued all the crewmates!"), tr, tg, tb, true);
 
-        char buffer[SCREEN_WIDTH_CHARS + 1];
+        char buffer[3*SCREEN_WIDTH_CHARS + 1];
         loc::gettext_plural_fill(buffer, sizeof(buffer), "And you found %s trinkets.", "And you found %s trinket.", game.ndmresulttrinkets);
         graphics.PrintWrap(0, 110, buffer, tr, tg, tb, true);
 
