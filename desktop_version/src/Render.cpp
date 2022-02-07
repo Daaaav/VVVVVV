@@ -963,36 +963,42 @@ static void menurender(void)
         switch (game.currentmenuoption)
         {
         case 0:
+        {
             graphics.bigprint( -1, 30, loc::gettext("Time Trials"), tr, tg, tb, true);
-            graphics.PrintWrap( -1, 65, loc::gettext("Replay any level in the game in a competitive time trial mode."), tr, tg, tb, true);
+            int next_y = graphics.PrintWrap( -1, 65, loc::gettext("Replay any level in the game in a competitive time trial mode."), tr, tg, tb, true);
 
             if (game.nocompetitive())
             {
-                graphics.PrintWrap( -1, 105, loc::gettext("Time Trials are not available with slowdown or invincibility."), tr, tg, tb, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("Time Trials are not available with slowdown or invincibility."), tr, tg, tb, true);
             }
             break;
+        }
         case 1:
+        {
             graphics.bigprint( -1, 30, loc::gettext("Intermissions"), tr, tg, tb, true);
-            graphics.PrintWrap( -1, 65, loc::gettext("Replay the intermission levels."), tr, tg, tb, true);
+            int next_y = graphics.PrintWrap( -1, 65, loc::gettext("Replay the intermission levels."), tr, tg, tb, true);
 
             if (!game.unlock[15] && !game.unlock[16])
             {
-                graphics.PrintWrap( -1, 95, loc::gettext("TO UNLOCK: Complete the intermission levels in-game."), tr, tg, tb, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("TO UNLOCK: Complete the intermission levels in-game."), tr, tg, tb, true);
             }
             break;
+        }
         case 2:
+        {
             graphics.bigprint( -1, 30, loc::gettext("No Death Mode"), tr, tg, tb, true);
-            graphics.PrintWrap( -1, 65, loc::gettext("Play the entire game without dying once."), tr, tg, tb, true);
+            int next_y = graphics.PrintWrap( -1, 65, loc::gettext("Play the entire game without dying once."), tr, tg, tb, true);
 
             if (game.nocompetitive())
             {
-                graphics.PrintWrap( -1, 105, loc::gettext("No Death Mode is not available with slowdown or invincibility."), tr, tg, tb, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("No Death Mode is not available with slowdown or invincibility."), tr, tg, tb, true);
             }
             else if (!game.unlock[17])
             {
-                graphics.PrintWrap( -1, 105, loc::gettext("TO UNLOCK: Achieve an S-rank or above in at least 4 time trials."), tr, tg, tb, true);
+                graphics.PrintWrap( -1, next_y, loc::gettext("TO UNLOCK: Achieve an S-rank or above in at least 4 time trials."), tr, tg, tb, true);
             }
             break;
+        }
         case 3:
             // WARNING: Partially duplicated in Menu::options
             graphics.bigprint( -1, 30, loc::gettext("Flip Mode"), tr, tg, tb, true);
@@ -2614,8 +2620,9 @@ void maprender(void)
 
         if (!map.custommode)
         {
-            /* FIXME: The text here should be automatically "balance-wrapped" instead of hardcoding the width. */
-            graphics.PrintWrap(0, 174, loc::gettext("(Note: The game is autosaved at every teleporter.)"), 146, 146, 180, true, 12, 240);
+            /* FIXME: The text here should be automatically "balance-wrapped" instead of hardcoding the width.
+             * In fact, maybe PrintWrap should balance-wrap by default. */
+            graphics.PrintWrap(0, 174, loc::gettext("(Note: The game is autosaved at every teleporter.)"), 146, 146, 180, true, 12);
         }
 
         if (!game.gamesaved)

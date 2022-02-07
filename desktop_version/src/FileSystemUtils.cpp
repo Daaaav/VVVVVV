@@ -5,6 +5,7 @@
 #include <tinyxml2.h>
 
 #include "BinaryBlob.h"
+#include "Constants.h"
 #include "Exit.h"
 #include "Graphics.h"
 #include "Localization.h"
@@ -401,7 +402,7 @@ static void generateVirtualMountPath(char* path, const size_t path_size)
     );
 }
 
-static char levelDirError[256] = {'\0'};
+static char levelDirError[6*SCREEN_WIDTH_CHARS + 1] = {'\0'};
 
 static bool levelDirHasError = false;
 
@@ -444,7 +445,7 @@ static bool FILESYSTEM_mountAssetsFrom(const char *fname)
     if (real_dir == NULL)
     {
         setLevelDirError(
-            "Could not mount %s: real directory doesn't exist",
+            loc::gettext("Could not mount %s: real directory doesn't exist"),
             fname
         );
         return false;
@@ -579,7 +580,7 @@ static bool checkZipStructure(const char* filename)
     if (!success && zip_state.has_extension)
     {
         setLevelDirError(
-            "%s.zip is not structured correctly! It is missing %s.vvvvvv.",
+            loc::gettext("%s.zip is not structured correctly! It is missing %s.vvvvvv."),
             base_name,
             base_name
         );
@@ -592,7 +593,7 @@ static bool checkZipStructure(const char* filename)
     if (file_exists && zip_state.other_level_files)
     {
         setLevelDirError(
-            "%s.zip is not structured correctly! It has .vvvvvv file(s) other than %s.vvvvvv.",
+            loc::gettext("%s.zip is not structured correctly! It has .vvvvvv file(s) other than %s.vvvvvv."),
             base_name,
             base_name
         );

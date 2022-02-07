@@ -164,12 +164,12 @@
     <string english="Menu test" translation="Menutest" explanation="title" max="20"/>
     <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="De meeste menu&apos;s in het spel doorlopen. De menu&apos;s zullen niet echt werken, alle opties zullen in plaats daarvan naar het volgende menu leiden. Druk op Escape om te stoppen." explanation="" max="38*6"/>
     <string english="limits check" translation="limietcontrole" explanation="menu option"/>
-    <string english="global limits check" translation="" explanation="menu option"/>
+    <string english="global limits check" translation="globale limietcontrole" explanation="menu option"/>
     <string english="Limits check" translation="Limietcontrole" explanation="title" max="20"/>
     <string english="Find translations that don&apos;t fit within their defined bounds." translation="Vind vertalingen die niet binnen hun gedefinieerde grenzen passen." explanation="" max="38*6"/>
-    <string english="No text overflows found!" translation="" explanation="limits check. no strings go outside their max bounds" max="38*6"/>
-    <string english="No text overflows left!" translation="" explanation="limits check. we have seen all strings that go outside their max bounds" max="38*6"/>
-    <string english="Note that this detection isn&apos;t perfect." translation="" explanation="limits check" max="38*6"/>
+    <string english="No text overflows found!" translation="Geen tekstoverloop gevonden!" explanation="limits check. no strings go outside their max bounds" max="38*6"/>
+    <string english="No text overflows left!" translation="Geen tekstoverloop meer!" explanation="limits check. we have seen all strings that go outside their max bounds" max="38*6"/>
+    <string english="Note that this detection isn&apos;t perfect." translation="Merk op dat deze detectie niet perfect is." explanation="limits check" max="38*6"/>
     <string english="sync language files" translation="sync taalbestanden" explanation="menu option"/>
     <string english="Sync language files" translation="Sync taalbestanden" explanation="title, translation maintenance menu" max="20"/>
     <string english="sync" translation="synchroniseren" explanation="menu option, verb"/>
@@ -325,7 +325,7 @@
     <string english="NUMBER OF DEATHS:" translation="AANTAL KEER DOOD:" explanation="amount of times the player died" max="32"/>
     <string english="SHINY TRINKETS:" translation="GLANZENDE ARTEFACTEN:" explanation="amount of trinkets collected" max="32"/>
     <string english=" / " translation=" / " explanation="inserted between two times, ex: 0:46.90 / 1:15.99"/>
-    <string english="%d/%d" translation="" explanation="ex: 2/5"/>
+    <string english="%d/%d" translation="%d/%d" explanation="ex: 2/5"/>
     <string english="%d of %d" translation="%d van %d" explanation="ex: 2 of 5"/>
     <string english="%s out of %s" translation="%s van de %s" explanation="ex: One out of Twenty, see numbers.xml" max="34"/>
     <string english="+1 Rank!" translation="+1 score!" explanation="time trial rank was upgraded (B → A → S → V). B is minimum, which is purposefully high (see it as 7/10) - S is a popular rank above A in a lot of games, so VVVVVV added a rank above that." max="12"/>
@@ -435,8 +435,8 @@
     <string english="NO SIGNAL" translation="GEEN SIGNAAL" explanation=""/>
     <string english="Press ACTION to warp to the ship." translation="Druk op ACTIE om naar het schip te teleporteren." explanation="spaceship. Warp = teleport" max="38*7"/>
     <string english="Missing..." translation="Vermist..." explanation="this crew member is missing" max="15"/>
-    <string english="Rescued!" translation="" explanation="this crew member is not missing anymore" max="15"/>
-    <string english="(that&apos;s you!)" translation="" explanation="this crew member is you (Viridian)" max="15"/>
+    <string english="Rescued!" translation="Gered!" explanation="this crew member is not missing anymore" max="15"/>
+    <string english="(that&apos;s you!)" translation="(dat ben jij!)" explanation="this crew member is you (Viridian)" max="15"/>
     <string english="Cannot Save in Level Replay" translation="Kan niet opslaan tijdens opnieuw spelen van een level" explanation="" max="38*7"/>
     <string english="Cannot Save in No Death Mode" translation="Kan niet opslaan in éénlevenmodus" explanation="" max="38*7"/>
     <string english="How&apos;d you get here?" translation="Hoe ben je hier gekomen?" explanation="" max="38*7"/>
@@ -678,28 +678,32 @@ Je hebt het geheime lab gevonden!" explanation="" max="37*4"/>
     <string english="60 seconds!" translation="60 seconden!" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20"/>
     <string english="Thanks for" translation="Bedankt voor" explanation="credits. Line 1/2: Thanks for playing!" max="20"/>
     <string english="playing!" translation="het spelen!" explanation="credits. Line 2/2: Thanks for playing!" max="20"/>
-    <string english="SPACE STATION 1 MASTERED" translation="" explanation="achievement/trophy title" max="38*2"/>
-    <string english="LABORATORY MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="THE TOWER MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="SPACE STATION 2 MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="WARP ZONE MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="FINAL LEVEL MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="Obtain a V Rank in this Time Trial" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="GAME COMPLETE" translation="" explanation="achievement/trophy title" max="38*2"/>
+    <string english="SPACE STATION 1 MASTERED" translation="RUIMTESTATION 1 ONDER DE KNIE" explanation="achievement/trophy title" max="38*2"/>
+    <string english="LABORATORY MASTERED" translation="LABORATORIUM ONDER DE KNIE" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="THE TOWER MASTERED" translation="DE TOREN ONDER DE KNIE" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="SPACE STATION 2 MASTERED" translation="RUIMTESTATION 2 ONDER DE KNIE" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="WARP ZONE MASTERED" translation="WIKKELZONE ONDER DE KNIE" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="FINAL LEVEL MASTERED" translation="EINDLEVEL ONDER DE KNIE" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="Obtain a V Rank in this Time Trial" translation="Behaal een V-score in deze race tegen de klok" explanation="achievement/trophy description" max="38*2"/>
+    <string english="GAME COMPLETE" translation="SPEL UITGESPEELD" explanation="achievement/trophy title" max="38*2"/>
     <string english="Complete the game" translation="Voltooi het spel" explanation="achievement/trophy description" max="38*2"/>
-    <string english="FLIP MODE COMPLETE" translation="" explanation="achievement/trophy title" max="38*2"/>
-    <string english="Complete the game in flip mode" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Win with less than 50 deaths" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Win with less than 100 deaths" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Win with less than 250 deaths" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Win with less than 500 deaths" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 5 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 10 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 15 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 20 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 30 seconds on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 1 minute on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="MASTER OF THE UNIVERSE" translation="" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
-    <string english="Complete the game in no death mode" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="" translation="" explanation=""/>
+    <string english="FLIP MODE COMPLETE" translation="SPIEGELMODUS UITGESPEELD" explanation="achievement/trophy title" max="38*2"/>
+    <string english="Complete the game in flip mode" translation="Voltooi het spel in spiegelmodus" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 50 deaths" translation="Voltooi het spel zonder 50 keer of vaker dood te gaan" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 100 deaths" translation="Voltooi het spel zonder 100 keer of vaker dood te gaan" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 250 deaths" translation="Voltooi het spel zonder 250 keer of vaker dood te gaan" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 500 deaths" translation="Voltooi het spel zonder 500 keer of vaker dood te gaan" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 5 seconds on the Super Gravitron" translation="Hou het 5 seconden vol in de Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 10 seconds on the Super Gravitron" translation="Hou het 10 seconden vol in de Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 15 seconds on the Super Gravitron" translation="Hou het 15 seconden vol in de Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 20 seconds on the Super Gravitron" translation="Hou het 20 seconden vol in de Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 30 seconds on the Super Gravitron" translation="Hou het 30 seconden vol in de Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 1 minute on the Super Gravitron" translation="Hou het 1 minuut vol in de Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
+    <string english="MASTER OF THE UNIVERSE" translation="MEESTER VAN HET UNIVERSUM" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
+    <string english="Complete the game in no death mode" translation="Voltooi het spel in de éénlevenmodus" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Could not mount %s: real directory doesn&apos;t exist" translation="Kon %s niet aankoppelen: echte map bestaat niet" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
+    <string english="%s.zip is not structured correctly! It is missing %s.vvvvvv." translation="%s.zip is niet correct gestructureerd! %s.vvvvvv ontbreekt." explanation="%s: custom level filename" max="38*6"/>
+    <string english="%s.zip is not structured correctly! It has .vvvvvv file(s) other than %s.vvvvvv." translation="%s.zip is niet correct gestructureerd! Er zijn meer .vvvvvv-bestanden dan alleen %s.vvvvvv." explanation="%s: custom level filename" max="38*6"/>
+    <string english="" translation="" explanation="" max=""/>
+    <string english="" translation="" explanation="" max=""/>
 </strings>

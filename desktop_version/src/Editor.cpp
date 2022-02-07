@@ -1178,7 +1178,7 @@ void editorrender(void)
                     {
                         if(ed.hookmenupage+i==ed.hookmenu)
                         {
-                            std::string tstring="> " + ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)] + " <";
+                            std::string tstring="[ " + ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)] + " ]";
                             for (size_t ii = 0; ii < tstring.length(); ii++)
                             {
                                 tstring[ii] = SDL_toupper(tstring[ii]);
