@@ -60,6 +60,8 @@ namespace loc
         meta.toupper = true;
         meta.toupper_i_dot = false;
         meta.toupper_lower_escape_char = false;
+        meta.menu_select = "[ %s ]";
+        meta.menu_select_tight = "[%s]";
         meta.font_w = 8;
         meta.font_h = 8;
 
@@ -97,6 +99,10 @@ namespace loc
                 meta.toupper_i_dot = help.Int(pText);
             else if (SDL_strcmp(pKey, "toupper_lower_escape_char") == 0)
                 meta.toupper_lower_escape_char = help.Int(pText);
+            else if (SDL_strcmp(pKey, "menu_select") == 0)
+                meta.menu_select = std::string(pText);
+            else if (SDL_strcmp(pKey, "menu_select_tight") == 0)
+                meta.menu_select_tight = std::string(pText);
         }
     }
 

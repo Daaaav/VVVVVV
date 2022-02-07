@@ -47,7 +47,7 @@ static inline void drawslowdowntext(const int y)
 
 static void volumesliderrender(void)
 {
-    char buffer[40 + 1];
+    char buffer[SCREEN_WIDTH_CHARS + 1];
 
     char slider[20 + 1];
     int slider_length;
@@ -95,7 +95,7 @@ static void volumesliderrender(void)
     else
     {
         /* Draw selection brackets. */
-        SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", slider);
+        SDL_snprintf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), slider);
     }
 
     graphics.Print(-1, 95, buffer, tr, tg, tb, true);
@@ -2128,7 +2128,9 @@ void maprender(void)
     if (script.running && game.menupage == 3)
     {
         // While in a cutscene, you can only save
-        graphics.Print(-1, 220, "[" + std::string(loc::gettext("SAVE")) + "]", 196, 196, 255 - help.glow, true);
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        SDL_snprintf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select_tight.c_str(), loc::gettext("SAVE"));
+        graphics.Print(-1, 220, buffer, 196, 196, 255 - help.glow, true);
     }
     else if (game.menupage <= 3)
     {

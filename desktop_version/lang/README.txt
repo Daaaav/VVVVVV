@@ -175,6 +175,10 @@ This file contains some general information about this translation. It contains 
 
 * toupper_lower_escape_char: When automatically uppercasing, allow ~ to be used to stop the next letter from being uppercased, for Irish.
 
+* menu_select: The indication that a certain menu option or button is selected, in addition to the automatic uppercasing if "toupper" is enabled. For example, "[ %s ]" looks like "[ SELECTED ]"
+
+* menu_select_tight: Similar to menu_select, except used in cases where space is a bit more limited (like the map screen). "[%s]" looks like "[SELECTED]"
+
 
 == strings.xml ==
 This file contains general strings for the interface and some parts of the game. In the XML, the tag for one string looks like this:

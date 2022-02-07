@@ -1178,16 +1178,15 @@ void editorrender(void)
                     {
                         if(ed.hookmenupage+i==ed.hookmenu)
                         {
-                            std::string tstring="[ " + ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)] + " ]";
-                            for (size_t ii = 0; ii < tstring.length(); ii++)
-                            {
-                                tstring[ii] = SDL_toupper(tstring[ii]);
-                            }
-                            graphics.Print(16,68+(i*16),tstring,123, 111, 218, true);
+                            std::string text_upper(loc::toupper(ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)]));
+
+                            char buffer[SCREEN_WIDTH_CHARS + 1];
+                            SDL_snprintf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), text_upper.c_str());
+                            graphics.Print(16, 68+(i*16), buffer, 123, 111, 218, true);
                         }
                         else
                         {
-                            graphics.Print(16,68+(i*16),ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)],123, 111, 218, true);
+                            graphics.Print(16, 68+(i*16), ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)], 123, 111, 218, true);
                         }
                     }
                 }

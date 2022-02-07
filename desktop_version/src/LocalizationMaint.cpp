@@ -49,6 +49,10 @@ namespace loc
                     pElem->SetText((int) langmeta.toupper_i_dot);
                 else if (SDL_strcmp(pKey, "toupper_lower_escape_char") == 0)
                     pElem->SetText((int) langmeta.toupper_lower_escape_char);
+                else if (SDL_strcmp(pKey, "menu_select") == 0)
+                    pElem->SetText(langmeta.menu_select.c_str());
+                else if (SDL_strcmp(pKey, "menu_select_tight") == 0)
+                    pElem->SetText(langmeta.menu_select_tight.c_str());
             }
 
             /* This part exists because we want to preserve blank lines between the commented

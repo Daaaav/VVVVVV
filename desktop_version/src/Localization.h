@@ -18,6 +18,8 @@ namespace loc
         bool toupper; // = true; enable automatic full-caps for menu options
         bool toupper_i_dot; // = false; enable Turkish i mapping when uppercasing
         bool toupper_lower_escape_char; // = false; enable ~ to mark lowercase letters for uppercasing
+        std::string menu_select;
+        std::string menu_select_tight;
         unsigned char font_w;
         unsigned char font_h;
     };

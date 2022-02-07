@@ -440,12 +440,14 @@ bool Graphics::MakeSpriteArray(void)
 #undef PROCESS_TILESHEET_CHECK_ERROR
 
 
-void Graphics::map_tab(int opt, const std::string& text, bool selected /*= false*/)
+void Graphics::map_tab(int opt, const char* text, bool selected /*= false*/)
 {
     int x = opt*80 + 40 - len(text)/2;
     if (selected)
     {
-        Print(x-8, 220, "[" + text + "]", 196, 196, 255 - help.glow);
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        SDL_snprintf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select_tight.c_str(), text);
+        Print(x-(len(buffer)-len(text))/2, 220, buffer, 196, 196, 255 - help.glow);
     }
     else
     {
@@ -474,7 +476,10 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
     if (selected)
     {
         std::string text_upper(loc::toupper(text));
-        Print(x - 16, y, "[ " + text_upper + " ]", 196, 196, 255 - help.glow);
+
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        SDL_snprintf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), text_upper.c_str());
+        Print(x - 16, y, buffer, 196, 196, 255 - help.glow);
     }
     else
     {
@@ -1800,19 +1805,22 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
         char buffer[MENU_TEXT_BYTES];
         if ((int) i == game.currentmenuoption && game.slidermode == SLIDER_NONE)
         {
+            std::string opt_text;
             if (opt.active)
             {
                 // Uppercase the text
-                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", loc::toupper(opt.text).c_str());
+                opt_text = loc::toupper(opt.text);
             }
             else
             {
                 // Not a convert to lowercase, just some processing
-                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", loc::not_toupper(opt.text).c_str());
+                opt_text = loc::not_toupper(opt.text);
             }
 
+            SDL_snprintf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), opt_text.c_str());
+
             // Account for brackets
-            x -= 16;
+            x -= (len(buffer)-len(opt_text))/2;
         }
         else
         {
