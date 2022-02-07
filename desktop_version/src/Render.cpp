@@ -935,7 +935,7 @@ static void menurender(void)
             graphics.bigprint(-1, 30, loc::gettext("Text Outline"), tr, tg, tb, true);
             int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Disables outline on game text."), tr, tg, tb, true);
 
-            FillRect(graphics.backBuffer, 0, 84, 320, 10, tr, tg, tb);
+            FillRect(graphics.backBuffer, 0, next_y-4, 320, 16, tr, tg, tb);
 
             if (!graphics.notextoutline)
             {
