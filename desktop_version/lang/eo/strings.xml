@@ -164,12 +164,12 @@
     <string english="Menu test" translation="Menu-testado" explanation="title" max="20"/>
     <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="Cikli tra la plejparto da menuoj en la ludo. La menuoj ne vere funkcios; ĉiuj elektoj anstataŭe prenos vin al sekva menuo. Premu eskapklavon por fini." explanation="" max="38*6"/>
     <string english="limits check" translation="limkontrolado" explanation="menu option"/>
-    <string english="global limits check" translation="" explanation="menu option"/>
+    <string english="global limits check" translation="ĉiea limkontrolado" explanation="menu option"/>
     <string english="Limits check" translation="Limkontrolado" explanation="title" max="20"/>
     <string english="Find translations that don&apos;t fit within their defined bounds." translation="Trovi tradukojn, kiuj tro longas por la difinitaj limoj." explanation="" max="38*6"/>
-    <string english="No text overflows found!" translation="" explanation="limits check. no strings go outside their max bounds" max="38*6"/>
-    <string english="No text overflows left!" translation="" explanation="limits check. we have seen all strings that go outside their max bounds" max="38*6"/>
-    <string english="Note that this detection isn&apos;t perfect." translation="" explanation="limits check" max="38*6"/>
+    <string english="No text overflows found!" translation="Neniuj troaj tekstoj troviĝis!" explanation="limits check. no strings go outside their max bounds" max="38*6"/>
+    <string english="No text overflows left!" translation="Neniuj troaj tekstoj restas!" explanation="limits check. we have seen all strings that go outside their max bounds" max="38*6"/>
+    <string english="Note that this detection isn&apos;t perfect." translation="Notu, ke la detektado ne estas perfekta." explanation="limits check" max="38*6"/>
     <string english="sync language files" translation="sinkronigi lingvodosierojn" explanation="menu option"/>
     <string english="Sync language files" translation="Sinkronigado" explanation="title, translation maintenance menu" max="20"/>
     <string english="sync" translation="sinkronigi" explanation="menu option, verb"/>
@@ -180,8 +180,8 @@
     <string english="Count the amount of untranslated strings for this language." translation="Nombrigi la kvanton da netradukitaj ĉenoj por tiu ĉi lingvo." explanation="" max="38*6"/>
     <string english="Count the amount of untranslated strings for each language." translation="Nombrigi la kvanton da netradukitaj ĉenoj por ĉiu lingvo." explanation="translation maintenance menu" max="38*6"/>
     <string english="If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Make a backup, just in case." translation="Se novaj ĉenoj aldoniĝis al la anglalingvaj ŝablonaj lingvodosieroj, tiu ĉi trajto enigos ilin en la tradukdosierojn por ĉiuj lingvoj. Faru savkopion, por certeco." explanation="translation maintenance menu" max="38*7"/>
-    <string english="Full syncing EN→All:" translation="" explanation="translation maintenance menu. The following list of language files can be fully synced from English to all other languages by pressing this button - new strings will be inserted in all languages"/>
-    <string english="Syncing not supported:" translation="" explanation="translation maintenance menu. The following list of language files are untouched by the sync button"/>
+    <string english="Full syncing EN→All:" translation="Plena sinkronigo EN→Ĉiuj" explanation="translation maintenance menu. The following list of language files can be fully synced from English to all other languages by pressing this button - new strings will be inserted in all languages"/>
+    <string english="Syncing not supported:" translation="Sinkronigon ne subtenas:" explanation="translation maintenance menu. The following list of language files are untouched by the sync button"/>
     <string english="advanced options" translation="altnivelaj agordoj" explanation="menu option"/>
     <string english="Advanced Options" translation="Altnivelaj agordoj" explanation="title" max="20"/>
     <string english="All other gameplay settings." translation="Ĉiuj aliaj agordoj de ludado." explanation="description for advanced options" max="38*5"/>
@@ -435,8 +435,8 @@
     <string english="NO SIGNAL" translation="SENSIGNALE" explanation=""/>
     <string english="Press ACTION to warp to the ship." translation="Premu AGBUTONON por teleportiĝi al la ŝipo." explanation="spaceship. Warp = teleport" max="38*7"/>
     <string english="Missing..." translation="Mankas..." explanation="this crew member is missing" max="15"/>
-    <string english="Rescued!" translation="" explanation="this crew member is not missing anymore" max="15"/>
-    <string english="(that&apos;s you!)" translation="" explanation="this crew member is you (Viridian)" max="15"/>
+    <string english="Rescued!" translation="Savita!" explanation="this crew member is not missing anymore" max="15"/>
+    <string english="(that&apos;s you!)" translation="(jen vi!)" explanation="this crew member is you (Viridian)" max="15"/>
     <string english="Cannot Save in Level Replay" translation="Ne eblas konservi en nivel-reludado" explanation="" max="38*7"/>
     <string english="Cannot Save in No Death Mode" translation="Ne eblas konservi en mortula reĝimo" explanation="" max="38*7"/>
     <string english="How&apos;d you get here?" translation="Kiel vi finiĝis tien ĉi?" explanation="" max="38*7"/>
