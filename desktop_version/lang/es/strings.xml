@@ -444,7 +444,7 @@
     <string english="ERROR: Could not save game!" translation="" explanation="" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Juego guardado exitosamente!" explanation="" max="38*2"/>
-    <string english="[Press ACTION to save your game]" translation="[Presiona ACCÍÓN para guardar partida]" explanation="" max="38*7"/>
+    <string english="[Press ACTION to save your game]" translation="[Presiona ACCÍÓN para guardar partida]" explanation="" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Nota: El juego se guarda automaticamente en cada teletransportador)" explanation="" max="38*3"/>
     <string english="Last Save:" translation="Último guardado" explanation="" max="40"/>
     <string english="Return to main menu?" translation="Volver al menu principal?" explanation="" max="38*4"/>

@@ -1034,7 +1034,7 @@ static void menurender(void)
             graphics.drawpixeltextbox(17, 65-20, 286, 90, 65, 185, 207);
 
             graphics.bigprint(-1, 20, loc::gettext("Tele Save"), tr, tg, tb, true);
-            graphics.Print(0, 80-20, game.tele_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true); // TODO LOC. Should translate only at presentation (here), not save to save file, to accomodate language changes. Repeat below
+            graphics.Print(0, 80-20, game.tele_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
             for (int i = 0; i < 6; i++)
             {
                 graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.tele_crewstats[i], true);
@@ -2629,7 +2629,7 @@ void maprender(void)
 
         if (!game.gamesaved)
         {
-            graphics.PrintWrap(0, 80, loc::gettext("[Press ACTION to save your game]"), 255 - help.glow*2, 255 - help.glow*2, 255 - help.glow, true);
+            graphics.Print(0, 80, loc::gettext("[Press ACTION to save your game]"), 255 - help.glow*2, 255 - help.glow*2, 255 - help.glow, true);
 
             if (map.custommode || game.quicksummary == "")
             {

@@ -277,7 +277,7 @@ It's recommended to translate the room names in-game to see why all rooms are ca
 
 
 == roomnames_special.xml ==
-This file contains some special cases for roomnames.
+This file contains some special cases for roomnames, some names for rooms that usually aren't displayed as regular (like The Ship), and some general area names.
 
 One room ("Prize for the Reckless") is intentionally missing spikes in a time trial and no death mode so the player does not have to die there, and the room is called differently in both cases (for time trial "Imagine Spikes There, if You Like", and for no death mode "I Can't Believe You Got This Far").
 

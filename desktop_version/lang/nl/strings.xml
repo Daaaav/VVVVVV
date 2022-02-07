@@ -444,7 +444,7 @@
     <string english="ERROR: Could not save game!" translation="FOUT: Kon spel niet opslaan!" explanation="" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="FOUT: Kon instellingenbestand niet opslaan!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Spel opgeslagen!" explanation="" max="38*2"/>
-    <string english="[Press ACTION to save your game]" translation="[Druk op ACTIE om je spel op te slaan]" explanation="" max="38*7"/>
+    <string english="[Press ACTION to save your game]" translation="[Druk op ACTIE om je spel op te slaan]" explanation="" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Opmerking: het spel wordt automatisch opgeslagen bij elke teleporter.)" explanation="" max="38*3"/>
     <string english="Last Save:" translation="Laatst opgeslagen:" explanation="" max="40"/>
     <string english="Return to main menu?" translation="Terug naar het hoofdmenu?" explanation="" max="38*4"/>

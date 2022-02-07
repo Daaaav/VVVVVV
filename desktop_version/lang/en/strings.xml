@@ -444,7 +444,7 @@
     <string english="ERROR: Could not save game!" translation="" explanation="" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="" explanation="" max="38*2"/>
-    <string english="[Press ACTION to save your game]" translation="" explanation="" max="38*7"/>
+    <string english="[Press ACTION to save your game]" translation="" explanation="" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="" explanation="" max="38*3"/>
     <string english="Last Save:" translation="" explanation="" max="40"/>
     <string english="Return to main menu?" translation="" explanation="" max="38*4"/>

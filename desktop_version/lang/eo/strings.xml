@@ -444,7 +444,7 @@
     <string english="ERROR: Could not save game!" translation="ERARO: Ne eblis konservi ludon!" explanation="" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="ERARO: Ne eblis konservi agordodosieron!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Ludo konserviĝis sukcese!" explanation="" max="38*2"/>
-    <string english="[Press ACTION to save your game]" translation="[Premu AGBUTONON por konservi la ludon]" explanation="" max="38*7"/>
+    <string english="[Press ACTION to save your game]" translation="[Premu AGBUTONON por konservi la ludon]" explanation="" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Notu: la ludo aŭtomate konserviĝas ĉe ĉiu teleportilo.)" explanation="" max="38*3"/>
     <string english="Last Save:" translation="Lasta konservo:" explanation="" max="40"/>
     <string english="Return to main menu?" translation="Ĉu reveni al ĉefa menuo?" explanation="" max="38*4"/>
