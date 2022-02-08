@@ -168,7 +168,7 @@
         <dialogue speaker="player" english="But if we can find another teleporter, I think we can get back to the ship!" translation=""/>
         <dialogue speaker="blue" english="Sniff..." translation=""/>
     </cutscene>
-    <cutscene id="int1blue_4" explanation="">
+    <cutscene id="int1blue_4" explanation="the split paths merge">
         <dialogue speaker="blue" english="Captain! Captain! Wait for me!" translation=""/>
         <dialogue speaker="blue" english="Please don&apos;t leave me behind! I don&apos;t mean to be a burden!" translation=""/>
         <dialogue speaker="blue" english="I&apos;m scared!" translation=""/>
@@ -205,7 +205,7 @@
         <dialogue speaker="player" english="Let&apos;s go this way!" translation=""/>
         <dialogue speaker="green" english="After you, Captain!" translation=""/>
     </cutscene>
-    <cutscene id="int1green_3" explanation="">
+    <cutscene id="int1green_3" explanation="just like in rescuegreen, `Violet is back on the ship` does not mean she was ever off the ship and has *returned* to it. Or maybe Verdigris thinks Violet was warped off the ship as well just like him and she *has* made her way back to the ship?">
         <dialogue speaker="green" english="So Violet&apos;s back on the ship? She&apos;s really ok?" translation=""/>
         <dialogue speaker="player" english="She&apos;s fine! She helped me find my way back!" translation=""/>
         <dialogue speaker="green" english="Oh, phew! I was worried about her." translation=""/>
@@ -214,7 +214,7 @@
         <dialogue speaker="player" english="Is that so?" translation=""/>
         <dialogue speaker="green" english="Please promise you won&apos;t tell her!" translation=""/>
     </cutscene>
-    <cutscene id="int1green_4" explanation="">
+    <cutscene id="int1green_4" explanation="the split paths merge">
         <dialogue speaker="green" english="Hey again!" translation=""/>
         <dialogue speaker="player" english="Hey!" translation=""/>
         <dialogue speaker="player" english="Are you doing ok?" translation=""/>
@@ -259,7 +259,7 @@
         <dialogue speaker="red" english="Ah! Well, do you think we&apos;ll be able to fix the ship and go home?" translation=""/>
         <dialogue speaker="player" english="Of course! Everything will be ok!" translation=""/>
     </cutscene>
-    <cutscene id="int1red_4" explanation="">
+    <cutscene id="int1red_4" explanation="the split paths merge">
         <dialogue speaker="red" english="Hi again! You doing ok?" translation=""/>
         <dialogue speaker="player" english="I think so! But I really want to get back to the ship..." translation=""/>
         <dialogue speaker="red" english="We&apos;ll be ok! If we can find a teleporter somewhere we should be able to get back!" translation=""/>
@@ -297,7 +297,7 @@
         <dialogue speaker="player" english="Oh wow! Really?" translation=""/>
         <dialogue speaker="yellow" english="Well, it&apos;s just a guess. I&apos;ll need to get back to the ship before I can do any real tests..." translation=""/>
     </cutscene>
-    <cutscene id="int1yellow_4" explanation="">
+    <cutscene id="int1yellow_4" explanation="the split paths merge, and Vitellary sees a checkpoint">
         <dialogue speaker="yellow" english="Ohh! What was that?" translation=""/>
         <dialogue speaker="player" english="What was what?" translation=""/>
         <dialogue speaker="yellow" english="That big... C thing! I wonder what it does?" translation=""/>
@@ -824,7 +824,7 @@ Pipe Dream" translation="" tt="1" pad="1"/>
         <dialogue speaker="gray" english="I wonder if the generator we set up in the polar dimension is what&apos;s affecting our teleporters?" translation=""/>
         <dialogue speaker="gray" english="No, it&apos;s probably just a glitch." translation=""/>
     </cutscene>
-    <cutscene id="terminal_station_4" explanation="">
+    <cutscene id="terminal_station_4" explanation="a trinket that&apos;s difficult to get">
         <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="" padtowidth="280"/>
         <dialogue speaker="gray" english="Hah! Nobody will ever get this one." translation="" pad="1"/>
     </cutscene>

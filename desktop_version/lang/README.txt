@@ -16,7 +16,7 @@ To create a new language, simply copy the `en` folder, and start by filling out 
 
 === T R A N S L A T O R   M E N U ===
 
-The translator menu has options for both translators and maintainers - it allows testing menus, translating room names within the game, syncing all languages with the English template file, getting statistics on translation progress, and more.
+The translator menu has options for both translators and maintainers - it allows testing menus, translating room names within the game, syncing all language files with the English template files, getting statistics on translation progress, and more.
 
 VVVVVV will show a "translator" menu in the main menu if either:
 - The "lang" folder is NOT next to data.zip, and the game is running somewhere within a "desktop_version" folder, and desktop_version/lang IS found. This normally happens when compiling the game from source;

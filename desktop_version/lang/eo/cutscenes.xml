@@ -168,7 +168,7 @@
         <dialogue speaker="player" english="But if we can find another teleporter, I think we can get back to the ship!" translation="Sed, se ni povas trovi alian teleportilon, mi pensas, ke ni povas iri reen al la ŝipo!"/>
         <dialogue speaker="blue" english="Sniff..." translation="Snuf&apos;..."/>
     </cutscene>
-    <cutscene id="int1blue_4" explanation="">
+    <cutscene id="int1blue_4" explanation="the split paths merge">
         <dialogue speaker="blue" english="Captain! Captain! Wait for me!" translation="Kapitan&apos;! Kapitan&apos;! Atendu min!"/>
         <dialogue speaker="blue" english="Please don&apos;t leave me behind! I don&apos;t mean to be a burden!" translation="Ne forlasu min, mi petas! Mi ne volas esti ŝarĝo!"/>
         <dialogue speaker="blue" english="I&apos;m scared!" translation="Mi tre timas!"/>
@@ -205,7 +205,7 @@
         <dialogue speaker="player" english="Let&apos;s go this way!" translation="Ni iru ĉi tien!"/>
         <dialogue speaker="green" english="After you, Captain!" translation="Post vi, Kapitano!"/>
     </cutscene>
-    <cutscene id="int1green_3" explanation="">
+    <cutscene id="int1green_3" explanation="just like in rescuegreen, `Violet is back on the ship` does not mean she was ever off the ship and has *returned* to it. Or maybe Verdigris thinks Violet was warped off the ship as well just like him and she *has* made her way back to the ship?">
         <dialogue speaker="green" english="So Violet&apos;s back on the ship? She&apos;s really ok?" translation="Do, Violeto estas ĉe la ŝipo... ĉu ŝi vere bonfartas?"/>
         <dialogue speaker="player" english="She&apos;s fine! She helped me find my way back!" translation="Tute! Ŝi helpis min retrovi la vojon al la ŝipo!"/>
         <dialogue speaker="green" english="Oh, phew! I was worried about her." translation="Ho, bone! Mi tre zorgis ŝin..."/>
@@ -214,7 +214,7 @@
         <dialogue speaker="player" english="Is that so?" translation="Ho, ĉu vere?"/>
         <dialogue speaker="green" english="Please promise you won&apos;t tell her!" translation="Promesu, ke vi ne diros tion al ŝi!"/>
     </cutscene>
-    <cutscene id="int1green_4" explanation="">
+    <cutscene id="int1green_4" explanation="the split paths merge">
         <dialogue speaker="green" english="Hey again!" translation="Sal denove!"/>
         <dialogue speaker="player" english="Hey!" translation="Hej!"/>
         <dialogue speaker="player" english="Are you doing ok?" translation="Ĉu vi estas en ordo?"/>
@@ -259,7 +259,7 @@
         <dialogue speaker="red" english="Ah! Well, do you think we&apos;ll be able to fix the ship and go home?" translation="Ha - nu, ĉu vi pensas, ke ni povos ripari la ŝipon kaj iri hejmen?"/>
         <dialogue speaker="player" english="Of course! Everything will be ok!" translation="Kompreneble! Ĉio finiĝos tute bone!"/>
     </cutscene>
-    <cutscene id="int1red_4" explanation="">
+    <cutscene id="int1red_4" explanation="the split paths merge">
         <dialogue speaker="red" english="Hi again! You doing ok?" translation="Sal denove! Ĉu vi ankoraŭ fartas bone?"/>
         <dialogue speaker="player" english="I think so! But I really want to get back to the ship..." translation="Mi pensas, ke jes! Sed vere mi volas reatingi la ŝipon..."/>
         <dialogue speaker="red" english="We&apos;ll be ok! If we can find a teleporter somewhere we should be able to get back!" translation="Ĉio enordos! Se ni povas trovi teleportilon ie, certe ni povos reveni senprobleme!"/>
@@ -297,7 +297,7 @@
         <dialogue speaker="player" english="Oh wow! Really?" translation="Ho! Ĉu vere?"/>
         <dialogue speaker="yellow" english="Well, it&apos;s just a guess. I&apos;ll need to get back to the ship before I can do any real tests..." translation="Nu, tio simple estas konjekto. Mi devos reveni ŝipen, antaŭ ol mi povos fari iajn konkretajn testojn..."/>
     </cutscene>
-    <cutscene id="int1yellow_4" explanation="">
+    <cutscene id="int1yellow_4" explanation="the split paths merge, and Vitellary sees a checkpoint">
         <dialogue speaker="yellow" english="Ohh! What was that?" translation="Hoo! Kio estis tio?"/>
         <dialogue speaker="player" english="What was what?" translation="Kio estis kio?"/>
         <dialogue speaker="yellow" english="That big... C thing! I wonder what it does?" translation="Tiu granda... afero kun litero C! Kion ĝi faras, mi scivolas..."/>
@@ -864,7 +864,7 @@ Pipe Dream" tt="1" pad="1"/>
         <dialogue speaker="gray" english="I wonder if the generator we set up in the polar dimension is what&apos;s affecting our teleporters?" translation="Mi scivolas, ĉu la generilo, kiun ni metis en la polardimension, faras la problemojn ĉe niaj teleportiloj..."/>
         <dialogue speaker="gray" english="No, it&apos;s probably just a glitch." translation="Ne, verŝajne estas simpla cimo."/>
     </cutscene>
-    <cutscene id="terminal_station_4" explanation="">
+    <cutscene id="terminal_station_4" explanation="a trinket that&apos;s difficult to get">
         <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= PRIVATA PROTOKOLO =-" padtowidth="280"/>
         <dialogue speaker="gray" english="Hah! Nobody will ever get this one." translation="Ĥa! Neniu iam ajn atingos tiun ĉi." pad="1"/>
     </cutscene>
