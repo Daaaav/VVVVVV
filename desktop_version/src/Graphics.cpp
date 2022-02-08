@@ -1740,8 +1740,9 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
     /* The MenuName is only used for some special cases,
      * like the levels list and the language screen. */
 
+    bool language_screen = menu == Menu::language && !loc::languagelist.empty();
     unsigned int twocol_voptions;
-    if (menu == Menu::language)
+    if (language_screen)
     {
         size_t n_options = game.menuoptions.size();
         twocol_voptions = n_options - (n_options/2);
@@ -1768,7 +1769,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
         }
 
         int x, y;
-        if (menu == Menu::language)
+        if (language_screen)
         {
             int name_len = len(opt.text);
             x = (i < twocol_voptions ? 80 : 240) - name_len/2;

@@ -1105,35 +1105,34 @@ static void menuactionpress(void)
         }
         break;
     case Menu::language:
+    {
         music.playef(11);
-        if (loc::languagelist.size() != 0)
+
+        bool show_title = !loc::lang_set;
+
+        if (loc::languagelist.size() != 0 && (unsigned)game.currentmenuoption < loc::languagelist.size())
         {
-            if ((unsigned)game.currentmenuoption < loc::languagelist.size())
-            {
-                loc::lang = loc::languagelist[game.currentmenuoption].code;
-                loc::loadtext(false);
-                if (!loc::lang_set)
-                {
-                    /* Make the title screen appear, we haven't seen it yet */
-                    game.menustart = false;
-                    loc::lang_set = true;
-                    game.createmenu(Menu::mainmenu);
-                    game.currentmenuoption = 0;
-                }
-                else
-                {
-                    game.returnmenu();
-                }
-                map.nexttowercolour();
-                game.savestatsandsettings_menu();
-            }
+            loc::lang = loc::languagelist[game.currentmenuoption].code;
+            loc::loadtext(false);
+            loc::lang_set = true;
+        }
+
+        if (show_title)
+        {
+            /* Make the title screen appear, we haven't seen it yet */
+            game.menustart = false;
+            game.createmenu(Menu::mainmenu);
+            game.currentmenuoption = 0;
         }
         else
         {
-            map.nexttowercolour();
             game.returnmenu();
         }
+        map.nexttowercolour();
+        game.savestatsandsettings_menu();
+
         break;
+    }
     case Menu::translator_main:
         music.playef(11);
         switch (game.currentmenuoption)
