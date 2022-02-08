@@ -813,6 +813,31 @@ bool FILESYSTEM_isAssetMounted(const char* filename)
     return SDL_strcmp(assetDir, realDir) == 0;
 }
 
+bool FILESYSTEM_areAssetsInSameRealDir(const char* filenameA, const char* filenameB)
+{
+    char pathA[MAX_PATH];
+    char pathB[MAX_PATH];
+
+    getMountedPath(pathA, sizeof(pathA), filenameA);
+    getMountedPath(pathB, sizeof(pathB), filenameB);
+
+    const char* realDirA = PHYSFS_getRealDir(pathA);
+    const char* realDirB = PHYSFS_getRealDir(pathB);
+
+    /* Both NULL, or both the same pointer? */
+    if (realDirA == realDirB)
+    {
+        return true;
+    }
+
+    if (realDirA == NULL || realDirB == NULL)
+    {
+        return false;
+    }
+
+    return SDL_strcmp(realDirA, realDirB) == 0;
+}
+
 void FILESYSTEM_freeMemory(unsigned char **mem);
 
 static void load_stdin(void)
