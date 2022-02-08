@@ -435,7 +435,7 @@ static void menurender(void)
         graphics.drawimagecol(7, -1, 86, true);
 
         graphics.Print( -1, 120, loc::gettext("and features music by"), tr, tg, tb, true);
-        graphics.bigprint( 40, 135, "Magnus P~lsson", tr, tg, tb, true, 2);
+        graphics.bigprint( 40, 135, "Magnus Pålsson", tr, tg, tb, true, 2);
         graphics.drawimagecol(8, -1, 156, true);
         break;
     case Menu::credits2:
@@ -1577,7 +1577,7 @@ void gamecompleterender(void)
     if (graphics.onscreen(600 + position))
     {
         graphics.Print(40, 600 + position, loc::gettext("With Music by"), tr, tg, tb);
-        graphics.bigprint(60, 610 + position, "Magnus P~lsson", tr, tg, tb);
+        graphics.bigprint(60, 610 + position, "Magnus Pålsson", tr, tg, tb);
     }
 
     if (graphics.onscreen(640 + position))
