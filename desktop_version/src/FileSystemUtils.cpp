@@ -66,7 +66,108 @@ static const PHYSFS_Allocator allocator = {
     SDL_free
 };
 
-int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langDir)
+void mount_pre_datazip(
+    char* out_path,
+    const char* real_dirname,
+    const char* mount_point,
+    const char* user_path,
+    const char* basePath,
+    const char* pathSep
+)
+{
+    /* Find and mount a directory (like the main language directory) in front of data.zip.
+     * This directory, if not user-supplied, can be either next to data.zip,
+     * or otherwise in desktop_version/ if that's found in the base path.
+     *
+     * out_path is assumed to be either NULL, or MAX_PATH long. If it isn't, boom */
+
+    if (user_path != NULL)
+    {
+        if (PHYSFS_mount(user_path, mount_point, 1))
+        {
+            if (out_path != NULL)
+            {
+                SDL_strlcpy(out_path, user_path, MAX_PATH);
+            }
+        }
+        else
+        {
+            vlog_warn("User-supplied %s directory is invalid!", real_dirname);
+        }
+    }
+    else
+    {
+        /* Try to detect the directory, it's next to data.zip in distributed builds */
+        bool dir_found = false;
+        char buffer[MAX_PATH];
+
+        SDL_snprintf(buffer, sizeof(buffer), "%s%s%s",
+            basePath,
+            real_dirname,
+            pathSep
+        );
+        if (PHYSFS_mount(buffer, mount_point, 1))
+        {
+            dir_found = true;
+        }
+        else
+        {
+            /* If you're a developer, you probably want to use the language files/fonts
+             * from the repo, otherwise it's a pain to keep everything in sync.
+             * And who knows how deep in build folders our binary is. */
+            size_t buf_reserve = SDL_strlen(real_dirname)+1;
+            SDL_strlcpy(buffer, basePath, sizeof(buffer)-buf_reserve);
+
+            char needle[32];
+            SDL_snprintf(needle, sizeof(needle), "%sdesktop_version%s",
+                pathSep,
+                pathSep
+            );
+
+            /* We want the last match */
+            char* match_last = NULL;
+            char* match = buffer;
+            while ((match = SDL_strstr(match, needle)))
+            {
+                match_last = match;
+                match = &match[1];
+            }
+
+            if (match_last != NULL)
+            {
+                /* strstr only gives us a pointer and not a remaining buffer length, but that's
+                 * why we pretended the buffer was `buf_reserve` chars shorter than it was! */
+                SDL_strlcpy(&match_last[strlen(needle)], real_dirname, buf_reserve);
+                SDL_strlcat(buffer, pathSep, sizeof(buffer));
+
+                if (PHYSFS_mount(buffer, mount_point, 1))
+                {
+                    dir_found = true;
+
+                    if (SDL_strcmp(real_dirname, "lang") == 0)
+                    {
+                        loc::show_translator_menu = true;
+                        isMainLangDirFromRepo = true;
+                    }
+                }
+            }
+        }
+
+        if (dir_found)
+        {
+            if (out_path != NULL)
+            {
+                SDL_strlcpy(out_path, buffer, MAX_PATH);
+            }
+        }
+        else
+        {
+            vlog_warn("Cannot find the %s directory anywhere!", real_dirname);
+        }
+    }
+}
+
+int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langDir, char* fontsDir)
 {
     char output[MAX_PATH];
     int retval;
@@ -150,80 +251,10 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
         basePath = SDL_strdup("./");
     }
 
-    /* Mount the main language directory before data.zip */
-    if (langDir)
-    {
-        if (PHYSFS_mount(langDir, "lang/", 1))
-        {
-            SDL_strlcpy(mainLangDir, langDir, sizeof(mainLangDir));
-        }
-        else
-        {
-            vlog_warn("-langdir is invalid!");
-        }
-    }
-    else
-    {
-        /* Try to detect the language dir, it's next to data.zip in distributed builds */
-        bool lang_dir_found = false;
-        SDL_snprintf(output, sizeof(output), "%s%s%s",
-            basePath,
-            "lang",
-            pathSep
-        );
-        if (PHYSFS_mount(output, "lang/", 1))
-        {
-            lang_dir_found = true;
-        }
-        else
-        {
-            /* If you're a developer, you probably want to use the language files
-             * from the repo, otherwise it's a pain to keep everything in sync.
-             * And who knows how deep in build folders our binary is. */
-            SDL_strlcpy(output, basePath, sizeof(output)-5);
-
-            char needle[32];
-            SDL_snprintf(needle, sizeof(needle), "%sdesktop_version%s",
-                pathSep,
-                pathSep
-            );
-
-            /* We want the last match */
-            char* match_last = NULL;
-            char* match = output;
-            while ((match = SDL_strstr(match, needle)))
-            {
-                match_last = match;
-                match = &match[1];
-            }
-
-            if (match_last != NULL)
-            {
-                /* strstr only gives us a pointer and not a remaining buffer length, but
-                 * that's why we pretended the buffer was 5 chars shorter than it was! */
-                SDL_strlcpy(&match_last[strlen(needle)], "lang", 5);
-                SDL_strlcat(output, pathSep, sizeof(output));
-
-                if (PHYSFS_mount(output, "lang/", 1))
-                {
-                    lang_dir_found = true;
-                    loc::show_translator_menu = true;
-                    isMainLangDirFromRepo = true;
-                }
-            }
-        }
-
-        if (lang_dir_found)
-        {
-            SDL_strlcpy(mainLangDir, output, sizeof(mainLangDir));
-        }
-        else
-        {
-            vlog_warn("Cannot find the lang directory anywhere!");
-        }
-    }
-
+    mount_pre_datazip(mainLangDir, "lang", "lang/", langDir, basePath, pathSep);
     vlog_info("Languages directory: %s", mainLangDir);
+
+    mount_pre_datazip(NULL, "fonts", "graphics/", fontsDir, basePath, pathSep);
 
     /* Mount the stock content last */
     if (assetsPath)

@@ -373,6 +373,7 @@ int main(int argc, char *argv[])
     char* baseDir = NULL;
     char* assetsPath = NULL;
     char* langDir = NULL;
+    char* fontsDir = NULL;
 
     vlog_init();
 
@@ -416,6 +417,13 @@ int main(int argc, char *argv[])
             ARG_INNER({
                 i++;
                 langDir = argv[i];
+            })
+        }
+        else if (ARG("-fontsdir"))
+        {
+            ARG_INNER({
+                i++;
+                fontsDir = argv[i];
             })
         }
         else if (ARG("-playing") || ARG("-p"))
@@ -493,7 +501,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    if(!FILESYSTEM_init(argv[0], baseDir, assetsPath, langDir))
+    if(!FILESYSTEM_init(argv[0], baseDir, assetsPath, langDir, fontsDir))
     {
         vlog_error("Unable to initialize filesystem!");
         VVV_exit(1);

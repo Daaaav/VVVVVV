@@ -11,7 +11,7 @@ class binaryBlob;
 // Forward declaration, including the entirety of tinyxml2.h across all files this file is included in is unnecessary
 namespace tinyxml2 { class XMLDocument; }
 
-int FILESYSTEM_init(char *argvZero, char* baseDir, char* assetsPath, char* langDir);
+int FILESYSTEM_init(char *argvZero, char* baseDir, char* assetsPath, char* langDir, char* fontsDir);
 void FILESYSTEM_deinit(void);
 
 char *FILESYSTEM_getUserSaveDirectory(void);
