@@ -2756,7 +2756,7 @@ void editorinput(void)
             if(key.keymap[SDLK_s])
             {
                 ed.keydelay = 6;
-                ed.getlin(TEXT_SAVE, loc::gettext("Enter map filename to save map as:"), &(ed.filename));
+                ed.getlin(TEXT_SAVE, loc::gettext("Enter map filename to save as:"), &(ed.filename));
                 game.mapheld=true;
             }
 

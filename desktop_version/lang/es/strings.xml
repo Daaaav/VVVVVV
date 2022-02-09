@@ -6,7 +6,7 @@
     <string english="[click to resume]" translation="[Click para continuar]" explanation="pause screen" max="40"/>
     <string english="Press M to mute in game" translation="Presiona M para silenciar el juego" explanation="pause screen" max="40"/>
     <string english="Press N to mute music only" translation="Presiona N para silenciar la musica" explanation="pause screen" max="40"/>
-    <string english="MAKE AND PLAY EDITION" translation="EDICION MAKE AND PLAY" explanation=""/>
+    <string english="MAKE AND PLAY EDITION" translation="EDICION MAKE AND PLAY" explanation="" max="27"/>
     <string english="[MMMMMM Mod Installed]" translation="[MMMMMM Mod Instalado]" explanation="" max="32"/>
     <string english="play" translation="" explanation="main menu option"/>
     <string english="levels" translation="" explanation="main menu option"/>
@@ -35,7 +35,7 @@
     <string english="secret lab" translation="laboratorio secreto" explanation="menu option"/>
     <string english="play modes" translation="jugar modos" explanation="menu option"/>
     <string english="ERROR: No levels found." translation="ERROR: No se encontraron niveles." explanation="" max="38*3"/>
-    <string english="by %s" translation="Por %s" explanation="%s: author of level"/>
+    <string english="by %s" translation="Por %s" explanation="%s: author of custom level, appears in the custom levels list and editor"/>
     <string english="ERROR: This level has no start point!" translation="ERROR: Este nivel no tiene punto de inicio" explanation="" max="38*5"/>
     <string english="ERROR" translation="" explanation="title" max="20"/>
     <string english="WARNING" translation="" explanation="title" max="20"/>
@@ -126,7 +126,7 @@
     <string english="GitHub Contributors" translation="" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20"/>
     <string english="With contributions on GitHub from" translation="Con contribuciones de GitHub desde" explanation="credits" max="38*3"/>
     <string english="and thanks also to:" translation="Y también gracias a:" explanation="credits, and thanks also to ... you!" max="38*3"/>
-    <string english="You!" translation="Ti!" explanation="credits, and thanks also to ... you!"/>
+    <string english="You!" translation="Ti!" explanation="credits, and thanks also to ... you!" max="20"/>
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="Tu apoyo me hace posible el poder continuar creando los juegos que quiero hacer, ahora y en el futuro." explanation="credits" max="38*5"/>
     <string english="Thank you!" translation="Gracias!" explanation="credits" max="38*5"/>
     <string english="Good luck!" translation="Buena Suerte!" explanation="" max="38*3"/>
@@ -135,9 +135,9 @@
     <string english="disable cutscenes" translation="desactivar escenas" explanation="menu option"/>
     <string english="enable cutscenes" translation="activar escenas" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="sensibilidad del analogico" explanation="menu option"/>
-    <string english="Low" translation="Baja" explanation="analog stick sensitivity"/>
-    <string english="Medium" translation="Media" explanation="analog stick sensitivity"/>
-    <string english="High" translation="Alta" explanation="analog stick sensitivity"/>
+    <string english="Low" translation="Baja" explanation="analog stick sensitivity, game pad menu"/>
+    <string english="Medium" translation="Media" explanation="analog stick sensitivity, game pad menu"/>
+    <string english="High" translation="Alta" explanation="analog stick sensitivity, game pad menu"/>
     <string english="bind flip" translation="asociar voltear" explanation="menu option"/>
     <string english="bind enter" translation="asociar enter" explanation="menu option"/>
     <string english="bind menu" translation="asociar menu" explanation="menu option"/>
@@ -180,8 +180,8 @@
     <string english="Count the amount of untranslated strings for this language." translation="" explanation="" max="38*6"/>
     <string english="Count the amount of untranslated strings for each language." translation="Cantidad de textos sin traducir de cada idioma." explanation="translation maintenance menu" max="38*6"/>
     <string english="If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Make a backup, just in case." translation="Si nuevos textos se añadieron a los archivos de la plantilla de Ingles, esta caracteristica los insertara en los archivos de todos los idiomas. Hacer un respaldo, por si acaso." explanation="translation maintenance menu" max="38*7"/>
-    <string english="Full syncing EN→All:" translation="" explanation="translation maintenance menu. The following list of language files can be fully synced from English to all other languages by pressing this button - new strings will be inserted in all languages"/>
-    <string english="Syncing not supported:" translation="" explanation="translation maintenance menu. The following list of language files are untouched by the sync button"/>
+    <string english="Full syncing EN→All:" translation="" explanation="translation maintenance menu. The following list of language files can be fully synced from English to all other languages by pressing this button - new strings will be inserted in all languages" max="40"/>
+    <string english="Syncing not supported:" translation="" explanation="translation maintenance menu. The following list of language files are untouched by the sync button" max="40"/>
     <string english="advanced options" translation="" explanation="menu option"/>
     <string english="Advanced Options" translation="" explanation="title" max="20"/>
     <string english="All other gameplay settings." translation="" explanation="description for advanced options" max="38*5"/>
@@ -202,15 +202,15 @@
     <string english="In-Game Timer is OFF" translation="" explanation="" max="38*2"/>
     <string english="interact button" translation="" explanation="menu option"/>
     <string english="Interact Button" translation="" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
-    <string english="Toggle whether you interact with prompts using ENTER or E." translation="" explanation="prompts: see the `Press %s to talk to .../activate terminal/teleport` below" max="38*5"/>
-    <string english="E" translation="" explanation="keyboard key E"/>
-    <string english="ENTER" translation="" explanation="keyboard key ENTER"/>
-    <string english="Interact button: %s" translation="" explanation="keyboard key (E or ENTER) is filled in for %s"/>
+    <string english="Toggle whether you interact with prompts using ENTER or E." translation="" explanation="prompts: see the `Press %s to talk to .../activate terminal/teleport` below" max="38*3"/>
+    <string english="E" translation="" explanation="keyboard key E. Speedrunner options menu"/>
+    <string english="ENTER" translation="" explanation="keyboard key ENTER. Speedrunner options menu"/>
+    <string english="Interact button: %s" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="" explanation="menu option"/>
     <string english="Fake Load Screen" translation="Carga Falsa" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20"/>
     <string english="Disable the fake loading screen which appears on game launch." translation="" explanation="" max="38*3"/>
-    <string english="Fake loading screen is OFF" translation="Carga Falsa esta DESACTIVADO" explanation="allows the loading screen which counts to 100% to be turned off" max="38*3"/>
-    <string english="Fake loading screen is ON" translation="Carga Falsa esta ACTIVADO" explanation="allows the loading screen which counts to 100% to be turned off" max="38*3"/>
+    <string english="Fake loading screen is OFF" translation="Carga Falsa esta DESACTIVADO" explanation="allows the loading screen which counts to 100% to be turned off" max="38*2"/>
+    <string english="Fake loading screen is ON" translation="Carga Falsa esta ACTIVADO" explanation="allows the loading screen which counts to 100% to be turned off" max="38*2"/>
     <string english="room name background" translation="" explanation="menu option, background behind room names"/>
     <string english="Room Name BG" translation="Fondo del titulo" explanation="title, background behind room names" max="20"/>
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Te deja ver a través de lo que está detrás del nombre en la base de la pantalla." explanation="" max="38*3"/>
@@ -226,8 +226,8 @@
     <string english="Glitchrunner mode is %s" translation="" explanation="a version number is filled in for %s, such as 2.0 or 2.2" max="38*2"/>
     <string english="Select a new glitchrunner version below." translation="" explanation="" max="38*3"/>
     <string english="none" translation="" explanation="menu option, do not emulate any older version"/>
-    <string english="2.0" translation="" explanation="VVVVVV version number"/>
-    <string english="2.2" translation="" explanation="VVVVVV version number"/>
+    <string english="2.0" translation="" explanation="VVVVVV version number for glitchrunner mode"/>
+    <string english="2.2" translation="" explanation="VVVVVV version number for glitchrunner mode"/>
     <string english="input delay" translation="" explanation="menu option, enable 1 frame of delay after pressing input"/>
     <string english="Input Delay" translation="" explanation="title, enable 1 frame of delay after pressing input" max="20"/>
     <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="" explanation="input delay" max="38*3"/>
@@ -324,12 +324,12 @@
     <string english="TIME TAKEN:" translation="TIEMPO TOMADO:" explanation="time the player took playing the level" max="32"/>
     <string english="NUMBER OF DEATHS:" translation="NÚMERO DE MUERTES:" explanation="amount of times the player died" max="32"/>
     <string english="SHINY TRINKETS:" translation="BARATIJAS BRILLANTES:" explanation="amount of trinkets collected" max="32"/>
-    <string english=" / " translation="" explanation="inserted between two times, ex: 0:46.90 / 1:15.99"/>
+    <string english=" / " translation="" explanation="inserted between two times, ex: 0:46.90 / 1:15.99. Time trial results"/>
     <string english="%d/%d" translation="" explanation="ex: 2/5"/>
     <string english="%d of %d" translation="%d de %d" explanation="ex: 2 of 5"/>
     <string english="%s out of %s" translation="" explanation="ex: One out of Twenty, see numbers.xml" max="34"/>
     <string english="+1 Rank!" translation="+1 Rango!" explanation="time trial rank was upgraded (B → A → S → V). B is minimum, which is purposefully high (see it as 7/10) - S is a popular rank above A in a lot of games, so VVVVVV added a rank above that." max="12"/>
-    <string english="Rank:" translation="Rango:" explanation="time trial rank"/>
+    <string english="Rank:" translation="Rango:" explanation="time trial rank" max="9"/>
     <string english="B" translation="B" explanation="time trial rank" max="5"/>
     <string english="A" translation="A" explanation="time trial rank" max="5"/>
     <string english="S" translation="S" explanation="time trial rank" max="5"/>
@@ -391,7 +391,7 @@
     <string english="yes, reveal the path" translation="" explanation="menu option. Path to the levels folder"/>
     <string english="return to play menu" translation="volver al menu de juego" explanation="menu option" max="36"/>
     <string english="try again" translation="" explanation="menu option, retry time trial" max="36"/>
-    <string english="ok" translation="ok" explanation="button"/>
+    <string english="ok" translation="ok" explanation="button, which is a menu option, so lowercase"/>
     <string english="next page" translation="siguiente pagina" explanation="menu option"/>
     <string english="previous page" translation="pagina anterior" explanation="menu option"/>
     <string english="first page" translation="primera pagina" explanation="menu option"/>
@@ -432,32 +432,32 @@
     <string english="[ PAUSE ]" translation="[ PAUSA ]" explanation="in-game menu" max="40"/>
     <string english="[ QUIT ]" translation="[ SALIR ]" explanation="in-game menu" max="40"/>
     <string english="[ GRAVITRON ]" translation="[ GRAVITRON ]" explanation="in-game menu" max="40"/>
-    <string english="NO SIGNAL" translation="SIN SEÑAL" explanation=""/>
+    <string english="NO SIGNAL" translation="SIN SEÑAL" explanation="map screen. So like a TV/computer monitor" max="29"/>
     <string english="Press ACTION to warp to the ship." translation="Presiona ACCIÓN para transportar la nave." explanation="spaceship. Warp = teleport" max="38*7"/>
     <string english="Missing..." translation="Faltando..." explanation="this crew member is missing" max="15"/>
     <string english="Rescued!" translation="" explanation="this crew member is not missing anymore" max="15"/>
     <string english="(that&apos;s you!)" translation="" explanation="this crew member is you (Viridian)" max="15"/>
-    <string english="Cannot Save in Level Replay" translation="No puedes guardar en una repeticion de nivel" explanation="" max="38*7"/>
-    <string english="Cannot Save in No Death Mode" translation="No puedes guardar en el Modo Sin Muertes" explanation="" max="38*7"/>
-    <string english="How&apos;d you get here?" translation="" explanation="" max="38*7"/>
-    <string english="Cannot Save in Secret Lab" translation="No puedes guardar en el Laboratorio Secreto" explanation="" max="38*7"/>
-    <string english="ERROR: Could not save game!" translation="" explanation="" max="34*2"/>
+    <string english="Cannot Save in Level Replay" translation="No puedes guardar en una repeticion de nivel" explanation="in-game menu" max="38*7"/>
+    <string english="Cannot Save in No Death Mode" translation="No puedes guardar en el Modo Sin Muertes" explanation="in-game menu" max="38*7"/>
+    <string english="How&apos;d you get here?" translation="" explanation="in-game menu" max="38*7"/>
+    <string english="Cannot Save in Secret Lab" translation="No puedes guardar en el Laboratorio Secreto" explanation="in-game menu" max="38*7"/>
+    <string english="ERROR: Could not save game!" translation="" explanation="in-game menu" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="" explanation="" max="38*2"/>
-    <string english="Game saved ok!" translation="Juego guardado exitosamente!" explanation="" max="38*2"/>
-    <string english="[Press ACTION to save your game]" translation="[Presiona ACCÍÓN para guardar partida]" explanation="" max="40"/>
-    <string english="(Note: The game is autosaved at every teleporter.)" translation="(Nota: El juego se guarda automaticamente en cada teletransportador)" explanation="" max="38*3"/>
-    <string english="Last Save:" translation="Último guardado" explanation="" max="40"/>
-    <string english="Return to main menu?" translation="Volver al menu principal?" explanation="" max="38*4"/>
-    <string english="Do you want to quit? You will lose any unsaved progress." translation="Quieres salir? Perderas el progreso no guardado." explanation="" max="38*4"/>
-    <string english="Do you want to return to the secret laboratory?" translation="Quieres volver al laboratorio secreto?" explanation="" max="38*4"/>
-    <string english="no, keep playing" translation="no, continuar jugando" explanation="" max="28"/>
-    <string english="[ NO, KEEP PLAYING ]" translation="[ NO, CONTINUAR JUGANDO ]" explanation="" max="32"/>
-    <string english="no, return" translation="no, volver" explanation=""/>
-    <string english="yes, quit to menu" translation="si, volver al menu" explanation="" max="24"/>
-    <string english="[ YES, QUIT TO MENU ]" translation="[ SI, SALIR AL MENU ]" explanation="" max="28"/>
-    <string english="yes, return" translation="si, volver" explanation="" max="24"/>
-    <string english="[ YES, RETURN ]" translation="[ SI, VOLVER ]" explanation="" max="28"/>
-    <string english="yes, quit" translation="si, salir" explanation="quit program"/>
+    <string english="Game saved ok!" translation="Juego guardado exitosamente!" explanation="in-game menu" max="38*2"/>
+    <string english="[Press ACTION to save your game]" translation="[Presiona ACCÍÓN para guardar partida]" explanation="in-game menu" max="40"/>
+    <string english="(Note: The game is autosaved at every teleporter.)" translation="(Nota: El juego se guarda automaticamente en cada teletransportador)" explanation="in-game menu" max="38*3"/>
+    <string english="Last Save:" translation="Último guardado" explanation="in-game menu" max="40"/>
+    <string english="Return to main menu?" translation="Volver al menu principal?" explanation="in-game menu" max="38*4"/>
+    <string english="Do you want to quit? You will lose any unsaved progress." translation="Quieres salir? Perderas el progreso no guardado." explanation="in-game menu" max="38*4"/>
+    <string english="Do you want to return to the secret laboratory?" translation="Quieres volver al laboratorio secreto?" explanation="in-game menu" max="38*4"/>
+    <string english="no, keep playing" translation="no, continuar jugando" explanation="in-game menu option" max="28"/>
+    <string english="[ NO, KEEP PLAYING ]" translation="[ NO, CONTINUAR JUGANDO ]" explanation="in-game menu option" max="32"/>
+    <string english="yes, quit to menu" translation="si, volver al menu" explanation="in-game menu option" max="24"/>
+    <string english="[ YES, QUIT TO MENU ]" translation="[ SI, SALIR AL MENU ]" explanation="in-game menu option" max="28"/>
+    <string english="yes, return" translation="si, volver" explanation="in-game menu option" max="24"/>
+    <string english="[ YES, RETURN ]" translation="[ SI, VOLVER ]" explanation="in-game menu option" max="28"/>
+    <string english="no, return" translation="no, volver" explanation="quit program menu option"/>
+    <string english="yes, quit" translation="si, salir" explanation="quit program menu option"/>
     <string english="return to game" translation="volver al juego" explanation="pause menu option" max="27"/>
     <string english="quit to menu" translation="salir al menu" explanation="pause menu option" max="19"/>
     <string english="Press Left/Right to choose a Teleporter" translation="Izq/Der: elegir teletransportador" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40"/>
@@ -559,7 +559,7 @@
     <string english="I: Warp Lines" translation="" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32"/>
     <string english="O: Crewmate" translation="" explanation="editor tool. Crewmate that can be rescued" max="32"/>
     <string english="P: Start Point" translation="" explanation="editor tool" max="32"/>
-    <string english="START" translation="" explanation="start point in level editor"/>
+    <string english="START" translation="" explanation="start point in level editor" max="10"/>
     <string english="SPACE ^  SHIFT ^" translation="" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32"/>
     <string english="F1: Change Tileset" translation="" explanation="editor shortcut, switch to different tileset" max="25"/>
     <string english="F2: Change Colour" translation="" explanation="editor shortcut, switch to different tileset color/variant" max="25"/>
@@ -577,7 +577,7 @@
     <string english="Enter new room name:" translation="" explanation="level editor text input, the name of the room appears at the bottom" max="39*3"/>
     <string english="Enter room coordinates x,y:" translation="" explanation="level editor text input, go to another room by its coordinates, for example, 9,15" max="39*3"/>
     <string english="Enter script name:" translation="" explanation="level editor text input, enter name of newly created script, or edit the script name of a terminal/script box" max="39*3"/>
-    <string english="Enter roomtext:" translation="" explanation="level editor text input, enter text to place in the room"/>
+    <string english="Enter roomtext:" translation="" explanation="level editor text input, enter text to place in the room" max="39*3"/>
     <string english="Space Station" translation="" explanation="editor tileset name, Now using Space Station Tileset"/>
     <string english="Outside" translation="" explanation="editor tileset name, Now using Outside Tileset"/>
     <string english="Lab" translation="" explanation="editor tileset name, Now using Lab Tileset"/>
@@ -609,7 +609,7 @@
     <string english="%d:%02d" translation="" explanation="time format M:SS"/>
     <string english="%d:%02d.%02d" translation="" explanation="time format M:SS.CC"/>
     <string english="%d.%02d" translation="" explanation="time format S.CC"/>
-    <string english=".99" translation="" explanation="appended to time format for 99/100 seconds (example: 1:15.99)"/>
+    <string english=".99" translation="" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
     <string english="Level Complete!" translation="" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="Game Complete!" translation="" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="You have rescued a crew member!" translation="" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2"/>
@@ -644,12 +644,12 @@ You have found the secret lab!" translation="" explanation="" max="37*4"/>
     <string english="Verdigris" translation="" explanation="crewmate name" max="15"/>
     <string english="Victoria" translation="" explanation="crewmate name" max="15"/>
     <string english="Starring" translation="" explanation="credits roll. Starring the following 6 crew members" max="20"/>
-    <string english="Captain Viridian" translation="" explanation="credits roll. Starring the following 6 crew members"/>
-    <string english="Doctor Violet" translation="" explanation="credits roll. Starring the following 6 crew members"/>
-    <string english="Professor Vitellary" translation="" explanation="credits roll. Starring the following 6 crew members"/>
-    <string english="Officer Vermilion" translation="" explanation="credits roll. Starring the following 6 crew members"/>
-    <string english="Chief Verdigris" translation="" explanation="credits roll. Starring the following 6 crew members"/>
-    <string english="Doctor Victoria" translation="" explanation="credits roll. Starring the following 6 crew members"/>
+    <string english="Captain Viridian" translation="" explanation="credits roll. Starring the following 6 crew members" max="27"/>
+    <string english="Doctor Violet" translation="" explanation="credits roll. Starring the following 6 crew members" max="27"/>
+    <string english="Professor Vitellary" translation="" explanation="credits roll. Starring the following 6 crew members" max="27"/>
+    <string english="Officer Vermilion" translation="" explanation="credits roll. Starring the following 6 crew members" max="27"/>
+    <string english="Chief Verdigris" translation="" explanation="credits roll. Starring the following 6 crew members" max="27"/>
+    <string english="Doctor Victoria" translation="" explanation="credits roll. Starring the following 6 crew members" max="27"/>
     <string english="When you&apos;re standing on the floor, Vitellary will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re standing on the floor, Vermilion will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re standing on the floor, Verdigris will try to walk to you." translation="" explanation="Intermission 1" max="34*4"/>
@@ -698,6 +698,6 @@ You have found the secret lab!" translation="" explanation="" max="37*4"/>
     <string english="Could not mount %s: real directory doesn&apos;t exist" translation="" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
     <string english="%s.zip is not structured correctly! It is missing %s.vvvvvv." translation="" explanation="%s: custom level filename" max="38*6"/>
     <string english="%s.zip is not structured correctly! It has .vvvvvv file(s) other than %s.vvvvvv." translation="" explanation="%s: custom level filename" max="38*6"/>
-    <string english="" translation="" explanation="" max=""/>
-    <string english="" translation="" explanation="" max=""/>
+    <string english="" translation="" explanation=""/>
+    <string english="" translation="" explanation=""/>
 </strings>
