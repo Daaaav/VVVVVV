@@ -162,9 +162,12 @@ namespace loc
 
             textbook_clear(&textbook_custom);
         }
-        inited_custom = true;
+        else
+        {
+            inited_custom = true;
 
-        textbook_init(&textbook_custom);
+            textbook_init(&textbook_custom);
+        }
 
         map_translation_cutscene_custom = hashmap_create();
 
@@ -201,9 +204,12 @@ namespace loc
 
             textbook_clear(&textbook_main);
         }
-        inited = true;
+        else
+        {
+            inited = true;
 
-        textbook_init(&textbook_main);
+            textbook_init(&textbook_main);
+        }
 
         map_translation = hashmap_create();
         map_translation_cutscene = hashmap_create();

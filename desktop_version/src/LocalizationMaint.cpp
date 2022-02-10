@@ -371,6 +371,7 @@ namespace loc
 
         std::string oldlang = lang;
 
+        textbook_clear(&textbook_main);
         textbook_set_protected(&textbook_main, SDL_TRUE);
 
         for (size_t i = 0; i < languagelist.size(); i++)
