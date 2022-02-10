@@ -23,7 +23,7 @@
     <!-- When automatically uppercasing, allow ~ to be used to stop the next letter from being uppercased (for Irish) -->
     <toupper_lower_escape_char>0</toupper_lower_escape_char>
 
-	<!-- The indication that a certain menu option or button is selected -->
-	<menu_select>[ %s ]</menu_select>
-	<menu_select_tight>[%s]</menu_select_tight>
+    <!-- The indication that a certain menu option or button is selected -->
+    <menu_select>[ %s ]</menu_select>
+    <menu_select_tight>[%s]</menu_select_tight>
 </langmeta>
