@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Please read README.txt for information about the language files -->
+<!-- Please read README.txt for information about the language files and do a sick flip while you're at it -->
 <roomnames_special>
     <roomname english="Outer Space" translation="La kosmoj" explanation=""/>
     <roomname english="Dimension VVVVVV" translation="Dimensio VVVVVV" explanation=""/>
     <roomname english="The Ship" translation="La Ŝipo" explanation=""/>
     <roomname english="Secret Lab" translation="Sekreta Laboratorio" explanation=""/>
-    <roomname english="Laboratory" translation="" explanation=""/>
-    <roomname english="The Tower" translation="" explanation=""/>
-    <roomname english="Warp Zone" translation="" explanation=""/>
-    <roomname english="Space Station" translation="" explanation=""/>
-    <roomname english="Outside Dimension VVVVVV" translation="" explanation=""/>
-    <roomname english="???" translation="" explanation=""/>
-    <roomname english="The Super Gravitron" translation="La Super-Gravitĉambro" explanation=""/>
+    <roomname english="Laboratory" translation="Laboratorio" explanation=""/>
+    <roomname english="The Tower" translation="La Turo" explanation=""/>
+    <roomname english="Warp Zone" translation="Teleportejo" explanation=""/>
+    <roomname english="Space Station" translation="Kosmostacio" explanation=""/>
+    <roomname english="Outside Dimension VVVVVV" translation="Ekster Dimensio VVVVVV" explanation=""/>
+    <roomname english="???" translation="???" explanation=""/>
+    <roomname english="The Super Gravitron" translation="La Supergravitrono" explanation=""/>
     <roomname english="I Can&apos;t Believe You Got This Far" translation="Nekredeblas ke vi tiel foren atingas" explanation=""/>
     <roomname english="Imagine Spikes There, if You Like" translation="Imagu tie pikaĵojn, se vi volas" explanation=""/>
     <!-- - -->
     <roomname english="Rear Window" translation="Antaŭa fenestro" explanation=""/>
     <roomname english="Rear Vindow" translation="Antaŭa venestro" explanation=""/>
     <!-- - -->
-    <roomname english="On the Waterfront" translation="" explanation=""/>
-    <roomname english="On the Vaterfront" translation="" explanation=""/>
+    <roomname english="On the Waterfront" translation="La akva flanko" explanation=""/>
+    <roomname english="On the Vaterfront" translation="La akVa flanko" explanation=""/>
     <!-- - -->
     <roomname english="The Untouchables" translation="La netuŝebluloj" explanation=""/>
     <roomname english="The Untouchavles" translation="La netuŝevluloj" explanation=""/>
     <!-- - -->
-    <roomname english="Television Newsveel" translation="" explanation=""/>
-    <roomname english="Television Newsvel" translation="" explanation=""/>
-    <roomname english="TelevisvonvNewsvel" translation="" explanation=""/>
-    <roomname english="TvlvvvsvonvNevsvel" translation="" explanation=""/>
-    <roomname english="vvvvvvsvovvNe svel" translation="" explanation=""/>
-    <roomname english="vhv vvv&apos;vvovv vevl" translation="" explanation=""/>
-    <roomname english="vhv V v&apos;Cvovv vewv" translation="" explanation=""/>
-    <roomname english="vhe 9 v&apos;Cvovv vewv" translation="" explanation=""/>
-    <roomname english="vhe 9 v&apos;Cvovv Newv" translation="" explanation=""/>
-    <roomname english="The 9 O&apos;Cvovk Newv" translation="" explanation=""/>
-    <roomname english="The 9 O&apos;Clock News" translation="" explanation=""/>
+    <roomname english="Television Newsveel" translation="Vilmitaj aktualaĵoj" explanation=""/>
+    <roomname english="Television Newsvel" translation="Vilmitaj aktualĵoj" explanation=""/>
+    <roomname english="TelevisvonvNewsvel" translation="Vilmivajvaktualĵoj" explanation=""/>
+    <roomname english="TvlvvvsvonvNevsvel" translation="Vvlvivajvakvualĵoj" explanation=""/>
+    <roomname english="vvvvvvsvovvNe svel" translation="vvvvvvajvakvu lvoj" explanation=""/>
+    <roomname english="vhv vvv&apos;vvovv vevl" translation="vovvvvv vvvvv vavv" explanation=""/>
+    <roomname english="vhv V v&apos;Cvovv vewv" translation="vovavvv vv vv vaŭv" explanation=""/>
+    <roomname english="vhe 9 v&apos;Cvovv vewv" translation="vovaĵov vv lv vaŭv" explanation=""/>
+    <roomname english="vhe 9 v&apos;Cvovv Newv" translation="vovaĵoj ve la vaŭa" explanation=""/>
+    <roomname english="The 9 O&apos;Cvovk Newv" translation="Novaĵoj ve la vaŭa" explanation=""/>
+    <roomname english="The 9 O&apos;Clock News" translation="Novaĵoj je la naŭa" explanation=""/>
     <!-- - -->
     <roomname english="Vwitched" translation="" explanation=""/>
     <roomname english="Vwitvhed" translation="" explanation=""/>
@@ -43,7 +43,7 @@
     <roomname english="DvvvwMvfvvMdvvv" translation="" explanation=""/>
     <roomname english="Dvav Mvfvr Mdvvvv" translation="" explanation=""/>
     <roomname english="Diav M for Mdrver" translation="" explanation=""/>
-    <roomname english="Dial M for Murder" translation="" explanation=""/>
+    <roomname english="Dial M for Murder" translation="Disku M por Murdo" explanation=""/>
     <!-- - -->
     <roomname english="Gvnsmoke" translation="" explanation=""/>
     <roomname english="Gvnsmove" translation="" explanation=""/>
@@ -52,13 +52,13 @@
     <roomname english="Vunsmoke 19v6" translation="" explanation=""/>
     <roomname english="Gunsmoke 1966" translation="" explanation=""/>
     <!-- - -->
-    <roomname english="Please enjoy these repeats" translation="" explanation=""/>
-    <roomname english="Please envoy theve repeats" translation="" explanation=""/>
-    <roomname english="Plse envoy tse rvpvas" translation="" explanation=""/>
-    <roomname english="Vl envoy te rvevs" translation="" explanation=""/>
-    <roomname english="Vv evo tv vevs" translation="" explanation=""/>
-    <roomname english="Iv vhv Mvrvivs" translation="" explanation=""/>
-    <roomname english="In the Margins" translation="" explanation=""/>
+    <roomname english="Please enjoy these repeats" translation="Ripeta epizodo" explanation=""/>
+    <roomname english="Please envoy theve repeats" translation="Ripvta epivodo" explanation=""/>
+    <roomname english="Plse envoy tse rvpvas" translation="Vivvta evivvdo" explanation=""/>
+    <roomname english="Vl envoy te rvevs" translation="Vvvvt vevvvvdv" explanation=""/>
+    <roomname english="Vv evo tv vevs" translation="Vv lv vvrvivv" explanation=""/>
+    <roomname english="Iv vhv Mvrvivs" translation="Ev lv mvrĝivo" explanation=""/>
+    <roomname english="In the Margins" translation="En la marĝeno" explanation=""/>
     <!-- - -->
     <roomname english="Try Jiggling the Antenna" translation="Eble skuu la antenon" explanation=""/>
     <roomname english="Try Viggling the Antenna" translation="Eble svuu la antenon" explanation=""/>
