@@ -7,6 +7,7 @@
 void textbook_init(Textbook* textbook)
 {
     textbook->pages_used = 0;
+    textbook->protect = SDL_FALSE;
 }
 
 void textbook_clear(Textbook* textbook)
