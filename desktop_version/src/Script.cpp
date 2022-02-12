@@ -2394,7 +2394,7 @@ void scriptclass::run(void)
             {
                 if (loc::lang == words[1])
                 {
-                    load("custom_"+words[2]);
+                    load("custom_" + raw_words[2]);
                     position--;
                 }
             }
