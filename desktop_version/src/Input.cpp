@@ -360,7 +360,7 @@ static void slidermodeinput(void)
     {
         *user_changing_volume += USER_VOLUME_STEP;
     }
-    *user_changing_volume = clamp(*user_changing_volume, 0, USER_VOLUME_MAX);
+    *user_changing_volume = SDL_clamp(*user_changing_volume, 0, USER_VOLUME_MAX);
 }
 
 static void menuactionpress(void)
@@ -690,13 +690,10 @@ static void menuactionpress(void)
         if (game.currentmenuoption == offset + 5)
         {
             processed = true;
-            /* FIXME: Upgrade to SDL 2.0.18 and remove this ifdef when it releases! */
-#if SDL_VERSION_ATLEAST(2, 0, 17)
             //toggle vsync
             music.playef(11);
             gameScreen.toggleVSync();
             game.savestatsandsettings_menu();
-#endif
         }
         if (!processed)
         {

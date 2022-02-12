@@ -81,7 +81,7 @@ static void volumesliderrender(void)
     num_positions = slider_length - symbol_length + 1;
 
     offset = num_positions * (*volume_ptr) / USER_VOLUME_MAX;
-    offset = clamp(offset, 0, slider_length - symbol_length);
+    offset = SDL_clamp(offset, 0, slider_length - symbol_length);
 
     /* SDL_strlcpy null-terminates, which would end the string in the middle of
      * it, which we don't want!
@@ -369,15 +369,7 @@ static void menurender(void)
         if (game.currentmenuoption == offset + 5)
         {
             graphics.bigprint(-1, 30, loc::gettext("Toggle VSync"), tr, tg, tb, true);
-            /* FIXME: Upgrade to SDL 2.0.18 and remove this ifdef when it releases! */
-#if SDL_VERSION_ATLEAST(2, 0, 17)
             int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Turn VSync on or off."), tr, tg, tb, true);
-#else
-            graphics.Print(-1, 65, "Your SDL version is too old!", tr, tg, tb, true);
-            graphics.Print(-1, 75, "Edit the config file.", tr, tg, tb, true);
-
-            int next_y = 85;
-#endif
 
             if (!gameScreen.vsync)
             {

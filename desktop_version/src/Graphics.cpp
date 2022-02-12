@@ -1,6 +1,7 @@
 #define GRAPHICS_DEFINITION
 #include "Graphics.h"
 
+#include <SDL.h>
 #include <utf8/unchecked.h>
 
 #include "Constants.h"
@@ -14,7 +15,6 @@
 #include "Music.h"
 #include "RoomnameTranslator.h"
 #include "Screen.h"
-#include "TempSDLFallthrough.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
@@ -537,10 +537,10 @@ void Graphics::do_print(
     int position = 0;
     std::string::const_iterator iter = text.begin();
 
-    r = clamp(r, 0, 255);
-    g = clamp(g, 0, 255);
-    b = clamp(b, 0, 255);
-    a = clamp(a, 0, 255);
+    r = SDL_clamp(r, 0, 255);
+    g = SDL_clamp(g, 0, 255);
+    b = SDL_clamp(b, 0, 255);
+    a = SDL_clamp(a, 0, 255);
 
     ct.colour = getRGBA(r, g, b, a);
 
@@ -3157,7 +3157,7 @@ void Graphics::setcol( int t )
         break;
 
         //Trophies
-        //Yellow
+        //cyan
     case 30:
         ct.colour = RGBf(160, 200, 220);
         break;
@@ -3165,11 +3165,11 @@ void Graphics::setcol( int t )
     case 31:
         ct.colour = RGBf(220, 120, 210);
         break;
-        //cyan
+        //Yellow
     case 32:
         ct.colour = RGBf(220, 210, 120);
         break;
-        //Blue
+        //red
     case 33:
         ct.colour = RGBf(255, 70, 70);
         break;
@@ -3177,7 +3177,7 @@ void Graphics::setcol( int t )
     case 34:
         ct.colour = RGBf(120, 220, 120);
         break;
-        //red
+        //Blue
     case 35:
         ct.colour = RGBf(75, 75, 255);
         break;
