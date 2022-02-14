@@ -5,6 +5,13 @@
 #include <string>
 #include <vector>
 
+/* The translator menu will appear in any of the following circumstances:
+ * - The "lang" folder is NOT next to data.zip, but it is found in "desktop_version" within which the game is running
+ * - The command line argument "-translator" is passed
+ * - ALWAYS_SHOW_TRANSLATOR_MENU is defined
+ */
+// #define ALWAYS_SHOW_TRANSLATOR_MENU
+
 namespace loc
 {
     struct LangMeta

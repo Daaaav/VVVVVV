@@ -497,6 +497,10 @@ int main(int argc, char *argv[])
         }
     }
 
+#if defined(ALWAYS_SHOW_TRANSLATOR_MENU)
+    loc::show_translator_menu = true;
+#endif
+
     if(!FILESYSTEM_init(argv[0], baseDir, assetsPath, langDir, fontsDir))
     {
         vlog_error("Unable to initialize filesystem!");

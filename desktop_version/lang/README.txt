@@ -21,6 +21,7 @@ The translator menu has options for both translators and maintainers - it allows
 VVVVVV will show a "translator" menu in the main menu if either:
 - The "lang" folder is NOT next to data.zip, and the game is running somewhere within a "desktop_version" folder, and desktop_version/lang IS found. This normally happens when compiling the game from source;
 - The command line argument (or launch option) "-translator" is passed.
+- ALWAYS_SHOW_TRANSLATOR_MENU is defined during compilation (see top of Localization.h)
 
 When the translator menu is unlocked, you can also press F12 anywhere in the game to reload the current language files. So you can save translations and immediately preview them (except for menu buttons and the current cutscene dialogue, which can't be reloaded on the fly). You will hear a coin sound when the language files have been reloaded via F12.
 

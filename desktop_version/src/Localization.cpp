@@ -17,7 +17,7 @@ namespace loc
     // language screen list
     std::vector<LangMeta> languagelist;
     int languagelist_curlang;
-    bool show_translator_menu;
+    bool show_translator_menu = false;
     size_t limitscheck_current_overflow;
 
     int n_untranslated_roomnames = 0;
