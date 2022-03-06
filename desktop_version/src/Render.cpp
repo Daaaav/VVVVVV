@@ -738,6 +738,9 @@ static void menurender(void)
         graphics.PrintWrap(-1, next_y+10, "numbers.xml", tr/2, tg/2, tb/2, true);
         break;
     }
+    case Menu::translator_error_setlangwritedir:
+        graphics.PrintWrap( -1, 95, loc::gettext("ERROR: Could not write to language folder! Make sure there is no \"lang\" folder next to the regular saves."), tr, tg, tb, true);
+        break;
     case Menu::speedrunneroptions:
         switch (game.currentmenuoption)
         {

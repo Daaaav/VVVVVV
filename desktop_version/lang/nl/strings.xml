@@ -704,6 +704,7 @@ Je hebt het geheime lab gevonden!" explanation="" max="37*4"/>
     <string english="Could not mount %s: real directory doesn&apos;t exist" translation="Kon %s niet aankoppelen: echte map bestaat niet" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
     <string english="%s.zip is not structured correctly! It is missing %s.vvvvvv." translation="%s.zip is niet correct gestructureerd! %s.vvvvvv ontbreekt." explanation="%s: custom level filename" max="38*6"/>
     <string english="%s.zip is not structured correctly! It has .vvvvvv file(s) other than %s.vvvvvv." translation="%s.zip is niet correct gestructureerd! Er zijn meer .vvvvvv-bestanden dan alleen %s.vvvvvv." explanation="%s: custom level filename" max="38*6"/>
+    <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERROR: Kan niet schrijven naar talenmap! Zorg dat er geen &quot;lang&quot;-map naast de normale opgeslagen bestanden staat." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

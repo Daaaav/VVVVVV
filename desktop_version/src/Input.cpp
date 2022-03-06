@@ -1235,12 +1235,24 @@ static void menuactionpress(void)
         }
         break;
     case Menu::translator_maintenance_sync:
+    {
         music.playef(11);
+        bool sync_success;
         if (game.currentmenuoption == 0)
         {
             // yes, sync files
-            loc::sync_lang_files();
+            sync_success = loc::sync_lang_files();
         }
+        game.returnmenu();
+        map.nexttowercolour();
+        if (!sync_success)
+        {
+            game.createmenu(Menu::translator_error_setlangwritedir);
+        }
+        break;
+    }
+    case Menu::translator_error_setlangwritedir:
+        music.playef(11);
         game.returnmenu();
         map.nexttowercolour();
         break;

@@ -3,7 +3,7 @@
 
 namespace loc
 {
-    void sync_lang_files(void);
+    bool sync_lang_files(void);
 
     bool save_roomname_to_file(const std::string& langcode, bool custom_level, int roomx, int roomy, const char* tra, const char* explanation);
     bool save_roomname_explanation_to_files(bool custom_level, int roomx, int roomy, const char* explanation);

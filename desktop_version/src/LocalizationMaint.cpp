@@ -256,13 +256,16 @@ namespace loc
         }
     }
 
-    void sync_lang_files(void)
+    bool sync_lang_files(void)
     {
+        /* Returns false if we can't set the lang write dir, true otherwise.
+         * This could maybe be extended with better error reporting,
+         * problem is getting across which files failed in which languages. */
         std::string oldlang = lang;
         if (!FILESYSTEM_setLangWriteDir())
         {
             vlog_error("Cannot set write dir to lang dir, not syncing language files");
-            return;
+            return false;
         }
 
         for (size_t i = 0; i < languagelist.size(); i++)
@@ -274,6 +277,8 @@ namespace loc
         FILESYSTEM_restoreWriteDir();
         lang = oldlang;
         loadtext(false);
+
+        return true;
     }
 
     bool save_roomname_to_file(const std::string& langcode, bool custom_level, int roomx, int roomy, const char* tra, const char* explanation)

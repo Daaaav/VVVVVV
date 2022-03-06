@@ -258,11 +258,13 @@ namespace roomname_translator
         }
         else
         {
-            graphics.createtextboxflipme("ERROR: Could not save!", -1, 168, 255, 60, 60);
+            graphics.createtextboxflipme("ERROR: Could not save!", -1, 144, 255, 60, 60);
             graphics.addline("");
-            graphics.addline("Do the language files exist?");
+            graphics.addline("1) Do the language files exist?");
+            graphics.addline("2) Make sure there is no \"lang\"");
+            graphics.addline("   folder next to the regular saves.");
             graphics.textboxcenterx();
-            graphics.textboxtimer(50);
+            graphics.textboxtimer(180);
         }
     }
 

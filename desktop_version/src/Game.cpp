@@ -6315,6 +6315,10 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("return"));
         menuyoff = 64;
         break;
+    case Menu::translator_error_setlangwritedir:
+        option(loc::gettext("ok"));
+        menuyoff = 10;
+        break;
     case Menu::cleardatamenu:
     case Menu::clearcustomdatamenu:
         option(loc::gettext("no! don't delete"));
