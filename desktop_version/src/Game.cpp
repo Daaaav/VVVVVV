@@ -665,7 +665,9 @@ void Game::crewmate_textbox(const int r, const int g, const int b)
     size_t startline = 0;
     size_t newline;
     do {
-        newline = SDL_min(wrapped.find('\n', startline), wrapped.find('|', startline));
+        size_t pos_n = wrapped.find('\n', startline);
+        size_t pos_p = wrapped.find('|', startline);
+        newline = SDL_min(pos_n, pos_p);
         graphics.addline(wrapped.substr(startline, newline-startline));
         startline = newline+1;
     } while (newline != std::string::npos);
