@@ -302,11 +302,6 @@ public:
         menuoptions.push_back(menuoption);
     }
 
-    void inline option(std::string text, bool active = true)
-    {
-        option(text.c_str(), active);
-    }
-
     int menucountdown;
     enum Menu::MenuName menudest;
 
