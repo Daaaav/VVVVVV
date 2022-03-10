@@ -1439,10 +1439,7 @@ void Game::updatestate(void)
 
             if (timetrialcheater)
             {
-                for (size_t i = 0; i < SDL_arraysize(obj.collect); i++)
-                {
-                    obj.collect[i] = false;
-                }
+                SDL_zeroa(obj.collect);
             }
 
             timetrialresulttime = help.hms_to_seconds(hours, minutes, seconds);
