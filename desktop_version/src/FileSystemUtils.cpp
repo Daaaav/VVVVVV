@@ -71,9 +71,7 @@ void mount_pre_datazip(
     char* out_path,
     const char* real_dirname,
     const char* mount_point,
-    const char* user_path,
-    const char* basePath,
-    const char* pathSep
+    const char* user_path
 )
 {
     /* Find and mount a directory (like the main language directory) in front of data.zip.
@@ -251,10 +249,10 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
         basePath = SDL_strdup("./");
     }
 
-    mount_pre_datazip(mainLangDir, "lang", "lang/", langDir, basePath, pathSep);
+    mount_pre_datazip(mainLangDir, "lang", "lang/", langDir);
     vlog_info("Languages directory: %s", mainLangDir);
 
-    mount_pre_datazip(NULL, "fonts", "graphics/", fontsDir, basePath, pathSep);
+    mount_pre_datazip(NULL, "fonts", "graphics/", fontsDir);
 
     /* Mount the stock content last */
     if (assetsPath)
