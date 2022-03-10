@@ -89,7 +89,7 @@ The maximum lengths are not always given. Notoriously, menu option buttons are p
 
 === F O N T S ===
 
-The game uses an 8x8 pixel font by default (font.png and font.txt in the "fonts" folder). If your language can be represented in 8x8 characters, it is prefable to use this font. TODO
+The game uses an 8x8 pixel font by default (font.png and font.txt in the "fonts" folder). If your language can be represented in 8x8 characters, it is preferable to use this font. TODO
 
 TODO: The fonts directory will also have a README.txt file
 
