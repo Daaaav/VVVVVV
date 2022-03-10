@@ -136,7 +136,7 @@ void mount_pre_datazip(
             {
                 /* strstr only gives us a pointer and not a remaining buffer length, but that's
                  * why we pretended the buffer was `buf_reserve` chars shorter than it was! */
-                SDL_strlcpy(&match_last[strlen(needle)], real_dirname, buf_reserve);
+                SDL_strlcpy(&match_last[SDL_strlen(needle)], real_dirname, buf_reserve);
                 SDL_strlcat(buffer, pathSep, sizeof(buffer));
 
                 if (PHYSFS_mount(buffer, mount_point, 1))
