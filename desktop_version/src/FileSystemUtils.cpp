@@ -93,76 +93,75 @@ void mount_pre_datazip(
         {
             vlog_warn("User-supplied %s directory is invalid!", real_dirname);
         }
+        return;
+    }
+
+    /* Try to detect the directory, it's next to data.zip in distributed builds */
+    bool dir_found = false;
+    char buffer[MAX_PATH];
+
+    SDL_snprintf(buffer, sizeof(buffer), "%s%s%s",
+        basePath,
+        real_dirname,
+        pathSep
+    );
+    if (PHYSFS_mount(buffer, mount_point, 1))
+    {
+        dir_found = true;
     }
     else
     {
-        /* Try to detect the directory, it's next to data.zip in distributed builds */
-        bool dir_found = false;
-        char buffer[MAX_PATH];
+        /* If you're a developer, you probably want to use the language files/fonts
+         * from the repo, otherwise it's a pain to keep everything in sync.
+         * And who knows how deep in build folders our binary is. */
+        size_t buf_reserve = SDL_strlen(real_dirname)+1;
+        SDL_strlcpy(buffer, basePath, sizeof(buffer)-buf_reserve);
 
-        SDL_snprintf(buffer, sizeof(buffer), "%s%s%s",
-            basePath,
-            real_dirname,
+        char needle[32];
+        SDL_snprintf(needle, sizeof(needle), "%sdesktop_version%s",
+            pathSep,
             pathSep
         );
-        if (PHYSFS_mount(buffer, mount_point, 1))
+
+        /* We want the last match */
+        char* match_last = NULL;
+        char* match = buffer;
+        while ((match = SDL_strstr(match, needle)))
         {
-            dir_found = true;
+            match_last = match;
+            match = &match[1];
         }
-        else
+
+        if (match_last != NULL)
         {
-            /* If you're a developer, you probably want to use the language files/fonts
-             * from the repo, otherwise it's a pain to keep everything in sync.
-             * And who knows how deep in build folders our binary is. */
-            size_t buf_reserve = SDL_strlen(real_dirname)+1;
-            SDL_strlcpy(buffer, basePath, sizeof(buffer)-buf_reserve);
+            /* strstr only gives us a pointer and not a remaining buffer length, but that's
+             * why we pretended the buffer was `buf_reserve` chars shorter than it was! */
+            SDL_strlcpy(&match_last[SDL_strlen(needle)], real_dirname, buf_reserve);
+            SDL_strlcat(buffer, pathSep, sizeof(buffer));
 
-            char needle[32];
-            SDL_snprintf(needle, sizeof(needle), "%sdesktop_version%s",
-                pathSep,
-                pathSep
-            );
-
-            /* We want the last match */
-            char* match_last = NULL;
-            char* match = buffer;
-            while ((match = SDL_strstr(match, needle)))
+            if (PHYSFS_mount(buffer, mount_point, 1))
             {
-                match_last = match;
-                match = &match[1];
-            }
+                dir_found = true;
 
-            if (match_last != NULL)
-            {
-                /* strstr only gives us a pointer and not a remaining buffer length, but that's
-                 * why we pretended the buffer was `buf_reserve` chars shorter than it was! */
-                SDL_strlcpy(&match_last[SDL_strlen(needle)], real_dirname, buf_reserve);
-                SDL_strlcat(buffer, pathSep, sizeof(buffer));
-
-                if (PHYSFS_mount(buffer, mount_point, 1))
+                if (SDL_strcmp(real_dirname, "lang") == 0)
                 {
-                    dir_found = true;
-
-                    if (SDL_strcmp(real_dirname, "lang") == 0)
-                    {
-                        loc::show_translator_menu = true;
-                        isMainLangDirFromRepo = true;
-                    }
+                    loc::show_translator_menu = true;
+                    isMainLangDirFromRepo = true;
                 }
             }
         }
+    }
 
-        if (dir_found)
+    if (dir_found)
+    {
+        if (out_path != NULL)
         {
-            if (out_path != NULL)
-            {
-                SDL_strlcpy(out_path, buffer, MAX_PATH);
-            }
+            SDL_strlcpy(out_path, buffer, MAX_PATH);
         }
-        else
-        {
-            vlog_warn("Cannot find the %s directory anywhere!", real_dirname);
-        }
+    }
+    else
+    {
+        vlog_warn("Cannot find the %s directory anywhere!", real_dirname);
     }
 }
 
