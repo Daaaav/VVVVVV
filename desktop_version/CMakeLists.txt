@@ -305,12 +305,6 @@ target_compile_definitions(lodepng-static PRIVATE
 
 add_library(c-hashmap-static STATIC ${CHM_SRC})
 
-# C-HashMap wasn't made for C older than me... But C90 with extensions will work if you make one small change. -Dav
-if(${CMAKE_VERSION} VERSION_GREATER "3.1.3"
-OR ${CMAKE_VERSION} VERSION_EQUAL "3.1.3")
-    set_property(TARGET c-hashmap-static PROPERTY C_EXTENSIONS ON)
-endif()
-
 if(BUNDLE_DEPENDENCIES)
     add_library(tinyxml2-static STATIC ${XML2_SRC})
     add_library(physfs-static STATIC ${PFS_SRC})
