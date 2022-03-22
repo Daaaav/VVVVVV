@@ -24,6 +24,26 @@ if(OFFICIAL_BUILD AND NOT MAKEANDPLAY)
     set(GOG ON)
 endif()
 
+if(${CMAKE_VERSION} VERSION_LESS "3.1.3")
+    message(WARNING "Your CMake version is too old; using workaround")
+
+    if(MSVC)
+        # MSVC doesn't have /std:c99 or /std:c++98 switches!
+    else()
+        string(REGEX REPLACE "-std=[a-z0-9]+" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
+
+        string(REGEX REPLACE "-std=[a-z0-9+]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
+    endif()
+else()
+    set(CMAKE_C_STANDARD 99)
+    set(CMAKE_C_EXTENSIONS OFF)
+
+    set(CMAKE_CXX_STANDARD 98)
+    set(CMAKE_CXX_EXTENSIONS OFF)
+endif()
+
 # Architecture Flags
 if(APPLE)
     # Wow, Apple is a huge jerk these days huh?
@@ -274,28 +294,6 @@ else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
 endif()
 
-if(${CMAKE_VERSION} VERSION_LESS "3.1.3")
-    message(WARNING "Your CMake version is too old; using workaround")
-
-    if(MSVC)
-        # MSVC doesn't have /std:c99 or /std:c++98 switches!
-    else()
-        string(REGEX REPLACE "-std=[a-z0-9]+" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
-
-        string(REGEX REPLACE "-std=[a-z0-9+]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
-    endif()
-
-	message(STATUS "New C_FLAGS: ${CMAKE_C_FLAGS}")
-else()
-    set(CMAKE_C_STANDARD 99)
-    set(CMAKE_C_EXTENSIONS OFF)
-
-    set(CMAKE_CXX_STANDARD 98)
-    set(CMAKE_CXX_EXTENSIONS OFF)
-endif()
-
 # Unfortunately, it doesn't seem like distros package LodePNG
 add_library(lodepng-static STATIC ${PNG_SRC})
 
@@ -363,5 +361,3 @@ if(EMSCRIPTEN)
     # 256MB is enough for everybody
     target_link_libraries(VVVVVV -sFORCE_FILESYSTEM=1 -sTOTAL_MEMORY=256MB)
 endif()
-
-message(STATUS "Final C_FLAGS: ${CMAKE_C_FLAGS}")
