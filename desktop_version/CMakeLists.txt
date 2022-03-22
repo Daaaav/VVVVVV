@@ -25,9 +25,19 @@ if(OFFICIAL_BUILD AND NOT MAKEANDPLAY)
 endif()
 
 if(${CMAKE_VERSION} VERSION_LESS "3.1.3")
-    message(WARNING "Your CMake version is too old; set -std=c90 -std=c++98 yourself!")
+    message(WARNING "Your CMake version is too old; using workaround")
+
+    if(MSVC)
+        # MSVC doesn't have /std:c99 or /std:c++98 switches!
+    else()
+        string(REGEX REPLACE "-std=[a-z0-9]+" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
+
+        string(REGEX REPLACE "-std=[a-z0-9+]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
+    endif()
 else()
-    set(CMAKE_C_STANDARD 90)
+    set(CMAKE_C_STANDARD 99)
     set(CMAKE_C_EXTENSIONS OFF)
 
     set(CMAKE_CXX_STANDARD 98)
@@ -146,7 +156,7 @@ if(BUNDLE_DEPENDENCIES)
         VVVVVV PRIVATE
         src
         ../third_party/tinyxml2
-        ../third_party/physfs
+        ../third_party/physfs/src
         ../third_party/physfs/extras
         ../third_party/lodepng
         ../third_party/utfcpp/source
@@ -177,22 +187,22 @@ set(XML2_SRC
     ../third_party/tinyxml2/tinyxml2.cpp
 )
 set(PFS_SRC
-    ../third_party/physfs/physfs.c
-    ../third_party/physfs/physfs_archiver_dir.c
-    ../third_party/physfs/physfs_archiver_unpacked.c
-    ../third_party/physfs/physfs_archiver_zip.c
-    ../third_party/physfs/physfs_byteorder.c
-    ../third_party/physfs/physfs_unicode.c
-    ../third_party/physfs/physfs_platform_posix.c
-    ../third_party/physfs/physfs_platform_unix.c
-    ../third_party/physfs/physfs_platform_windows.c
-    ../third_party/physfs/physfs_platform_haiku.cpp
+    ../third_party/physfs/src/physfs.c
+    ../third_party/physfs/src/physfs_archiver_dir.c
+    ../third_party/physfs/src/physfs_archiver_unpacked.c
+    ../third_party/physfs/src/physfs_archiver_zip.c
+    ../third_party/physfs/src/physfs_byteorder.c
+    ../third_party/physfs/src/physfs_unicode.c
+    ../third_party/physfs/src/physfs_platform_posix.c
+    ../third_party/physfs/src/physfs_platform_unix.c
+    ../third_party/physfs/src/physfs_platform_windows.c
+    ../third_party/physfs/src/physfs_platform_haiku.cpp
 )
 if(APPLE)
     # Are you noticing a pattern with this Apple crap yet?
-    set(PFS_SRC ${PFS_SRC} ../third_party/physfs/physfs_platform_apple.m)
+    set(PFS_SRC ${PFS_SRC} ../third_party/physfs/src/physfs_platform_apple.m)
 endif()
-set(PNG_SRC ../third_party/lodepng/lodepng.c)
+set(PNG_SRC src/lodepng_wrapper.c)
 set(CHM_SRC ../third_party/c-hashmap/map.c)
 
 if(NOT OFFICIAL_BUILD)
@@ -272,15 +282,15 @@ if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc")
 
     # Disable RTTI
-    string(REGEX REPLACE "/GR" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    string(REPLACE "/GR" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GR-")
 else()
     # Disable exceptions
-    string(REGEX REPLACE "-fexceptions" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    string(REPLACE "-fexceptions" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions")
 
     # Disable RTTI
-    string(REGEX REPLACE "-frtti" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    string(REPLACE "-frtti" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
 endif()
 
@@ -307,12 +317,6 @@ if(BUNDLE_DEPENDENCIES)
     target_compile_definitions(physfs-static PRIVATE
         -DPHYSFS_SUPPORTS_DEFAULT=0 -DPHYSFS_SUPPORTS_ZIP=1
     )
-
-    # PhysFS needs some extensions...
-    if(${CMAKE_VERSION} VERSION_GREATER "3.1.3"
-    OR ${CMAKE_VERSION} VERSION_EQUAL "3.1.3")
-        set_property(TARGET physfs-static PROPERTY C_EXTENSIONS ON)
-    endif()
 
     target_link_libraries(VVVVVV physfs-static tinyxml2-static lodepng-static c-hashmap-static)
 else()

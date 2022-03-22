@@ -1,0 +1,12 @@
+[submodule "third_party/lodepng"]
+	path = third_party/lodepng
+	url = https://github.com/lvandeve/lodepng
+[submodule "third_party/physfs"]
+	path = third_party/physfs
+	url = https://github.com/icculus/physfs/
+[submodule "third_party/tinyxml2"]
+	path = third_party/tinyxml2
+	url = https://github.com/leethomason/tinyxml2/
+[submodule "third_party/utfcpp"]
+	path = third_party/utfcpp
+	url = https://github.com/nemtrif/utfcpp

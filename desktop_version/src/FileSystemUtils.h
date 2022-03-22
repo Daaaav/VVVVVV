@@ -12,6 +12,7 @@ class binaryBlob;
 namespace tinyxml2 { class XMLDocument; }
 
 int FILESYSTEM_init(char *argvZero, char* baseDir, char* assetsPath, char* langDir, char* fontsDir);
+bool FILESYSTEM_isInit(void);
 void FILESYSTEM_deinit(void);
 
 char *FILESYSTEM_getUserSaveDirectory(void);

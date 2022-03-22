@@ -36,6 +36,8 @@ static int mkdir(char* path, int mode)
 #define MAX_PATH PATH_MAX
 #endif
 
+static bool isInit = false;
+
 static const char* pathSep = NULL;
 static char* basePath = NULL;
 static char writeDir[MAX_PATH] = {'\0'};
@@ -288,7 +290,14 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
     {
         vlog_info("gamecontrollerdb.txt not found!");
     }
+
+    isInit = true;
     return 1;
+}
+
+bool FILESYSTEM_isInit(void)
+{
+    return isInit;
 }
 
 static unsigned char* stdin_buffer = NULL;
@@ -307,6 +316,7 @@ void FILESYSTEM_deinit(void)
     }
     SDL_free(basePath);
     basePath = NULL;
+    isInit = false;
 }
 
 char *FILESYSTEM_getUserSaveDirectory(void)
@@ -1087,6 +1097,12 @@ fail:
 
 bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc, bool sync /*= true*/)
 {
+    if (!isInit)
+    {
+        vlog_warn("Filesystem not initialized! Not writing just to be safe.");
+        return false;
+    }
+
     /* XMLDocument.SaveFile doesn't account for Unicode paths, PHYSFS does */
     tinyxml2::XMLPrinter printer;
     doc.Print(&printer);
