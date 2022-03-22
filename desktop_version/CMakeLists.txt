@@ -36,6 +36,8 @@ if(${CMAKE_VERSION} VERSION_LESS "3.1.3")
         string(REGEX REPLACE "-std=[a-z0-9+]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
     endif()
+
+	message(STATUS "New C_FLAGS: ${CMAKE_C_FLAGS}")
 else()
     set(CMAKE_C_STANDARD 99)
     set(CMAKE_C_EXTENSIONS OFF)
@@ -361,3 +363,5 @@ if(EMSCRIPTEN)
     # 256MB is enough for everybody
     target_link_libraries(VVVVVV -sFORCE_FILESYSTEM=1 -sTOTAL_MEMORY=256MB)
 endif()
+
+message(STATUS "Final C_FLAGS: ${CMAKE_C_FLAGS}")
