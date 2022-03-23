@@ -765,7 +765,9 @@ std::string Graphics::string_wordwrap(const std::string& s, int maxwidth, short 
     // CJK will need to have autowordwrap disabled and have manually inserted newlines.
 
     if (lines != NULL)
+    {
         *lines = 1;
+    }
 
     const char* orig = s.c_str();
 

@@ -334,7 +334,9 @@ std::string toupper(const std::string& lower)
 {
     // Convert a UTF-8 string to uppercase
     if (!get_langmeta()->toupper)
+    {
         return lower;
+    }
 
     std::string upper = std::string();
     std::back_insert_iterator<std::string> inserter = std::back_inserter(upper);
@@ -367,13 +369,17 @@ std::string remove_toupper_escape_chars(const std::string& _s)
     // No-op, except if langmeta.toupper_lower_escape_char, to remove the ~ escape character
 
     if (!get_langmeta()->toupper_lower_escape_char)
+    {
         return _s;
+    }
 
     std::string s = std::string(_s);
     for (signed int i = s.size()-1; i >= 0; i--)
     {
         if (s[i] == '~')
+        {
             s.erase(i, 1);
+        }
     }
     return s;
 }
