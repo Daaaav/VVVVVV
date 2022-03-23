@@ -378,7 +378,7 @@ void global_limits_check(void)
     std::string oldlang = lang;
 
     textbook_clear(&textbook_main);
-    textbook_set_protected(&textbook_main, SDL_TRUE);
+    textbook_set_protected(&textbook_main, true);
 
     for (size_t i = 0; i < languagelist.size(); i++)
     {
@@ -392,7 +392,7 @@ void global_limits_check(void)
     lang = oldlang;
     loadtext(false);
 
-    textbook_set_protected(&textbook_main, SDL_FALSE);
+    textbook_set_protected(&textbook_main, false);
 
     limitscheck_current_overflow = 0;
 }

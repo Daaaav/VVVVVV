@@ -2,6 +2,7 @@
 #define TEXTBOOK_H
 
 #include <SDL_stdinc.h>
+#include <stdbool.h>
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -19,12 +20,12 @@ typedef struct _Textbook
     size_t page_len[TEXTBOOK_MAX_PAGES];
 
     short pages_used;
-    SDL_bool protect;
+    bool protect;
 } Textbook;
 
 void textbook_init(Textbook* textbook);
 void textbook_clear(Textbook* textbook);
-void textbook_set_protected(Textbook* textbook, SDL_bool protect);
+void textbook_set_protected(Textbook* textbook, bool protect);
 const void* textbook_store_raw(Textbook* textbook, const void* data, size_t data_len);
 const char* textbook_store(Textbook* textbook, const char* text);
 

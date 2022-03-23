@@ -7,26 +7,24 @@
 void textbook_init(Textbook* textbook)
 {
     textbook->pages_used = 0;
-    textbook->protect = SDL_FALSE;
+    textbook->protect = false;
 }
 
 void textbook_clear(Textbook* textbook)
 {
-    short p;
-
     if (textbook->protect)
     {
         return;
     }
 
-    for (p = 0; p < textbook->pages_used; p++)
+    for (short p = 0; p < textbook->pages_used; p++)
     {
         SDL_free(textbook->page[p]);
     }
     textbook->pages_used = 0;
 }
 
-void textbook_set_protected(Textbook* textbook, SDL_bool protect)
+void textbook_set_protected(Textbook* textbook, bool protect)
 {
     /* A protected textbook is silently not cleared when requested.
      * Not a memory leak as long as you unprotect and clear at some point. */
@@ -35,9 +33,6 @@ void textbook_set_protected(Textbook* textbook, SDL_bool protect)
 
 const void* textbook_store_raw(Textbook* textbook, const void* data, size_t data_len)
 {
-    short found_page = -1;
-    short p;
-
     if (data == NULL)
     {
         return NULL;
@@ -54,7 +49,8 @@ const void* textbook_store_raw(Textbook* textbook, const void* data, size_t data
     }
 
     /* Find a suitable page to place our text on */
-    for (p = 0; p < textbook->pages_used; p++)
+    short found_page = -1;
+    for (short p = 0; p < textbook->pages_used; p++)
     {
         size_t free = TEXTBOOK_PAGE_SIZE - textbook->page_len[p];
 
@@ -90,14 +86,12 @@ const void* textbook_store_raw(Textbook* textbook, const void* data, size_t data
         textbook->pages_used++;
     }
 
-    {
-        size_t cursor = textbook->page_len[found_page];
-        char* added_text = &textbook->page[found_page][cursor];
-        SDL_memcpy(added_text, data, data_len);
-        textbook->page_len[found_page] += data_len;
+    size_t cursor = textbook->page_len[found_page];
+    char* added_text = &textbook->page[found_page][cursor];
+    SDL_memcpy(added_text, data, data_len);
+    textbook->page_len[found_page] += data_len;
 
-        return added_text;
-    }
+    return added_text;
 }
 
 const char* textbook_store(Textbook* textbook, const char* text)
