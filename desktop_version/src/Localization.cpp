@@ -60,7 +60,7 @@ const char* gettext_plural(const char* eng_plural, const char* eng_singular, int
 {
     if (lang != "en")
     {
-        char form = form_for_count(n);
+        unsigned char form = form_for_count(n);
         char* key = add_disambiguator(form+1, eng_plural, NULL);
         if (key != NULL)
         {

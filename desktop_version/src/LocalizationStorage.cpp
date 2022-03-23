@@ -129,7 +129,7 @@ void map_store_translation(Textbook* textbook, hashmap* map, const char* eng, co
     hashmap_set(map, (void*) tb_eng, SDL_strlen(tb_eng), (uintptr_t) tb_tra);
 }
 
-char form_for_count(int n)
+unsigned char form_for_count(int n)
 {
     int n_ix;
     if (n > -100 && n < 100)
@@ -318,7 +318,7 @@ bool max_check_string(const char* str, const char* max)
     return does_overflow;
 }
 
-void max_check_string_plural(char form, const char* str, const char* max, unsigned int expect, char* buf, size_t buf_len)
+void max_check_string_plural(unsigned char form, const char* str, const char* max, unsigned int expect, char* buf, size_t buf_len)
 {
     if (str == NULL)
     {
@@ -423,7 +423,7 @@ void loadtext_strings_plural(bool check_max)
         {
             EXPECT_ELEM(subElem, "translation");
 
-            char form = subElem->IntAttribute("form", 0);
+            unsigned char form = subElem->IntAttribute("form", 0);
             char* key = add_disambiguator(form+1, eng_plural, NULL);
             if (key == NULL)
             {

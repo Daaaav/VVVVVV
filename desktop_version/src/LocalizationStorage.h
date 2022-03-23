@@ -69,7 +69,7 @@ bool load_lang_doc(
     const std::string& asset_cat = ""
 );
 
-char form_for_count(int n);
+unsigned char form_for_count(int n);
 
 void resettext_custom(void);
 void unloadtext_custom(void);
