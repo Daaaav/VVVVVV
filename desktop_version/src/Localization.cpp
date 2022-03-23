@@ -270,7 +270,7 @@ bool is_cutscene_translated(const std::string& script_id)
     return hashmap_get(map, (void*) map_script_key, SDL_strlen(map_script_key), &ptr_unused);
 }
 
-uint32_t toupper(uint32_t ch)
+uint32_t toupper_ch(uint32_t ch)
 {
     // Convert a single Unicode codepoint to its uppercase variant
     // Supports important Latin (1 and A), Cyrillic and Greek
@@ -311,7 +311,7 @@ uint32_t toupper(uint32_t ch)
     // There's probably a good reason Cyrillic upper and lower accents are wrapped around the alphabet...
     if (0x450 <= ch && ch <= 0x45F) return ch - 0x50;
 
-    // Apparently a Ukranian letter is all the way over there, why not.
+    // Apparently a Ukrainian letter is all the way over there, why not.
     if (ch == 0x491) return ch - 1;
 
     // Time for Greek, thankfully we're not making a lowercasing function with that double sigma!
@@ -354,7 +354,7 @@ std::string toupper(const std::string& lower)
 
         if (!ignorenext)
         {
-            ch = toupper(ch);
+            ch = toupper_ch(ch);
         }
         utf8::unchecked::append(ch, inserter);
 
