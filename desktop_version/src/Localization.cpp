@@ -109,7 +109,7 @@ std::string getnumber(int n)
     return number[ix];
 }
 
-bool is_script_custom(const char* script_id)
+static bool is_script_custom(const char* script_id)
 {
     return SDL_strncmp(script_id, "custom_", 7) == 0;
 }
