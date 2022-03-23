@@ -59,7 +59,7 @@ extern int n_untranslated_roomnames_custom;
 extern int n_unexplained_roomnames_custom;
 
 
-LangMeta* get_langmeta(void);
+const LangMeta* get_langmeta(void);
 
 const char* gettext(const char* eng);
 const char* gettext_plural(const char* eng_plural, const char* eng_singular, int count);
