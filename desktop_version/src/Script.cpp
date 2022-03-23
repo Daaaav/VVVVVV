@@ -2435,7 +2435,7 @@ void scriptclass::translate_dialogue(void)
     }
 
     // English text needs to be un-wordwrapped, translated, and re-wordwrapped
-    std::string eng = std::string();
+    std::string eng;
     for (size_t i = 0; i < txt.size(); i++)
     {
         if (i != 0)

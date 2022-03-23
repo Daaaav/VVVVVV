@@ -844,7 +844,7 @@ std::string Graphics::string_unwordwrap(const std::string& s)
      * Also trims any leading/trailing whitespace and collapses multiple spaces into one (to undo manual centering)
      * Only applied to English, so langmeta.autowordwrap isn't used here (it'd break looking up strings) */
 
-    std::string result = std::string();
+    std::string result;
     std::back_insert_iterator<std::string> inserter = std::back_inserter(result);
     std::string::const_iterator iter = s.begin();
     bool latest_was_space = true; // last character was a space (or the beginning, don't want leading whitespace)

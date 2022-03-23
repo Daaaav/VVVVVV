@@ -338,7 +338,7 @@ std::string toupper(const std::string& lower)
         return lower;
     }
 
-    std::string upper = std::string();
+    std::string upper;
     std::back_insert_iterator<std::string> inserter = std::back_inserter(upper);
     std::string::const_iterator iter = lower.begin();
     bool ignorenext = false;
