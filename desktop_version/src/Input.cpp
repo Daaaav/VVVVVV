@@ -1144,7 +1144,7 @@ static void menuactionpress(void)
             game.createmenu(Menu::translator_maintenance);
             map.nexttowercolour();
             break;
-        case 2:
+        default:
             // return
             game.returnmenu();
             map.nexttowercolour();
@@ -1180,7 +1180,7 @@ static void menuactionpress(void)
             game.createmenu(Menu::translator_options_limitscheck);
             map.nexttowercolour();
             break;
-        case 4:
+        default:
             // return
             music.playef(11);
             game.returnmenu();
@@ -1199,7 +1199,7 @@ static void menuactionpress(void)
                 loc::limitscheck_current_overflow++;
             }
             break;
-        case 1:
+        default:
             // return
             music.playef(11);
             game.returnmenu();
@@ -1227,7 +1227,7 @@ static void menuactionpress(void)
             game.createmenu(Menu::translator_options_limitscheck);
             map.nexttowercolour();
             break;
-        case 3:
+        default:
             // return
             game.returnmenu();
             map.nexttowercolour();
