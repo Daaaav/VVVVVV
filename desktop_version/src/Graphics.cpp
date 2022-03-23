@@ -445,16 +445,16 @@ bool Graphics::MakeSpriteArray(void)
 
 void Graphics::map_tab(int opt, const char* text, bool selected /*= false*/)
 {
-    int x = opt*80 + 40 - len(text)/2;
+    int x = opt*80 + 40;
     if (selected)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
         SDL_snprintf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select_tight.c_str(), text);
-        Print(x-(len(buffer)-len(text))/2, 220, buffer, 196, 196, 255 - help.glow);
+        Print(x - len(buffer)/2, 220, buffer, 196, 196, 255 - help.glow);
     }
     else
     {
-        Print(x, 220, text, 64, 64, 64);
+        Print(x - len(text)/2, 220, text, 64, 64, 64);
     }
 }
 
