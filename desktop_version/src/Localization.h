@@ -74,7 +74,7 @@ const char* gettext_roomname_special(const char* eng);
 bool is_cutscene_translated(const std::string& script_id);
 
 std::string toupper(const std::string& lower);
-std::string not_toupper(const std::string& _s);
+std::string remove_toupper_escape_chars(const std::string& _s);
 
 } /* namespace loc */
 

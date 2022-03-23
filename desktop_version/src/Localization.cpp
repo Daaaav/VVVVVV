@@ -363,11 +363,9 @@ std::string toupper(const std::string& lower)
     return upper;
 }
 
-std::string not_toupper(const std::string& _s)
+std::string remove_toupper_escape_chars(const std::string& _s)
 {
     // No-op, except if langmeta.toupper_lower_escape_char, to remove the ~ escape character
-    // To be clear: does not convert to lowercase!
-    // (Hence why not_toupper is the best I could come up with for now to prevent anyone thinking it's just a tolower)
 
     if (!get_langmeta()->toupper_lower_escape_char)
         return _s;

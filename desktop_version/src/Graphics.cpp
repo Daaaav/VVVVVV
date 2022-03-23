@@ -486,7 +486,7 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
     }
     else
     {
-        Print(x, y, loc::not_toupper(text), 96, 96, 96);
+        Print(x, y, loc::remove_toupper_escape_chars(text), 96, 96, 96);
     }
 }
 
@@ -1817,8 +1817,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
             }
             else
             {
-                // Not a convert to lowercase, just some processing
-                opt_text = loc::not_toupper(opt.text);
+                opt_text = loc::remove_toupper_escape_chars(opt.text);
             }
 
             SDL_snprintf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), opt_text.c_str());
@@ -1828,8 +1827,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
         }
         else
         {
-            // Not a convert to lowercase, just some processing
-            SDL_strlcpy(buffer, loc::not_toupper(opt.text).c_str(), sizeof(buffer));
+            SDL_strlcpy(buffer, loc::remove_toupper_escape_chars(opt.text).c_str(), sizeof(buffer));
         }
 
         Print(x, y, buffer, fr, fg, fb);
