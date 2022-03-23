@@ -340,10 +340,9 @@ std::string toupper(const std::string& lower)
     std::back_insert_iterator<std::string> inserter = std::back_inserter(upper);
     std::string::const_iterator iter = lower.begin();
     bool ignorenext = false;
-    uint32_t ch;
     while (iter != lower.end())
     {
-        ch = utf8::unchecked::next(iter);
+        uint32_t ch = utf8::unchecked::next(iter);
 
         if (get_langmeta()->toupper_lower_escape_char && ch == '~')
         {

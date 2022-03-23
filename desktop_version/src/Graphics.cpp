@@ -838,19 +838,18 @@ std::string Graphics::string_wordwrap_balanced(const std::string& s, int maxwidt
 
 std::string Graphics::string_unwordwrap(const std::string& s)
 {
-    // Takes a string wordwrapped by newlines, and turns it into a single line, undoing the wrapping.
-    // Also trims any leading/trailing whitespace and collapses multiple spaces into one (to undo manual centering)
-    // Only applied to English, so langmeta.autowordwrap isn't used here (it'd break looking up strings)
+    /* Takes a string wordwrapped by newlines, and turns it into a single line, undoing the wrapping.
+     * Also trims any leading/trailing whitespace and collapses multiple spaces into one (to undo manual centering)
+     * Only applied to English, so langmeta.autowordwrap isn't used here (it'd break looking up strings) */
 
     std::string result = std::string();
     std::back_insert_iterator<std::string> inserter = std::back_inserter(result);
     std::string::const_iterator iter = s.begin();
-    uint32_t ch;
-    bool lastspace = true; // last character was a space (or the beginning, don't want leading whitespace)
+    bool latest_was_space = true; // last character was a space (or the beginning, don't want leading whitespace)
     int consecutive_newlines = 0; // number of newlines currently encountered in a row (multiple newlines should stay!)
     while (iter != s.end())
     {
-        ch = utf8::unchecked::next(iter);
+        uint32_t ch = utf8::unchecked::next(iter);
 
         if (ch == '\n')
         {
@@ -870,12 +869,12 @@ std::string Graphics::string_unwordwrap(const std::string& s)
             consecutive_newlines = 0;
         }
 
-        if (ch != ' ' || !lastspace)
+        if (ch != ' ' || !latest_was_space)
         {
             utf8::unchecked::append(ch, inserter);
         }
 
-        lastspace = (ch == ' ' || ch == '\n');
+        latest_was_space = (ch == ' ' || ch == '\n');
     }
 
     // We could have one trailing space
