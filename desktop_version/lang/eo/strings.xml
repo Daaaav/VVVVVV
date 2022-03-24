@@ -704,7 +704,7 @@ Vi trovis la sekretan labon!" explanation="" max="37*4"/>
     <string english="Could not mount %s: real directory doesn&apos;t exist" translation="Ne eblis munti %s: vera dosierujo ne ekzistas" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
     <string english="%s.zip is not structured correctly! It is missing %s.vvvvvv." translation="%s.zip ne havas ĝustan strukturon! Mankas al ĝi %s.vvvvvv." explanation="%s: custom level filename" max="38*6"/>
     <string english="%s.zip is not structured correctly! It has .vvvvvv file(s) other than %s.vvvvvv." translation="%s.zip ne havas ĝustan strukturon! Ĝi havas dosiero(j)n .vvvvvv krom %s.vvvvvv." explanation="%s: custom level filename" max="38*6"/>
-    <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="" explanation="" max="38*5"/>
+    <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERARO: Ne eblis skribi en lingvo-dosierujo! Certigu, ke ne estas dosierujo &quot;lang&quot; apud la normalaj konservaĵoj." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
