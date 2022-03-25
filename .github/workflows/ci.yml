@@ -22,7 +22,7 @@ jobs:
         submodules: true
 
     - name: Install dependencies
-      run: brew install ninja sdl2 sdl2_mixer
+      run: brew install ninja sdl2
 
     - name: CMake configure (default version)
       run: |
@@ -64,7 +64,7 @@ jobs:
     name: Build (CentOS 7)
 
     runs-on: ubuntu-latest
-    container: ghcr.io/infoteddy/vvvvvv-build@sha256:edb1636c49386d0f929722cd0d8a618d897d23af33c754f2b0d3593ceb994629
+    container: ghcr.io/infoteddy/vvvvvv-build@sha256:641092ceb715783183ff3cb6ec4932aecfa2161d135195c29e72c2ad665a4619
 
     env:
       CXXFLAGS: -I/usr/local/include/SDL2
@@ -118,7 +118,6 @@ jobs:
 
     env:
       SDL_VERSION: 2.0.20
-      SDL_MIXER_VERSION: 2.0.4
 
     steps:
     - uses: actions/checkout@v1
@@ -133,14 +132,6 @@ jobs:
         path: C:\SDL
         key: ${{ runner.os }}-build-${{ env.cache-name }}
 
-    - name: Cache SDL_mixer
-      uses: actions/cache@v2
-      env:
-        cache-name: cache-sdl-mixer
-      with:
-        path: C:\SDL_mixer
-        key: ${{ runner.os }}-build-${{ env.cache-name }}
-
     - name: Download SDL if not cached
       run: |
         if (-Not (Test-Path C:\SDL))
@@ -149,23 +140,14 @@ jobs:
           Expand-Archive C:\SDL.zip -DestinationPath C:\
         }
 
-    - name: Download SDL_mixer if not cached
-      run: |
-        if (-Not (Test-Path C:\SDL_mixer))
-        {
-          Invoke-WebRequest "https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-$env:SDL_MIXER_VERSION-VC.zip" -o C:\SDL_mixer.zip
-          Expand-Archive C:\SDL_mixer.zip -DestinationPath C:\
-        }
-
     - name: CMake configure (default version)
       run: |
         mkdir $env:SRC_DIR_PATH/build
         cd $env:SRC_DIR_PATH/build
         $env:LDFLAGS =  "/LIBPATH:C:\SDL2-$env:SDL_VERSION\lib\x86 "
-        $env:LDFLAGS += "/LIBPATH:C:\SDL2_mixer-$env:SDL_MIXER_VERSION\lib\x86"
         cmake -G "Visual Studio 17 2022" -A Win32 `
-              -DSDL2_INCLUDE_DIRS="C:\SDL2-$env:SDL_VERSION\include;C:\SDL2_mixer-$env:SDL_MIXER_VERSION\include" `
-              -DSDL2_LIBRARIES="SDL2;SDL2main;SDL2_mixer" ..
+              -DSDL2_INCLUDE_DIRS="C:\SDL2-$env:SDL_VERSION\include" `
+              -DSDL2_LIBRARIES="SDL2;SDL2main" ..
     - name: Build (default version)
       run: |
         cd $env:SRC_DIR_PATH/build
