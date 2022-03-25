@@ -1237,7 +1237,7 @@ static void menuactionpress(void)
     case Menu::translator_maintenance_sync:
     {
         music.playef(11);
-        bool sync_success;
+        bool sync_success = true;
         if (game.currentmenuoption == 0)
         {
             // yes, sync files
