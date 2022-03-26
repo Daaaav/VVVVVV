@@ -64,6 +64,7 @@ namespace Menu
         translator_main,
         translator_options,
         translator_options_limitscheck,
+        translator_options_stats,
         translator_maintenance,
         translator_maintenance_sync,
         translator_error_setlangwritedir,

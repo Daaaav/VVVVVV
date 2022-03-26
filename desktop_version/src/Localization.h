@@ -58,6 +58,17 @@ extern int n_unexplained_roomnames;
 extern int n_untranslated_roomnames_custom;
 extern int n_unexplained_roomnames_custom;
 
+enum n_untranslated_index
+{
+    UNTRANSLATED_STRINGS = 0,
+    UNTRANSLATED_NUMBERS,
+    UNTRANSLATED_STRINGS_PLURAL,
+    UNTRANSLATED_CUTSCENES,
+    UNTRANSLATED_ROOMNAMES_SPECIAL,
+    COUNT_UNTRANSLATED_INDEX
+};
+extern int n_untranslated[COUNT_UNTRANSLATED_INDEX];
+
 
 const LangMeta* get_langmeta(void);
 

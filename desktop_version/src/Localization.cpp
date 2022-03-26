@@ -26,6 +26,8 @@ int n_unexplained_roomnames = 0;
 int n_untranslated_roomnames_custom = 0;
 int n_unexplained_roomnames_custom = 0;
 
+int n_untranslated[COUNT_UNTRANSLATED_INDEX] = {0};
+
 const LangMeta* get_langmeta(void)
 {
     if (game.currentmenuname == Menu::language && (unsigned)game.currentmenuoption < languagelist.size())

@@ -1156,8 +1156,8 @@ static void menuactionpress(void)
         {
         case 0:
             // language statistics
-            // TODO
             music.playef(11);
+            game.createmenu(Menu::translator_options_stats);
             map.nexttowercolour();
             break;
         case 1:
@@ -1206,6 +1206,11 @@ static void menuactionpress(void)
             map.nexttowercolour();
             break;
         }
+        break;
+    case Menu::translator_options_stats:
+        music.playef(11);
+        game.returnmenu();
+        map.nexttowercolour();
         break;
     case Menu::translator_maintenance:
         music.playef(11);

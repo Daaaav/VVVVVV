@@ -228,6 +228,8 @@ void resettext(void)
     n_untranslated_roomnames = 0;
     n_unexplained_roomnames = 0;
 
+    SDL_zeroa(n_untranslated);
+
     map_translation_roomnames_special = hashmap_create();
 
     resettext_custom();
@@ -354,6 +356,20 @@ void max_check_string_plural(unsigned char form, const char* str, const char* ma
     }
 }
 
+static void tally_untranslated(const char* tra, int* counter)
+{
+    /* Count this translation in the untranslated count if it's untranslated. */
+    if (!show_translator_menu)
+    {
+        return;
+    }
+
+    if (tra == NULL || tra[0] == '\0')
+    {
+        (*counter)++;
+    }
+}
+
 void loadtext_strings(bool check_max)
 {
     tinyxml2::XMLDocument doc;
@@ -369,16 +385,24 @@ void loadtext_strings(bool check_max)
     {
         EXPECT_ELEM(pElem, "string");
 
+        const char* eng = pElem->Attribute("english");
+        const char* tra = pElem->Attribute("translation");
+
         map_store_translation(
             &textbook_main,
             map_translation,
-            pElem->Attribute("english"),
-            pElem->Attribute("translation")
+            eng,
+            tra
         );
 
+        /* Only tally an untranslated string if English isn't blank */
+        if (eng != NULL && eng[0] != '\0')
+        {
+            tally_untranslated(tra, &n_untranslated[UNTRANSLATED_STRINGS]);
+        }
         if (check_max)
         {
-            max_check_string(pElem->Attribute("translation"), pElem->Attribute("max"));
+            max_check_string(tra, pElem->Attribute("max"));
         }
     }
 }
@@ -439,6 +463,7 @@ void loadtext_strings_plural(bool check_max)
 
             SDL_free(key);
 
+            tally_untranslated(subElem->Attribute("translation"), &n_untranslated[UNTRANSLATED_STRINGS_PLURAL]);
             if (check_max)
             {
                 max_check_string_plural(
@@ -585,6 +610,10 @@ void loadtext_cutscenes(bool custom_level)
 
             const char* eng = subElem->Attribute(original);
             const char* tra = subElem->Attribute("translation");
+            if (!custom_level)
+            {
+                tally_untranslated(tra, &n_untranslated[UNTRANSLATED_CUTSCENES]);
+            }
             if (eng == NULL || tra == NULL)
             {
                 continue;
@@ -663,6 +692,8 @@ void loadtext_numbers(void)
                 tra = "";
             }
             number[value] = std::string(tra);
+
+            tally_untranslated(tra, &n_untranslated[UNTRANSLATED_NUMBERS]);
         }
         if (value >= 0 && value <= 199 && !is_lots)
         {
@@ -837,6 +868,8 @@ void loadtext_roomnames_special(void)
             pElem->Attribute("english"),
             pElem->Attribute("translation")
         );
+
+        tally_untranslated(pElem->Attribute("translation"), &n_untranslated[UNTRANSLATED_ROOMNAMES_SPECIAL]);
     }
 }
 
