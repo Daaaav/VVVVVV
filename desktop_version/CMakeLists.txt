@@ -135,6 +135,7 @@ if(BUNDLE_DEPENDENCIES)
     target_include_directories(
         VVVVVV PRIVATE
         src
+        ../third_party
         ../third_party/tinyxml2
         ../third_party/physfs/src
         ../third_party/physfs/extras
@@ -148,6 +149,7 @@ else()
     target_include_directories(
         VVVVVV PRIVATE
         src
+        ../third_party
         ../third_party/lodepng
         ../third_party/physfs/extras
         ../third_party/c-hashmap

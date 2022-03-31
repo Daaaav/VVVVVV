@@ -6,7 +6,7 @@
 
 extern "C"
 {
-#include <map.h>
+#include <c-hashmap/map.h>
 }
 
 #if defined(LOCALIZATIONSTORAGE_CPP)
