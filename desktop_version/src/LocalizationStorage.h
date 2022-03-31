@@ -6,16 +6,7 @@
 
 extern "C"
 {
-    /* <map.h> */
-    typedef struct hashmap hashmap;
-    typedef void (*hashmap_callback)(void *key, size_t ksize, uintptr_t value, void *usr);
-
-    hashmap* hashmap_create(void);
-    void hashmap_free(hashmap* map);
-    void hashmap_set(hashmap* map, void* key, size_t ksize, uintptr_t value);
-    void hashmap_set_free(hashmap* map, void* key, size_t ksize, uintptr_t value, hashmap_callback c, void* usr);
-    bool hashmap_get(hashmap* map, void* key, size_t ksize, uintptr_t* out_val);
-    void hashmap_iterate(hashmap* map, hashmap_callback c, void* usr);
+#include <map.h>
 }
 
 #if defined(LOCALIZATIONSTORAGE_CPP)
