@@ -234,13 +234,18 @@ static void resettext(void)
 
 static bool parse_max(const char* max, unsigned short* max_w, unsigned short* max_h)
 {
-    /* Parse a max string, like "33" or "33*3", into two shorts */
+    /* Parse a max string, like "33" or "33*3", into two shorts.
+     * Returns true if successful and max_w/max_h have gotten valid values, false otherwise. */
     if (max == NULL)
     {
         return false;
     }
 
     char* max_mut = SDL_strdup(max);
+    if (max_mut == NULL)
+    {
+        return false;
+    }
 
     char* asterisk = SDL_strchr(max_mut, '*');
     if (asterisk != NULL)
