@@ -802,15 +802,13 @@ static void loadtext_roomnames(bool custom_level)
             {
                 continue;
             }
-            #if !defined(NO_CUSTOM_LEVELS)
-                const RoomProperty* const room = cl.getroomprop(x, y);
-                if (SDL_strcmp(original_roomname, room->roomname.c_str()) != 0)
-                {
-                    continue;
-                }
-            #else
+#if !defined(NO_CUSTOM_LEVELS)
+            const RoomProperty* const room = cl.getroomprop(x, y);
+            if (SDL_strcmp(original_roomname, room->roomname.c_str()) != 0)
+#endif
+            {
                 continue;
-            #endif
+            }
 
             n_untranslated_roomnames_custom++;
             n_unexplained_roomnames_custom++;
