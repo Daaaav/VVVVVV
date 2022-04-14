@@ -349,11 +349,9 @@ bool save_roomname_to_file(const std::string& langcode, bool custom_level, int r
 
 bool save_roomname_explanation_to_files(bool custom_level, int roomx, int roomy, const char* explanation)
 {
-    bool any = false;
     bool success = true;
     for (size_t i = 0; i < languagelist.size(); i++)
     {
-        any = true;
         if (!save_roomname_to_file(languagelist[i].code, custom_level, roomx, roomy, NULL, explanation))
         {
             success = false;
@@ -361,7 +359,7 @@ bool save_roomname_explanation_to_files(bool custom_level, int roomx, int roomy,
         }
     }
 
-    return any && success;
+    return !languagelist.empty() && success;
 }
 
 void local_limits_check(void)
