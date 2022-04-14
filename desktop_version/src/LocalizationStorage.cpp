@@ -185,11 +185,8 @@ void unloadtext_custom(void)
 
     loc::lang_custom = "";
 
-    if (custom_level_path != NULL)
-    {
-        SDL_free(custom_level_path);
-        custom_level_path = NULL;
-    }
+    SDL_free(custom_level_path);
+    custom_level_path = NULL;
 }
 
 static void resettext(void)
