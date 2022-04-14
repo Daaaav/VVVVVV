@@ -322,19 +322,21 @@ static bool max_check_string(const char* str, const char* max)
     return does_overflow;
 }
 
-static void max_check_string_plural(unsigned char form, const char* str, const char* max, unsigned int expect, char* buf, size_t buf_len)
+static void max_check_string_plural(unsigned char form, const char* str, const char* max, unsigned int expect)
 {
     if (str == NULL)
     {
         return;
     }
 
+    char buf[20*SCREEN_WIDTH_CHARS + 1];
+
     if (SDL_strstr(str, "%d") != NULL)
     {
         /* Treat `expect` as a single example, it's the number of digits that's most important */
         if (form_for_count(expect) == form)
         {
-            SDL_snprintf(buf, buf_len, str, expect);
+            SDL_snprintf(buf, sizeof(buf), str, expect);
 
             max_check_string(buf, max);
         }
@@ -346,7 +348,7 @@ static void max_check_string_plural(unsigned char form, const char* str, const c
         {
             if (form_for_count(test) == form)
             {
-                SDL_snprintf(buf, buf_len, str, help.number_words(test).c_str());
+                SDL_snprintf(buf, sizeof(buf), str, help.number_words(test).c_str());
 
                 if (max_check_string(buf, max))
                 {
@@ -420,20 +422,6 @@ static void loadtext_strings_plural(bool check_max)
         return;
     }
 
-    /* Buffer for the max check, only if needed */
-    char* max_check_buffer = NULL;
-    size_t max_check_buffer_len = 20*SCREEN_WIDTH_CHARS + 1;
-    if (check_max)
-    {
-        max_check_buffer = (char*) SDL_malloc(max_check_buffer_len);
-        if (max_check_buffer == NULL)
-        {
-            SDL_assert(0 && "Error checking limits for plural strings - can't alloc buffer!");
-            check_max = false;
-        }
-    }
-
-
     FOR_EACH_XML_ELEMENT(hDoc, pElem)
     {
         EXPECT_ELEM(pElem, "string");
@@ -470,16 +458,10 @@ static void loadtext_strings_plural(bool check_max)
             {
                 max_check_string_plural(
                     form, subElem->Attribute("translation"),
-                    pElem->Attribute("max"), pElem->UnsignedAttribute("expect", 101),
-                    max_check_buffer, max_check_buffer_len
+                    pElem->Attribute("max"), pElem->UnsignedAttribute("expect", 101)
                 );
             }
         }
-    }
-
-    if (max_check_buffer != NULL)
-    {
-        SDL_free(max_check_buffer);
     }
 }
 
