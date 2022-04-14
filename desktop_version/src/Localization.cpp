@@ -48,7 +48,7 @@ const char* gettext(const char* eng)
     return map_lookup_text(map_translation, eng, eng);
 }
 
-const char* gettext_plural_english(const char* eng_plural, const char* eng_singular, int n)
+static const char* gettext_plural_english(const char* eng_plural, const char* eng_singular, int n)
 {
     /* Do be consistent with negative number handling for other languages... */
     if (n == 1 || n == -1)
@@ -272,7 +272,7 @@ bool is_cutscene_translated(const std::string& script_id)
     return hashmap_get(map, (void*) map_script_key, SDL_strlen(map_script_key), &ptr_unused);
 }
 
-uint32_t toupper_ch(uint32_t ch)
+static uint32_t toupper_ch(uint32_t ch)
 {
     // Convert a single Unicode codepoint to its uppercase variant
     // Supports important Latin (1 and A), Cyrillic and Greek

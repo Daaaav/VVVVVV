@@ -31,7 +31,7 @@ namespace roomname_translator
         return enabled && edit_mode;
     }
 
-    void print_explanation(const char* explanation)
+    static void print_explanation(const char* explanation)
     {
         const char* use_explanation = explanation;
         if (explanation == NULL || explanation[0] == '\0')
@@ -217,7 +217,7 @@ namespace roomname_translator
     }
 
 
-    bool key_pressed_once(SDL_Keycode keyc, bool* held)
+    static bool key_pressed_once(SDL_Keycode keyc, bool* held)
     {
         if (key.isDown(keyc))
         {
@@ -235,7 +235,7 @@ namespace roomname_translator
         return false;
     }
 
-    void save_explanation(const char* explanation, const char* success_message)
+    static void save_explanation(const char* explanation, const char* success_message)
     {
         if (loc::save_roomname_explanation_to_files(map.custommode, game.roomx, game.roomy, explanation))
         {
@@ -249,7 +249,7 @@ namespace roomname_translator
         }
     }
 
-    void save_translation(const char* translation)
+    static void save_translation(const char* translation)
     {
         if (loc::save_roomname_to_file(loc::lang, map.custommode, game.roomx, game.roomy, translation, NULL))
         {

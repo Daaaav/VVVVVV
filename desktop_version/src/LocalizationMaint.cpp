@@ -13,7 +13,7 @@
 namespace loc
 {
 
-void sync_lang_file(const std::string& langcode)
+static void sync_lang_file(const std::string& langcode)
 {
     /* Update translation files for the given language with new strings from templates.
      * This basically takes the (English) templates, fills in existing translations, and saves.

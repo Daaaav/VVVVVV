@@ -53,7 +53,7 @@ bool load_lang_doc(
     return true;
 }
 
-void loadmeta(LangMeta& meta, const std::string& langcode = lang)
+static void loadmeta(LangMeta& meta, const std::string& langcode = lang)
 {
     meta.active = true;
     meta.code = langcode;
@@ -107,7 +107,7 @@ void loadmeta(LangMeta& meta, const std::string& langcode = lang)
     }
 }
 
-void map_store_translation(Textbook* textbook, hashmap* map, const char* eng, const char* tra)
+static void map_store_translation(Textbook* textbook, hashmap* map, const char* eng, const char* tra)
 {
     /* Add the texts to the given textbook and set the translation in the given hashmap. */
     if (eng == NULL)
@@ -148,7 +148,7 @@ unsigned char form_for_count(int n)
     return number_plural_form[n_ix];
 }
 
-void callback_free_map_value(void* key, size_t ksize, uintptr_t value, void* usr)
+static void callback_free_map_value(void* key, size_t ksize, uintptr_t value, void* usr)
 {
     hashmap_free((hashmap*) value);
 }
@@ -192,7 +192,7 @@ void unloadtext_custom(void)
     }
 }
 
-void resettext(void)
+static void resettext(void)
 {
     // Reset/Initialize strings
     if (inited)
@@ -235,7 +235,7 @@ void resettext(void)
     resettext_custom();
 }
 
-bool parse_max(const char* max, unsigned short* max_w, unsigned short* max_h)
+static bool parse_max(const char* max, unsigned short* max_w, unsigned short* max_h)
 {
     /* Parse a max string, like "33" or "33*3", into two shorts */
     if (max == NULL)
@@ -262,7 +262,7 @@ bool parse_max(const char* max, unsigned short* max_w, unsigned short* max_h)
     return *max_w != 0 && *max_h != 0;
 }
 
-bool max_check_string(const char* str, const char* max)
+static bool max_check_string(const char* str, const char* max)
 {
     /* Stores a detected overflow in the overflows vector, returns true if this happened */
     unsigned short max_w, max_h;
@@ -320,7 +320,7 @@ bool max_check_string(const char* str, const char* max)
     return does_overflow;
 }
 
-void max_check_string_plural(unsigned char form, const char* str, const char* max, unsigned int expect, char* buf, size_t buf_len)
+static void max_check_string_plural(unsigned char form, const char* str, const char* max, unsigned int expect, char* buf, size_t buf_len)
 {
     if (str == NULL)
     {
@@ -370,7 +370,7 @@ static void tally_untranslated(const char* tra, int* counter)
     }
 }
 
-void loadtext_strings(bool check_max)
+static void loadtext_strings(bool check_max)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -407,7 +407,7 @@ void loadtext_strings(bool check_max)
     }
 }
 
-void loadtext_strings_plural(bool check_max)
+static void loadtext_strings_plural(bool check_max)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -481,7 +481,7 @@ void loadtext_strings_plural(bool check_max)
     }
 }
 
-bool get_level_lang_path(bool custom_level, const char* cat, std::string& doc_path, std::string& doc_path_asset)
+static bool get_level_lang_path(bool custom_level, const char* cat, std::string& doc_path, std::string& doc_path_asset)
 {
     /* Calculate the path to a translation file for either the MAIN GAME or
      * a CUSTOM LEVEL. cat can be "roomnames", "cutscenes", etc.
@@ -520,7 +520,7 @@ bool get_level_lang_path(bool custom_level, const char* cat, std::string& doc_pa
     }
 }
 
-const char* get_level_original_lang(tinyxml2::XMLHandle& hDoc)
+static const char* get_level_original_lang(tinyxml2::XMLHandle& hDoc)
 {
     /* cutscenes and roomnames files can specify the original language as
      * an attribute of the root tag to change the attribute names of the
@@ -540,7 +540,7 @@ const char* get_level_original_lang(tinyxml2::XMLHandle& hDoc)
     return original;
 }
 
-std::string& get_level_lang_code(bool custom_level)
+static std::string& get_level_lang_code(bool custom_level)
 {
     if (!custom_level || lang_custom == "")
     {
@@ -550,7 +550,7 @@ std::string& get_level_lang_code(bool custom_level)
     return lang_custom;
 }
 
-void loadtext_cutscenes(bool custom_level)
+static void loadtext_cutscenes(bool custom_level)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -662,7 +662,7 @@ void loadtext_cutscenes(bool custom_level)
     }
 }
 
-void loadtext_numbers(void)
+static void loadtext_numbers(void)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -729,7 +729,7 @@ bool fix_room_coords(bool custom_level, int* roomx, int* roomy)
     return !(*roomx < 0 || *roomy < 0 || *roomx > max_x || *roomy > max_y);
 }
 
-void update_left_counter(const char* old_text, const char* new_text, int* counter)
+static void update_left_counter(const char* old_text, const char* new_text, int* counter)
 {
     bool now_filled = new_text[0] != '\0';
     if ((old_text == NULL || old_text[0] == '\0') && now_filled)
@@ -783,7 +783,7 @@ bool store_roomname_translation(bool custom_level, int roomx, int roomy, const c
     return true;
 }
 
-void loadtext_roomnames(bool custom_level)
+static void loadtext_roomnames(bool custom_level)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -847,7 +847,7 @@ void loadtext_roomnames(bool custom_level)
     }
 }
 
-void loadtext_roomnames_special(void)
+static void loadtext_roomnames_special(void)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
