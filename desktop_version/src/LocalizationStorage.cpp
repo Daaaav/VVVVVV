@@ -913,7 +913,9 @@ void loadlanguagelist(void)
             languagelist.push_back(meta);
 
             if (lang == codes[i])
+            {
                 languagelist_curlang = opt;
+            }
             opt++;
         }
     }
