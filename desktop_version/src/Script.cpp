@@ -3612,6 +3612,9 @@ void scriptclass::loadcustom(const std::string& t)
         }else if(words[0] == "iftrinketsless"){
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add("custom"+lines[i]);
+        }else if(words[0] == "textcase"){
+            if(customtextmode==1){ add("endtext"); customtextmode=0;}
+            add(lines[i]);
         }else if(words[0] == "iflang"){
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add(lines[i]);
