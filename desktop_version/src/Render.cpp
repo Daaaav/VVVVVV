@@ -616,7 +616,7 @@ static void menurender(void)
         {
             if (FILESYSTEM_isMainLangDirFromRepo())
             {
-                // Just giving manual compilers some hint as to why this menu is here!
+                // Just giving people who manually compiled the game some hint as to why this menu is here!
                 graphics.Print(8, 208, loc::gettext("Repository language folder:"), tr/2, tg/2, tb/2);
             }
             else
