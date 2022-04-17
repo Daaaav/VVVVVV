@@ -8,6 +8,7 @@
 #include "CustomLevels.h"
 #include "FileSystemUtils.h"
 #include "Graphics.h"
+#include "Unused.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
@@ -150,6 +151,10 @@ unsigned char form_for_count(int n)
 
 static void callback_free_map_value(void* key, size_t ksize, uintptr_t value, void* usr)
 {
+    UNUSED(key);
+    UNUSED(ksize);
+    UNUSED(usr);
+
     hashmap_free((hashmap*) value);
 }
 
