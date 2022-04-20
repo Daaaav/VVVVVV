@@ -745,6 +745,7 @@ static void cleanup(void)
     graphics.destroy();
     music.destroy();
     NETWORK_shutdown();
+    loc::resettext(true);
     SDL_Quit();
     FILESYSTEM_deinit();
 }

@@ -62,8 +62,8 @@ bool load_lang_doc(
 
 unsigned char form_for_count(int n);
 
-void resettext_custom(void);
 void unloadtext_custom(void);
+void resettext(bool final_shutdown);
 
 bool store_roomname_translation(bool custom_level, int roomx, int roomy, const char* tra, const char* explanation);
 

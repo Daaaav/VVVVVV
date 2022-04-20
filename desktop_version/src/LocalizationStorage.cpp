@@ -158,9 +158,12 @@ static void callback_free_map_value(void* key, size_t ksize, uintptr_t value, vo
     hashmap_free((hashmap*) value);
 }
 
-void resettext_custom(void)
+static void resettext_custom(bool final_shutdown)
 {
-    // Reset/Initialize custom level strings only
+    /* Reset/initialize custom level strings only.
+     * If final_shutdown, this just does a last cleanup of any allocations,
+     * otherwise it makes storage ready for first use (or reuse by a new language). */
+
     if (inited_custom)
     {
         hashmap_iterate(map_translation_cutscene_custom, callback_free_map_value, NULL);
@@ -168,25 +171,28 @@ void resettext_custom(void)
 
         textbook_clear(&textbook_custom);
     }
-    else
+    else if (!final_shutdown)
     {
         inited_custom = true;
 
         textbook_init(&textbook_custom);
     }
 
-    map_translation_cutscene_custom = hashmap_create();
+    if (!final_shutdown)
+    {
+        map_translation_cutscene_custom = hashmap_create();
 
-    SDL_zeroa(translation_roomnames_custom);
-    SDL_zeroa(explanation_roomnames_custom);
+        SDL_zeroa(translation_roomnames_custom);
+        SDL_zeroa(explanation_roomnames_custom);
 
-    n_untranslated_roomnames_custom = 0;
-    n_unexplained_roomnames_custom = 0;
+        n_untranslated_roomnames_custom = 0;
+        n_unexplained_roomnames_custom = 0;
+    }
 }
 
 void unloadtext_custom(void)
 {
-    resettext_custom();
+    resettext_custom(false);
 
     loc::lang_custom = "";
 
@@ -194,9 +200,12 @@ void unloadtext_custom(void)
     custom_level_path = NULL;
 }
 
-static void resettext(void)
+void resettext(bool final_shutdown)
 {
-    // Reset/Initialize strings
+    /* Reset/initialize strings.
+     * If final_shutdown, this just does a last cleanup of any allocations,
+     * otherwise it makes storage ready for first use (or reuse by a new language). */
+
     if (inited)
     {
         hashmap_free(map_translation);
@@ -207,34 +216,37 @@ static void resettext(void)
 
         textbook_clear(&textbook_main);
     }
-    else
+    else if (!final_shutdown)
     {
         inited = true;
 
         textbook_init(&textbook_main);
     }
 
-    map_translation = hashmap_create();
-    map_translation_cutscene = hashmap_create();
-    map_translation_plural = hashmap_create();
-
-    for (size_t i = 0; i <= 101; i++)
+    if (!final_shutdown)
     {
-        number[i] = "";
+        map_translation = hashmap_create();
+        map_translation_cutscene = hashmap_create();
+        map_translation_plural = hashmap_create();
+
+        for (size_t i = 0; i <= 101; i++)
+        {
+            number[i] = "";
+        }
+        SDL_zeroa(number_plural_form);
+
+        SDL_zeroa(translation_roomnames);
+        SDL_zeroa(explanation_roomnames);
+
+        n_untranslated_roomnames = 0;
+        n_unexplained_roomnames = 0;
+
+        SDL_zeroa(n_untranslated);
+
+        map_translation_roomnames_special = hashmap_create();
     }
-    SDL_zeroa(number_plural_form);
 
-    SDL_zeroa(translation_roomnames);
-    SDL_zeroa(explanation_roomnames);
-
-    n_untranslated_roomnames = 0;
-    n_unexplained_roomnames = 0;
-
-    SDL_zeroa(n_untranslated);
-
-    map_translation_roomnames_special = hashmap_create();
-
-    resettext_custom();
+    resettext_custom(final_shutdown);
 }
 
 static bool parse_max(const char* max, unsigned short* max_w, unsigned short* max_h)
@@ -862,7 +874,7 @@ static void loadtext_roomnames_special(void)
 
 void loadtext_custom(const char* custom_path)
 {
-    resettext_custom();
+    resettext_custom(false);
     if (custom_level_path == NULL && custom_path != NULL)
     {
         custom_level_path = SDL_strdup(custom_path);
@@ -873,7 +885,7 @@ void loadtext_custom(const char* custom_path)
 
 void loadtext(bool check_max)
 {
-    resettext();
+    resettext(false);
     loadmeta(langmeta);
 
     if (lang == "en")
