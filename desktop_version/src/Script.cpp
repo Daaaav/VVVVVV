@@ -1327,19 +1327,19 @@ void scriptclass::run(void)
             else if (words[0] == "befadein")
             {
                 graphics.setfade(0);
-                graphics.fademode= 0;
+                graphics.fademode = FADE_NONE;
             }
             else if (words[0] == "fadein")
             {
-                graphics.fademode = 4;
+                graphics.fademode = FADE_START_FADEIN;
             }
             else if (words[0] == "fadeout")
             {
-                graphics.fademode = 2;
+                graphics.fademode = FADE_START_FADEOUT;
             }
             else if (words[0] == "untilfade")
             {
-                if (graphics.fademode>1)
+                if (FADEMODE_IS_FADING(graphics.fademode))
                 {
                     scriptdelay = 1;
                     position--;
@@ -1412,7 +1412,7 @@ void scriptclass::run(void)
 #endif
                 {
                     game.gamestate = GAMECOMPLETE;
-                    graphics.fademode = 4;
+                    graphics.fademode = FADE_START_FADEIN;
                     game.creditposition = 0;
                 }
             }
@@ -2497,7 +2497,7 @@ static void gotoerrorloadinglevel(void)
 {
     game.createmenu(Menu::errorloadinglevel);
     map.nexttowercolour();
-    graphics.fademode = 4; /* start fade in */
+    graphics.fademode = FADE_START_FADEIN; /* start fade in */
     music.currentsong = -1; /* otherwise music.play won't work */
     music.play(6); /* title screen music */
 }
@@ -2547,7 +2547,7 @@ void scriptclass::startgamemode( int t )
         map.resetplayer();
         map.gotoroom(game.saverx, game.savery);
         map.initmapdata();
-        graphics.fademode = 4;
+        graphics.fademode = FADE_START_FADEIN;
         break;
     case 2: //Load Quicksave
         game.gamestate = GAMEMODE;
@@ -2583,7 +2583,7 @@ void scriptclass::startgamemode( int t )
             map.cameramode = 0;
             map.colsuperstate = 0;
         }
-        graphics.fademode = 4;
+        graphics.fademode = FADE_START_FADEIN;
         break;
     case 3:
     case 4:
@@ -2649,7 +2649,7 @@ void scriptclass::startgamemode( int t )
         map.resetplayer();
         map.gotoroom(game.saverx, game.savery);
         map.initmapdata();
-        graphics.fademode = 4;
+        graphics.fademode = FADE_START_FADEIN;
         break;
     case 9:
         game.gamestate = GAMEMODE;
@@ -2724,7 +2724,7 @@ void scriptclass::startgamemode( int t )
         map.gotoroom(game.saverx, game.savery);
         map.initmapdata();
         music.play(11);
-        graphics.fademode = 4;
+        graphics.fademode = FADE_START_FADEIN;
         break;
     case 12:
         game.gamestate = GAMEMODE;
@@ -2984,7 +2984,7 @@ void scriptclass::startgamemode( int t )
         map.resetplayer();
         map.gotoroom(game.saverx, game.savery);
         map.initmapdata();
-        graphics.fademode = 4;
+        graphics.fademode = FADE_START_FADEIN;
         break;
     case 21:  //play custom level (in editor)
         game.gamestate = GAMEMODE;
@@ -3061,7 +3061,7 @@ void scriptclass::startgamemode( int t )
         }else{
             music.currentsong=-1;
         }
-        graphics.fademode = 4;
+        graphics.fademode = FADE_START_FADEIN;
         break;
     }
     case 23: //Continue in custom level
@@ -3099,7 +3099,7 @@ void scriptclass::startgamemode( int t )
         map.gotoroom(game.saverx, game.savery);
         map.initmapdata();
         cl.generatecustomminimap();
-        graphics.fademode = 4;
+        graphics.fademode = FADE_START_FADEIN;
         break;
     }
 #endif /* NO_CUSTOM_LEVELS */

@@ -288,7 +288,7 @@ static int gotomode = 0;
 static void startmode(const int mode)
 {
     gotomode = mode;
-    graphics.fademode = 2; /* fading out */
+    graphics.fademode = FADE_START_FADEOUT;
     fadetomode = true;
     fadetomodedelay = 19;
 }
@@ -2095,7 +2095,7 @@ void titleinput(void)
     if (!game.press_action && !game.press_left && !game.press_right && !key.isDown(27) && !key.isDown(game.controllerButton_esc)) game.jumpheld = false;
     if (!game.press_map) game.mapheld = false;
 
-    if (!game.jumpheld && graphics.fademode==0)
+    if (!game.jumpheld && graphics.fademode == FADE_NONE)
     {
         if (game.press_action || game.press_left || game.press_right || game.press_map || key.isDown(27) || key.isDown(game.controllerButton_esc))
         {
@@ -2365,7 +2365,7 @@ void gameinput(void)
         game.interactheld = false;
     }
 
-    if (game.intimetrial && graphics.fademode == 1 && game.quickrestartkludge)
+    if (game.intimetrial && graphics.fademode == FADE_FULLY_BLACK && game.quickrestartkludge)
     {
         //restart the time trial
         game.quickrestartkludge = false;
@@ -2658,10 +2658,10 @@ void gameinput(void)
         game.gamesavefailed = false;
         game.menupage = 20; // The Map Page
     }
-    else if (game.intimetrial && graphics.fademode == 0)
+    else if (game.intimetrial && graphics.fademode == FADE_NONE)
     {
         //Quick restart of time trial
-        graphics.fademode = 2;
+        graphics.fademode = FADE_START_FADEOUT;
         game.completestop = true;
         music.fadeout();
         game.quickrestartkludge = true;
@@ -2722,7 +2722,7 @@ void mapinput(void)
     game.press_map = false;
     game.press_interact = false;
 
-    if (version2_2 && graphics.fademode == 1 && graphics.menuoffset == 0)
+    if (version2_2 && graphics.fademode == FADE_FULLY_BLACK && graphics.menuoffset == 0)
     {
         // Deliberate re-addition of the glitchy gamestate-based fadeout!
 
@@ -2787,7 +2787,7 @@ void mapinput(void)
 
     if(graphics.menuoffset==0
     && ((!version2_2 && !game.fadetomenu && game.fadetomenudelay <= 0 && !game.fadetolab && game.fadetolabdelay <= 0)
-    || graphics.fademode == 0))
+    || graphics.fademode == FADE_NONE))
     {
         if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_a) ||  key.isDown(KEYBOARD_w)|| key.controllerWantsLeft(true))
         {
@@ -2963,7 +2963,7 @@ static void mapmenuactionpress(const bool version2_2)
         //Kill contents of offset render buffer, since we do that for some reason.
         //This fixes an apparent frame flicker.
         ClearSurface(graphics.tempBuffer);
-        graphics.fademode = 2;
+        graphics.fademode = FADE_START_FADEOUT;
         music.fadeout();
         map.nexttowercolour();
         if (!version2_2)
@@ -2982,7 +2982,7 @@ static void mapmenuactionpress(const bool version2_2)
     case 21:
         //quit to menu
         game.swnmode = false;
-        graphics.fademode = 2;
+        graphics.fademode = FADE_START_FADEOUT;
         music.fadeout();
         if (!version2_2)
         {
@@ -3003,7 +3003,7 @@ static void mapmenuactionpress(const bool version2_2)
         graphics.flipmode = false;
         game.ingame_titlemode = true;
         graphics.ingame_fademode = graphics.fademode;
-        graphics.fademode = 0;
+        graphics.fademode = FADE_NONE;
 
         // Set this before we create the menu
         game.kludge_ingametemp = game.currentmenuname;
@@ -3183,9 +3183,9 @@ void gamecompleteinput(void)
         game.creditposition -= 6;
         if (game.creditposition <= -Credits::creditmaxposition)
         {
-            if(graphics.fademode==0)
+            if (graphics.fademode == FADE_NONE)
             {
-                graphics.fademode = 2;
+                graphics.fademode = FADE_START_FADEOUT;
             }
             game.creditposition = -Credits::creditmaxposition;
         }
@@ -3202,9 +3202,9 @@ void gamecompleteinput(void)
         if(game.press_map)
         {
             //Return to game
-            if(graphics.fademode==0)
+            if(graphics.fademode == FADE_NONE)
             {
-                graphics.fademode = 2;
+                graphics.fademode = FADE_START_FADEOUT;
             }
         }
     }
@@ -3227,9 +3227,9 @@ void gamecompleteinput2(void)
         game.oldcreditposx++;
         if (game.creditposy >= 30)
         {
-            if(graphics.fademode==0)
+            if(graphics.fademode == FADE_NONE)
             {
-                graphics.fademode = 2;
+                graphics.fademode = FADE_START_FADEOUT;
                 music.fadeout();
             }
         }
@@ -3242,9 +3242,9 @@ void gamecompleteinput2(void)
         if(game.press_map)
         {
             //Return to game
-            if(graphics.fademode==0)
+            if(graphics.fademode == FADE_NONE)
             {
-                graphics.fademode = 2;
+                graphics.fademode = FADE_START_FADEOUT;
                 music.fadeout();
             }
         }

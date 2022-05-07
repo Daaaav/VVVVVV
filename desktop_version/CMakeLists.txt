@@ -68,6 +68,7 @@ endif()
 set(VVV_SRC
     src/BinaryBlob.cpp
     src/BlockV.cpp
+    src/CWrappers.cpp
     src/Ent.cpp
     src/Entity.cpp
     src/FileSystemUtils.cpp
@@ -106,6 +107,7 @@ set(VVV_SRC
     src/Network.c
     src/Textbook.c
     src/ThirdPartyDeps.c
+    src/VFormat.c
     src/Vlogging.c
     src/Xoshiro.c
     ../third_party/physfs/extras/physfsrwops.c

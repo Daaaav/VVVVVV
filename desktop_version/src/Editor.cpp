@@ -21,6 +21,7 @@
 #include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 
 editorclass::editorclass(void)
 {
@@ -1774,7 +1775,7 @@ void editorlogic(void)
         ed.notedelay--;
     }
 
-    if (graphics.fademode == 1)
+    if (graphics.fademode == FADE_FULLY_BLACK)
     {
         //Return to game
         graphics.titlebg.colstate = 10;
@@ -1952,7 +1953,7 @@ static void editormenuactionpress(void)
             //Quit without saving
             music.playef(11);
             music.fadeout();
-            graphics.fademode = 2;
+            graphics.fademode = FADE_START_FADEOUT;
             break;
         case 2:
             //Go back to editor
@@ -1970,7 +1971,7 @@ static void editormenuactionpress(void)
 void editorinput(void)
 {
     extern editorclass ed;
-    if (graphics.fademode == 3 /* fading out */)
+    if (graphics.fademode == FADE_FADING_OUT)
     {
         return;
     }
@@ -2402,7 +2403,7 @@ void editorinput(void)
 
                 if (ed.saveandquit)
                 {
-                    graphics.fademode = 2; // quit editor
+                    graphics.fademode = FADE_START_FADEOUT; /* quit editor */
                 }
                 break;
             }
@@ -4244,9 +4245,10 @@ void editorclass::switch_tileset(const bool reversed)
     clamp_tilecol(levx, levy, false);
 
     char buffer[3*SCREEN_WIDTH_CHARS + 1];
-    SDL_snprintf(
+    vformat_buf(
         buffer, sizeof(buffer),
-        loc::gettext("Now using %s Tileset"),
+        loc::gettext("Now using {area} Tileset"),
+        "area:str",
         loc::gettext(tilesets[tiles])
     );
 

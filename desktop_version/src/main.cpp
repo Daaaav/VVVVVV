@@ -694,7 +694,7 @@ int main(int argc, char *argv[])
             script.startgamemode(22);
         }
 
-        graphics.fademode = 0;
+        graphics.fademode = FADE_NONE;
     }
 #endif
 

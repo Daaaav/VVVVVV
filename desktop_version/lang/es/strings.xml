@@ -583,7 +583,7 @@
     <string english="Lab" translation="" explanation="editor tileset name, Now using Lab Tileset"/>
     <string english="Warp Zone" translation="" explanation="editor tileset name, Now using Warp Zone Tileset. The Warp Zone got its name because its rooms wrap around, but think Star Trek"/>
     <string english="Ship" translation="" explanation="editor tileset name, Now using Ship Tileset. Spaceship"/>
-    <string english="Now using %s Tileset" translation="" explanation="level editor, user changed the tileset of the room to %s (like Ship, Lab, etc)" max="38*3"/>
+    <string english="Now using {area} Tileset" translation="" explanation="level editor, user changed the tileset of the room to {area} (like Ship, Lab, etc)" max="38*3"/>
     <string english="Tileset Colour Changed" translation="" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Reloaded resources" translation="" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>

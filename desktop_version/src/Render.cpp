@@ -1790,7 +1790,7 @@ void gamerender(void)
         }
     }
 
-    if (graphics.fademode==0
+    if (graphics.fademode == FADE_NONE
     && !game.intimetrial
     && !game.isingamecompletescreen()
     && (!game.swnmode || game.swngame != 1)
@@ -1993,7 +1993,7 @@ void gamerender(void)
         }
     }
 
-    if (game.intimetrial && graphics.fademode==0)
+    if (game.intimetrial && graphics.fademode == FADE_NONE)
     {
         //Draw countdown!
         if (game.timetrialcountdown > 0)
@@ -2108,6 +2108,26 @@ void gamerender(void)
     graphics.renderwithscreeneffects();
 }
 
+static void draw_roomname_menu(void)
+{
+    const char* name;
+
+    if (map.hiddenname[0] != '\0')
+    {
+        name = loc::gettext_roomname_special(map.hiddenname);
+    }
+    else if (map.finalmode)
+    {
+        name = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.glitchname, map.roomname_special);
+    }
+    else
+    {
+        name = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
+    }
+
+    graphics.Print(5, 2, name, 196, 196, 255 - help.glow, true);
+}
+
 /* Used to keep some graphics positions on the map screen
  * the same in Flip Mode. */
 #define FLIP(y, h) (graphics.flipmode ? 220 - (y) - (h) : (y))
@@ -2116,25 +2136,7 @@ void maprender(void)
 {
     ClearSurface(graphics.backBuffer);
 
-    //draw screen alliteration
-    //Roomname:
-    const char* translated_roomname;
-    if (map.hiddenname[0] != '\0')
-    {
-        translated_roomname = loc::gettext_roomname_special(map.hiddenname);
-    }
-    else
-    {
-        if (map.finalmode)
-        {
-            translated_roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.glitchname, map.roomname_special);
-        }
-        else
-        {
-            translated_roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
-        }
-    }
-    graphics.Print(5, 2, translated_roomname, 196, 196, 255 - help.glow, true);
+    draw_roomname_menu();
 
     //Background color
     FillRect(graphics.backBuffer,0, 12, 320, 240, 10, 24, 26 );
@@ -2800,8 +2802,7 @@ void maprender(void)
     // being jankily brought down in glitchrunner mode when exiting to the title
     // Otherwise, there's no reason to obscure the menu
     if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2)
-    || graphics.fademode == 3
-    || graphics.fademode == 5
+    || FADEMODE_IS_FADING(graphics.fademode)
     || game.fadetomenu
     || game.fadetolab)
     {
@@ -2825,19 +2826,8 @@ void teleporterrender(void)
     ClearSurface(graphics.backBuffer);
     int tempx;
     int tempy;
-    //draw screen alliteration
-    //Roomname:
-    const char* translated_roomname;
-    int temp = map.area(game.roomx, game.roomy);
-    if (temp < 2 && !map.custommode && graphics.fademode==0)
-    {
-        translated_roomname = loc::gettext_roomname_special(map.hiddenname);
-    }
-    else
-    {
-        translated_roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
-    }
-    graphics.Print(5, 2, translated_roomname, 196, 196, 255 - help.glow, true);
+
+    draw_roomname_menu();
 
     //Background color
     FillRect(graphics.backBuffer, 0, 12, 320, 240, 10, 24, 26);
@@ -2884,13 +2874,13 @@ void teleporterrender(void)
     {
         if (map.showteleporters && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
         {
-            temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
+            int temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
             if (graphics.flipmode) temp += 3;
             graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
         }
         else if(map.showtargets && !map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
         {
-            temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
+            int temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
             if (graphics.flipmode) temp += 3;
             graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
         }
@@ -2902,7 +2892,7 @@ void teleporterrender(void)
         {
             if (!obj.collect[i])
             {
-                temp = 1086;
+                int temp = 1086;
                 if (graphics.flipmode) temp += 3;
                 graphics.drawtile(40 + 3 + (map.shinytrinkets[i].x * 12), 22 + (map.shinytrinkets[i].y * 9),    temp);
             }
@@ -2914,7 +2904,7 @@ void teleporterrender(void)
     if (game.useteleporter && ((help.slowsine%16)>8))
     {
         //colour in the legend
-        temp = 1128;
+        int temp = 1128;
         if (graphics.flipmode) temp += 3;
         graphics.drawtile(40 + 3 + (tempx * 12), 22 + (tempy * 9), temp);
     }
