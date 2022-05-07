@@ -1204,9 +1204,10 @@ void editorrender(void)
             //Current scriptname
             FillRect(graphics.backBuffer, 14,226,292,12, graphics.getRGB(61, 48, 162));
             char namebuffer[SCREEN_WIDTH_CHARS + 1];
-            SDL_snprintf(
+            vformat_buf(
                 namebuffer, sizeof(namebuffer),
-                loc::gettext("CURRENT SCRIPT: %s"),
+                loc::gettext("CURRENT SCRIPT: {name}"),
+                "name:str",
                 ed.sbscript.c_str()
             );
             graphics.Print(16,228, namebuffer, 123, 111, 218, true);
@@ -2376,7 +2377,7 @@ void editorinput(void)
                 {
                     // don't use filename, it has the full path
                     char buffer[3*SCREEN_WIDTH_CHARS + 1];
-                    SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Loaded map: %s.vvvvvv"), ed.filename.c_str());
+                    vformat_buf(buffer, sizeof(buffer), loc::gettext("Loaded map: {filename}.vvvvvv"), "filename:str", ed.filename.c_str());
                     ed.note = buffer;
                 }
                 else
@@ -2392,7 +2393,7 @@ void editorinput(void)
                 if (cl.save(savestring))
                 {
                     char buffer[3*SCREEN_WIDTH_CHARS + 1];
-                    SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Saved map: %s.vvvvvv"), ed.filename.c_str());
+                    vformat_buf(buffer, sizeof(buffer), loc::gettext("Saved map: {filename}.vvvvvv"), "filename:str", ed.filename.c_str());
                     ed.note = buffer;
                 }
                 else

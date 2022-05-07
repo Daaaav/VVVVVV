@@ -847,151 +847,151 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
         switch(trig)
         {
         case 0: //testing zone
-            block.prompt = loc::gettext("Press %s to explode");
+            block.prompt = loc::gettext("Press {button} to explode");
             block.script = "intro";
             block.setblockcolour("orange");
             trig=1;
             break;
         case 1:
-            block.prompt = loc::gettext("Press %s to talk to Violet");
+            block.prompt = loc::gettext("Press {button} to talk to Violet");
             block.script = "talkpurple";
             block.setblockcolour("purple");
             trig=0;
             break;
         case 2:
-            block.prompt = loc::gettext("Press %s to talk to Vitellary");
+            block.prompt = loc::gettext("Press {button} to talk to Vitellary");
             block.script = "talkyellow";
             block.setblockcolour("yellow");
             trig=0;
             break;
         case 3:
-            block.prompt = loc::gettext("Press %s to talk to Vermilion");
+            block.prompt = loc::gettext("Press {button} to talk to Vermilion");
             block.script = "talkred";
             block.setblockcolour("red");
             trig=0;
             break;
         case 4:
-            block.prompt = loc::gettext("Press %s to talk to Verdigris");
+            block.prompt = loc::gettext("Press {button} to talk to Verdigris");
             block.script = "talkgreen";
             block.setblockcolour("green");
             trig=0;
             break;
         case 5:
-            block.prompt = loc::gettext("Press %s to talk to Victoria");
+            block.prompt = loc::gettext("Press {button} to talk to Victoria");
             block.script = "talkblue";
             block.setblockcolour("blue");
             trig=0;
             break;
         case 6:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_station_1";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 7:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_outside_1";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 8:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_outside_2";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 9:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_outside_3";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 10:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_outside_4";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 11:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_outside_5";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 12:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_outside_6";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 13:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_finallevel";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 14:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_station_2";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 15:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_station_3";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 16:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_station_4";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 17:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_warp_1";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 18:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_warp_2";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 19:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_lab_1";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 20:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_lab_2";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 21:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_secretlab";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 22:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_shipcomputer";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 23:
-            block.prompt = loc::gettext("Press %s to activate terminals");
+            block.prompt = loc::gettext("Press {button} to activate terminals");
             block.script = "terminal_radio";
             block.setblockcolour("orange");
             trig=0;
             break;
         case 24:
-            block.prompt = loc::gettext("Press %s to activate terminal");
+            block.prompt = loc::gettext("Press {button} to activate terminal");
             block.script = "terminal_jukebox";
             block.setblockcolour("orange");
             trig=0;
@@ -1059,11 +1059,11 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
         case 35:
             if (custom)
             {
-                block.prompt = loc::gettext("Press %s to interact");
+                block.prompt = loc::gettext("Press {button} to interact");
             }
             else
             {
-                block.prompt = loc::gettext("Press %s to activate terminal");
+                block.prompt = loc::gettext("Press {button} to activate terminal");
             }
             block.script = "custom_"+customscript;
             block.setblockcolour("orange");

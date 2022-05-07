@@ -202,7 +202,7 @@
     <string english="In-Game Timer is OFF" translation="Enluda tempomontro estas MALŜALTA" explanation="" max="38*2"/>
     <string english="interact button" translation="interaga butono" explanation="menu option"/>
     <string english="Interact Button" translation="Interaga butono" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
-    <string english="Toggle whether you interact with prompts using ENTER or E." translation="Baskuligi ĉu interagi al invitoj per aŭ ENTER aŭ E." explanation="prompts: see the `Press %s to talk to .../activate terminal/teleport` below" max="38*3"/>
+    <string english="Toggle whether you interact with prompts using ENTER or E." translation="Baskuligi ĉu interagi al invitoj per aŭ ENTER aŭ E." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="Interact button: %s" translation="Interaga butono: %s" explanation="keyboard key (E or ENTER) is filled in for %s. Speedrunner options menu" max="38*2"/>
@@ -223,7 +223,7 @@
     <string english="Glitchrunner Mode" translation="Cimkuranta reĝimo" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20"/>
     <string english="Re-enable glitches that existed in previous versions of the game." translation="Reebligi cimojn, kiuj ekzistis en antaŭaj versioj de la ludo." explanation="glitchrunner mode" max="38*3"/>
     <string english="Glitchrunner mode is OFF" translation="Cimkuranta reĝimo estas MALŜALTA" explanation="" max="38*2"/>
-    <string english="Glitchrunner mode is %s" translation="Cimkuranta reĝimo estas %s" explanation="a version number is filled in for %s, such as 2.0 or 2.2" max="38*2"/>
+    <string english="Glitchrunner mode is {version}" translation="Cimkuranta reĝimo estas {version}" explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2"/>
     <string english="Select a new glitchrunner version below." translation="Elektu novan version de cimkurado ĉi-sube." explanation="" max="38*3"/>
     <string english="none" translation="neniu" explanation="menu option, do not emulate any older version"/>
     <string english="2.0" translation="2.0" explanation="VVVVVV version number for glitchrunner mode"/>
@@ -461,17 +461,17 @@
     <string english="return to game" translation="reveni al ludo" explanation="pause menu option" max="27"/>
     <string english="quit to menu" translation="eliri al menuo" explanation="pause menu option" max="19"/>
     <string english="Press Left/Right to choose a Teleporter" translation="Premu ←/→ por elekti teleportilon" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40"/>
-    <string english="Press %s to Teleport" translation="Premu %s por teleportiĝi" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="40"/>
-    <string english="- Press %s to Teleport -" translation="- Premu %s por teleportiĝi -" explanation="keyboard key (E or ENTER) is filled in for %s" max="40"/>
-    <string english="Press %s to explode" translation="Premu %s por eksplodi" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
-    <string english="Press %s to talk to Violet" translation="Premu %s por paroli kun Violeto" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to talk to Vitellary" translation="Premu %s por paroli kun Vitelario" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to talk to Vermilion" translation="Premu %s por paroli kun Vermiljo" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to talk to Verdigris" translation="Premu %s por paroli kun Verdigriso" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to talk to Victoria" translation="Premu %s por paroli kun Viktoria" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to activate terminal" translation="Premu %s por aktivigi terminalon" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to activate terminals" translation="Premu %s por aktivigi terminalojn" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. there are 3 next to each other in the ship" max="37"/>
-    <string english="Press %s to interact" translation="Premu %s por interagi" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press {button} to Teleport" translation="Premu {button} por teleportiĝi" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="40"/>
+    <string english="- Press {button} to Teleport -" translation="- Premu {button} por teleportiĝi -" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}" max="40"/>
+    <string english="Press {button} to explode" translation="Premu {button} por eksplodi" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
+    <string english="Press {button} to talk to Violet" translation="Premu {button} por paroli kun Violeto" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="Press {button} to talk to Vitellary" translation="Premu {button} por paroli kun Vitelario" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="Press {button} to talk to Vermilion" translation="Premu {button} por paroli kun Vermiljo" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="Press {button} to talk to Verdigris" translation="Premu {button} por paroli kun Verdigriso" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="Press {button} to talk to Victoria" translation="Premu {button} por paroli kun Viktoria" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="Press {button} to activate terminal" translation="Premu {button} por aktivigi terminalon" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="Press {button} to activate terminals" translation="Premu {button} por aktivigi terminalojn" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
+    <string english="Press {button} to interact" translation="Premu {button} por interagi" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Passion for Exploring" translation="Passion for Exploring" explanation="song name should probably not be translated" max="37"/>
     <string english="Pushing Onwards" translation="Pushing Onwards" explanation="song name should probably not be translated" max="37"/>
     <string english="Positive Force" translation="Positive Force" explanation="song name should probably not be translated" max="37"/>
@@ -538,7 +538,7 @@
     <string english="PRESS ESC TO RETURN TO MENU" translation="PREMU ESK POR REVENI AL MENUO" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36"/>
     <string english="NO SCRIPT IDS FOUND" translation="NENIUJ SKRIPT-IDENTIGAĴOJ TROVIĜIS" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36"/>
     <string english="CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS" translation="KREU SKRIPTON PER AŬ TERMINALO AŬ SKRIPT-SKATOLILO" explanation="Commodore 64-style script editor" max="36*5"/>
-    <string english="CURRENT SCRIPT: %s" translation="NUNA SKRIPTO: %s" explanation="Commodore 64-style script editor. Char limit is soft, but the longer this is, the more often users&quot; script names run offscreen. Consider SCRIPT: instead" max="20"/>
+    <string english="CURRENT SCRIPT: {name}" translation="NUNA SKRIPTO: {name}" explanation="Commodore 64-style script editor. Char limit is soft, but the longer this is, the more often users&quot; script names run offscreen. Consider SCRIPT: instead" max="20"/>
     <string english="Left click to place warp destination" translation="Maldekstraklaku por meti teleport-celon" explanation="warp token: small teleporter with entrance and destination" max="39"/>
     <string english="Right click to cancel" translation="Dekstraklaku por nuligi" explanation="" max="39"/>
     <string english="&lt; and &gt; keys change tool" translation="Klavoj &lt; kaj &gt; ŝanĝas ilojn" explanation="The &lt; and &gt; keys (actually , and . keys, even on non-US-QWERTY!) can be used to switch between tools" max="36"/>
@@ -588,8 +588,8 @@
     <string english="Enemy Type Changed" translation="Malamik-tipo ŝanĝiĝis" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Rimedoj reŝargiĝis" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="ERARO: malĝusta formo" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
-    <string english="Loaded map: %s.vvvvvv" translation="Ŝargiĝis mapo: %s.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
-    <string english="Saved map: %s.vvvvvv" translation="Konserviĝis mapo: %s.vvvvvv" explanation="successfully saved level file" max="38*3"/>
+    <string english="Loaded map: {filename}.vvvvvv" translation="Ŝargiĝis mapo: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
+    <string english="Saved map: {filename}.vvvvvv" translation="Konserviĝis mapo: {filename}.vvvvvv" explanation="successfully saved level file" max="38*3"/>
     <string english="ERROR: Could not load level" translation="ERARO: Ne eblis ŝargi nivelon!" explanation="that level could not be loaded, maybe it does not exist" max="38*3"/>
     <string english="ERROR: Could not save level!" translation="ERARO: Ne eblis konservi nivelon!" explanation="maybe the filename is too long? exclamation mark because you will lose your data if you quit" max="38*3"/>
     <string english="Mapsize is now [%d,%d]" translation="Mapgrando nun estas [%d,%d]" explanation="editor, the map is now %d by %d" max="38*3"/>

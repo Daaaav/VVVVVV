@@ -202,7 +202,7 @@
     <string english="In-Game Timer is OFF" translation="" explanation="" max="38*2"/>
     <string english="interact button" translation="" explanation="menu option"/>
     <string english="Interact Button" translation="" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
-    <string english="Toggle whether you interact with prompts using ENTER or E." translation="" explanation="prompts: see the `Press %s to talk to .../activate terminal/teleport` below" max="38*3"/>
+    <string english="Toggle whether you interact with prompts using ENTER or E." translation="" explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
     <string english="E" translation="" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="Interact button: %s" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. Speedrunner options menu" max="38*2"/>
@@ -223,7 +223,7 @@
     <string english="Glitchrunner Mode" translation="" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20"/>
     <string english="Re-enable glitches that existed in previous versions of the game." translation="" explanation="glitchrunner mode" max="38*3"/>
     <string english="Glitchrunner mode is OFF" translation="" explanation="" max="38*2"/>
-    <string english="Glitchrunner mode is %s" translation="" explanation="a version number is filled in for %s, such as 2.0 or 2.2" max="38*2"/>
+    <string english="Glitchrunner mode is {version}" translation="" explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2"/>
     <string english="Select a new glitchrunner version below." translation="" explanation="" max="38*3"/>
     <string english="none" translation="" explanation="menu option, do not emulate any older version"/>
     <string english="2.0" translation="" explanation="VVVVVV version number for glitchrunner mode"/>
@@ -461,17 +461,17 @@
     <string english="return to game" translation="volver al juego" explanation="pause menu option" max="27"/>
     <string english="quit to menu" translation="salir al menu" explanation="pause menu option" max="19"/>
     <string english="Press Left/Right to choose a Teleporter" translation="Izq/Der: elegir teletransportador" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40"/>
-    <string english="Press %s to Teleport" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="40"/>
-    <string english="- Press %s to Teleport -" translation="" explanation="keyboard key (E or ENTER) is filled in for %s" max="40"/>
-    <string english="Press %s to explode" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
-    <string english="Press %s to talk to Violet" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to talk to Vitellary" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to talk to Vermilion" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to talk to Verdigris" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to talk to Victoria" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to activate terminal" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
-    <string english="Press %s to activate terminals" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed. there are 3 next to each other in the ship" max="37"/>
-    <string english="Press %s to interact" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. max is when displayed" max="37"/>
+    <string english="Press {button} to Teleport" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="40"/>
+    <string english="- Press {button} to Teleport -" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}" max="40"/>
+    <string english="Press {button} to explode" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
+    <string english="Press {button} to talk to Violet" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="Press {button} to talk to Vitellary" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="Press {button} to talk to Vermilion" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="Press {button} to talk to Verdigris" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="Press {button} to talk to Victoria" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="Press {button} to activate terminal" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="Press {button} to activate terminals" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
+    <string english="Press {button} to interact" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Passion for Exploring" translation="" explanation="song name should probably not be translated" max="37"/>
     <string english="Pushing Onwards" translation="" explanation="song name should probably not be translated" max="37"/>
     <string english="Positive Force" translation="" explanation="song name should probably not be translated" max="37"/>
@@ -538,7 +538,7 @@
     <string english="PRESS ESC TO RETURN TO MENU" translation="" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36"/>
     <string english="NO SCRIPT IDS FOUND" translation="" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36"/>
     <string english="CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS" translation="" explanation="Commodore 64-style script editor" max="36*5"/>
-    <string english="CURRENT SCRIPT: %s" translation="" explanation="Commodore 64-style script editor. Char limit is soft, but the longer this is, the more often users&quot; script names run offscreen. Consider SCRIPT: instead" max="20"/>
+    <string english="CURRENT SCRIPT: {name}" translation="" explanation="Commodore 64-style script editor. Char limit is soft, but the longer this is, the more often users&quot; script names run offscreen. Consider SCRIPT: instead" max="20"/>
     <string english="Left click to place warp destination" translation="" explanation="warp token: small teleporter with entrance and destination" max="39"/>
     <string english="Right click to cancel" translation="" explanation="" max="39"/>
     <string english="&lt; and &gt; keys change tool" translation="" explanation="The &lt; and &gt; keys (actually , and . keys, even on non-US-QWERTY!) can be used to switch between tools" max="36"/>
@@ -588,8 +588,8 @@
     <string english="Enemy Type Changed" translation="" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
     <string english="Reloaded resources" translation="" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
-    <string english="Loaded map: %s.vvvvvv" translation="" explanation="successfully loaded level file" max="38*3"/>
-    <string english="Saved map: %s.vvvvvv" translation="" explanation="successfully saved level file" max="38*3"/>
+    <string english="Loaded map: {filename}.vvvvvv" translation="" explanation="successfully loaded level file" max="38*3"/>
+    <string english="Saved map: {filename}.vvvvvv" translation="" explanation="successfully saved level file" max="38*3"/>
     <string english="ERROR: Could not load level" translation="" explanation="that level could not be loaded, maybe it does not exist" max="38*3"/>
     <string english="ERROR: Could not save level!" translation="" explanation="maybe the filename is too long? exclamation mark because you will lose your data if you quit" max="38*3"/>
     <string english="Mapsize is now [%d,%d]" translation="" explanation="editor, the map is now %d by %d" max="38*3"/>
