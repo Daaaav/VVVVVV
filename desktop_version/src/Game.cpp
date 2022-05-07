@@ -26,6 +26,7 @@
 #include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 #include "Vlogging.h"
 #include "XMLUtils.h"
 
@@ -1878,8 +1879,9 @@ void Game::updatestate(void)
             advancetext = true;
             state++;
             graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a shiny trinket!"), 50, 85, 174, 174, 174);
-            int h = graphics.textboxwrap(-1);
+            int h = graphics.textboxwrap(2);
             graphics.textboxcentertext();
+            graphics.textboxpad(1, 1);
             graphics.textboxcenterx();
 
             int max_trinkets;
@@ -1896,10 +1898,11 @@ void Game::updatestate(void)
             }
 
             char buffer[SCREEN_WIDTH_CHARS + 1];
-            SDL_snprintf(
+            vformat_buf(
                 buffer, sizeof(buffer),
-                loc::gettext("%s out of %s"),
-                help.number_words(trinkets()).c_str(), help.number_words(max_trinkets).c_str()
+                loc::gettext("{n_trinkets|wordy} out of {max_trinkets|wordy}"),
+                "n_trinkets:int, max_trinkets:int",
+                trinkets(), max_trinkets
             );
             graphics.createtextboxflipme(buffer, 50, 95+h, 174, 174, 174);
             graphics.textboxwrap(2);
@@ -1942,8 +1945,9 @@ void Game::updatestate(void)
             advancetext = true;
             state++;
             graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a lost crewmate!"), 50, 85, 174, 174, 174);
-            int h = graphics.textboxwrap(-1);
+            int h = graphics.textboxwrap(2);
             graphics.textboxcentertext();
+            graphics.textboxpad(1, 1);
             graphics.textboxcenterx();
 
             if(cl.numcrewmates()-crewmates()==0)

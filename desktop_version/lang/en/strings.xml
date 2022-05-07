@@ -327,7 +327,7 @@
     <string english=" / " translation="" explanation="inserted between two times, ex: 0:46.90 / 1:15.99. Time trial results"/>
     <string english="%d/%d" translation="" explanation="ex: 2/5"/>
     <string english="%d of %d" translation="" explanation="ex: 2 of 5"/>
-    <string english="%s out of %s" translation="" explanation="ex: One out of Twenty, see numbers.xml" max="34"/>
+    <string english="{n_trinkets|wordy} out of {max_trinkets|wordy}" translation="" explanation="ex: One out of Twenty, see numbers.xml. You can add |upper for an uppercase letter." max="34"/>
     <string english="+1 Rank!" translation="" explanation="time trial rank was upgraded (B → A → S → V). B is minimum, which is purposefully high (see it as 7/10) - S is a popular rank above A in a lot of games, so VVVVVV added a rank above that." max="12"/>
     <string english="Rank:" translation="" explanation="time trial rank" max="9"/>
     <string english="B" translation="" explanation="time trial rank" max="5"/>
@@ -592,7 +592,7 @@
     <string english="Saved map: {filename}.vvvvvv" translation="" explanation="successfully saved level file" max="38*3"/>
     <string english="ERROR: Could not load level" translation="" explanation="that level could not be loaded, maybe it does not exist" max="38*3"/>
     <string english="ERROR: Could not save level!" translation="" explanation="maybe the filename is too long? exclamation mark because you will lose your data if you quit" max="38*3"/>
-    <string english="Mapsize is now [%d,%d]" translation="" explanation="editor, the map is now %d by %d" max="38*3"/>
+    <string english="Mapsize is now [{width},{height}]" translation="" explanation="editor, the map is now {width} by {height}" max="38*3"/>
     <string english="Direct Mode Disabled" translation="" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to automatic mode" max="38*3"/>
     <string english="Direct Mode Enabled" translation="" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to manual mode" max="38*3"/>
     <string english="ERROR: Warp lines must be on edges" translation="" explanation="level editor, warp lines make a room edge be connected to its opposite edge. So they must be placed on one of the edges, not in the middle" max="38*3"/>
@@ -629,13 +629,13 @@
     <string english="Please be alright, everyone..." translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Congratulations!
 
-You have found a shiny trinket!" translation="" explanation="" max="37*4"/>
+You have found a shiny trinket!" translation="" explanation="" max="34*4"/>
     <string english="Congratulations!
 
-You have found a lost crewmate!" translation="" explanation="" max="37*4"/>
+You have found a lost crewmate!" translation="" explanation="" max="34*4"/>
     <string english="Congratulations!
 
-You have found the secret lab!" translation="" explanation="" max="37*4"/>
+You have found the secret lab!" translation="" explanation="" max="34*4"/>
     <string english="The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu." translation="" explanation="" max="36*10"/>
     <string english="Viridian" translation="" explanation="crewmate name (player)" max="15"/>
     <string english="Violet" translation="" explanation="crewmate name" max="15"/>

@@ -84,6 +84,7 @@ const char* gettext_roomname_special(const char* eng);
 
 bool is_cutscene_translated(const std::string& script_id);
 
+uint32_t toupper_ch(uint32_t ch);
 std::string toupper(const std::string& lower);
 std::string remove_toupper_escape_chars(const std::string& _s);
 

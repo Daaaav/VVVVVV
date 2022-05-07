@@ -327,7 +327,7 @@
     <string english=" / " translation=" / " explanation="inserted between two times, ex: 0:46.90 / 1:15.99. Time trial results"/>
     <string english="%d/%d" translation="%d/%d" explanation="ex: 2/5"/>
     <string english="%d of %d" translation="%d el %d" explanation="ex: 2 of 5"/>
-    <string english="%s out of %s" translation="%s el %s" explanation="ex: One out of Twenty, see numbers.xml" max="34"/>
+    <string english="{n_trinkets|wordy} out of {max_trinkets|wordy}" translation="{n_trinkets|wordy|upper} el {max_trinkets|wordy}" explanation="ex: One out of Twenty, see numbers.xml. You can add |upper for an uppercase letter." max="34"/>
     <string english="+1 Rank!" translation="+1 rango!" explanation="time trial rank was upgraded (B → A → S → V). B is minimum, which is purposefully high (see it as 7/10) - S is a popular rank above A in a lot of games, so VVVVVV added a rank above that." max="12"/>
     <string english="Rank:" translation="Rango:" explanation="time trial rank" max="9"/>
     <string english="B" translation="B" explanation="time trial rank" max="5"/>
@@ -592,7 +592,7 @@
     <string english="Saved map: {filename}.vvvvvv" translation="Konserviĝis mapo: {filename}.vvvvvv" explanation="successfully saved level file" max="38*3"/>
     <string english="ERROR: Could not load level" translation="ERARO: Ne eblis ŝargi nivelon!" explanation="that level could not be loaded, maybe it does not exist" max="38*3"/>
     <string english="ERROR: Could not save level!" translation="ERARO: Ne eblis konservi nivelon!" explanation="maybe the filename is too long? exclamation mark because you will lose your data if you quit" max="38*3"/>
-    <string english="Mapsize is now [%d,%d]" translation="Mapgrando nun estas [%d,%d]" explanation="editor, the map is now %d by %d" max="38*3"/>
+    <string english="Mapsize is now [{width},{height}]" translation="Mapgrando nun estas [{width},{height}]" explanation="editor, the map is now {width} by {height}" max="38*3"/>
     <string english="Direct Mode Disabled" translation="Rekta reĝimo malebliĝis" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to automatic mode" max="38*3"/>
     <string english="Direct Mode Enabled" translation="Rekta reĝimo ebliĝis" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to manual mode" max="38*3"/>
     <string english="ERROR: Warp lines must be on edges" translation="ERARO: teleportlinioj estu sur randoj" explanation="level editor, warp lines make a room edge be connected to its opposite edge. So they must be placed on one of the edges, not in the middle" max="38*3"/>
@@ -631,17 +631,17 @@
 
 You have found a shiny trinket!" translation="Gratulon!
 
-Vi trovis brilan kolektaĵon!" explanation="" max="37*4"/>
+Vi trovis brilan kolektaĵon!" explanation="" max="34*4"/>
     <string english="Congratulations!
 
 You have found a lost crewmate!" translation="Gratulon!
 
-Vi trovis perditan skipanon!" explanation="" max="37*4"/>
+Vi trovis perditan skipanon!" explanation="" max="34*4"/>
     <string english="Congratulations!
 
 You have found the secret lab!" translation="Gratulon!
 
-Vi trovis la sekretan labon!" explanation="" max="37*4"/>
+Vi trovis la sekretan labon!" explanation="" max="34*4"/>
     <string english="The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu." translation="La sekreta labo estas aparta de la aliaj partoj de la ludo. Eblas reveni ĉi tien iam ajn, elektante SEKRETAN LABON en la ludmenuo." explanation="" max="36*10"/>
     <string english="Viridian" translation="Viridiano" explanation="crewmate name (player)" max="15"/>
     <string english="Violet" translation="Violeto" explanation="crewmate name" max="15"/>

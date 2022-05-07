@@ -2579,25 +2579,26 @@ void maprender(void)
         break;
     case 2:
     {
-        int total;
+        int max_trinkets;
 #ifndef NO_CUSTOM_LEVELS
         if (map.custommode)
         {
-            total = cl.numtrinkets();
+            max_trinkets = cl.numtrinkets();
         }
         else
 #endif
         {
-            total = 20;
+            max_trinkets = 20;
         }
 
         /* Stats. */
         graphics.Print(0, FLIP(52, 8), loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow, true);
         char buffer[SCREEN_WIDTH_CHARS + 1];
-        SDL_snprintf(
+        vformat_buf(
             buffer, sizeof(buffer),
-            loc::gettext("%s out of %s"),
-            help.number_words(game.trinkets()).c_str(), help.number_words(total).c_str()
+            loc::gettext("{n_trinkets|wordy} out of {max_trinkets|wordy}"),
+            "n_trinkets:int, max_trinkets:int",
+            game.trinkets(), max_trinkets
         );
         graphics.Print(0, FLIP(64, 8), buffer, 96, 96, 96, true);
 

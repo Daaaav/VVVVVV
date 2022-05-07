@@ -18,6 +18,7 @@
 #include "Map.h"
 #include "Music.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 #include "Vlogging.h"
 #include "Xoshiro.h"
 
@@ -1749,8 +1750,9 @@ void scriptclass::run(void)
                 graphics.textboxremovefast();
 
                 graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a shiny trinket!"), 50, 85, 174, 174, 174);
-                int h = graphics.textboxwrap(-1);
+                int h = graphics.textboxwrap(2);
                 graphics.textboxcentertext();
+                graphics.textboxpad(1, 1);
                 graphics.textboxcenterx();
 
                 int max_trinkets;
@@ -1767,10 +1769,11 @@ void scriptclass::run(void)
                 }
 
                 char buffer[SCREEN_WIDTH_CHARS + 1];
-                SDL_snprintf(
+                vformat_buf(
                     buffer, sizeof(buffer),
-                    loc::gettext("%s out of %s"),
-                    help.number_words(game.trinkets()).c_str(), help.number_words(max_trinkets).c_str()
+                    loc::gettext("{n_trinkets|wordy} out of {max_trinkets|wordy}"),
+                    "n_trinkets:int, max_trinkets:int",
+                    game.trinkets(), max_trinkets
                 );
                 graphics.createtextboxflipme(buffer, 50, 95+h, 174, 174, 174);
                 graphics.textboxwrap(2);
@@ -1795,8 +1798,9 @@ void scriptclass::run(void)
                 graphics.textboxremovefast();
 
                 graphics.createtextbox(loc::gettext("Congratulations!\n\nYou have found the secret lab!"), 50, 85, 174, 174, 174);
-                graphics.textboxwrap(-1);
+                graphics.textboxwrap(2);
                 graphics.textboxcentertext();
+                graphics.textboxpad(1, 1);
                 graphics.textboxcenterx();
                 graphics.textboxcentery();
 

@@ -272,7 +272,7 @@ bool is_cutscene_translated(const std::string& script_id)
     return hashmap_get(map, (void*) map_script_key, SDL_strlen(map_script_key), &ptr_unused);
 }
 
-static uint32_t toupper_ch(uint32_t ch)
+uint32_t toupper_ch(uint32_t ch)
 {
     // Convert a single Unicode codepoint to its uppercase variant
     // Supports important Latin (1 and A), Cyrillic and Greek

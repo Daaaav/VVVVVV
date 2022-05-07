@@ -2639,9 +2639,10 @@ void editorinput(void)
                 if(cl.mapwidth>=cl.maxwidth) cl.mapwidth=cl.maxwidth;
                 if(cl.mapheight>=cl.maxheight) cl.mapheight=cl.maxheight;
                 char buffer[3*SCREEN_WIDTH_CHARS + 1];
-                SDL_snprintf(
+                vformat_buf(
                     buffer, sizeof(buffer),
-                    loc::gettext("Mapsize is now [%d,%d]"),
+                    loc::gettext("Mapsize is now [{width},{height}]"),
+                    "width:int, height:int",
                     cl.mapwidth, cl.mapheight
                 );
                 ed.note = buffer;
