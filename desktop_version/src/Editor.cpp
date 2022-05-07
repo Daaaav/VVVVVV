@@ -345,9 +345,10 @@ static void editormenurender(int tr, int tg, int tb)
             creator = translate_creator(cl.creator);
         }
         char creatorline[SCREEN_WIDTH_CHARS + 1];
-        SDL_snprintf(
+        vformat_buf(
             creatorline, sizeof(creatorline),
-            loc::gettext("by %s"),
+            loc::gettext("by {author}"),
+            "author:str",
             creator.c_str()
         );
         graphics.Print( -1, 60, creatorline, tr, tg, tb, true);

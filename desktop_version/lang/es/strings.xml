@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Please read README.txt for information about the language files -->
 <strings>
-    <string english="LOADING... %2d%%" translation="" explanation="on loading screen. %2d = number from 0-100, %% = one percent sign" max="26"/>
+    <string english="LOADING... {percent|digits=2|spaces}%" translation="" explanation="on loading screen. {percent} = number from 0-100" max="26"/>
     <string english="Game paused" translation="Juego pausado" explanation="pause screen" max="40"/>
     <string english="[click to resume]" translation="[Click para continuar]" explanation="pause screen" max="40"/>
     <string english="Press M to mute in game" translation="Presiona M para silenciar el juego" explanation="pause screen" max="40"/>
@@ -35,7 +35,7 @@
     <string english="secret lab" translation="laboratorio secreto" explanation="menu option"/>
     <string english="play modes" translation="jugar modos" explanation="menu option"/>
     <string english="ERROR: No levels found." translation="ERROR: No se encontraron niveles." explanation="" max="38*3"/>
-    <string english="by %s" translation="Por %s" explanation="%s: author of custom level, appears in the custom levels list and editor"/>
+    <string english="by {author}" translation="Por {author}" explanation="{author}: author of custom level, appears in the custom levels list and editor"/>
     <string english="ERROR: This level has no start point!" translation="ERROR: Este nivel no tiene punto de inicio" explanation="" max="38*5"/>
     <string english="ERROR" translation="" explanation="title" max="20"/>
     <string english="WARNING" translation="" explanation="title" max="20"/>
@@ -604,11 +604,11 @@
     <string english="ERROR: Max number of trinkets is 100" translation="" explanation="editor, user tried to place another trinket" max="38*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="" explanation="editor, user tried to place another crewmate" max="38*3"/>
     <string english="Rolled credits" translation="" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
-    <string english="%d:%02d:%02d" translation="" explanation="time format H:MM:SS"/>
-    <string english="%d:%02d:%02d.%02d" translation="" explanation="time format H:MM:SS.CC"/>
-    <string english="%d:%02d" translation="" explanation="time format M:SS"/>
-    <string english="%d:%02d.%02d" translation="" explanation="time format M:SS.CC"/>
-    <string english="%d.%02d" translation="" explanation="time format S.CC"/>
+    <string english="{hrs}:{min|digits=2}:{sec|digits=2}" translation="" explanation="time format H:MM:SS"/>
+    <string english="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" translation="" explanation="time format H:MM:SS.CC"/>
+    <string english="{min}:{sec|digits=2}" translation="" explanation="time format M:SS"/>
+    <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="" explanation="time format M:SS.CC"/>
+    <string english="{sec}.{cen|digits=2}" translation="" explanation="time format S.CC"/>
     <string english=".99" translation="" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
     <string english="Level Complete!" translation="" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="Game Complete!" translation="" explanation="Might be tight, the exclamation mark may be removed" max="18"/>

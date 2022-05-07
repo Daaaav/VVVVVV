@@ -5,6 +5,7 @@
 #include "Localization.h"
 #include "KeyPoll.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 
 static int pre_fakepercent=0, pre_transition=30;
 static bool pre_startgame=false;
@@ -122,7 +123,12 @@ void preloaderrender(void)
 
   if (print_percentage) {
     char buffer[SCREEN_WIDTH_CHARS + 1];
-    SDL_snprintf(buffer, sizeof(buffer), loc::gettext("LOADING... %2d%%"), pre_fakepercent);
+    vformat_buf(
+      buffer, sizeof(buffer),
+      loc::gettext("LOADING... {percent|digits=2|spaces}%"),
+      "percent:int",
+      pre_fakepercent
+    );
 
     int percentage_len = graphics.len(buffer);
     graphics.Print(282-percentage_len, 204, buffer, 124, 112, 218, false);

@@ -7,6 +7,7 @@
 #include "Constants.h"
 #include "Localization.h"
 #include "Maths.h"
+#include "VFormat.h"
 
 static const char* GCChar(const SDL_GameControllerButton button)
 {
@@ -184,24 +185,27 @@ void UtilityClass::format_time(char* buffer, const size_t buffer_size, int secon
     if (h > 0)
     {
         /* H:MM:SS / H:MM:SS.CC */
-        SDL_snprintf(buffer, buffer_size,
-            loc::gettext(frames == -1 ? "%d:%02d:%02d" : "%d:%02d:%02d.%02d"),
+        vformat_buf(buffer, buffer_size,
+            loc::gettext(frames == -1 ? "{hrs}:{min|digits=2}:{sec|digits=2}" : "{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}"),
+            "hrs:int, min:int, sec:int, cen:int",
             h, m, s, frames * 100 / 30
         );
     }
     else if (m > 0 || always_minutes || frames == -1)
     {
         /* M:SS / M:SS.CC */
-        SDL_snprintf(buffer, buffer_size,
-            loc::gettext(frames == -1 ? "%d:%02d" : "%d:%02d.%02d"),
+        vformat_buf(buffer, buffer_size,
+            loc::gettext(frames == -1 ? "{min}:{sec|digits=2}" : "{min}:{sec|digits=2}.{cen|digits=2}"),
+            "min:int, sec:int, cen:int",
             m, s, frames * 100 / 30
         );
     }
     else
     {
         /* S.CC */
-        SDL_snprintf(buffer, buffer_size,
-            loc::gettext("%d.%02d"),
+        vformat_buf(buffer, buffer_size,
+            loc::gettext("{sec}.{cen|digits=2}"),
+            "sec:int, cen:int",
             s, frames * 100 / 30
         );
     }

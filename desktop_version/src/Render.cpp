@@ -21,6 +21,7 @@
 #include "Script.h"
 #include "UtilityClass.h"
 #include "Version.h"
+#include "VFormat.h"
 
 static int tr;
 static int tg;
@@ -174,9 +175,10 @@ static void menurender(void)
         }else{
           graphics.bigprint( -1, 15, cl.ListOfMetaData[tmp].title, tr, tg, tb, true);
           char creatorline[SCREEN_WIDTH_CHARS + 1];
-          SDL_snprintf(
+          vformat_buf(
             creatorline, sizeof(creatorline),
-            loc::gettext("by %s"),
+            loc::gettext("by {author}"),
+            "author:str",
             cl.ListOfMetaData[tmp].creator.c_str()
           );
           graphics.Print( -1, 40, creatorline, tr, tg, tb, true);
@@ -2503,9 +2505,10 @@ void maprender(void)
 
             graphics.bigprint(-1, FLIP(45, 8), meta.title, 196, 196, 255 - help.glow, true);
             char buffer[SCREEN_WIDTH_CHARS + 1];
-            SDL_snprintf(
+            vformat_buf(
                 buffer, sizeof(buffer),
-                loc::gettext("by %s"),
+                loc::gettext("by {author}"),
+                "author:str",
                 meta.creator.c_str()
             );
             graphics.Print(-1, FLIP(70, 8), buffer, 196, 196, 255 - help.glow, true);
