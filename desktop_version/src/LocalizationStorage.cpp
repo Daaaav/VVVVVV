@@ -62,8 +62,8 @@ static void loadmeta(LangMeta& meta, const std::string& langcode = lang)
     meta.toupper = true;
     meta.toupper_i_dot = false;
     meta.toupper_lower_escape_char = false;
-    meta.menu_select = "[ %s ]";
-    meta.menu_select_tight = "[%s]";
+    meta.menu_select = "[ {label} ]";
+    meta.menu_select_tight = "[{label}]";
     meta.font_w = 8;
     meta.font_h = 8;
 

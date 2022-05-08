@@ -24,6 +24,6 @@
     <toupper_lower_escape_char>0</toupper_lower_escape_char>
 
     <!-- The indication that a certain menu option or button is selected -->
-    <menu_select>[ %s ]</menu_select>
-    <menu_select_tight>[%s]</menu_select_tight>
+    <menu_select>[ {label} ]</menu_select>
+    <menu_select_tight>[{label}]</menu_select_tight>
 </langmeta>

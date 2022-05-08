@@ -16,6 +16,7 @@
 #include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 #include "Vlogging.h"
 
 void Graphics::init(void)
@@ -449,7 +450,7 @@ void Graphics::map_tab(int opt, const char* text, bool selected /*= false*/)
     if (selected)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
-        SDL_snprintf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select_tight.c_str(), text);
+        vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select_tight.c_str(), "label:str", text);
         Print(x - len(buffer)/2, 220, buffer, 196, 196, 255 - help.glow);
     }
     else
@@ -481,7 +482,7 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
         std::string text_upper(loc::toupper(text));
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
-        SDL_snprintf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), text_upper.c_str());
+        vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", text_upper.c_str());
         Print(x - 16, y, buffer, 196, 196, 255 - help.glow);
     }
     else
@@ -1821,7 +1822,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
                 opt_text = loc::remove_toupper_escape_chars(opt.text);
             }
 
-            SDL_snprintf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), opt_text.c_str());
+            vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", opt_text.c_str());
 
             // Account for brackets
             x -= (len(buffer)-len(opt_text))/2;

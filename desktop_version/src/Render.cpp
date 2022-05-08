@@ -96,7 +96,7 @@ static void volumesliderrender(void)
     else
     {
         /* Draw selection brackets. */
-        SDL_snprintf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), slider);
+        vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", slider);
     }
 
     graphics.Print(-1, 95, buffer, tr, tg, tb, true);
@@ -2146,7 +2146,7 @@ void maprender(void)
     {
         // While in a cutscene, you can only save
         char buffer[SCREEN_WIDTH_CHARS + 1];
-        SDL_snprintf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select_tight.c_str(), loc::gettext("SAVE"));
+        vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select_tight.c_str(), "label:str", loc::gettext("SAVE"));
         graphics.Print(-1, 220, buffer, 196, 196, 255 - help.glow, true);
     }
     else if (game.menupage <= 3)
