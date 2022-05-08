@@ -685,7 +685,7 @@ void Game::remaining_textbox(void)
     char buffer[SCREEN_WIDTH_CHARS + 1];
     if (remaining > 0)
     {
-        loc::gettext_plural_fill(buffer, sizeof(buffer), "%s remain", "%s remains", remaining);
+        loc::gettext_plural_fill(buffer, sizeof(buffer), "{n_crew|wordy} remain", "{n_crew|wordy} remains", "n_crew:int", remaining);
     }
     else
     {
@@ -1959,7 +1959,8 @@ void Game::updatestate(void)
                 char buffer[SCREEN_WIDTH_CHARS + 1];
                 loc::gettext_plural_fill(
                     buffer, sizeof(buffer),
-                    "%s remain", "%s remains",
+                    "{n_crew|wordy} remain", "{n_crew|wordy} remains",
+                    "n_crew:int",
                     cl.numcrewmates()-crewmates()
                 );
                 graphics.createtextboxflipme(buffer, 50, 95+h, 174, 174, 174);
@@ -2744,8 +2745,9 @@ void Game::updatestate(void)
             char buffer[SCREEN_WIDTH_CHARS + 1];
             loc::gettext_plural_fill(
                 buffer, sizeof(buffer),
-                "Hardest Room (with %d deaths)",
-                "Hardest Room (with %d death)",
+                "Hardest Room (with {n_deaths} deaths)",
+                "Hardest Room (with {n_deaths} death)",
+                "n_deaths:int",
                 hardestroomdeaths
             );
             graphics.createtextboxflipme(buffer, -1, 158, 0,0,0);

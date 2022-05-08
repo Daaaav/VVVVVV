@@ -6,6 +6,7 @@
 
 #include "Game.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 
 namespace loc
 {
@@ -79,17 +80,21 @@ const char* gettext_plural(const char* eng_plural, const char* eng_singular, int
     return gettext_plural_english(eng_plural, eng_singular, n);
 }
 
-void gettext_plural_fill(char* buf, size_t buf_len, const char* eng_plural, const char* eng_singular, int count)
+void gettext_plural_fill(char* buf, size_t buf_len, const char* eng_plural, const char* eng_singular, const char* args_index, ...)
 {
+    /* Choose the right plural string based on a number, and then vformat that string.
+     * The first vararg determines the specific plural form. */
+
+    va_list args;
+    va_start(args, args_index);
+    int count = va_arg(args, int);
+    va_end(args);
+
     const char* tra = gettext_plural(eng_plural, eng_singular, count);
-    if (SDL_strstr(tra, "%d") != NULL)
-    {
-        SDL_snprintf(buf, buf_len, tra, count);
-    }
-    else
-    {
-        SDL_snprintf(buf, buf_len, tra, help.number_words(count).c_str());
-    }
+
+    va_start(args, args_index);
+    vformat_buf_valist(buf, buf_len, tra, args_index, args);
+    va_end(args);
 }
 
 std::string getnumber(int n)

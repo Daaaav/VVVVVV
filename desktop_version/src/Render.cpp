@@ -1101,10 +1101,22 @@ static void menurender(void)
             graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.ndmresultcrewstats[i], true);
         }
         char buffer[2*SCREEN_WIDTH_CHARS + 1];
-        loc::gettext_plural_fill(buffer, sizeof(buffer), "You rescued %s crewmates", "You rescued %s crewmate", game.ndmresultcrewrescued);
+        loc::gettext_plural_fill(
+            buffer, sizeof(buffer),
+            "You rescued {n_crew|wordy} crewmates",
+            "You rescued {n_crew|wordy} crewmate",
+            "n_crew:int",
+            game.ndmresultcrewrescued
+        );
         graphics.Print(0, 100, buffer, tr, tg, tb, true);
 
-        loc::gettext_plural_fill(buffer, sizeof(buffer), "and found %s trinkets.", "and found %s trinket.", game.ndmresulttrinkets);
+        loc::gettext_plural_fill(
+            buffer, sizeof(buffer),
+            "and found {n_trinkets|wordy} trinkets.",
+            "and found {n_trinkets|wordy} trinket.",
+            "n_trinkets:int",
+            game.ndmresulttrinkets
+        );
         graphics.PrintWrap(0, 110, buffer, tr, tg, tb, true);
 
         graphics.Print(0, 145, loc::gettext("You managed to reach:"), tr, tg, tb, true);
@@ -1148,7 +1160,13 @@ static void menurender(void)
         graphics.Print(0, 100, loc::gettext("You rescued all the crewmates!"), tr, tg, tb, true);
 
         char buffer[3*SCREEN_WIDTH_CHARS + 1];
-        loc::gettext_plural_fill(buffer, sizeof(buffer), "And you found %s trinkets.", "And you found %s trinket.", game.ndmresulttrinkets);
+        loc::gettext_plural_fill(
+            buffer, sizeof(buffer),
+            "And you found {n_trinkets|wordy} trinkets.",
+            "And you found {n_trinkets|wordy} trinket.",
+            "n_trinkets:int",
+            game.ndmresulttrinkets
+        );
         graphics.PrintWrap(0, 110, buffer, tr, tg, tb, true);
 
         graphics.PrintWrap(0, 160, loc::gettext("A new trophy has been awarded and placed in the secret lab to acknowledge your achievement!"), tr, tg, tb, true);
@@ -2511,7 +2529,13 @@ void maprender(void)
 
             int remaining = cl.numcrewmates() - game.crewmates();
 
-            loc::gettext_plural_fill(buffer, sizeof(buffer), "%s crewmates remain", "%s crewmate remains", remaining);
+            loc::gettext_plural_fill(
+                buffer, sizeof(buffer),
+                "{n_crew|wordy} crewmates remain",
+                "{n_crew|wordy} crewmate remains",
+                "n_crew:int",
+                remaining
+            );
             graphics.Print(1, FLIP(165, 8), buffer, 196, 196, 255 - help.glow, true);
         }
 #endif

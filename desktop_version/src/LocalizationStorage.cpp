@@ -10,6 +10,7 @@
 #include "Graphics.h"
 #include "Unused.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 #include "Vlogging.h"
 
 
@@ -339,33 +340,37 @@ static bool max_check_string(const char* str, const char* max)
     return does_overflow;
 }
 
-static void max_check_string_plural(unsigned char form, const char* str, const char* max, unsigned int expect)
+static void max_check_string_plural(unsigned char form, const char* str, const char* max, const char* var, unsigned int expect)
 {
-    if (str == NULL)
+    if (str == NULL || var == NULL)
     {
         return;
     }
 
+    /* Create an args index from just the name of the variable. */
+    char args_index[40];
+    vformat_buf(args_index, sizeof(args_index), "{var}:int", "var:str", var);
+
     char buf[20*SCREEN_WIDTH_CHARS + 1];
 
-    if (SDL_strstr(str, "%d") != NULL)
+    if (expect > 100)
     {
         /* Treat `expect` as a single example, it's the number of digits that's most important */
         if (form_for_count(expect) == form)
         {
-            SDL_snprintf(buf, sizeof(buf), str, expect);
+            vformat_buf(buf, sizeof(buf), str, args_index, expect);
 
             max_check_string(buf, max);
         }
     }
     else
     {
-        /* Test all numbers from 0 to `expect`, since number words have differing lengths */
+        /* Test all numbers from 0 to `expect`, since if we have wordy numbers, they have differing lengths */
         for (unsigned int test = 0; test <= expect; test++)
         {
             if (form_for_count(test) == form)
             {
-                SDL_snprintf(buf, sizeof(buf), str, help.number_words(test).c_str());
+                vformat_buf(buf, sizeof(buf), str, args_index, test);
 
                 if (max_check_string(buf, max))
                 {
@@ -475,7 +480,8 @@ static void loadtext_strings_plural(bool check_max)
             {
                 max_check_string_plural(
                     form, subElem->Attribute("translation"),
-                    pElem->Attribute("max"), pElem->UnsignedAttribute("expect", 101)
+                    pElem->Attribute("max"),
+                    pElem->Attribute("var"), pElem->UnsignedAttribute("expect", 101)
                 );
             }
         }
