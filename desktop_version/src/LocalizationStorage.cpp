@@ -347,9 +347,10 @@ static void max_check_string_plural(unsigned char form, const char* str, const c
         return;
     }
 
-    /* Create an args index from just the name of the variable. */
+    /* Create an args index from just the name of the variable.
+     * Also get rid of all other placeholders.*/
     char args_index[40];
-    vformat_buf(args_index, sizeof(args_index), "{var}:int", "var:str", var);
+    vformat_buf(args_index, sizeof(args_index), "{var}:int, _:int", "var:str", var);
 
     char buf[20*SCREEN_WIDTH_CHARS + 1];
 
@@ -358,7 +359,7 @@ static void max_check_string_plural(unsigned char form, const char* str, const c
         /* Treat `expect` as a single example, it's the number of digits that's most important */
         if (form_for_count(expect) == form)
         {
-            vformat_buf(buf, sizeof(buf), str, args_index, expect);
+            vformat_buf(buf, sizeof(buf), str, args_index, expect, 0);
 
             max_check_string(buf, max);
         }
@@ -370,7 +371,7 @@ static void max_check_string_plural(unsigned char form, const char* str, const c
         {
             if (form_for_count(test) == form)
             {
-                vformat_buf(buf, sizeof(buf), str, args_index, test);
+                vformat_buf(buf, sizeof(buf), str, args_index, test, 0);
 
                 if (max_check_string(buf, max))
                 {
@@ -428,7 +429,11 @@ static void loadtext_strings(bool check_max)
         }
         if (check_max)
         {
-            max_check_string(tra, pElem->Attribute("max"));
+            /* VFormat placeholders distort the limits check.
+             * (max_check_string ignores NULL strings.) */
+            char* filled = vformat_alloc(tra, "_:int", 0);
+            max_check_string(filled, pElem->Attribute("max"));
+            SDL_free(filled);
         }
     }
 }
