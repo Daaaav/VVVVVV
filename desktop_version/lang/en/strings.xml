@@ -205,7 +205,7 @@
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="" explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
     <string english="E" translation="" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="" explanation="keyboard key ENTER. Speedrunner options menu"/>
-    <string english="Interact button: %s" translation="" explanation="keyboard key (E or ENTER) is filled in for %s. Speedrunner options menu" max="38*2"/>
+    <string english="Interact button: {button}" translation="" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="" explanation="menu option"/>
     <string english="Fake Load Screen" translation="" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20"/>
     <string english="Disable the fake loading screen which appears on game launch." translation="" explanation="" max="38*3"/>
@@ -325,9 +325,11 @@
     <string english="NUMBER OF DEATHS:" translation="" explanation="amount of times the player died" max="32"/>
     <string english="SHINY TRINKETS:" translation="" explanation="amount of trinkets collected" max="32"/>
     <string english=" / " translation="" explanation="inserted between two times, ex: 0:46.90 / 1:15.99. Time trial results"/>
-    <string english="%d/%d" translation="" explanation="ex: 2/5"/>
-    <string english="%d of %d" translation="" explanation="ex: 2 of 5"/>
+    <string english="{n_trinkets}/{max_trinkets}" translation="" explanation="ex: 2/5"/>
+    <string english="{n_trinkets} of {max_trinkets}" translation="" explanation="ex: 2 of 5"/>
     <string english="{n_trinkets|wordy} out of {max_trinkets|wordy}" translation="" explanation="ex: One out of Twenty, see numbers.xml. You can add |upper for an uppercase letter." max="34"/>
+    <string english="{savebox_n_trinkets|wordy}" translation="" explanation="trinket count in telesave/quicksave information box. You can add |upper for an uppercase letter."/>
+    <string english="{gamecomplete_n_trinkets|wordy}" translation="" explanation="trinket count on Game Complete screen (after Trinkets Found:) You can add |upper for an uppercase letter."/>
     <string english="+1 Rank!" translation="" explanation="time trial rank was upgraded (B → A → S → V). B is minimum, which is purposefully high (see it as 7/10) - S is a popular rank above A in a lot of games, so VVVVVV added a rank above that." max="12"/>
     <string english="Rank:" translation="" explanation="time trial rank" max="9"/>
     <string english="B" translation="" explanation="time trial rank" max="5"/>
@@ -695,9 +697,7 @@ You have found the secret lab!" translation="" explanation="" max="34*4"/>
     <string english="Last 1 minute on the Super Gravitron" translation="" explanation="achievement/trophy description" max="38*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Could not mount %s: real directory doesn&apos;t exist" translation="" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
-    <string english="%s.zip is not structured correctly! It is missing %s.vvvvvv." translation="" explanation="%s: custom level filename" max="38*6"/>
-    <string english="%s.zip is not structured correctly! It has .vvvvvv file(s) other than %s.vvvvvv." translation="" explanation="%s: custom level filename" max="38*6"/>
+    <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="" explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

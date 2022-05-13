@@ -8,6 +8,7 @@
 #include "LocalizationMaint.h"
 #include "Map.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 
 
 namespace roomname_translator
@@ -123,7 +124,7 @@ namespace roomname_translator
             n_left = map.custommode ? loc::n_untranslated_roomnames_custom : loc::n_untranslated_roomnames;
         }
 
-        SDL_snprintf(buffer, sizeof(buffer), "%3d left", n_left);
+        vformat_buf(buffer, sizeof(buffer), "{n|digits=3|spaces} left", "n:int", n_left);
         graphics.bprint(144, 0, buffer, 255,255,255);
 
         if (map.invincibility)
@@ -131,7 +132,11 @@ namespace roomname_translator
             graphics.bprint(224, 0, "INV", 255,255,128);
         }
 
-        SDL_snprintf(buffer, sizeof(buffer), "(%2d,%2d)", game.roomx % 100, game.roomy % 100);
+        vformat_buf(buffer, sizeof(buffer),
+            "({x|digits=2|spaces},{y|digits=2|spaces})",
+            "x:int, y:int",
+            game.roomx % 100, game.roomy % 100
+        );
         graphics.bprint(320-56, 0, buffer, 255,255,255);
 
         if (map.roomname_special)

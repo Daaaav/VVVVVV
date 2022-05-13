@@ -349,7 +349,7 @@ static void max_check_string_plural(unsigned char form, const char* str, const c
 
     /* Create an args index from just the name of the variable.
      * Also get rid of all other placeholders.*/
-    char args_index[40];
+    char args_index[60];
     vformat_buf(args_index, sizeof(args_index), "{var}:int, _:int", "var:str", var);
 
     char buf[20*SCREEN_WIDTH_CHARS + 1];

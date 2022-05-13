@@ -887,8 +887,9 @@ void Game::updatestate(void)
                 crewmate = "Victoria";
             }
             char english[SCREEN_WIDTH_TILES*3 + 1]; /* ASCII only */
-            SDL_snprintf(english, sizeof(english),
-                "When you're NOT standing on the %s, %s will stop and wait for you.",
+            vformat_buf(english, sizeof(english),
+                "When you're NOT standing on the {floorceiling}, {crewmate} will stop and wait for you.",
+                "floorceiling:str, crewmate:str",
                 floorceiling, crewmate
             );
             graphics.createtextbox(loc::gettext(english), -1, 3, 174, 174, 174);
@@ -949,8 +950,9 @@ void Game::updatestate(void)
                 crewmate = "Victoria";
             }
             char english[SCREEN_WIDTH_TILES*3 + 1]; /* ASCII only */
-            SDL_snprintf(english, sizeof(english),
-                "When you're standing on the %s, %s will try to walk to you.",
+            vformat_buf(english, sizeof(english),
+                "When you're standing on the {floorceiling}, {crewmate} will try to walk to you.",
+                "floorceiling:str, crewmate:str",
                 floorceiling, crewmate
             );
             graphics.createtextbox(loc::gettext(english), -1, 3, 174, 174, 174);
@@ -2701,9 +2703,14 @@ void Game::updatestate(void)
             statedelay = 45;
 
             const char* label = loc::gettext("Trinkets Found:");
-            std::string tempstring = help.number_words(trinkets());
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(buffer, sizeof(buffer),
+                loc::gettext("{gamecomplete_n_trinkets|wordy}"),
+                "gamecomplete_n_trinkets:int",
+                trinkets()
+            );
             graphics.createtextboxflipme(label, 168-graphics.len(label), 84, 0,0,0);
-            graphics.createtextboxflipme(tempstring, 180, 84, 0, 0, 0);
+            graphics.createtextboxflipme(buffer, 180, 84, 0, 0, 0);
             break;
         }
         case 3504:

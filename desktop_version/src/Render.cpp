@@ -684,8 +684,10 @@ static void menurender(void)
             loc::TextOverflow& overflow = loc::text_overflows[of];
 
             char buffer[SCREEN_WIDTH_CHARS + 1];
-            SDL_snprintf(buffer, sizeof(buffer), "%ld/%ld    %d*%d (%dx%d)    [%s]",
-                of+1, loc::text_overflows.size(),
+            vformat_buf(buffer, sizeof(buffer),
+                "{page}/{total}    {max_w}*{max_h} ({max_w_px}x{max_h_px})    [{lang}]",
+                "page:int, total:int, max_w:int, max_h:int, max_w_px:int, max_h_px:int, lang:str",
+                (int) of+1, (int) loc::text_overflows.size(),
                 overflow.max_w, overflow.max_h,
                 overflow.max_w_px, overflow.max_h_px,
                 overflow.lang.c_str()
@@ -810,7 +812,7 @@ static void menurender(void)
                 button = loc::gettext("ENTER");
             }
 
-            SDL_snprintf(buffer, sizeof(buffer), loc::gettext("Interact button: %s"), button);
+            vformat_buf(buffer, sizeof(buffer), loc::gettext("Interact button: {button}"), "button:str", button);
             graphics.PrintWrap(-1, next_y, buffer, tr, tg, tb, true);
             break;
         }
@@ -1063,8 +1065,13 @@ static void menurender(void)
                 graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.tele_crewstats[i], true);
             }
             graphics.Print(59, 132-20, game.tele_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-            const std::string& trinketcount = help.number_words(game.tele_trinkets);
-            graphics.Print(262-graphics.len(trinketcount), 132-20, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(buffer, sizeof(buffer),
+                loc::gettext("{savebox_n_trinkets|wordy}"),
+                "savebox_n_trinkets:int",
+                game.tele_trinkets
+            );
+            graphics.Print(262-graphics.len(buffer), 132-20, buffer, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
             graphics.drawsprite(34, 126-20, 50, graphics.col_clock);
             graphics.drawsprite(270, 126-20, 22, graphics.col_trinket);
@@ -1082,8 +1089,13 @@ static void menurender(void)
                 graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.quick_crewstats[i], true);
             }
             graphics.Print(59, 132-20, game.quick_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-            const std::string& trinketcount = help.number_words(game.quick_trinkets);
-            graphics.Print(262-graphics.len(trinketcount), 132-20, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(buffer, sizeof(buffer),
+                loc::gettext("{savebox_n_trinkets|wordy}"),
+                "savebox_n_trinkets:int",
+                game.quick_trinkets
+            );
+            graphics.Print(262-graphics.len(buffer), 132-20, buffer, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
             graphics.drawsprite(34, 126-20, 50, graphics.col_clock);
             graphics.drawsprite(270, 126-20, 22, graphics.col_trinket);
@@ -1198,9 +1210,10 @@ static void menurender(void)
         }
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
-        SDL_snprintf(
+        vformat_buf(
             buffer, sizeof(buffer),
-            loc::gettext("%d of %d"),
+            loc::gettext("{n_trinkets} of {max_trinkets}"),
+            "n_trinkets:int, max_trinkets:int",
             game.timetrialresulttrinkets, game.timetrialresultshinytarget
         );
         graphics.drawspritesetcol(22, 80+55, 22, 22);
@@ -1375,9 +1388,10 @@ static void menurender(void)
                 graphics.Print(label_len+32, 75, game.timetstring(game.besttimes[id_trial]), tr, tg, tb);
 
                 char buffer[SCREEN_WIDTH_CHARS + 1];
-                SDL_snprintf(
+                vformat_buf(
                     buffer, sizeof(buffer),
-                    loc::gettext("%d/%d"),
+                    loc::gettext("{n_trinkets}/{max_trinkets}"),
+                    "n_trinkets:int, max_trinkets:int",
                     game.besttrinkets[id_trial], max_trinkets
                 );
                 graphics.Print(label_len+32, 85, buffer, tr, tg, tb);
@@ -2059,9 +2073,10 @@ void gamerender(void)
             {
                 graphics.bprint(8+label_len, 30,help.String(game.deathcounts),  196, 196, 196);
             }
-            SDL_snprintf(
+            vformat_buf(
                 buffer, sizeof(buffer),
-                loc::gettext("%d of %d"),
+                loc::gettext("{n_trinkets} of {max_trinkets}"),
+                "n_trinkets:int, max_trinkets:int",
                 game.trinkets(), game.timetrialshinytarget
             );
             if(game.trinkets()<game.timetrialshinytarget)
@@ -2707,8 +2722,13 @@ void maprender(void)
         }
 
         graphics.Print(59, FLIP(132, 8), game.savetime, 255 - help.glow/2, 255 - help.glow/2, 255 - help.glow/2);
-        const std::string& trinketcount = help.number_words(game.savetrinkets);
-        graphics.Print(262 - graphics.len(trinketcount), FLIP(132, 8), trinketcount, 255 - help.glow/2, 255 - help.glow/2, 255 - help.glow/2);
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        vformat_buf(buffer, sizeof(buffer),
+            loc::gettext("{savebox_n_trinkets|wordy}"),
+            "savebox_n_trinkets:int",
+            game.savetrinkets
+        );
+        graphics.Print(262 - graphics.len(buffer), FLIP(132, 8), buffer, 255 - help.glow/2, 255 - help.glow/2, 255 - help.glow/2);
 
         graphics.drawsprite(34, FLIP(126, 17), 50, graphics.col_clock);
         graphics.drawsprite(270, FLIP(126, 17), 22, graphics.col_trinket);
