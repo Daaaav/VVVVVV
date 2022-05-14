@@ -61,7 +61,7 @@ The menu options are stored as their full-lowercase version, and they're normall
 
 Turkish: The uppercase of i is İ, for example, "dil" becomes "DİL" and not "DIL". To enable this, set toupper_i_dot to 1 in meta.xml.
 
-Irish: Specific letters may be kept in lowercase when making a string full-caps. For example, "mac tíre na hainnise" should be "MAC TÍRE NA hAINNISE" instead of "MAC TÍRE NA HAINNISE". If enabled, you can use the ~ character before the letter which should be forced in lowercase: "mac tíre na ~hainnise". This can be enabled by setting toupper_lower_escape_char to 1 in meta.xml.
+Irish: Specific letters may be kept in lowercase when making a string full-caps. For example, "mac tíre na hainnise" should be "MAC TÍRE NA hAINNISE" instead of "MAC TÍRE NA HAINNISE". If enabled, you can use the ~ character before the letter which should be forced in lowercase: "mac tíre na ~hainnise". This ~ character only has an effect in strings which are subject to automatic uppercasing (otherwise it'll be visible as å). This can be enabled by setting toupper_lower_escape_char to 1 in meta.xml.
 
 
 
@@ -77,7 +77,7 @@ Strings are usually annotated with their limits (for example, max="38*3"). This 
 
 (A) if it's a single number (for example "33"): the hard maximum number of characters that are known to fit. Being exactly on the limit may not look good, so try to go at least a character under it if possible.
 
-(B) if X*Y (for example 33*3): the text should fit within an area of X characters wide and Y lines high. The text is automatically word-wrapped to fit (unless disabled in meta.xml). If automatic word-wrapping is disabled, you need to manually insert newlines with |, or possibly as a literal newline (may be &#10; in XML).
+(B) if X*Y (for example 33*3): the text should fit within an area of X characters wide and Y lines high. The text is automatically word-wrapped to fit (unless disabled in meta.xml). If automatic word-wrapping is disabled, you need to manually insert newlines with |, or possibly as a literal newline.
 
 If your language uses a font with a different size than 8x8, there will be two limits given: `max`, which is the original limit based on the 8x8 font, and `max_local`, which is adapted to the size of your font. To get this notation, either use the maintenance option to sync language files from within VVVVVV, or use the Excel document. Ensure the correct font is set in meta.xml first.
 
@@ -105,11 +105,11 @@ In certain places, VVVVVV (perhaps unconventionally) writes out numbers as full 
 
 These words can be found in numbers.xml. The numbers Zero through Twenty will be the most commonly seen. It's always possible for numbers up to One Hundred to be seen though (players can put up to 100 trinkets and crewmates in a custom level).
 
-Your language may not allow the same word to be used for the same number in different scenarios. For example, in Polish, "twenty out of twenty" may be "dwadzieścia z dwudziestu". It's possible to leave the translations for all the numbers empty. In that case, numeric forms will be used automatically (20 out of 20).
+Your language may not allow the same word to be used for the same number in different scenarios. For example, in Polish, "twenty out of twenty" may be "dwadzieścia z dwudziestu". You can choose when these "wordy" numbers are used and when numeric forms (20 out of 20) are used (see "STRING FORMATTING" below). It's also possible to leave the translations for all the numbers empty. In that case, numeric forms will always be used.
 
 "Lots" is used for any number above 100, but this will only show up in unusual/glitchy situations where the user is basically asking for it anyway, so it doesn't have to fit correctly in all these examples (and it already forms questionable sentences in English).
 
-In English, using Title Case is appropriate, but in most other languages, it probably isn't. Therefore, you may want to translate all numbers in lowercase, when it's more appropriate to use "twenty out of twenty" than "Twenty out of Twenty".
+In English, using Title Case is appropriate, but in most other languages, it probably isn't. Therefore, you may want to translate all numbers in lowercase, when it's more appropriate to use "twenty out of twenty" than "Twenty out of Twenty". You can then apply auto-uppercasing to any placeholder you choose (see "STRING FORMATTING" below), making it possible to display "Twenty out of twenty".
 
 As for plural forms: English and some other languages have a singular (1 crewmate) and a plural (2 crewmates). Some languages may have different rules (like for 0, or numbers that end in 2, 3 and 4). VVVVVV can accommodate these rules and allows you to translate certain strings (strings_plural.xml) in different ways depending on the number. The different forms can be defined by changing the "form" attribute on each number in numbers.xml. For English, form "1" is used for singular, and form "0" is used for plural. You can set up any amount of plural forms you will need.
 
@@ -129,10 +129,10 @@ Suppose you need a different form for the number 1, the numbers 2-4, and all oth
 
 When translating the plural strings, you can add translations for every unique form. For example:
 
-    <string english_plural="You rescued %s crewmates" english_singular="You rescued %s crewmate">
-        <translation form="0" translation="You saved %s crewmates"/>
-        <translation form="1" translation="You saved %s crewmate"/>
-        <translation form="2" translation="You saved %s crewmateys"/>
+    <string english_plural="You rescued {n_crew} crewmates" english_singular="You rescued {n_crew} crewmate">
+        <translation form="0" translation="You saved {n_crew} crewmates"/>
+        <translation form="1" translation="You saved {n_crew} crewmate"/>
+        <translation form="2" translation="You saved {n_crew} crewmateys"/>
     </string>
 
 Plural forms can appear both for wordy numbers ("you saved one crewmate") as well as numbery numbers ("you died 136 times in this room"), so we need the plural forms to go further than 100.
@@ -140,6 +140,22 @@ Plural forms can appear both for wordy numbers ("you saved one crewmate") as wel
 For the numbers 100 and higher: as far as I can find (with information about plural rules across 160 languages) - the plural forms always repeat themselves every 100 numbers. So numbers 100-199 always have the same forms as 200-299, 300-399, and so on. However, 100-119 (200-219, etc) don't always work the same as 0-19 do (in English for example, it's not "101 trinket" despite ending in 01). Therefore, forms for 100-119 can also be filled in. The system will simply copy 20-99 for 120-199, and that should be enough to cover all numbers from 0 to infinity. Technically the system supports providing forms until 199, but it should never be necessary to go higher than 119, so they're not in the language files by default.
 
 Numbers higher than 100 cannot have a written out translation ("one hundred and one" does not exist), and the word "Lots" cannot have a special plural form.
+
+
+
+=== S T R I N G   F O R M A T T I N G ===
+
+Strings sometimes have placeholders, which look like {name} or {name|flags}. For example, "{n_trinkets} of {max_trinkets}".
+
+Placeholders can also have "flags" that modify their behavior. These can be added or removed in the translation as needed. Flags are separated by | (pipe).
+
+For example, "{n_trinkets|wordy}" makes the number of trinkets display as a "wordy" number (twenty instead of 20) (See "NUMBERS AND PLURAL FORMS"). "{n_trinkets|wordy|upper}" makes that word start with a capital letter (Twenty instead of twenty). So for example, "{n_trinkets|wordy|upper} of {max_trinkets|wordy}" may be displayed as "Twenty out of twenty" - assuming numbers.xml is translated all-lowercase.
+
+The valid flags are:
+  - wordy         [ints only] use number words (Twenty) instead of digits (20)
+  - digits=n      [ints only] force minimum n digits, like n=5 --> 00031
+  - spaces        [only if using digits=n] use leading spaces instead of 0s
+  - upper         uppercase the first character with loc::toupper_ch
 
 
 
@@ -151,7 +167,9 @@ TODO: basic story information, crewmate names, ranks (Captain/Doctor/Professor/O
 
 === E X C E L ===
 
-The game uses XML files for storing the translations. If you prefer, there is an .xlsm file which can be used as an editor. This can load in all the XML files, and then save changes back as XML. TODO
+The game uses XML files for storing the translations. If you prefer, there is an .xlsm file which can be used as an editor. This can load in all the XML files, and then save changes back as XML.
+
+If you're an official translator, you should have received a version of this spreadsheet. If not, a blank version can be found here: https://github.com/Dav999-v/TranslationEditor
 
 
 
@@ -176,9 +194,9 @@ This file contains some general information about this translation. It contains 
 
 * toupper_lower_escape_char: When automatically uppercasing, allow ~ to be used to stop the next letter from being uppercased, for Irish.
 
-* menu_select: The indication that a certain menu option or button is selected, in addition to the automatic uppercasing if "toupper" is enabled. For example, "[ %s ]" looks like "[ SELECTED ]"
+* menu_select: The indication that a certain menu option or button is selected, in addition to the automatic uppercasing if "toupper" is enabled. For example, "[ {label} ]" looks like "[ SELECTED ]"
 
-* menu_select_tight: Similar to menu_select, except used in cases where space is a bit more limited (like the map screen). "[%s]" looks like "[SELECTED]"
+* menu_select_tight: Similar to menu_select, except used in cases where space is a bit more limited (like the map screen). "[{label}]" looks like "[SELECTED]"
 
 
 == strings.xml ==
@@ -215,9 +233,9 @@ Then, simply add translations for each form you set up in numbers.xml. For examp
     <translation form="1" translation="Shows up for all numbers with form=1"/>
     <translation form="2" translation="Shows up for all numbers with form=2"/>
 
-%s indicates a word will be filled in (like twelve), and %d means a number (12)
+The "wordy" flag indicates a word will be filled in (like twelve), otherwise a number (12). As described above in "STRING FORMATTING", you can change this as needed in your translations.
 
-The `expect` attribute indicates how high the values are that you may expect to be filled in. For example, expect="20" means any value above 20 will probably not be used in this string. This is mainly needed so that the limits check knows not to worry about a number like "seventy seven" making the string too long, but it may also be a useful context clue.
+The `var` attribute indicates which placeholder will be filled in, the `expect` attribute indicates how high the values are that you may expect to be filled in. For example, expect="20" means any value above 20 will probably not be used in this string. This is mainly needed so that the limits check knows not to worry about a number like "seventy seven" making the string too long, but it may also be a useful context clue.
 
 
 == numbers.xml ==
@@ -228,9 +246,9 @@ This will be filled in strings like:
 - Two crewmates remaining
 - Two remaining
 
-If this can't work for your language ("Twenty out of Twenty" uses two different "Twenty"), you can leave all of these empty, in which case numbers will be used (20 out of 20).
+If this can't work for your language, or wordy numbers are really unfitting, you can leave all of these empty, in which case numbers will be used (20 out of 20).
 
-You may want to do it all-lowercase in order to not get English-style title casing. ("Twenty-one out of Twenty-one" may be grammatically incorrect in MANY languages, and "twenty-one out of twenty-one" would be better)
+You may want to do it all-lowercase in order to not get English-style title casing. "Twenty-one out of Twenty-one" may be grammatically incorrect in MANY languages, and "twenty-one out of twenty-one" would be better. Translating the numbers all-lowercase allows you to apply context-specific uppercasing, like "Twenty-one out of twenty-one" (see "STRING FORMATTING" above)
 
 This file also allows you to define the plural forms used in strings_plural.xml.
 
