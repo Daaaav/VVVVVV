@@ -25,7 +25,7 @@
     <string english="Adjust volume settings and soundtrack." translation="Pas het volume of de soundtrack aan." explanation="" max="38*5"/>
     <string english="Adjust volume settings." translation="Pas het volume aan." explanation="" max="38*5"/>
     <string english="continue" translation="hervatten" explanation="menu option"/>
-    <string english="continue from teleporter" translation="hervatten vanaf teleporter" explanation="menu option, game save that was made at a teleporter"/>
+    <string english="continue from teleporter" translation="hervatten vanaf teleport" explanation="menu option, game save that was made at a teleporter"/>
     <string english="Tele Save" translation="Telesave" explanation="title, game save that was made at a teleporter" max="20"/>
     <string english="continue from quicksave" translation="hervatten vanaf quicksave" explanation="menu option, game save that was made freely from the menu (at any checkpoint)"/>
     <string english="Quick Save" translation="Quicksave" explanation="title, game save that was made freely from the menu (at any checkpoint)" max="20"/>
@@ -305,7 +305,7 @@
     <string english="GAME OVER" translation="GAME OVER" explanation="bigger title" max="13"/>
     <string english="You managed to reach:" translation="Je wist te bereiken:" explanation="you managed to reach the following room" max="40"/>
     <string english="Keep trying! You&apos;ll get there!" translation="Blijf het proberen! Je komt er wel!" explanation="player died before managing to save anybody" max="38*2"/>
-    <string english="Nice one!" translation="Prima!" explanation="player died after saving one crewmate" max="38*2"/>
+    <string english="Nice one!" translation="Niet slecht!" explanation="player died after saving one crewmate" max="38*2"/>
     <string english="Wow! Congratulations!" translation="Wauw! Gefeliciteerd!" explanation="player died after saving two crewmates" max="38*2"/>
     <string english="Incredible!" translation="Fantastisch!" explanation="player died after saving three crewmates" max="38*2"/>
     <string english="Unbelievable! Well done!" translation="Ongelooflijk! Goed gedaan!" explanation="player died after saving four crewmates" max="38*2"/>
@@ -447,7 +447,7 @@
     <string english="ERROR: Could not save settings file!" translation="FOUT: Kon instellingenbestand niet opslaan!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Spel opgeslagen!" explanation="in-game menu" max="38*2"/>
     <string english="[Press ACTION to save your game]" translation="[Druk op ACTIE om je spel op te slaan]" explanation="in-game menu" max="40"/>
-    <string english="(Note: The game is autosaved at every teleporter.)" translation="(Opmerking: het spel wordt automatisch opgeslagen bij elke teleporter.)" explanation="in-game menu" max="38*3"/>
+    <string english="(Note: The game is autosaved at every teleporter.)" translation="(Opmerking: het spel wordt automatisch opgeslagen bij elke teleport.)" explanation="in-game menu" max="38*3"/>
     <string english="Last Save:" translation="Laatst opgeslagen:" explanation="in-game menu" max="40"/>
     <string english="Return to main menu?" translation="Terug naar het hoofdmenu?" explanation="in-game menu" max="38*4"/>
     <string english="Do you want to quit? You will lose any unsaved progress." translation="Wil je stoppen? Je niet-opgeslagen voortgang gaat verloren." explanation="in-game menu" max="38*4"/>
@@ -462,7 +462,7 @@
     <string english="yes, quit" translation="ja, afsluiten" explanation="quit program menu option"/>
     <string english="return to game" translation="terug naar het spel" explanation="pause menu option" max="27"/>
     <string english="quit to menu" translation="stoppen" explanation="pause menu option" max="19"/>
-    <string english="Press Left/Right to choose a Teleporter" translation="Links/Rechts: kies teleporter" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40"/>
+    <string english="Press Left/Right to choose a Teleporter" translation="Links/Rechts: kies teleport" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40"/>
     <string english="Press {button} to Teleport" translation="Druk op {button} om te teleporteren" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="40"/>
     <string english="- Press {button} to Teleport -" translation="- Druk op {button} om te teleporteren -" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}" max="40"/>
     <string english="Press {button} to explode" translation="{button}: Ontploffen" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
