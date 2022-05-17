@@ -2,7 +2,7 @@
 <!-- Please read README.txt for information about the language files -->
 <strings>
     <string english="LOADING... {percent|digits=2|spaces}%" translation="ŜARGADO... {percent|digits=2|spaces}%" explanation="on loading screen. {percent} = number from 0-100" max="26"/>
-    <string english="Game paused" translation="Ludo paŭzigita" explanation="pause screen" max="40"/>
+    <string english="Game paused" translation="Ludo estas paŭzigita" explanation="pause screen" max="40"/>
     <string english="[click to resume]" translation="[alklaku por daŭrigi]" explanation="pause screen" max="40"/>
     <string english="Press M to mute in game" translation="Premu M por silentigi la ludon" explanation="pause screen" max="40"/>
     <string english="Press N to mute music only" translation="Premu N por silentigi nur muzikon" explanation="pause screen" max="40"/>
@@ -328,8 +328,8 @@
     <string english="{n_trinkets}/{max_trinkets}" translation="{n_trinkets}/{max_trinkets}" explanation="ex: 2/5"/>
     <string english="{n_trinkets} of {max_trinkets}" translation="{n_trinkets} el {max_trinkets}" explanation="ex: 2 of 5"/>
     <string english="{n_trinkets|wordy} out of {max_trinkets|wordy}" translation="{n_trinkets|wordy|upper} el {max_trinkets|wordy}" explanation="ex: One out of Twenty, see numbers.xml. You can add |upper for an uppercase letter." max="34"/>
-    <string english="{savebox_n_trinkets|wordy}" translation="" explanation="trinket count in telesave/quicksave information box. You can add |upper for an uppercase letter."/>
-    <string english="{gamecomplete_n_trinkets|wordy}" translation="" explanation="trinket count on Game Complete screen (after Trinkets Found:) You can add |upper for an uppercase letter."/>
+    <string english="{savebox_n_trinkets|wordy}" translation="{savebox_n_trinkets|wordy|upper}" explanation="trinket count in telesave/quicksave information box. You can add |upper for an uppercase letter."/>
+    <string english="{gamecomplete_n_trinkets|wordy}" translation="{gamecomplete_n_trinkets|wordy|upper}" explanation="trinket count on Game Complete screen (after Trinkets Found:) You can add |upper for an uppercase letter."/>
     <string english="+1 Rank!" translation="+1 rango!" explanation="time trial rank was upgraded (B → A → S → V). B is minimum, which is purposefully high (see it as 7/10) - S is a popular rank above A in a lot of games, so VVVVVV added a rank above that." max="12"/>
     <string english="Rank:" translation="Rango:" explanation="time trial rank" max="9"/>
     <string english="B" translation="B" explanation="time trial rank" max="5"/>
