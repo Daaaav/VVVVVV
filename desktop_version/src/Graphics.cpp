@@ -1318,7 +1318,7 @@ void Graphics::updatetextboxes(void)
 
 void Graphics::drawimagecol( int t, int xp, int yp, bool cent/*= false*/ )
 {
-    if (!INBOUNDS_VEC(t, images))
+    if (!INBOUNDS_VEC(t, images) || images[t] == NULL)
     {
         return;
     }
@@ -1349,7 +1349,7 @@ void Graphics::drawimagecol( int t, int xp, int yp, bool cent/*= false*/ )
 
 void Graphics::drawimage( int t, int xp, int yp, bool cent/*=false*/ )
 {
-    if (!INBOUNDS_VEC(t, images))
+    if (!INBOUNDS_VEC(t, images) || images[t] == NULL)
     {
         return;
     }
@@ -1377,7 +1377,7 @@ void Graphics::drawimage( int t, int xp, int yp, bool cent/*=false*/ )
 
 void Graphics::drawpartimage( int t, int xp, int yp, int wp, int hp)
 {
-  if (!INBOUNDS_VEC(t, images))
+  if (!INBOUNDS_VEC(t, images) || images[t] == NULL)
   {
     return;
   }

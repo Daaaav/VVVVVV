@@ -387,7 +387,15 @@ int main(int argc, char *argv[])
         VVV_exit(1); \
     }
 
-        if (ARG("-renderer"))
+        if (ARG("-version"))
+        {
+            /* Just print the version and exit. No vlogging. */
+            /* TODO: Version should be de-duplicated and only set in one place... TwT */
+            /* TODO: Also print commit date and hash, if applicable. */
+            puts("VVVVVV v2.4");
+            VVV_exit(0);
+        }
+        else if (ARG("-renderer"))
         {
             ARG_INNER({
                 i++;
@@ -664,18 +672,30 @@ int main(int argc, char *argv[])
         game.menustart = true;
 
         LevelMetaData meta;
-        if (cl.getLevelMetaData(playtestname, meta)) {
+        CliPlaytestArgs pt_args;
+        if (cl.getLevelMetaDataAndPlaytestArgs(playtestname, meta, &pt_args)) {
             cl.ListOfMetaData.clear();
             cl.ListOfMetaData.push_back(meta);
         } else {
             cl.loadZips();
-            if (cl.getLevelMetaData(playtestname, meta)) {
+            if (cl.getLevelMetaDataAndPlaytestArgs(playtestname, meta, &pt_args)) {
                 cl.ListOfMetaData.clear();
                 cl.ListOfMetaData.push_back(meta);
             } else {
                 vlog_error("Level not found");
                 VVV_exit(1);
             }
+        }
+
+        if (pt_args.valid)
+        {
+            savefileplaytest = true;
+            savex = pt_args.x;
+            savey = pt_args.y;
+            saverx = pt_args.rx;
+            savery = pt_args.ry;
+            savegc = pt_args.gc;
+            savemusic = pt_args.music;
         }
 
         game.loadcustomlevelstats();
@@ -697,6 +717,9 @@ int main(int argc, char *argv[])
         graphics.fademode = FADE_NONE;
     }
 #endif
+
+    /* Only create the window after we have loaded all the assets. */
+    SDL_ShowWindow(gameScreen.m_window);
 
     key.isActive = true;
 
