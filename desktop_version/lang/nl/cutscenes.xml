@@ -411,7 +411,7 @@
         <dialogue speaker="purple" english="Oh no!" translation="O nee!"/>
         <dialogue speaker="purple" english="Maybe that dimension has something to do with the interference that caused us to crash here?" translation="Misschien heeft die dimensie iets te maken met de interferentie waardoor we zijn neergestort?"/>
         <dialogue speaker="purple" english="Hmm, there&apos;s definitely something strange happening..." translation="Hmm, er is duidelijk iets vreemds aan de hand..."/>
-        <dialogue speaker="purple" english="If only we could find the source of that interference!" translation="Konden we maar de bron van die interferentie vinden!"/>
+        <dialogue speaker="purple" english="If only we could find the source of that interference!" translation="Konden we de bron van die interferentie maar vinden!"/>
     </cutscene>
     <cutscene id="talkpurple_8" explanation="">
         <dialogue speaker="purple" english="Hey Captain! Now that you&apos;ve turned off the source of the interference, we can warp everyone back to the ship instantly, if we need to!" translation="Hé Kapitein! Nu je de bron van de interferentie hebt uitgeschakeld kunnen we iedereen altijd terugteleporteren naar het schip, mocht het nodig zijn!"/>
@@ -444,7 +444,7 @@
         <dialogue speaker="green" english="The antenna&apos;s broken! This is going to be very hard to fix..." translation="De antenne is stuk! Dit gaat een hele moeilijke reparatie worden..."/>
     </cutscene>
     <cutscene id="talkgreen_9" explanation="">
-        <dialogue speaker="green" english="It looks like we were warped into solid rock when we crashed!" translation="Het lijkt erop dat we in vast gesteente zijn geteleporteerd toen we zijn neergestort!"/>
+        <dialogue speaker="green" english="It looks like we were warped into solid rock when we crashed!" translation="Het lijkt erop dat we in vast gesteente terecht zijn gekomen toen we zijn neergestort!"/>
         <dialogue speaker="green" english="Hmm. It&apos;s going to be hard to separate from this..." translation="Hmm. Het gaat lastig worden om hiervan los te komen..."/>
     </cutscene>
     <cutscene id="talkgreen_10" explanation="">
@@ -721,7 +721,7 @@ DIMENSIONALE STABILISATOR INACTIEF" centertext="1" pad="1"/>
         <dialogue speaker="blue" english="Wow! You found all of them!" translation="Wauw! Je hebt ze allemaal gevonden!"/>
         <dialogue speaker="player" english="Really? Great!" translation="Echt? Geweldig!"/>
         <dialogue speaker="blue" english="I&apos;ll run some tests and see if I can work out what they&apos;re for..." translation="Ik zal wat proeven uitvoeren en kijken of ik kan uitvinden waar ze voor dienen..."/>
-        <dialogue speaker="player" english="That... that didn&apos;t sound good..." translation="Dat... dat klonk niet goed..."/>
+        <dialogue speaker="player" english="That... that didn&apos;t sound good..." translation="Dat... dat klonk niet best..."/>
         <dialogue speaker="blue" english="Run!" translation="Rennen!"/>
         <dialogue speaker="player" english="Oh no!" translation="O nee!"/>
         <dialogue speaker="red" english="Not again!" translation="Niet weer!"/>
@@ -734,7 +734,7 @@ DIMENSIONALE STABILISATOR INACTIEF" centertext="1" pad="1"/>
         <dialogue speaker="yellow" english="I&apos;ve never seen a teleporter like that before..." translation="Ik heb nog nooit een teleport gezien die er zo uitzag..."/>
         <dialogue speaker="red" english="We should investigate!" translation="We moeten dit onderzoeken!"/>
         <dialogue speaker="purple" english="What do you think, Captain?" translation="Wat denk je, Kapitein?"/>
-        <dialogue speaker="purple" english="Should we find out where it leads?" translation="Moeten we uitvinden waar &apos;ie naartoe leidt?"/>
+        <dialogue speaker="purple" english="Should we find out where it leads?" translation="Moeten we uitvinden waar-ie naartoe leidt?"/>
         <dialogue speaker="player" english="Let&apos;s go!" translation="Goed idee!"/>
         <dialogue speaker="blue" english="Oh no! We&apos;re trapped!" translation="O nee! We zitten vast!"/>
         <dialogue speaker="yellow" english="Oh dear..." translation="O jee..."/>
