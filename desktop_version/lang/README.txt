@@ -6,6 +6,18 @@ This file is encoded in UTF-8.
 
 
 
+=== A D D I N G   N E W   S T R I N G S ===
+
+If you want to add some new text to the game, all you generally need to do to make it translatable is wrap loc::gettext() around your raw strings in the code (you may need to add an #include "Localization.h"), and add the same strings to the English language file. The new strings can be automatically synced from English to all other language files using the translator menu.
+
+For example, "Game paused" can be made translatable by changing it to loc::gettext("Game paused"). Its entry in the English language file could look like this:
+
+    <string english="Game paused" translation="" explanation="pause screen" max="40"/>
+
+The max value indicates how many characters of space there is for the text, and is further described below. It looks like "40" for single-line text, and "38*5" for multi-line text. The max value may not be applicable or may be hard to define, so this attribute can be completely left out. For example, when it's a diagonally-placed menu option, or because the limit depends on the lengths of other strings (like Low/Medium/High in the joystick menu), or a string looks progressively worse the longer it gets. As a general rule: if defining a hard limit would be misleading, then it can be exempt from having a limit.
+
+
+
 === A D D I N G   A   N E W   L A N G U A G E ===
 
 The English language files are basically templates for other languages (all the translations are empty).
@@ -248,7 +260,7 @@ This will be filled in strings like:
 
 If this can't work for your language, or wordy numbers are really unfitting, you can leave all of these empty, in which case numbers will be used (20 out of 20).
 
-You may want to do it all-lowercase in order to not get English-style title casing. "Twenty-one out of Twenty-one" may be grammatically incorrect in MANY languages, and "twenty-one out of twenty-one" would be better. Translating the numbers all-lowercase allows you to apply context-specific uppercasing, like "Twenty-one out of twenty-one" (see "STRING FORMATTING" above)
+You may want to do it all-lowercase in order to not get English-style title casing. "Twenty out of Twenty" may be grammatically incorrect in MANY languages, and "twenty out of twenty" would be better. Translating the numbers all-lowercase allows you to apply context-specific uppercasing, like "Twenty out of twenty" (see "STRING FORMATTING" above)
 
 This file also allows you to define the plural forms used in strings_plural.xml.
 
