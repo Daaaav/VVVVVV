@@ -44,7 +44,7 @@ bool load_lang_doc(
     }
     if (!asset_loaded && !FILESYSTEM_loadTiXml2Document(("lang/" + langcode + "/" + cat + ".xml").c_str(), doc))
     {
-        vlog_info("Could not load language file %s/%s.", langcode.c_str(), cat.c_str());
+        vlog_debug("Could not load language file %s/%s.", langcode.c_str(), cat.c_str());
         return false;
     }
     if (doc.Error())
