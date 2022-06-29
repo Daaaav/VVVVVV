@@ -338,6 +338,7 @@ if(MSVC)
     endif()
 
     target_compile_options(lodepng-static PRIVATE /MT)
+    target_compile_options(c-hashmap-static PRIVATE /MT)
 endif()
 
 # SDL2 Dependency (Detection pulled from FAudio)
