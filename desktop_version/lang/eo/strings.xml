@@ -544,21 +544,21 @@
     <string english="Left click to place warp destination" translation="Maldekstraklaku por meti teleport-celon" explanation="warp token: small teleporter with entrance and destination" max="39"/>
     <string english="Right click to cancel" translation="Dekstraklaku por nuligi" explanation="" max="39"/>
     <string english="&lt; and &gt; keys change tool" translation="Klavoj &lt; kaj &gt; ŝanĝas ilojn" explanation="The &lt; and &gt; keys (actually , and . keys, even on non-US-QWERTY!) can be used to switch between tools" max="36"/>
-    <string english="1: Walls" translation="1: Muroj" explanation="editor tool. Solid tiles" max="32"/>
+    <string english="1: Walls" translation="1: Muro" explanation="editor tool. Solid tiles" max="32"/>
     <string english="2: Backing" translation="2: Fonaĵo" explanation="editor tool. Non-solid background tiles" max="32"/>
     <string english="3: Spikes" translation="3: Pikaĵoj" explanation="editor tool" max="32"/>
     <string english="4: Trinkets" translation="4: Kolektaĵoj" explanation="editor tool. Shiny trinkets/collectibles" max="32"/>
     <string english="5: Checkpoint" translation="5: Konservejo" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
-    <string english="6: Disappear" translation="6: Malaperaĵo" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
-    <string english="7: Conveyors" translation="7: Moviloj" explanation="editor tool. Conveyor belt" max="32"/>
-    <string english="8: Moving" translation="8: Moviĝaĵo" explanation="editor tool. Moving platform" max="32"/>
-    <string english="9: Enemies" translation="9: Malamikoj" explanation="editor tool" max="32"/>
-    <string english="0: Grav Line" translation="0: Renversilo" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
+    <string english="6: Disappear" translation="6: Malaperanta platformo" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
+    <string english="7: Conveyors" translation="7: Transportbendo" explanation="editor tool. Conveyor belt" max="32"/>
+    <string english="8: Moving" translation="8: Moviĝanta platformo" explanation="editor tool. Moving platform" max="32"/>
+    <string english="9: Enemies" translation="9: Malamiko" explanation="editor tool" max="32"/>
+    <string english="0: Grav Line" translation="0: Gravita linio" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
     <string english="R: Roomtext" translation="R: Ĉambroteksto" explanation="editor tool. Freely typed text, consider just Text" max="32"/>
     <string english="T: Terminal" translation="T: Terminalo" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
     <string english="Y: Script Box" translation="Y: Skriptskatolo" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
     <string english="U: Warp Token" translation="U: Teleportĵetono" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
-    <string english="I: Warp Lines" translation="I: Teleportlinioj" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32"/>
+    <string english="I: Warp Lines" translation="I: Teleportlinio" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32"/>
     <string english="O: Crewmate" translation="O: Skipano" explanation="editor tool. Crewmate that can be rescued" max="32"/>
     <string english="P: Start Point" translation="P: Komencejo" explanation="editor tool" max="32"/>
     <string english="START" translation="EKEJO" explanation="start point in level editor" max="10"/>
@@ -566,9 +566,9 @@
     <string english="F1: Change Tileset" translation="F1: Ŝanĝi kahelaron" explanation="editor shortcut, switch to different tileset" max="25"/>
     <string english="F2: Change Colour" translation="F2: Ŝanĝi koloron" explanation="editor shortcut, switch to different tileset color/variant" max="25"/>
     <string english="F3: Change Enemies" translation="F3: Ŝanĝi malamikojn" explanation="editor shortcut, change enemy appearance" max="25"/>
-    <string english="F4: Enemy Bounds" translation="F4: Malamiklimoj" explanation="editor shortcut, invisible box which enemies always stay inside of" max="25"/>
+    <string english="F4: Enemy Bounds" translation="F4: Malamikaj limoj" explanation="editor shortcut, invisible box which enemies always stay inside of" max="25"/>
     <string english="F5: Platform Bounds" translation="F5: Platformlimoj" explanation="editor shortcut, invisible box which platforms always stay inside of" max="25"/>
-    <string english="F9: Reload Resources" translation="F9: Reŝargi rimedojn" explanation="editor shortcut, reload tilesets, sprites, music, etc" max="25"/>
+    <string english="F9: Reload Resources" translation="F9: Reŝargi resursojn" explanation="editor shortcut, reload tilesets, sprites, music, etc" max="25"/>
     <string english="F10: Direct Mode" translation="F10: Rekta reĝimo" explanation="editor shortcut, direct mode is manual tile placing mode, where walls are not automatically made nice" max="25"/>
     <string english="W: Change Warp Dir" translation="W: Volviĝdirekto" explanation="editor shortcut, dir=direction, change which edges of the room wrap around. Can be horizontal, vertical or all sides" max="25"/>
     <string english="E: Change Roomname" translation="E: Ĉambronomo" explanation="editor shortcut, the name of the room appears at the bottom" max="25"/>
@@ -587,8 +587,8 @@
     <string english="Ship" translation="Ŝipo" explanation="editor tileset name, Now using Ship Tileset. Spaceship"/>
     <string english="Now using {area} Tileset" translation="Nun uziĝas kahelaro de {area}" explanation="level editor, user changed the tileset of the room to {area} (like Ship, Lab, etc)" max="38*3"/>
     <string english="Tileset Colour Changed" translation="Kahelara koloro ŝanĝiĝis" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
-    <string english="Enemy Type Changed" translation="Malamik-tipo ŝanĝiĝis" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
-    <string english="Reloaded resources" translation="Rimedoj reŝargiĝis" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
+    <string english="Enemy Type Changed" translation="Malamika tipo ŝanĝiĝis" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
+    <string english="Reloaded resources" translation="Resursoj reŝargiĝis" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="ERARO: malĝusta formo" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Ŝargiĝis mapo: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
     <string english="Saved map: {filename}.vvvvvv" translation="Konserviĝis mapo: {filename}.vvvvvv" explanation="successfully saved level file" max="38*3"/>
