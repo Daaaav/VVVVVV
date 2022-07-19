@@ -570,7 +570,7 @@
     <string english="F5: Platform Bounds" translation="F5: Platformlimoj" explanation="editor shortcut, invisible box which platforms always stay inside of" max="25"/>
     <string english="F9: Reload Resources" translation="F9: Reŝargi resursojn" explanation="editor shortcut, reload tilesets, sprites, music, etc" max="25"/>
     <string english="F10: Direct Mode" translation="F10: Rekta reĝimo" explanation="editor shortcut, direct mode is manual tile placing mode, where walls are not automatically made nice" max="25"/>
-    <string english="W: Change Warp Dir" translation="W: Volviĝdirekto" explanation="editor shortcut, dir=direction, change which edges of the room wrap around. Can be horizontal, vertical or all sides" max="25"/>
+    <string english="W: Change Warp Dir" translation="W: Ĉirkaŭflua direkto" explanation="editor shortcut, dir=direction, change which edges of the room wrap around. Can be horizontal, vertical or all sides" max="25"/>
     <string english="E: Change Roomname" translation="E: Ĉambronomo" explanation="editor shortcut, the name of the room appears at the bottom" max="25"/>
     <string english="S: Save Map" translation="S: Konservi" explanation="level editor, save level, `Map` is basically redundant" max="12"/>
     <string english="L: Load Map" translation="L: Ŝargi" explanation="level editor, load level, `Map` is basically redundant" max="12"/>
@@ -598,10 +598,10 @@
     <string english="Direct Mode Disabled" translation="Rekta reĝimo malebliĝis" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to automatic mode" max="38*3"/>
     <string english="Direct Mode Enabled" translation="Rekta reĝimo ebliĝis" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to manual mode" max="38*3"/>
     <string english="ERROR: Warp lines must be on edges" translation="ERARO: teleportlinioj estu sur randoj" explanation="level editor, warp lines make a room edge be connected to its opposite edge. So they must be placed on one of the edges, not in the middle" max="38*3"/>
-    <string english="Room warps in all directions" translation="Ĉambro volviĝas ĉiudirekte" explanation="level editor, all edges of the room are connected with each other. If the player leaves the room they end up on the other side of the same room." max="38*3"/>
-    <string english="Room warps horizontally" translation="Ĉambro volviĝas horizontale" explanation="level editor, the left and right edges of the room are connected with each other. The player can still go to other rooms on the top and bottom" max="38*3"/>
-    <string english="Room warps vertically" translation="Ĉambro volviĝas vertikale" explanation="level editor, the top and bottom edges of the room are connected with each other. The player can still go to other rooms on the left and right" max="38*3"/>
-    <string english="Room warping disabled" translation="Ĉambro-volviĝo malebliĝis" explanation="level editor, no edges are connected and the player can go to other rooms" max="38*3"/>
+    <string english="Room warps in all directions" translation="Ĉambro ĉirkaŭfluas ĉiudirekte" explanation="level editor, all edges of the room are connected with each other. If the player leaves the room they end up on the other side of the same room." max="38*3"/>
+    <string english="Room warps horizontally" translation="Ĉambro ĉirkaŭfluas horizontale" explanation="level editor, the left and right edges of the room are connected with each other. The player can still go to other rooms on the top and bottom" max="38*3"/>
+    <string english="Room warps vertically" translation="Ĉambro ĉirkaŭfluas vertikale" explanation="level editor, the top and bottom edges of the room are connected with each other. The player can still go to other rooms on the left and right" max="38*3"/>
+    <string english="Room warping disabled" translation="Ĉambra ĉirkaŭfluo malebliĝis" explanation="level editor, no edges are connected and the player can go to other rooms" max="38*3"/>
     <string english="ERROR: No checkpoint to spawn at" translation="ERARO: Ne estas konservpunkto ĉi-ĉambre" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="ERARO: Altlimo de kolektaĵoj estas 100" explanation="editor, user tried to place another trinket" max="38*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="ERARO: Altlimo de skipanoj estas 100" explanation="editor, user tried to place another crewmate" max="38*3"/>
