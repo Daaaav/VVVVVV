@@ -230,7 +230,7 @@ void resettext(bool final_shutdown)
         map_translation_cutscene = hashmap_create();
         map_translation_plural = hashmap_create();
 
-        for (size_t i = 0; i <= 101; i++)
+        for (size_t i = 0; i <= 100; i++)
         {
             number[i] = "";
         }
@@ -690,13 +690,8 @@ static void loadtext_numbers(void)
         EXPECT_ELEM(pElem, "number");
 
         const char* value_str = pElem->Attribute("value");
-        bool is_lots = SDL_strcmp(value_str, "lots") == 0;
         int value = help.Int(value_str);
-        if (is_lots)
-        {
-            value = 101;
-        }
-        if ((value >= 0 && value <= 100) || is_lots)
+        if (value >= 0 && value <= 100)
         {
             const char* tra = pElem->Attribute("translation");
             if (tra == NULL)
@@ -707,7 +702,7 @@ static void loadtext_numbers(void)
 
             tally_untranslated(tra, &n_untranslated[UNTRANSLATED_NUMBERS]);
         }
-        if (value >= 0 && value <= 199 && !is_lots)
+        if (value >= 0 && value <= 199)
         {
             int form = pElem->IntAttribute("form", 0);
             number_plural_form[value] = form;

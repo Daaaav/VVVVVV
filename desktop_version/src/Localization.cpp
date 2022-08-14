@@ -99,21 +99,16 @@ void gettext_plural_fill(char* buf, size_t buf_len, const char* eng_plural, cons
 
 std::string getnumber(int n)
 {
-    if (n < 0)
+    if (n < 0 || n > 100)
     {
         return help.String(n);
-    }
-    int ix = n;
-    if (n >= 101)
-    {
-        ix = 101; // Lots
     }
 
-    if (number[ix].empty())
+    if (number[n].empty())
     {
         return help.String(n);
     }
-    return number[ix];
+    return number[n];
 }
 
 static bool is_script_custom(const char* script_id)
