@@ -363,16 +363,16 @@
     <string english="Find twelve trinkets" translation="Vind twaalf artefacten" explanation="" max="40"/>
     <string english="Find fifteen trinkets" translation="Vind vijftien artefacten" explanation="" max="40"/>
     <string english="Find eighteen trinkets" translation="Vind achttien artefacten" explanation="" max="40"/>
-    <string english="RECORDS" translation="RECORDS" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="12"/>
+    <string english="RECORDS" translation="RECORDS" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="15"/>
     <string english="TIME" translation="TIJD" explanation="record time" max="7"/>
     <string english="SHINY" translation="ARTE" explanation="record number of trinkets" max="7"/>
     <string english="LIVES" translation="DOOD" explanation="record lowest number of deaths" max="7"/>
-    <string english="PAR TIME" translation="PAR-TIJD" explanation="followed by the goal time for this time trial" max="11"/>
+    <string english="PAR TIME" translation="PAR-TIJD" explanation="followed by the goal time for this time trial" max="14"/>
     <string english="TIME:" translation="TIJD:" explanation="in time trial. Stopwatch time, not too long"/>
     <string english="DEATH:" translation="DOOD:" explanation="in time trial. Number of times player died, not too long"/>
     <string english="SHINY:" translation="ARTE:" explanation="in time trial. Number of shiny trinkets collected, not too long"/>
     <string english="PAR TIME:" translation="PAR-TIJD:" explanation="in time trial. Goal time for time trial"/>
-    <string english="Best Rank" translation="Beste score" explanation="ranks are B A S V" max="12"/>
+    <string english="BEST RANK" translation="BESTE SCORE" explanation="ranks are B A S V" max="14"/>
     <string english="GO!" translation="GO!" explanation="3, 2, 1, GO!" max="13"/>
     <string english="Go!" translation="Go!" explanation="3, 2, 1, Go!" max="10"/>
     <string english="Congratulations!" translation="Gefeliciteerd!" explanation="title" max="20"/>

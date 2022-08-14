@@ -1374,18 +1374,18 @@ static void menurender(void)
             }
             else
             {
-                graphics.Print(16, 65, loc::gettext("RECORDS"), tr, tg, tb);
+                graphics.Print(32, 65, loc::gettext("RECORDS"), tr, tg, tb);
                 const char* label = loc::gettext("TIME");
                 int label_len = graphics.len(label);
-                graphics.Print(16, 75, label, tr, tg, tb);
+                graphics.Print(32, 75, label, tr, tg, tb);
                 label = loc::gettext("SHINY");
                 label_len = SDL_max(label_len, graphics.len(label));
-                graphics.Print(16, 85, label, tr, tg, tb);
+                graphics.Print(32, 85, label, tr, tg, tb);
                 label = loc::gettext("LIVES");
                 label_len = SDL_max(label_len, graphics.len(label));
-                graphics.Print(16, 95, label, tr, tg, tb);
+                graphics.Print(32, 95, label, tr, tg, tb);
 
-                graphics.Print(label_len+32, 75, game.timetstring(game.besttimes[id_trial]), tr, tg, tb);
+                graphics.Print(label_len+48, 75, game.timetstring(game.besttimes[id_trial]), tr, tg, tb);
 
                 char buffer[SCREEN_WIDTH_CHARS + 1];
                 vformat_buf(
@@ -1394,16 +1394,13 @@ static void menurender(void)
                     "n_trinkets:int, max_trinkets:int",
                     game.besttrinkets[id_trial], max_trinkets
                 );
-                graphics.Print(label_len+32, 85, buffer, tr, tg, tb);
-                graphics.Print(label_len+32, 95, help.String(game.bestlives[id_trial]), tr, tg, tb);
+                graphics.Print(label_len+48, 85, buffer, tr, tg, tb);
+                graphics.Print(label_len+48, 95, help.String(game.bestlives[id_trial]), tr, tg, tb);
 
 
-                graphics.Print(-1, 65, loc::gettext("PAR TIME"), tr, tg, tb, true);
-                graphics.Print(-1, 75, game.timetstring(par), tr, tg, tb, true);
-                const char* best_rank = loc::gettext("Best Rank");
-                int best_rank_len = graphics.len(best_rank);
-                graphics.Print(304-best_rank_len, 65, best_rank, tr, tg, tb);
-
+                const char* str_par_time = loc::gettext("PAR TIME");
+                const std::string par_time = game.timetstring(par);
+                const char* str_best_rank = loc::gettext("BEST RANK");
                 const char* rank;
                 switch(game.bestrank[id_trial])
                 {
@@ -1422,10 +1419,29 @@ static void menurender(void)
                 default:
                     rank = "?";
                 }
-                int rank_w = graphics.len(rank);
+
+                int w[4] = {
+                    graphics.len(str_par_time),
+                    graphics.len(par_time),
+                    graphics.len(str_best_rank),
+                    graphics.len(rank)*2
+                };
+                int longest_w = 0;
+                for (size_t i = 0; i < 4; i++)
+                {
+                    if (w[i] > longest_w)
+                    {
+                        longest_w = w[i];
+                    }
+                }
+                int center_x = 288 - longest_w/2;
+
+                graphics.Print(center_x - w[0]/2, 65, str_par_time, tr, tg, tb);
+                graphics.Print(center_x - w[1]/2, 75, par_time, tr, tg, tb);
+                graphics.Print(center_x - w[2]/2, 95, str_best_rank, tr, tg, tb);
                 graphics.bigprint(
-                    SDL_min((304-best_rank_len/2)-rank_w, 312-rank_w*2),
-                    79,
+                    center_x - w[3]/2,
+                    106,
                     rank,
                     225, 225, 225
                 );
