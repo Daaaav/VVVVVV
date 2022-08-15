@@ -247,6 +247,7 @@ void Graphics::destroy_buffers(void)
 
     FREE_SURFACE(backBuffer)
     FREE_SURFACE(footerbuffer)
+    FREE_SURFACE(roomname_translator::dimbuffer)
     FREE_SURFACE(ghostbuffer)
     FREE_SURFACE(foregroundBuffer)
     FREE_SURFACE(menubuffer)
