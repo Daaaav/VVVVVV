@@ -166,7 +166,7 @@ void KeyPoll::Poll(void)
                 fullscreenkeybind = true;
             }
 
-            if (loc::show_translator_menu && evt.key.keysym.sym == SDLK_F12)
+            if (loc::show_translator_menu && evt.key.keysym.sym == SDLK_F12 && !evt.key.repeat)
             {
                 /* Reload language files */
                 loc::loadtext(false);
