@@ -719,23 +719,24 @@ static void menurender(void)
     {
         graphics.Print(16, 16, loc::get_langmeta()->nativename, tr, tg, tb);
 
-        const char* line_template = "%-32s%4d";
-        char buffer[SCREEN_WIDTH_CHARS+1];
+        const char* line_template = "%4d";
+        char buffer[5];
         int coldiv;
 
         #define stat_line(y, filename, untranslated_counter) \
             SDL_snprintf(buffer, sizeof(buffer), line_template, \
-                filename, untranslated_counter \
+                untranslated_counter \
             ); \
             coldiv = untranslated_counter > 0 ? 1 : 2; \
-            graphics.Print(16, y, buffer, tr/coldiv, tg/coldiv, tb/coldiv)
+            graphics.Print(16, y, filename, tr/coldiv, tg/coldiv, tb/coldiv); \
+            graphics.Print(SCREEN_WIDTH_TILES-48, y, buffer, tr/coldiv, tg/coldiv, tb/coldiv)
 
         stat_line(48, "strings.xml", loc::n_untranslated[loc::UNTRANSLATED_STRINGS]);
         stat_line(64, "numbers.xml", loc::n_untranslated[loc::UNTRANSLATED_NUMBERS]);
         stat_line(80, "strings_plural.xml", loc::n_untranslated[loc::UNTRANSLATED_STRINGS_PLURAL]);
         stat_line(96, "cutscenes.xml", loc::n_untranslated[loc::UNTRANSLATED_CUTSCENES]);
         stat_line(112, "roomnames.xml", loc::n_untranslated_roomnames);
-        stat_line(128, "roomname_special.xml", loc::n_untranslated[loc::UNTRANSLATED_ROOMNAMES_SPECIAL]);
+        stat_line(128, "roomnames_special.xml", loc::n_untranslated[loc::UNTRANSLATED_ROOMNAMES_SPECIAL]);
 
         #undef stat_line
 
