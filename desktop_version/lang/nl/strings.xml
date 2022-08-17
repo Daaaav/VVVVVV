@@ -142,7 +142,7 @@
     <string english="bind enter" translation="enter toewijzen" explanation="menu option"/>
     <string english="bind menu" translation="menu toewijzen" explanation="menu option"/>
     <string english="bind restart" translation="herstarten toewijzen" explanation="menu option. In-game death key to restart at checkpoint"/>
-    <string english="bind interact" translation="gebruiken toewijzen" explanation="menu option"/>
+    <string english="bind interact" translation="interactie toewijzen" explanation="menu option"/>
     <string english="Flip is bound to: " translation="Omkeren is toegewezen aan: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Enter is toegewezen aan: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Menu is toegewezen aan: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
