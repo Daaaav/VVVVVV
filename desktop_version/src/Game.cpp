@@ -885,8 +885,11 @@ void Game::updatestate(void)
             case 4:
                 crewmate = "Verdigris";
                 break;
-            default:
+            case 5:
                 crewmate = "Victoria";
+                break;
+            default:
+                crewmate = "your companion";
             }
             char english[SCREEN_WIDTH_TILES*3 + 1]; /* ASCII only */
             vformat_buf(english, sizeof(english),
@@ -910,13 +913,18 @@ void Game::updatestate(void)
                 obj.flags[61] = true;
                 graphics.textboxremovefast();
                 const char* english;
-                if (lastsaved == 5)
+                switch (lastsaved)
                 {
-                    english = "You can't continue to the next room until she is safely across.";
-                }
-                else
-                {
+                case 2:
+                case 3:
+                case 4:
                     english = "You can't continue to the next room until he is safely across.";
+                    break;
+                case 5:
+                    english = "You can't continue to the next room until she is safely across.";
+                    break;
+                default:
+                    english = "You can't continue to the next room until they are safely across.";
                 }
                 graphics.createtextbox(loc::gettext(english), -1, 3, 174, 174, 174);
                 graphics.textboxwrap(2);
@@ -948,8 +956,11 @@ void Game::updatestate(void)
             case 4:
                 crewmate = "Verdigris";
                 break;
-            default:
+            case 5:
                 crewmate = "Victoria";
+                break;
+            default:
+                crewmate = "your companion";
             }
             char english[SCREEN_WIDTH_TILES*3 + 1]; /* ASCII only */
             vformat_buf(english, sizeof(english),
