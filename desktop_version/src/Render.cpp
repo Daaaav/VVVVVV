@@ -729,7 +729,7 @@ static void menurender(void)
             ); \
             coldiv = untranslated_counter > 0 ? 1 : 2; \
             graphics.Print(16, y, filename, tr/coldiv, tg/coldiv, tb/coldiv); \
-            graphics.Print(SCREEN_WIDTH_TILES-48, y, buffer, tr/coldiv, tg/coldiv, tb/coldiv)
+            graphics.Print(272, y, buffer, tr/coldiv, tg/coldiv, tb/coldiv)
 
         stat_line(48, "strings.xml", loc::n_untranslated[loc::UNTRANSLATED_STRINGS]);
         stat_line(64, "numbers.xml", loc::n_untranslated[loc::UNTRANSLATED_NUMBERS]);
