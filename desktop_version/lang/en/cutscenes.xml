@@ -35,11 +35,11 @@
         <dialogue speaker="purple" english="Good luck, Captain!" translation=""/>
         <dialogue speaker="purple" english="I&apos;ll keep trying to find the rest of the crew..." translation=""/>
     </cutscene>
-    <cutscene id="trenchwarfare" explanation="">
+    <cutscene id="trenchwarfare" explanation="player finds Trench Warfare trinket, if no trinkets found yet">
         <dialogue speaker="cyan" english="Ohh! I wonder what that is?" translation=""/>
         <dialogue speaker="cyan" english="I probably don&apos;t really need it, but it might be nice to take it back to the ship to study..." translation=""/>
     </cutscene>
-    <cutscene id="newtrenchwarfare" explanation="">
+    <cutscene id="newtrenchwarfare" explanation="player finds Trench Warfare trinket, if other trinket already found">
         <dialogue speaker="cyan" english="Oh! It&apos;s another one of those shiny things!" translation=""/>
         <dialogue speaker="cyan" english="I probably don&apos;t really need it, but it might be nice to take it back to the ship to study..." translation=""/>
     </cutscene>
@@ -85,7 +85,7 @@
         <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation=""/>
         <dialogue speaker="purple" english="Everything will be ok!" translation=""/>
     </cutscene>
-    <cutscene id="talkpurple_3" explanation="">
+    <cutscene id="talkpurple_3" explanation="only one player string is shown">
         <dialogue speaker="purple" english="Are you doing ok, Captain?" translation=""/>
         <dialogue speaker="player" english="I&apos;m worried about Victoria, Doctor!" translation=""/>
         <dialogue speaker="player" english="I&apos;m worried about Vitellary, Doctor!" translation=""/>
@@ -95,11 +95,11 @@
         <dialogue speaker="purple" english="Oh - well, don&apos;t worry, they&apos;ll show up!" translation=""/>
         <dialogue speaker="purple" english="Here! Have a lollipop!" translation=""/>
     </cutscene>
-    <cutscene id="trinketcollector" explanation="">
+    <cutscene id="trinketcollector" explanation="if no trinkets found yet">
         <dialogue speaker="cyan" english="This seems like a good place to store anything I find out there..." translation=""/>
         <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation=""/>
     </cutscene>
-    <cutscene id="newtrinketcollector" explanation="">
+    <cutscene id="newtrinketcollector" explanation="if at least one trinket found">
         <dialogue speaker="cyan" english="This seems like a good place to store those shiny things." translation=""/>
         <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation=""/>
     </cutscene>
@@ -346,19 +346,19 @@
         <dialogue speaker="yellow" english="Captain!" translation=""/>
         <dialogue speaker="player" english="Hang on! I&apos;ll save you!" translation=""/>
     </cutscene>
-    <cutscene id="int2_blue" explanation="">
+    <cutscene id="int2_blue" explanation="after gravitron">
         <dialogue speaker="blue" english="I think I&apos;m going to be sick..." translation=""/>
         <dialogue speaker="player" english="I feel dizzy..." translation=""/>
     </cutscene>
-    <cutscene id="int2_green" explanation="">
+    <cutscene id="int2_green" explanation="after gravitron">
         <dialogue speaker="green" english="Phew! You&apos;re ok!" translation=""/>
         <dialogue speaker="player" english="I feel dizzy..." translation=""/>
     </cutscene>
-    <cutscene id="int2_red" explanation="">
+    <cutscene id="int2_red" explanation="after gravitron">
         <dialogue speaker="red" english="Again! Let&apos;s go again!" translation=""/>
         <dialogue speaker="player" english="I feel dizzy..." translation=""/>
     </cutscene>
-    <cutscene id="int2_yellow" explanation="">
+    <cutscene id="int2_yellow" explanation="after gravitron">
         <dialogue speaker="yellow" english="That was interesting, wasn&apos;t it?" translation=""/>
         <dialogue speaker="player" english="I feel dizzy..." translation=""/>
     </cutscene>
@@ -374,7 +374,7 @@
         <dialogue speaker="purple" english="I think Victoria is quite happy to be back on the ship." translation=""/>
         <dialogue speaker="purple" english="She really doesn&apos;t like adventuring. She gets very homesick!" translation=""/>
     </cutscene>
-    <cutscene id="talkpurple_5" explanation="">
+    <cutscene id="talkpurple_5" explanation="only one of the last 6 strings is shown">
         <dialogue speaker="purple" english="Vermilion called in to say hello!" translation=""/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find the rest of the crew!" translation=""/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Victoria!" translation=""/>
@@ -753,7 +753,7 @@ DIMENSIONAL STABILISER OFFLINE" translation="" centertext="1" pad="1"/>
         <dialogue speaker="yellow" english="With their research and ours, we should be able to stabilise our own dimension!" translation=""/>
         <dialogue speaker="yellow" english="We&apos;re saved!" translation=""/>
     </cutscene>
-    <cutscene id="talkred_14" explanation="">
+    <cutscene id="talkred_14" explanation="super gravitron (difficult minigame)">
         <dialogue speaker="red" english="Look what I found!" translation=""/>
         <dialogue speaker="red" english="It&apos;s pretty hard, I can only last for about 10 seconds..." translation=""/>
     </cutscene>
