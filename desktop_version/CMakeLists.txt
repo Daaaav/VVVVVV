@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 2.8.12)
 option(ENABLE_WARNINGS "Enable compilation warnings" ON)
 option(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
 
-option(BUNDLE_DEPENDENCIES "Use bundled TinyXML-2, PhysicsFS, and UTF8-CPP (if disabled, TinyXML-2 and PhysicsFS will be dynamically linked, LodePNG, UTF8-CPP and C-HashMap will still be statically linked)" ON)
+option(BUNDLE_DEPENDENCIES "Use bundled TinyXML-2, PhysicsFS, FAudio, and UTF8-CPP (if disabled, TinyXML-2, PhysicsFS, and FAudio will be dynamically linked, LodePNG, UTF8-CPP and C-HashMap will still be statically linked)" ON)
 
 set(CUSTOM_LEVEL_SUPPORT ENABLED CACHE STRING "Optionally disable playing and/or editing of custom levels")
 set_property(CACHE CUSTOM_LEVEL_SUPPORT PROPERTY STRINGS ENABLED NO_EDITOR DISABLED)
@@ -23,6 +23,9 @@ if(OFFICIAL_BUILD AND NOT MAKEANDPLAY)
     set(STEAM ON)
     set(GOG ON)
 endif()
+
+option(REMOVE_ABSOLUTE_PATHS "If supported by the compiler, replace all absolute paths to source directories compiled into the binary (if any) with relative paths" ON)
+
 
 # Architecture Flags
 if(APPLE)
@@ -208,8 +211,8 @@ if(NOT OFFICIAL_BUILD)
     if(GIT_FOUND)
         # These filenames have to be qualified, because when we run
         # the CMake script, its work dir gets set to the build folder
-        set(VERSION_INPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.in)
-        set(VERSION_OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.out)
+        set(VERSION_INPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/InterimVersion.in.c)
+        set(VERSION_OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/InterimVersion.out.c)
 
         add_custom_target(
             GenerateVersion ALL
@@ -226,8 +229,10 @@ if(NOT OFFICIAL_BUILD)
 
         add_dependencies(VVVVVV GenerateVersion)
 
-        # This lets Version.h know that Version.h.out exists
-        add_definitions(-DVERSION_H_OUT_EXISTS)
+        target_compile_definitions(VVVVVV PRIVATE -DINTERIM_VERSION_EXISTS)
+
+        add_library(InterimVersion STATIC src/InterimVersion.out.c)
+        list(APPEND STATIC_LIBRARIES InterimVersion)
     endif()
 endif()
 
@@ -243,9 +248,9 @@ if(ENABLE_WARNINGS)
 endif()
 
 if(CUSTOM_LEVEL_SUPPORT STREQUAL "NO_EDITOR")
-    add_definitions(-DNO_EDITOR)
+    target_compile_definitions(VVVVVV PRIVATE -DNO_EDITOR)
 elseif(CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
-    add_definitions(-DNO_CUSTOM_LEVELS -DNO_EDITOR)
+    target_compile_definitions(VVVVVV PRIVATE -DNO_CUSTOM_LEVELS -DNO_EDITOR)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -308,6 +313,12 @@ target_compile_definitions(lodepng-static PRIVATE
 add_library(c-hashmap-static STATIC ${CHM_SRC})
 
 if(BUNDLE_DEPENDENCIES)
+    list(APPEND STATIC_LIBRARIES physfs-static tinyxml2-static lodepng-static c-hashmap-static faudio-static)
+else()
+    list(APPEND STATIC_LIBRARIES lodepng-static c-hashmap-static)
+endif()
+
+if(BUNDLE_DEPENDENCIES)
     add_library(tinyxml2-static STATIC ${XML2_SRC})
     add_library(physfs-static STATIC ${PFS_SRC})
     target_compile_definitions(physfs-static PRIVATE
@@ -318,28 +329,64 @@ if(BUNDLE_DEPENDENCIES)
         faudio-static PRIVATE
         ../third_party/FAudio/include
     )
+    # Disable FAudio debug stuff in release mode. This needs a generator expression for CMake reasons(TM)
+    target_compile_definitions(faudio-static PRIVATE $<$<CONFIG:Release>:FAUDIO_DISABLE_DEBUGCONFIGURATION>)
 
-    target_link_libraries(VVVVVV physfs-static tinyxml2-static lodepng-static c-hashmap-static faudio-static)
+    target_link_libraries(VVVVVV ${STATIC_LIBRARIES})
 else()
     find_package(utf8cpp CONFIG)
 
-    target_link_libraries(VVVVVV physfs tinyxml2 utf8cpp lodepng-static c-hashmap-static FAudio)
+    target_link_libraries(VVVVVV ${STATIC_LIBRARIES} physfs tinyxml2 utf8cpp FAudio)
 endif()
+
 
 if(MSVC)
     # Statically link Microsoft's runtime library so end users don't have to install it
-    target_compile_options(VVVVVV PRIVATE /MT)
+    list(APPEND GLOBAL_COMPILE_FLAGS /MT)
+endif()
 
-    # /MT must also be applied to every statically-linked library, else you get a linker error
-    if(BUNDLE_DEPENDENCIES)
-        target_compile_options(tinyxml2-static PRIVATE /MT)
-        target_compile_options(physfs-static PRIVATE /MT)
-        target_compile_options(faudio-static PRIVATE /MT)
+
+if(REMOVE_ABSOLUTE_PATHS)
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 3.8)
+            set(SUPPORTS_DEBUG_PREFIX_MAP TRUE)
+        else()
+            set(SUPPORTS_DEBUG_PREFIX_MAP FALSE)
+        endif()
+        if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 10.0)
+            set(SUPPORTS_FILE_PREFIX_MAP TRUE)
+        else()
+            set(SUPPORTS_FILE_PREFIX_MAP FALSE)
+        endif()
+    elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        set(SUPPORTS_DEBUG_PREFIX_MAP TRUE)
+        if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
+            set(SUPPORTS_FILE_PREFIX_MAP TRUE)
+        else()
+            set(SUPPORTS_FILE_PREFIX_MAP FALSE)
+        endif()
+    else()
+        set(SUPPORTS_DEBUG_PREFIX_MAP FALSE)
+        set(SUPPORTS_FILE_PREFIX_MAP FALSE)
     endif()
 
-    target_compile_options(lodepng-static PRIVATE /MT)
-    target_compile_options(c-hashmap-static PRIVATE /MT)
+    get_filename_component(REPO_DIR ../ ABSOLUTE)
+
+    # Remove absolute source paths from compiled binary
+    if(SUPPORTS_FILE_PREFIX_MAP)
+        list(APPEND GLOBAL_COMPILE_FLAGS -ffile-prefix-map=${REPO_DIR}=.)
+    elseif(SUPPORTS_DEBUG_PREFIX_MAP)
+        list(APPEND GLOBAL_COMPILE_FLAGS -fdebug-prefix-map=${REPO_DIR}=.)
+    endif()
 endif()
+
+
+target_compile_options(VVVVVV PRIVATE ${GLOBAL_COMPILE_FLAGS})
+
+foreach(static_library IN LISTS STATIC_LIBRARIES)
+    target_compile_options(${static_library} PRIVATE ${GLOBAL_COMPILE_FLAGS})
+endforeach(static_library)
+
 
 # SDL2 Dependency (Detection pulled from FAudio)
 if(DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)

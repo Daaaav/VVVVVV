@@ -6,11 +6,6 @@
  #include <unistd.h>
  #define STDOUT_IS_TTY isatty(STDOUT_FILENO)
  #define STDERR_IS_TTY isatty(STDERR_FILENO)
-#elif defined(_WIN32)
- #include <io.h>
- #include <windows.h>
- #define STDOUT_IS_TTY _isatty(_fileno(stdout))
- #define STDERR_IS_TTY _isatty(_fileno(stderr))
 #else
  #define STDOUT_IS_TTY 0
  #define STDERR_IS_TTY 0
@@ -33,22 +28,8 @@ static int error_enabled = 1;
 
 void vlog_init(void)
 {
-#ifdef _WIN32
-    OSVERSIONINFO osvi;
-    SDL_zero(osvi);
-    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-    GetVersionExW(&osvi);
-#endif
-
-    if (STDOUT_IS_TTY
-    && STDERR_IS_TTY
-#ifdef _WIN32
-    /* Windows supports ANSI escape sequences starting with Windows 10
-     * build 10586. We don't care to emit them on anything lower. */
-    && osvi.dwMajorVersion >= 10
-    && osvi.dwBuildNumber >= 10586
-#endif
-    ) {
+    if (STDOUT_IS_TTY && STDERR_IS_TTY)
+    {
         color_enabled = 1;
     }
 }
@@ -83,14 +64,13 @@ void vlog_toggle_error(const int enable_error)
     error_enabled = enable_error;
 }
 
-SDL_PRINTF_VARARG_FUNC(1) int vlog_debug(const char* text, ...)
+SDL_PRINTF_VARARG_FUNC(1) void vlog_debug(const char* text, ...)
 {
     va_list list;
-    int retval;
 
     if (!output_enabled || !debug_enabled)
     {
-        return 0;
+        return;
     }
 
     printf(Color_BOLD_GRAY);
@@ -99,22 +79,19 @@ SDL_PRINTF_VARARG_FUNC(1) int vlog_debug(const char* text, ...)
     printf(" ");
 
     va_start(list, text);
-    retval = vprintf(text, list);
+    vprintf(text, list);
     va_end(list);
 
     putchar('\n');
-
-    return retval;
 }
 
-SDL_PRINTF_VARARG_FUNC(1) int vlog_info(const char* text, ...)
+SDL_PRINTF_VARARG_FUNC(1) void vlog_info(const char* text, ...)
 {
     va_list list;
-    int retval;
 
     if (!output_enabled || !info_enabled)
     {
-        return 0;
+        return;
     }
 
     printf(Color_BOLD);
@@ -123,22 +100,19 @@ SDL_PRINTF_VARARG_FUNC(1) int vlog_info(const char* text, ...)
     printf(" ");
 
     va_start(list, text);
-    retval = vprintf(text, list);
+    vprintf(text, list);
     va_end(list);
 
     putchar('\n');
-
-    return retval;
 }
 
-SDL_PRINTF_VARARG_FUNC(1) int vlog_warn(const char* text, ...)
+SDL_PRINTF_VARARG_FUNC(1) void vlog_warn(const char* text, ...)
 {
     va_list list;
-    int retval;
 
     if (!output_enabled || !warn_enabled)
     {
-        return 0;
+        return;
     }
 
     fprintf(stderr, Color_BOLD_YELLOW);
@@ -147,22 +121,19 @@ SDL_PRINTF_VARARG_FUNC(1) int vlog_warn(const char* text, ...)
     fprintf(stderr, " ");
 
     va_start(list, text);
-    retval = vfprintf(stderr, text, list);
+    vfprintf(stderr, text, list);
     va_end(list);
 
     fputc('\n', stderr);
-
-    return retval;
 }
 
-SDL_PRINTF_VARARG_FUNC(1) int vlog_error(const char* text, ...)
+SDL_PRINTF_VARARG_FUNC(1) void vlog_error(const char* text, ...)
 {
     va_list list;
-    int retval;
 
     if (!output_enabled || !error_enabled)
     {
-        return 0;
+        return;
     }
 
     fprintf(stderr, Color_BOLD_RED);
@@ -171,10 +142,8 @@ SDL_PRINTF_VARARG_FUNC(1) int vlog_error(const char* text, ...)
     fprintf(stderr, " ");
 
     va_start(list, text);
-    retval = vfprintf(stderr, text, list);
+    vfprintf(stderr, text, list);
     va_end(list);
 
     fputc('\n', stderr);
-
-    return retval;
 }

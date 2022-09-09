@@ -9,6 +9,7 @@
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
+#include "InterimVersion.h"
 #include "KeyPoll.h"
 #include "Localization.h"
 #include "LocalizationStorage.h"
@@ -16,11 +17,11 @@
 #include "Map.h"
 #include "Maths.h"
 #include "Music.h"
+#include "ReleaseVersion.h"
 #include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
-#include "Version.h"
 #include "VFormat.h"
 
 static int tr;
@@ -147,13 +148,11 @@ static void menurender(void)
         const char* editionlabel = loc::gettext("MAKE AND PLAY EDITION");
         graphics.Print(264-graphics.len(editionlabel),temp+35,editionlabel,tr, tg, tb);
 #endif
-#ifdef COMMIT_DATE
+#ifdef INTERIM_VERSION_EXISTS
         graphics.Print( 310 - (10*8), 210, COMMIT_DATE, tr/2, tg/2, tb/2);
+        graphics.Print( 310 - LEN_INTERIM_COMMIT * 8, 220, INTERIM_COMMIT, tr/2, tg/2, tb/2);
 #endif
-#ifdef INTERIM_COMMIT
-        graphics.Print( 310 - (SDL_arraysize(INTERIM_COMMIT) - 1) * 8, 220, INTERIM_COMMIT, tr/2, tg/2, tb/2);
-#endif
-        graphics.Print( 310 - (4*8), 230, "v2.4", tr/2, tg/2, tb/2);
+        graphics.Print( 310 - (SDL_arraysize(RELEASE_VERSION) - 1) * 8, 230, RELEASE_VERSION, tr/2, tg/2, tb/2);
 
         if(music.mmmmmm){
             graphics.Print( 10, 230, loc::gettext("[MMMMMM Mod Installed]"), tr/2, tg/2, tb/2);
