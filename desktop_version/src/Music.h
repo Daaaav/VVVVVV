@@ -136,6 +136,8 @@ public:
 
     bool audio_log_started;
     FILE* audio_log_file;
+
+    char audio_log_name[100];
 };
 
 #ifndef MUSIC_DEFINITION

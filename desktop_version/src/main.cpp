@@ -386,6 +386,8 @@ int main(int argc, char *argv[])
 
     vlog_init();
 
+    SDL_strlcpy(music.audio_log_name, "noname", sizeof(music.audio_log_name));
+
     for (int i = 1; i < argc; ++i)
     {
 #define ARG(name) (SDL_strcmp(argv[i], name) == 0)
@@ -475,6 +477,13 @@ int main(int argc, char *argv[])
             ARG_INNER({
                 i++;
                 fontsDir = argv[i];
+            })
+        }
+        else if (ARG("-audiologname"))
+        {
+            ARG_INNER({
+                i++;
+                SDL_strlcpy(music.audio_log_name, argv[i], sizeof(music.audio_log_name));
             })
         }
         else if (ARG("-playing") || ARG("-p"))

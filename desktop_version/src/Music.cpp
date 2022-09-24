@@ -777,7 +777,7 @@ void musicclass::start_audio_log(void)
     audio_log_set_timestamp();
 
     char audio_log_filename[256];
-    sprintf(audio_log_filename, "/home/david/v-audio-log/%s", audio_log_timestring_lol);
+    sprintf(audio_log_filename, "/home/david/v-audio-log/%s-%s", audio_log_name, audio_log_timestring_lol);
     audio_log_file = fopen(audio_log_filename, "a");
 
     printf("AUDIO LOG STARTED AT %s\n", audio_log_filename);
