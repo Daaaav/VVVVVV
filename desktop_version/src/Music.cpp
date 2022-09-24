@@ -79,6 +79,10 @@
 
 /* End stb_vorbis include */
 
+// Needed for audio log jesus christ I didn't expect this
+#undef fopen
+#undef fclose
+
 #define VVV_MAX_VOLUME 128
 #define VVV_MAX_CHANNELS 8
 
@@ -744,6 +748,52 @@ musicclass::musicclass(void)
     quick_fade = true;
 
     usingmmmmmm = false;
+
+    audio_log_started = false;
+    start_audio_log();
+}
+
+void musicclass::audio_log_set_timestamp(void)
+{
+    clock_gettime(CLOCK_REALTIME, &audio_log_t_realtime);
+    clock_gettime(CLOCK_MONOTONIC_RAW, &audio_log_t_monotonic);
+
+    sprintf(audio_log_timestring_lol, "%lu.%lu;%lu.%lu",
+        audio_log_t_realtime.tv_sec, audio_log_t_realtime.tv_nsec,
+        audio_log_t_monotonic.tv_sec, audio_log_t_monotonic.tv_nsec
+    );
+}
+
+void musicclass::start_audio_log(void)
+{
+    if (audio_log_started)
+    {
+        log_audio("end");
+
+        printf("AUDIO LOG %s CLOSED\n", audio_log_timestring_lol);
+        fclose(audio_log_file);
+    }
+
+    audio_log_set_timestamp();
+
+    char audio_log_filename[256];
+    sprintf(audio_log_filename, "/home/david/v-audio-log/%s", audio_log_timestring_lol);
+    audio_log_file = fopen(audio_log_filename, "a");
+
+    printf("AUDIO LOG STARTED AT %s\n", audio_log_filename);
+
+    char aubuf[110];
+    sprintf(aubuf, "start %s", audio_log_timestring_lol);
+    log_audio(aubuf);
+
+    audio_log_started = true;
+}
+
+void musicclass::log_audio(const char *logged)
+{
+    audio_log_set_timestamp();
+
+    fprintf(audio_log_file, "%s %s\n", audio_log_timestring_lol, logged);
 }
 
 void musicclass::init(void)
@@ -924,6 +974,8 @@ void musicclass::destroy(void)
     mmmmmm_blob.clear();
     VVV_freefunc(FAudioVoice_DestroyVoice, masteringvoice);
     VVV_freefunc(FAudio_Release, faudioctx);
+
+    start_audio_log();
 }
 
 void musicclass::play(int t)
@@ -952,6 +1004,10 @@ void musicclass::play(int t)
     {
         return;
     }
+
+    char aubuf[100];
+    sprintf(aubuf, "play %d", t);
+    log_audio(aubuf);
 
     currentsong = t;
     haltedsong = -1;
@@ -1011,16 +1067,23 @@ void musicclass::play(int t)
 
 void musicclass::resume(void)
 {
+    log_audio("resume");
+
     if (currentsong == -1)
     {
         currentsong = haltedsong;
         haltedsong = -1;
     }
+
     MusicTrack::Resume();
 }
 
 void musicclass::resumefade(const int fadein_ms)
 {
+    char aubuf[100];
+    sprintf(aubuf, "resumefade %d", fadein_ms);
+    log_audio(aubuf);
+
     resume();
     fadeMusicVolumeIn(fadein_ms);
 }
@@ -1032,6 +1095,8 @@ void musicclass::fadein(void)
 
 void musicclass::pause(void)
 {
+    log_audio("pause");
+
     MusicTrack::Pause();
 }
 
@@ -1042,6 +1107,10 @@ void musicclass::haltdasmusik(void)
 
 void musicclass::haltdasmusik(const bool from_fade)
 {
+    char aubuf[100];
+    sprintf(aubuf, "haltdasmusik %d", (int) from_fade);
+    log_audio(aubuf);
+
     /* Just pauses music. This is intended. */
     pause();
     haltedsong = currentsong;
@@ -1057,6 +1126,8 @@ void musicclass::haltdasmusik(const bool from_fade)
 
 void musicclass::silencedasmusik(void)
 {
+    log_audio("silencedasmusik");
+
     musicVolume = 0;
     m_doFadeInVol = false;
     m_doFadeOutVol = false;
@@ -1109,6 +1180,9 @@ void musicclass::fadeMusicVolumeIn(int ms)
     {
         return;
     }
+    char aubuf[100];
+    sprintf(aubuf, "fadeMusicVolumeIn %d", ms);
+    log_audio(aubuf);
 
     m_doFadeInVol = true;
     m_doFadeOutVol = false;
@@ -1131,6 +1205,9 @@ void musicclass::fadeMusicVolumeOut(const int fadeout_ms)
     {
         return;
     }
+    char aubuf[100];
+    sprintf(aubuf, "fadeMusicVolumeOut %d", fadeout_ms);
+    log_audio(aubuf);
 
     m_doFadeInVol = false;
     m_doFadeOutVol = true;
@@ -1197,6 +1274,10 @@ void musicclass::processmusic(void)
 
 void musicclass::niceplay(int t)
 {
+    char aubuf[100];
+    sprintf(aubuf, "niceplay %d", t);
+    log_audio(aubuf);
+
     /* important: do nothing if the correct song is playing! */
     if ((!mmmmmm && currentsong != t)
     || (mmmmmm && usingmmmmmm && currentsong != t)
@@ -1290,6 +1371,10 @@ void musicclass::changemusicarea(int x, int y)
 
 void musicclass::playef(int t)
 {
+    char aubuf[100];
+    sprintf(aubuf, "playef %d", t);
+    log_audio(aubuf);
+
     if (!INBOUNDS_VEC(t, soundTracks))
     {
         return;
@@ -1299,11 +1384,15 @@ void musicclass::playef(int t)
 
 void musicclass::pauseef(void)
 {
+    log_audio("pauseef");
+
     SoundTrack::Pause();
 }
 
 void musicclass::resumeef(void)
 {
+    log_audio("resumeef");
+
     SoundTrack::Resume();
 }
 
