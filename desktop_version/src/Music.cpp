@@ -605,7 +605,7 @@ void musicclass::audio_log_set_timestamp(void)
     clock_gettime(CLOCK_REALTIME, &audio_log_t_realtime);
     clock_gettime(CLOCK_MONOTONIC_RAW, &audio_log_t_monotonic);
 
-    sprintf(audio_log_timestring_lol, "%lu.%lu;%lu.%lu",
+    sprintf(audio_log_timestring_lol, "%lu.%09lu;%lu.%09lu",
         audio_log_t_realtime.tv_sec, audio_log_t_realtime.tv_nsec,
         audio_log_t_monotonic.tv_sec, audio_log_t_monotonic.tv_nsec
     );
