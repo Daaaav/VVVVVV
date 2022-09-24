@@ -3,6 +3,9 @@
 
 #include "BinaryBlob.h"
 
+#include <ctime>
+#include <cstdio>
+
 #define musicroom(rx, ry) ((rx) + ((ry) * 20))
 
 /* The amount of "space" for the scale of the user-set volume. */
@@ -17,6 +20,10 @@ public:
     musicclass(void);
     void init(void);
     void destroy(void);
+
+    void start_audio_log(void);
+    void log_audio(const char *logged);
+    void audio_log_set_timestamp(void);
 
     void play(int t);
     void resume();
@@ -67,6 +74,14 @@ public:
     binaryBlob mmmmmm_blob;
     int num_pppppp_tracks;
     int num_mmmmmm_tracks;
+
+    // Audio log
+    struct timespec audio_log_t_realtime;
+    struct timespec audio_log_t_monotonic;
+    char audio_log_timestring_lol[100];
+
+    bool audio_log_started;
+    FILE* audio_log_file;
 };
 
 #ifndef MUSIC_DEFINITION
