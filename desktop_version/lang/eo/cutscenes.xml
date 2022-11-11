@@ -415,7 +415,7 @@
     </cutscene>
     <cutscene id="talkpurple_8" explanation="">
         <dialogue speaker="purple" english="Hey Captain! Now that you&apos;ve turned off the source of the interference, we can warp everyone back to the ship instantly, if we need to!" translation="Hej, Kapitano! Ekde kiam vi malŝaltis la fonton de la interveno, ni nun povas tuje reteleporti ĉiujn al la ŝipo, laŭbezone!"/>
-        <dialogue speaker="purple" english="Any time you want to come back to the ship, just select the new SHIP option in your menu!" translation="Kiam ajn vi volas reveni ŝipen, simple elektu 'ŜIPO' en via menuo!"/>
+        <dialogue speaker="purple" english="Any time you want to come back to the ship, just select the new SHIP option in your menu!" translation="Kiam ajn vi volas reveni ŝipen, simple elektu &apos;ŜIPO&apos; en via menuo!"/>
     </cutscene>
     <cutscene id="talkgreen_1" explanation="">
         <dialogue speaker="green" english="I&apos;m an engineer!" translation="Mi estas inĝeniero!"/>

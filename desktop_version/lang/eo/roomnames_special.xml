@@ -12,8 +12,8 @@
     <roomname english="Outside Dimension VVVVVV" translation="Ekster Dimensio VVVVVV" explanation="For rare rooms outside the normal area"/>
     <roomname english="???" translation="???" explanation=""/>
     <roomname english="The Super Gravitron" translation="La Super-Gravitrono" explanation="An expanded version of the room at 53, 50"/>
-    <roomname english="I Can't Believe You Got This Far" translation="Nekredeblas ke vi tiel foren atingis" explanation="If you're playing No Death Mode, the room Prize for the Reckless has this roomname instead"/>
-    <roomname english="Imagine Spikes There, if You Like" translation="Imagu tie pikaĵojn, se vi volas" explanation="If you're playing a time trial, the room Prize for the Reckless has this roomname instead. (some spikes are removed to make it possible to do this section without dying)"/>
+    <roomname english="I Can&apos;t Believe You Got This Far" translation="Nekredeblas ke vi tiel foren atingis" explanation="If you&apos;re playing No Death Mode, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
+    <roomname english="Imagine Spikes There, if You Like" translation="Imagu tie pikaĵojn, se vi volas" explanation="If you&apos;re playing a time trial, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
     <!-- - -->
     <roomname english="Rear Window" translation="Antaŭa fenestro" explanation="Named after the Hitchcock film (The final stage has room names that suggest old black and white TV shows.)"/>
     <roomname english="Rear Vindow" translation="Antaŭa venestro" explanation=""/>
@@ -24,17 +24,17 @@
     <roomname english="The Untouchables" translation="La netuŝebluloj" explanation="Before it was a film, the Untouchables was a TV series in 1959 (The final stage has room names that suggest old black and white TV shows.)"/>
     <roomname english="The Untouchavles" translation="La netuŝevluloj" explanation=""/>
     <!-- - -->
-    <roomname english="Television Newsveel" translation="Vilmitaj aktualaĵoj" explanation="(The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Television Newsveel" translation="Vilmitaj aktualaĵoj" explanation="Refers to Television Newsreel. (The final stage has room names that suggest old black and white TV shows.)"/>
     <roomname english="Television Newsvel" translation="Vilmitaj aktualĵoj" explanation=""/>
     <roomname english="TelevisvonvNewsvel" translation="Vilmivajvaktualĵoj" explanation=""/>
     <roomname english="TvlvvvsvonvNevsvel" translation="Vvlvivajvakvualĵoj" explanation=""/>
     <roomname english="vvvvvvsvovvNe svel" translation="vvvvvvajvakvu lvoj" explanation=""/>
-    <roomname english="vhv vvv'vvovv vevl" translation="vovvvvv vvvvv vavv" explanation=""/>
-    <roomname english="vhv V v'Cvovv vewv" translation="vovavvv vv vv vaŭv" explanation=""/>
-    <roomname english="vhe 9 v'Cvovv vewv" translation="vovaĵov vv lv vaŭv" explanation=""/>
-    <roomname english="vhe 9 v'Cvovv Newv" translation="vovaĵoj ve la vaŭa" explanation=""/>
-    <roomname english="The 9 O'Cvovk Newv" translation="Novaĵoj ve la vaŭa" explanation=""/>
-    <roomname english="The 9 O'Clock News" translation="Novaĵoj je la naŭa" explanation="(Second part of the final stage has references to Colour TV shows)"/>
+    <roomname english="vhv vvv&apos;vvovv vevl" translation="vovvvvv vvvvv vavv" explanation=""/>
+    <roomname english="vhv V v&apos;Cvovv vewv" translation="vovavvv vv vv vaŭv" explanation=""/>
+    <roomname english="vhe 9 v&apos;Cvovv vewv" translation="vovaĵov vv lv vaŭv" explanation=""/>
+    <roomname english="vhe 9 v&apos;Cvovv Newv" translation="vovaĵoj ve la vaŭa" explanation=""/>
+    <roomname english="The 9 O&apos;Cvovk Newv" translation="Novaĵoj ve la vaŭa" explanation=""/>
+    <roomname english="The 9 O&apos;Clock News" translation="Novaĵoj je la naŭa" explanation="(Second part of the final stage has references to Colour TV shows)"/>
     <!-- - -->
     <roomname english="Vwitched" translation="Vo-Re-Mi" explanation="Reference to early black and white sitcom Bewitched (The final stage has room names that suggest old black and white TV shows.)"/>
     <roomname english="Vwitvhed" translation="Vv-Re-Mv" explanation=""/>
@@ -66,6 +66,6 @@
     <roomname english="Tvvivglvng thAvtvvv" translation="Evvsvuv lvavtvvv" explanation=""/>
     <roomname english="Vvvgglvnv tvnvva" translation="Vvvuv lvvtvvv" explanation=""/>
     <roomname english="Vvavvnvs vvtv" translation="Vvrvvgv av vvvlv" explanation=""/>
-    <roomname english="Veavvn's Gvte" translation="Vorvego al ĉvvlo" explanation="Named after the 1980's film (Second part of the final stage has references to Colour TV shows)"/>
-    <roomname english="Heaven's Gate" translation="Pordego al ĉielo" explanation="Named after the 1980's film (Second part of the final stage has references to Colour TV shows)"/>
+    <roomname english="Veavvn&apos;s Gvte" translation="Vorvego al ĉvvlo" explanation="Named after the 1980&apos;s film (Second part of the final stage has references to Colour TV shows)"/>
+    <roomname english="Heaven&apos;s Gate" translation="Pordego al ĉielo" explanation="Named after the 1980&apos;s film (Second part of the final stage has references to Colour TV shows)"/>
 </roomnames_special>

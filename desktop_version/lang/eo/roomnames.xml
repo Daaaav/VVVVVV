@@ -3,17 +3,17 @@
 <roomnames>
     <roomname x="0" y="18" english="Single-slit Experiment" translation="Unufenda eksperimento" explanation="(Many of the rooms in the Lab stage have science themed names.)"/>
     <roomname x="0" y="19" english="Don&apos;t Flip Out" translation="Restu surgrunde" explanation="Flip as in gravity flip, but also the expression in english, as in, keep your cool"/>
-    <roomname x="1" y="0" english="I&apos;m Sorry" translation="Mi pardonpetas" explanation="The room below this one is Please Forgive Me"/>
+    <roomname x="1" y="0" english="I&apos;m Sorry" translation="Mi pardonpetas" explanation="The room below this one is Please Forgive Me. There is also a secret path to the right which leads to the rooms &apos;Anomaly&apos; and &apos;Purest Unobtainium&apos;."/>
     <roomname x="1" y="1" english="Please Forgive Me!" translation="Pardonu min do!" explanation="The room above this one is I&apos;m Sorry"/>
     <roomname x="1" y="17" english="Rascasse" translation="Skorpio" explanation="This is a type of fish with lots of thorny spikes on its back"/>
     <roomname x="1" y="18" english="Keep Going" translation="Iru plu" explanation="Literally just &apos;Keep Going&apos;, through the room"/>
     <roomname x="1" y="19" english="Shuffled Hallway" translation="Miksita koridoro" explanation="Just describes how the room looks. &apos;Shuffled&apos; as in offset."/>
-    <roomname x="2" y="0" english="Kids His Age Bounce" translation="Sinusoido" explanation="(from Harry Potter, maybe? asking Bennett for more info)"/>
+    <roomname x="2" y="0" english="Kids His Age Bounce" translation="Sinusoido" explanation="An old saying for when e.g. a small child falls out of a tree. A trampoline joke in this case."/>
     <roomname x="2" y="1" english="Playing Foosball" translation="Tablofutbalo" explanation="This room resembles a Foosball table - https://en.wikipedia.org/wiki/Table_football"/>
     <roomname x="2" y="4" english="Philadelphia Experiment" translation="Filadelfia Eksperimento" explanation="There is a teleporter in this room. The Philadelphia Experiment is the name of 80&apos;s film about teleportation."/>
     <roomname x="2" y="16" english="Get Ready To Bounce" translation="Pretiĝu por la saltado" explanation="The first room in the Lab zone. In the next room, you immediately come into contact with a gravity line, and flip back up."/>
     <roomname x="2" y="17" english="It&apos;s Perfectly Safe" translation="Estas tute sekure" explanation="The second room in the lab zone. Don&apos;t worry, it&apos;s perfectly safe."/>
-    <roomname x="2" y="18" english="Young Man, It&apos;s Worth the Challenge" translation="Malfacila sed kolektinda" explanation="(I think this is an Australian thing. Asking Bennett for more info)"/>
+    <roomname x="2" y="18" english="Young Man, It&apos;s Worth the Challenge" translation="Malfacila sed kolektinda" explanation="Not a reference to anything in particular - Bennett explains that this is just something that his high school chemistry teacher used to say to students. He thinks the teacher was probably misquoting George Bernard Shaw, who said &apos;Life is not meant to be easy, my child - but take courage: it can be delightful.&apos;."/>
     <roomname x="2" y="19" english="Double-slit Experiment" translation="Dufenda eksperimento" explanation="(Many of the rooms in the Lab stage have science themed names.)"/>
     <roomname x="3" y="0" english="Merge" translation="Kunfandiĝo" explanation="A wide section connecting to a narrower section - merge as in traffic"/>
     <roomname x="3" y="1" english="A Difficult Chord" translation="Malfacila akordo" explanation="This room resembles a guitar chord"/>
@@ -23,21 +23,21 @@
     <roomname x="3" y="18" english="Square Root" translation="Kvadrata radiko" explanation="This room resembles a Square Root symbol."/>
     <roomname x="3" y="19" english="They Call Him Flipper" translation="Renversiĝemulo" explanation="This is a line from an American TV show intro about a Dolphin - https://www.youtube.com/watch?v=azEOeTX1LqM"/>
     <roomname x="4" y="0" english="Vibrating String Problem" translation="Problemo de la vibranta fadeno" explanation="Another science themed room name, this one has two gravity lines that you bounce between."/>
-    <roomname x="4" y="1" english="The Living Dead End" translation="Lifto-ŝakto" explanation="(dunno what this refers to, asking Bennett for more info)"/>
+    <roomname x="4" y="1" english="The Living Dead End" translation="Lifto-ŝakto" explanation="&apos;The living end&apos; is an idiom meaning &apos;the most extreme form of something&apos;, here it&apos;s an extreme dead end, i.e. a cul-de-sac"/>
     <roomname x="4" y="2" english="AAAAAA" translation="AAAAAA" explanation="The player falls through this room without having time to stop - AAAAAA suggests a scream in English. Also, it&apos;s six As, like the title."/>
     <roomname x="4" y="3" english="Diode" translation="Diodo" explanation="This room can only be passed through in one direction. It resembles the electrical component."/>
     <roomname x="4" y="4" english="I Smell Ozone" translation="Mi flaras ozonon" explanation="When you use a photocopier, it produces a distinctive smell (from the Ozone produced). This room has a background pattern that suggests a teleportation has recently happened here."/>
     <roomname x="4" y="16" english="Free Your Mind" translation="Liberigu la menson" explanation="Reference to the film The Matrix, where Morpheus jumps from the top of a Skyscaper - https://www.youtube.com/watch?v=ef_agVIvh0A"/>
     <roomname x="4" y="17" english="I Changed My Mind, Thelma..." translation="Profunda problemo" explanation="The room below Free Your Mind. Reference to the film Thelma and Louise, which ends with Thelma and Louise driving off a cliff, sorry, spoilers"/>
-    <roomname x="4" y="18" english="Hitting the Apex" translation="Atingante la apogeon" explanation="(This probably just means &apos;reaching the top&apos;, but asking Bennett for more info in case there&apos;s a specific reference here)"/>
+    <roomname x="4" y="18" english="Hitting the Apex" translation="Atingante la apogeon" explanation="&apos;Hitting the Apex&apos; is the term used by race drivers for the optimal path around a corner"/>
     <roomname x="4" y="19" english="Three&apos;s a Crowd" translation="Du sufiĉas, tri troas" explanation="From the expression Two&apos;s Company, Three&apos;s a Crowd. This room has two challenges - the first has two gaps to cross, the second has three."/>
-    <roomname x="5" y="0" english="Spike Strip Deployed" translation="Pikaĵostrio deplojiĝis" explanation="This room just has some spikes on a gravity line."/>
+    <roomname x="5" y="0" english="Spike Strip Deployed" translation="Pikaĵostrio deplojiĝis" explanation="This room has some spikes on a gravity line. The name is a reference to the device that police might use to blow out the tyres of a speeding car."/>
     <roomname x="5" y="1" english="Anomaly" translation="Anomalio" explanation="As in, a strange result in science. This room has lots of different colours, unlike other rooms in this stage."/>
     <roomname x="5" y="16" english="In a Single Bound" translation="Super la pinaklo" explanation="Superman is described as being able to leap tall buildings in a single bound."/>
-    <roomname x="5" y="17" english="Indirect Jump Vector" translation="Nerekta saltvektoro" explanation="You will end up in this room if you don&apos;t line up your jump correctly."/>
+    <roomname x="5" y="17" english="Indirect Jump Vector" translation="Nerekta saltvektoro" explanation="If you miss the gap in &apos;In a Single Bound&apos; above, you will end up back in this room - hence, your trajectory was off!"/>
     <roomname x="6" y="0" english="Topsy Turvyism" translation="Tienreenismo" explanation="Topsy Turvy is Australian slang for upside down"/>
     <roomname x="6" y="1" english="Purest Unobtainium" translation="Neakireblio plej pura" explanation="Unobtainium is a jokey made up term from science fiction for an impossible substance - https://en.wikipedia.org/wiki/Unobtainium"/>
-    <roomname x="6" y="16" english="Barani, Barani" translation="Pinĉa pasejo" explanation="(I think this one is a dance, maybe - asking Bennett for more info)"/>
+    <roomname x="6" y="16" english="Barani, Barani" translation="Pinĉa pasejo" explanation="A Barani is a technical term for doing a flip on a trampoline"/>
     <roomname x="6" y="17" english="Safety Dance" translation="Nesekura danco" explanation="Named after the 80s song by Men Without Hats."/>
     <roomname x="7" y="0" english="Standing Wave" translation="Staranta ondo" explanation="Many of the rooms in the Lab stage have science themed names. This one is at the beginning of a section with gravity lines above and below you, before the section begins."/>
     <roomname x="7" y="15" english="Entanglement Generator" translation="Generilo de envolviĝo" explanation="This room contains a teleporter. Entanglement is an idea from quantum mechanics."/>
@@ -51,7 +51,7 @@
     <roomname x="10" y="5" english="Energize" translation="Telepordo" explanation="There is a teleporter in this Room. Energize is what they say on Star Trek when they use the teleporters."/>
     <roomname x="10" y="6" english="Down Under" translation="Sube suren" explanation="Australia is sometimes called The Land Down Under because of its position on a globe. You complete this room by going down and under some moving platforms"/>
     <roomname x="10" y="7" english="A Deception" translation="Trompe simpla" explanation="This room appears trivial at first, but is connected to a difficult trinket challenge"/>
-    <roomname x="11" y="4" english="Building Apport" translation="Konstruante aporton" explanation="An &apos;Apport&apos; is a kind of paranormal teleportation of matter. (not sure what the Building bit is and if it refers to something, asking Bennett for more info)"/>
+    <roomname x="11" y="4" english="Building Apport" translation="Konstruante aporton" explanation="An &apos;Apport&apos; is a kind of paranormal teleportation. Building Apport is a pun on the concept of &apos;building rapport&apos; (except that to &apos;apport&apos; is to teleport)."/>
     <roomname x="11" y="5" english="Frown Upside Down" translation="Ne malridetu, malmalridetu!" explanation="To &apos;Turn that Frown Upside Down&apos; is an expression in English, like &apos;cheer up&apos;, basically means to stop being unhappy"/>
     <roomname x="11" y="6" english="Shenanigan" translation="Petolo" explanation="Shenanigan as in a prank, or practical joke. This room is connected to the &apos;Prize for the Reckless&apos; puzzle, and like the room &apos;A Deception&apos;, it appears trivial unless you know the secret"/>
     <roomname x="11" y="7" english="Prize for the Reckless" translation="Premio por neprudentuloj" explanation="This room contains a trinket that can only be collected by doing something difficult"/>
@@ -78,7 +78,7 @@
     <roomname x="13" y="9" english="Lighter Than Air" translation="Pli malpeza ol aero" explanation="This room has clouds that rise from the bottom of the screen to the top, which the player is faster than, implying that the player is lighter than air."/>
     <roomname x="13" y="10" english="The Solution is Dilution" translation="Diluoj kaj poluoj" explanation="This room has a factory and pollution clouds in it. Apparently this phrase was once used by industrialists to advocate for not worrying too much about pollution."/>
     <roomname x="13" y="11" english="The Cuckoo" translation="La kukolo" explanation="This room contains a speaker that emits the word &apos;LIES&apos; over and over. A cuckoo&apos;s call decieves other birds!"/>
-    <roomname x="13" y="12" english="Backsliders" translation="Retroglitanto" explanation="A conveyor belt in this room pushes against you as you try to move, so you slide backwards. (dunno if there&apos;s another reference here I&apos;m missing, so asking Bennett for more info)"/>
+    <roomname x="13" y="12" english="Backsliders" translation="Retroglitanto" explanation="A conveyor belt in this room pushes against you as you try to move, so you slide backwards."/>
     <roomname x="13" y="13" english="Select Track" translation="Elektu trakon" explanation="There are two paths you can pick between here"/>
     <roomname x="14" y="0" english="Green Dudes Can&apos;t Flip" translation="Verdire" explanation="You have a green crewmate with you in this room! A reference to the 90&apos;s film &apos;White Guy&apos;s Can&apos;t Jump&apos;."/>
     <roomname x="14" y="1" english="This is how it is" translation="Jen kiel aferoj estas" explanation="literally as in, this is how the mechanic of this stage works - also an expression as in &apos;this is the way things are&apos;"/>
@@ -128,7 +128,7 @@
     <roomname x="17" y="8" english="The Warning" translation="La averto" explanation="This room has lots of checkpoints in it. It&apos;s beside the game&apos;s most difficult challenge, the Veni, Vidi, Vici section. The checkpoints don&apos;t really do anything, but they&apos;re a warning of the challenge ahead."/>
     <roomname x="17" y="9" english="Just Pick Yourself Down" translation="Simple malleviĝu" explanation="A two part room name. From the expression &apos;If you fall down, just pick yourself up&apos;."/>
     <roomname x="17" y="10" english="If You Fall Up" translation="Se vi falas supren" explanation="A two part room name. From the expression &apos;If you fall down, just pick yourself up&apos;."/>
-    <roomname x="17" y="11" english="Chipper Cipher" translation="Mesaĝo riceviĝis" explanation="Probably just some nice wordplay (asking Bennett for more info)"/>
+    <roomname x="17" y="11" english="Chipper Cipher" translation="Mesaĝo riceviĝis" explanation="Just some nice wordplay. Chipper means &apos;Jolly&apos; or &apos;Happy&apos;."/>
     <roomname x="18" y="0" english="Time to get serious" translation="Tempas serioziĝi" explanation="Literal, this is the first room in the stage which is fairly difficult"/>
     <roomname x="18" y="1" english="Wheeler&apos;s Wormhole" translation="Vermotruo de Wheeler" explanation="Apparently a scientist named John Wheeler coined the phrase &apos;Wormhole&apos;! I just found that out. Anyway, this room has a teleporter in it."/>
     <roomname x="18" y="2" english="Sweeney&apos;s Maze" translation="Labirinto de Sweeney" explanation="Contains enemies that move strangly and resemble enemies from ZZT, an old game by Tim Sweeney"/>
@@ -136,7 +136,7 @@
     <roomname x="18" y="7" english="A Wrinkle in Time" translation="Ŝparvojo tratempa" explanation="The name of a 60&apos;s science fiction book. There is a teleporter in this room."/>
     <roomname x="18" y="8" english="Getting Here is Half the Fun" translation="Mezo de la amuzo" explanation="The top of the Veni Vidi Vici sequence. When you get to the top, you have to go all the way back down - hence, this room is the halfway point of the challenge."/>
     <roomname x="18" y="9" english="Your Bitter Tears... Delicious" translation="Viaj amaraj larmoj... bonguste" explanation="Part of the Veni Vidi Vici sequence. Taunting the player."/>
-    <roomname x="18" y="10" english="Easy Mode Unlocked" translation="Facila reĝimo malŝlosiĝis" explanation="Part of the Veni Vidi Vici sequence. Taunting the player."/>
+    <roomname x="18" y="10" english="Easy Mode Unlocked" translation="Facila reĝimo malŝlosiĝis" explanation="Part of the Veni Vidi Vici sequence. Taunting the player - the &apos;easy mode&apos; refers to the second passageway on the right side that is easier to take when going back through this room on the way down, but that passageway leads to death."/>
     <roomname x="18" y="11" english="Vici!" translation="Mi venkis!" explanation="The rooms Veni, Vidi, Vici! appear in sequence. Famous latin phrase attributed to Julius Caesar meaning I came, I saw, I conquered. The hardest challenge in the game."/>
     <roomname x="18" y="12" english="Vidi" translation="Mi vidis" explanation="The rooms Veni, Vidi, Vici! appear in sequence. Famous latin phrase attributed to Julius Caesar meaning I came, I saw, I conquered. The hardest challenge in the game."/>
     <roomname x="18" y="13" english="Veni" translation="Mi venis" explanation="The rooms Veni, Vidi, Vici! appear in sequence. Famous latin phrase attributed to Julius Caesar meaning I came, I saw, I conquered. The hardest challenge in the game."/>
