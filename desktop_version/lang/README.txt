@@ -171,7 +171,48 @@ The valid flags are:
 
 === S T O R Y   A N D   C H A R A C T E R   I N F O R M A T I O N ===
 
-TODO: basic story information, crewmate names, ranks (Captain/Doctor/Professor/Officer/Chief), colors (and pink=purple in scripts), genders/pronouns (what if you're forced to specify Viridian's gender in another language), personalities, level of (in)formality between crewmates, relationships, the ship and why it's called "D.S.S. Souleye", who wrote these "personal logs" you can find on terminals...
+This is a brief story and character overview for reference. Any further questions can be directed to Terry: https://distractionware.com/email/
+
+== The Crewmates ==
+
+VVVVVV is about a crew of curious and super-intelligent aliens exploring the universe. There are six crewmates onboard the ship, in six different colours. They are:
+
+* Viridian (Cyan, the player character)
+* Verdigris (Green)
+* Vitellary (Yellow)
+* Vermilion (Red)
+* Victoria (Blue)
+* Violet (Purple)
+
+All six characters have names that start with V. In addition, each crewmate's name is an obscure word that suggests their colour - for example, Verdigris is the name of the green pigment that forms on copper when it oxidises. This might be hard to translate! (So, potentially it just makes sense not to translate the names at all, unless you have a good idea about how to do it - for example, if you can pull off the same colour/name beginning with V trick in your language.)
+
+Each crewmate has the following "rank", i.e. their job on the ship. These are all basically just Star Trek inspired roles:
+
+* "Captain" Viridian (Captain as in leader)
+* "Chief" Verdigris (Chief as in Lead Engineer)
+* "Professor" Vitellary (Kind of the senior scientist on board)
+* "Officer" Vermilion (Officer as in Away-Officer, the one who usually goes out exploring)
+* "Doctor" Victoria (Doctor in the scientific sense)
+* "Doctor" Violet (Doctor in the medical sense)
+
+Verdigris, Vitellary and Vermilion are male. Victoria and Violet are female. Viridian is deliberately unspecified - when translating cutscenes, if at all possible, try to avoid specifying their gender, even if that leads to some otherwise awkward phrasing or requires the use of some cutting edge grammar tricks in your language.
+
+== Personalities ==
+
+If it helps with tone: the running joke in VVVVVV's writing is that all six characters are hyper intelligent prodigies, who will nevertheless speak to each other as if they're small children. E.g. Viridian "we were just playing with it!", Vermilion "I'm helping!", Verdigris "I'm an engineer!", etc. More specifically:
+
+* Viridian is a classic hero - unphased by danger, never worried, always completely certain that they'll be able to fix everything.
+* Verdigris is a romantic - he has a huge (reciprocated!) crush on Violet, which he does a terrible job of keeping secret.
+* Vitellary is an academic - he loves science, and has a dry and long winded science thing to tell you in almost every cutscene.
+* Vermilion is bold and adventurous - after you rescue him, you'll find him exploring different parts of the world on his own quest to find the rest of the crew (he's not much help, though).
+* Victoria is a worrier - she's quick to feelings of despair. Victoria's sprite is almost always sad!
+* Violet is a caretaker - she's the ship's Doctor, and most of her cutscenes are status updates about the other crewmates.
+
+== Dimension VVVVVV ==
+
+The world you're exploring is filled with terminals, with text logs from the previous inhabitants, who we never see. We don't know much about them.
+
+The ship you're all on is called the "D.S.S. Souleye", which is a minor easter egg. D.S.S. just stands for "Dimensional Space Ship" - a craft that warps between different dimensions. Souleye is the pseudonym for Magnus Pålsson, the game's composer.
 
 
 
