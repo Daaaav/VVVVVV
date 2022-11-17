@@ -929,7 +929,7 @@ Uitzending actief" tt="1" centertext="1" pad="2"/>
 The Super-Gravitron is intended for entertainment purposes only." translation="-= WAARSCHUWING =-
 
 De Super-Gravitron is alleen bedoeld voor entertainmentdoeleinden." centertext="1" pad="1"/>
-        <dialogue speaker="gray" english="Anyone found using the Super Gravitron for educational purposes may be asked to stand in the naughty corner." translation="Eenieder die de Super Gravitron gebruikt voor educatieve doeleinden kan gevraagd worden om in het stoute hoekje te gaan staan."/>
+        <dialogue speaker="gray" english="Anyone found using the Super Gravitron for educational purposes may be asked to stand in the naughty corner." translation="Eenieder die de Supergravitron gebruikt voor educatieve doeleinden kan gevraagd worden om in het stoute hoekje te gaan staan."/>
     </cutscene>
     <cutscene id="terminal_shipcomputer" explanation="">
         <dialogue speaker="gray" english="-= D.S.S. SOULEYE =-
@@ -943,6 +943,6 @@ Navigatiebesturing" centertext="1" pad="1"/>
         <dialogue speaker="cyan" english="...oh, I&apos;ve already found this." translation="...oh, ik heb dit al gevonden."/>
     </cutscene>
     <cutscene id="disableaccessibility" explanation="">
-        <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron." translation="Schakel onkwetsbaarheid en/of vertraging uit om de Super Gravitron te kunnen gebruiken."/>
+        <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron." translation="Schakel onkwetsbaarheid en/of vertraging uit om de Supergravitron te kunnen gebruiken."/>
     </cutscene>
 </cutscenes>

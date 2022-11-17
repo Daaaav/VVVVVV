@@ -423,8 +423,8 @@
     <string english="New Record!" translation="Nieuw record!" explanation="" max="20"/>
     <string english="New Trophy!" translation="Nieuwe trofee!" explanation="" max="20"/>
     <string english="[Press ENTER to stop]" translation="[Druk op ENTER om te stoppen]" explanation="stop super gravitron" max="40"/>
-    <string english="SUPER GRAVITRON" translation="SUPER GRAVITRON" explanation="" max="20"/>
-    <string english="SUPER GRAVITRON HIGHSCORE" translation="HIGHSCORE SUPER GRAVITRON" explanation="" max="38*4"/>
+    <string english="SUPER GRAVITRON" translation="SUPERGRAVITRON" explanation="" max="20"/>
+    <string english="SUPER GRAVITRON HIGHSCORE" translation="HIGHSCORE SUPERGRAVITRON" explanation="" max="38*4"/>
     <string english="MAP" translation="KAART" explanation="in-game menu" max="8"/>
     <string english="GRAV" translation="GRAV" explanation="in-game menu, Gravitron" max="8"/>
     <string english="SHIP" translation="SCHIP" explanation="in-game menu, spaceship" max="8"/>
@@ -701,12 +701,12 @@ Je hebt het geheime lab gevonden!" explanation="" max="34*4"/>
     <string english="Win with less than 100 deaths" translation="Voltooi het spel zonder 100 keer of vaker dood te gaan" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 250 deaths" translation="Voltooi het spel zonder 250 keer of vaker dood te gaan" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 500 deaths" translation="Voltooi het spel zonder 500 keer of vaker dood te gaan" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 5 seconds on the Super Gravitron" translation="Hou het 5 seconden vol in de Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 10 seconds on the Super Gravitron" translation="Hou het 10 seconden vol in de Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 15 seconds on the Super Gravitron" translation="Hou het 15 seconden vol in de Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 20 seconds on the Super Gravitron" translation="Hou het 20 seconden vol in de Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 30 seconds on the Super Gravitron" translation="Hou het 30 seconden vol in de Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Last 1 minute on the Super Gravitron" translation="Hou het 1 minuut vol in de Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 5 seconds on the Super Gravitron" translation="Hou het 5 seconden vol in de Supergravitron" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 10 seconds on the Super Gravitron" translation="Hou het 10 seconden vol in de Supergravitron" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 15 seconds on the Super Gravitron" translation="Hou het 15 seconden vol in de Supergravitron" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 20 seconds on the Super Gravitron" translation="Hou het 20 seconden vol in de Supergravitron" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 30 seconds on the Super Gravitron" translation="Hou het 30 seconden vol in de Supergravitron" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Last 1 minute on the Super Gravitron" translation="Hou het 1 minuut vol in de Supergravitron" explanation="achievement/trophy description" max="38*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="MEESTER VAN HET UNIVERSUM" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="Voltooi het spel in de éénlevenmodus" explanation="achievement/trophy description" max="38*2"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="Kon {path} niet aankoppelen: echte map bestaat niet" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
