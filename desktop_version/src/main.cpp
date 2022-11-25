@@ -372,6 +372,10 @@ int main(int argc, char *argv[])
     char* assetsPath = NULL;
     char* langDir = NULL;
     char* fontsDir = NULL;
+    bool seed_use_sdl_getticks = false;
+#ifdef _WIN32
+    bool open_console = false;
+#endif
 
     vlog_init();
 
@@ -500,6 +504,16 @@ int main(int argc, char *argv[])
         {
             loc::show_translator_menu = true;
         }
+#ifdef _WIN32
+        else if (ARG("-console"))
+        {
+            open_console = true;
+        }
+#endif
+        else if (ARG("-seed-use-sdl-getticks"))
+        {
+            seed_use_sdl_getticks = true;
+        }
 #undef ARG_INNER
 #undef ARG
         else
@@ -511,6 +525,13 @@ int main(int argc, char *argv[])
 
 #if defined(ALWAYS_SHOW_TRANSLATOR_MENU)
     loc::show_translator_menu = true;
+#endif
+
+#ifdef _WIN32
+    if (open_console)
+    {
+        vlog_open_console();
+    }
 #endif
 
     if(!FILESYSTEM_init(argv[0], baseDir, assetsPath, langDir, fontsDir))
@@ -572,6 +593,7 @@ int main(int argc, char *argv[])
     graphics.init();
 
     game.init();
+    game.seed_use_sdl_getticks = seed_use_sdl_getticks;
 
     // This loads music too...
     if (!graphics.reloadresources())
@@ -877,6 +899,8 @@ static void focused_end(void)
 
 static enum LoopCode loop_end(void)
 {
+    ++game.framecounter;
+
     //We did editorinput, now it's safe to turn this off
     key.linealreadyemptykludge = false;
 

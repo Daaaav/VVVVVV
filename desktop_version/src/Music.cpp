@@ -477,14 +477,23 @@ end:
     }
 
     /* Lifted from SDL_mixer, we used it in 2.3 and previous */
-    static void parseComments(MusicTrack* t, char** comments, int comment_list_length)
-    {
+    static void parseComments(
+        MusicTrack* t, char** comments, const int comment_list_length
+    ) {
         int loopend = 0;
         for (int i = 0; i < comment_list_length; i++)
         {
-            char *param = SDL_strdup(comments[i]);
-            char *argument = param;
-            char *value = SDL_strchr(param, '=');
+            char* param = SDL_strdup(comments[i]);
+            if (param == NULL)
+            {
+                vlog_error(
+                    "Could not allocate memory to parse '%s'. Ignoring comments.",
+                    comments[i]
+                );
+                break;
+            }
+            char* argument = param;
+            char* value = SDL_strchr(param, '=');
             if (value == NULL)
             {
                 value = param + SDL_strlen(param);
@@ -498,7 +507,8 @@ end:
             * string if it is present at position 4. */
             char buf[5];
             SDL_strlcpy(buf, argument, sizeof(buf));
-            if (SDL_strcasecmp(buf, "LOOP") == 0 && ((argument[4] == '_') || (argument[4] == '-')))
+            if (SDL_strcasecmp(buf, "LOOP") == 0
+            && ((argument[4] == '_') || (argument[4] == '-')))
             {
                 SDL_memmove(argument + 4, argument + 5, SDL_strlen(argument) - 4);
             }
@@ -516,6 +526,19 @@ end:
                 loopend = _Mix_ParseTime(value, t->format.nSamplesPerSec);
             }
 
+            if (t->loopbegin < 0 || t->looplength < 0 || loopend < 0)
+            {
+                vlog_warn(
+                    "A track loop comment had a negative value. "
+                    "Ignoring all comments for the track."
+                );
+                t->loopbegin = 0;
+                t->looplength = 0;
+                loopend = 0;
+                SDL_free(param);
+                break;
+            }
+
             SDL_free(param);
         }
         if (loopend != 0)
@@ -524,11 +547,11 @@ end:
         }
     }
 
-    static int _Mix_ParseTime(char *time, long samplerate_hz)
+    static int _Mix_ParseTime(char* time, const long samplerate_hz)
     {
-        char *num_start, *p;
-        Sint64 result;
-        char c;
+        char* num_start = time;
+        char* p;
+        Sint64 result = 0;
         int val;
 
         /* Time is directly expressed as a sample position */
@@ -537,15 +560,14 @@ end:
             return SDL_strtoll(time, NULL, 10);
         }
 
-        result = 0;
-        num_start = time;
-
         for (p = time; *p != '\0'; ++p)
         {
             if (*p == '.' || *p == ':')
             {
-                c = *p; *p = '\0';
-                if ((val = SDL_atoi(num_start)) < 0)
+                const char c = *p;
+                *p = '\0';
+                val = SDL_atoi(num_start);
+                if (val < 0)
                 {
                     return -1;
                 }
@@ -556,7 +578,7 @@ end:
 
             if (*p == '.')
             {
-                double val_f = SDL_atof(p);
+                const double val_f = SDL_atof(p);
                 if (val_f < 0)
                 {
                     return -1;
@@ -565,7 +587,8 @@ end:
             }
         }
 
-        if ((val = SDL_atoi(num_start)) < 0)
+        val = SDL_atoi(num_start);
+        if (val < 0)
         {
             return -1;
         }

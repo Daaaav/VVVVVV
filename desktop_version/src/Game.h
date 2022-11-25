@@ -265,6 +265,8 @@ public:
     int lastsaved;
     int deathcounts;
 
+    int framecounter;
+    bool seed_use_sdl_getticks;
     int frames, seconds, minutes, hours;
     bool gamesaved;
     bool gamesavefailed;
