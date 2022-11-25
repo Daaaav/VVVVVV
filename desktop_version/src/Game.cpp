@@ -6368,6 +6368,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::translator_main:
         option(loc::gettext("translator options"));
         option(loc::gettext("maintenance"));
+        option(loc::gettext("open lang folder"), FILESYSTEM_openDirectoryEnabled());
         option(loc::gettext("return"));
         menuyoff = 0;
         break;

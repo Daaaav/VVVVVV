@@ -156,6 +156,7 @@
     <string english="Some options that are useful for translators and developers." translation="" explanation="" max="38*6"/>
     <string english="maintenance" translation="" explanation="menu option, menu that allows you to apply maintenance to translations"/>
     <string english="Maintenance" translation="" explanation="title" max="20"/>
+    <string english="open lang folder" translation="" explanation="menu option. Button that opens the folder with language files (which is called lang) in a file explorer"/>
     <string english="Sync all language files after adding new strings." translation="" explanation="" max="38*6"/>
     <string english="translate room names" translation="" explanation="menu option"/>
     <string english="Translate rooms" translation="" explanation="title" max="20"/>
@@ -385,7 +386,7 @@
     <string english="You have unlocked the intermission levels." translation="" explanation="" max="38*7"/>
     <string english="play a level" translation="" explanation="menu option"/>
     <string english="level editor" translation="" explanation="menu option"/>
-    <string english="open level folder" translation="" explanation="menu option"/>
+    <string english="open level folder" translation="" explanation="menu option. Button that opens the folder with level files in a file explorer"/>
     <string english="show level folder path" translation="" explanation="menu option"/>
     <string english="return" translation="" explanation="menu option"/>
     <string english="return to levels" translation="" explanation="menu option"/>

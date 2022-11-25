@@ -1131,21 +1131,36 @@ static void menuactionpress(void)
         break;
     }
     case Menu::translator_main:
-        music.playef(11);
         switch (game.currentmenuoption)
         {
         case 0:
             // translator options
+            music.playef(11);
             game.createmenu(Menu::translator_options);
             map.nexttowercolour();
             break;
         case 1:
             // maintenance
+            music.playef(11);
             game.createmenu(Menu::translator_maintenance);
             map.nexttowercolour();
             break;
+        case 2:
+            // open lang folder
+            if (FILESYSTEM_openDirectoryEnabled()
+            && FILESYSTEM_openDirectory(FILESYSTEM_getUserMainLangDirectory()))
+            {
+                music.playef(11);
+                SDL_MinimizeWindow(gameScreen.m_window);
+            }
+            else
+            {
+                music.playef(2);
+            }
+            break;
         default:
             // return
+            music.playef(11);
             game.returnmenu();
             map.nexttowercolour();
             break;
