@@ -2645,6 +2645,13 @@ void scriptclass::startgamemode( int t )
         game.starttrial(game.timetriallevel);
         game.jumpheld = true;
 
+        if (game.translator_exploring)
+        {
+            game.timetrialcountdown = 0;
+            game.timetrialparlost = true;
+            SDL_memset(map.explored, true, sizeof(map.explored));
+        }
+
         if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
         if (obj.entities.empty())
         {
@@ -3295,6 +3302,10 @@ void scriptclass::hardreset(void)
     game.timetrialparlost = false;
     game.timetrialpar = 0;
     game.timetrialcheater = false;
+
+    game.translator_exploring = game.start_translator_exploring;
+    game.start_translator_exploring = false;
+    game.translator_exploring_allowtele = false;
 
     game.totalflips = 0;
     game.hardestroom = loc::gettext_roomname(false, 13, 5, "Welcome Aboard", false);
