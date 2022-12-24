@@ -14,6 +14,7 @@
 #include "Graphics.h"
 #include "KeyPoll.h"
 #include "Localization.h"
+#include "LocalizationMaint.h"
 #include "LocalizationStorage.h"
 #include "Map.h"
 #include "Music.h"
@@ -3114,6 +3115,30 @@ void scriptclass::startgamemode( int t )
         break;
     }
 #endif /* NO_CUSTOM_LEVELS */
+    case 30:
+        // Start cutscene test
+        music.fadeout();
+        game.gamestate = GAMEMODE;
+        hardreset();
+        game.translator_exploring = true;
+        game.translator_cutscene_test = true;
+        game.startspecial(2);
+        game.jumpheld = true;
+        game.mapheld = true;
+
+        //set flipmode
+        if (graphics.setflipmode) graphics.flipmode = true;
+
+        if(obj.entities.empty())
+        {
+            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+        }
+        map.resetplayer();
+        map.gotoroom(game.saverx, game.savery);
+        map.initmapdata();
+
+        loadtest(game.cutscenetest_menu_play_id);
+        break;
     case 100:
         VVV_exit(0);
         break;
@@ -3306,6 +3331,7 @@ void scriptclass::hardreset(void)
     game.translator_exploring = game.start_translator_exploring;
     game.start_translator_exploring = false;
     game.translator_exploring_allowtele = false;
+    game.translator_cutscene_test = false;
 
     game.totalflips = 0;
     game.hardestroom = loc::gettext_roomname(false, 13, 5, "Welcome Aboard", false);
@@ -3738,4 +3764,35 @@ void scriptclass::loadcustom(const std::string& t)
         add("endcutscene()");
         add("untilbars()");
     }
+}
+
+void scriptclass::add_test_line(const std::string& speaker, const std::string& english, char textcase)
+{
+    if (speaker == "gray")
+    {
+        add("squeak(terminal)");
+    }
+    else
+    {
+        add("squeak("+speaker+")");
+    }
+    add("textcase("+help.String(textcase)+")");
+    add("text("+speaker+",0,0,1)");
+    add(english);
+    add("position(center)");
+    add("speak_active");
+}
+
+void scriptclass::loadtest(const std::string& name)
+{
+    // Another magic function, that turns language files into a demo script
+    position = 0;
+    commands.clear();
+    scriptname = name;
+    running = true;
+
+    loc::populate_cutscene_test(name.c_str());
+
+    add("endtext");
+    add("gamestate(3100)");
 }

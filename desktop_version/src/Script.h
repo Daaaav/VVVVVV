@@ -28,6 +28,9 @@ public:
     void loadother(const char* t);
     void loadcustom(const std::string& t);
 
+    void add_test_line(const std::string& speaker, const std::string& english, char textcase);
+    void loadtest(const std::string& name);
+
     void inline add(const std::string& t)
     {
         commands.push_back(t);
