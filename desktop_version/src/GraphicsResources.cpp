@@ -84,7 +84,6 @@ void GraphicsResources::init(void)
     im_entcolours =        LoadImage("graphics/entcolours.png");
     im_sprites =        LoadImage("graphics/sprites.png");
     im_flipsprites =    LoadImage("graphics/flipsprites.png");
-    im_bfont =        LoadImage("graphics/font.png");
     im_teleporter =        LoadImage("graphics/teleporter.png");
 
     im_image0 =        LoadImage("graphics/levelcomplete.png");
@@ -112,7 +111,6 @@ void GraphicsResources::destroy(void)
     CLEAR(im_entcolours);
     CLEAR(im_sprites);
     CLEAR(im_flipsprites);
-    CLEAR(im_bfont);
     CLEAR(im_teleporter);
 
     CLEAR(im_image0);

@@ -4,6 +4,7 @@
 #include <SDL.h>
 
 void setRect(SDL_Rect& _r, int x, int y, int w, int h);
+SDL_Surface* RecreateSurfaceWithDimensions(SDL_Surface* surface, int width, int height);
 
 SDL_Surface* GetSubSurface( SDL_Surface* metaSurface, int x, int y, int width, int height );
 
@@ -35,7 +36,7 @@ void ClearSurface(SDL_Surface* surface);
 
 void ScrollSurface(SDL_Surface* _src, int pX, int py);
 
-SDL_Surface * FlipSurfaceVerticle(SDL_Surface* _src);
+void FlipSurfaceVertical(SDL_Surface* src, const SDL_Rect* rect);
 void UpdateFilter(void);
 SDL_Surface* ApplyFilter( SDL_Surface* _src );
 

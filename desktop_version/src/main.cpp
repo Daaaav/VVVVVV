@@ -11,6 +11,7 @@
 #include "Entity.h"
 #include "Exit.h"
 #include "FileSystemUtils.h"
+#include "Font.h"
 #include "Game.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
@@ -597,6 +598,8 @@ int main(int argc, char *argv[])
     game.init();
     game.seed_use_sdl_getticks = seed_use_sdl_getticks;
 
+    font::load_main();
+
     // This loads music too...
     if (!graphics.reloadresources())
     {
@@ -794,6 +797,7 @@ static void cleanup(void)
     graphics.grphx.destroy();
     graphics.destroy_buffers();
     graphics.destroy();
+    font::destroy();
     music.destroy();
     map.destroy();
     NETWORK_shutdown();

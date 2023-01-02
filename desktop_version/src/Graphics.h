@@ -34,11 +34,6 @@ public:
 
     GraphicsResources grphx;
 
-    int bfontlen(uint32_t ch);
-    int font_idx(uint32_t ch);
-
-    bool Makebfont(void);
-
     void drawhuetile(int x, int y, int t, SDL_Color ct);
     SDL_Color huetilegetcol(int t);
     SDL_Color bigchunkygetcol(int t);
@@ -270,8 +265,6 @@ public:
     std::vector <SDL_Surface*> entcolours;
     std::vector <SDL_Surface*> sprites;
     std::vector <SDL_Surface*> flipsprites;
-    std::vector <SDL_Surface*> bfont;
-    std::vector <SDL_Surface*> flipbfont;
 
     bool flipmode;
     bool setflipmode;
@@ -337,8 +330,6 @@ public:
     int warpskip;
 
     bool translucentroomname;
-
-    std::map<int, int> font_positions;
 
     SDL_Surface* ghostbuffer;
 

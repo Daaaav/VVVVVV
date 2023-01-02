@@ -10,6 +10,7 @@
 #include "Entity.h"
 #include "Exit.h"
 #include "FileSystemUtils.h"
+#include "Font.h"
 #include "GraphicsUtil.h"
 #include "Localization.h"
 #include "Map.h"
@@ -174,8 +175,6 @@ void Graphics::destroy(void)
     CLEAR_ARRAY(sprites)
     CLEAR_ARRAY(flipsprites)
     CLEAR_ARRAY(tele)
-    CLEAR_ARRAY(bfont)
-    CLEAR_ARRAY(flipbfont)
 
     #undef CLEAR_ARRAY
 }
@@ -257,28 +256,6 @@ void Graphics::destroy_buffers(void)
 #undef FREE_SURFACE
 }
 
-int Graphics::font_idx(uint32_t ch)
-{
-    if (font_positions.size() > 0)
-    {
-        std::map<int, int>::iterator iter = font_positions.find(ch);
-        if (iter == font_positions.end())
-        {
-            iter = font_positions.find('?');
-            if (iter == font_positions.end())
-            {
-                WHINE_ONCE("font.txt missing fallback character!");
-                return -1;
-            }
-        }
-        return iter->second;
-    }
-    else
-    {
-        return ch;
-    }
-}
-
 void Graphics::drawspritesetcol(int x, int y, int t, int c)
 {
     if (!INBOUNDS_VEC(t, sprites))
@@ -352,53 +329,6 @@ void Graphics::updatetitlecolours(void)
 
 #define PROCESS_TILESHEET(tilesheet, tile_square, extra_code) \
     PROCESS_TILESHEET_RENAME(tilesheet, tilesheet, tile_square, extra_code)
-
-bool Graphics::Makebfont(void)
-{
-    PROCESS_TILESHEET(bfont, 8,
-    {
-        SDL_Surface* TempFlipped = FlipSurfaceVerticle(temp);
-        flipbfont.push_back(TempFlipped);
-    })
-
-    unsigned char* charmap = NULL;
-    size_t length;
-    if (FILESYSTEM_areAssetsInSameRealDir("graphics/font.png", "graphics/font.txt"))
-    {
-        FILESYSTEM_loadAssetToMemory("graphics/font.txt", &charmap, &length, false);
-    }
-    if (charmap != NULL)
-    {
-        unsigned char* current = charmap;
-        unsigned char* end = charmap + length;
-        int pos = 0;
-        while (current != end)
-        {
-            int codepoint = utf8::unchecked::next(current);
-            font_positions[codepoint] = pos;
-            ++pos;
-        }
-        VVV_free(charmap);
-    }
-    else
-    {
-        font_positions.clear();
-    }
-
-    return true;
-}
-
-int Graphics::bfontlen(uint32_t ch)
-{
-    if (ch < 32)
-    {
-        return 6;
-    }
-    else
-    {
-        return 8;
-    }
-}
 
 bool Graphics::MakeTileArray(void)
 {
@@ -477,38 +407,6 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
     }
 }
 
-static void print_char(
-    SDL_Surface* const buffer,
-    SDL_Surface* const font,
-    const int x,
-    const int y,
-    const int scale,
-    const SDL_Color color
-) {
-    SDL_Rect font_rect = {x, y, 8*scale, 8*scale};
-    SDL_Surface* surface;
-
-    if (scale > 1)
-    {
-        surface = ScaleSurface(font, 8 * scale, 8 * scale);
-        if (surface == NULL)
-        {
-            return;
-        }
-    }
-    else
-    {
-        surface = font;
-    }
-
-    BlitSurfaceColoured(surface, NULL, buffer, &font_rect, color);
-
-    if (scale > 1)
-    {
-        VVV_freefunc(SDL_FreeSurface, surface);
-    }
-}
-
 void Graphics::do_print(
     const int x,
     const int y,
@@ -519,7 +417,7 @@ void Graphics::do_print(
     int a,
     const int scale
 ) {
-    std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
+    // TODO do something with flipmode
 
     int position = 0;
     std::string::const_iterator iter = text.begin();
@@ -534,14 +432,7 @@ void Graphics::do_print(
     while (iter != text.end())
     {
         const uint32_t character = utf8::unchecked::next(iter);
-        const int idx = font_idx(character);
-
-        if (INBOUNDS_VEC(idx, font))
-        {
-            print_char(backBuffer, font[idx], x + position, y, scale, ct);
-        }
-
-        position += bfontlen(character) * scale;
+        position += font::print_char(&font::temp_bfont, backBuffer, character, x + position, y, scale, ct);
     }
 }
 
@@ -584,7 +475,7 @@ bool Graphics::next_wrap(
             goto next;
         }
 
-        linewidth += bfontlen(str[idx]);
+        linewidth += font::get_advance(&font::temp_bfont, str[idx]);
 
         switch (str[idx])
         {
@@ -737,13 +628,13 @@ void Graphics::bigbprint(int x, int y, const std::string& s, int r, int g, int b
 
 int Graphics::len(const std::string& t)
 {
-    int bfontpos = 0;
+    int text_len = 0;
     std::string::const_iterator iter = t.begin();
     while (iter != t.end()) {
         int cur = utf8::unchecked::next(iter);
-        bfontpos += bfontlen(cur);
+        text_len += font::get_advance(&font::temp_bfont, cur);
     }
-    return bfontpos;
+    return text_len;
 }
 
 std::string Graphics::string_wordwrap(const std::string& s, int maxwidth, short *lines /*= NULL*/)
@@ -3692,7 +3583,6 @@ bool Graphics::reloadresources(void)
     MAYBE_FAIL(MakeTileArray());
     MAYBE_FAIL(MakeSpriteArray());
     MAYBE_FAIL(maketelearray());
-    MAYBE_FAIL(Makebfont());
 
     images.clear();
 

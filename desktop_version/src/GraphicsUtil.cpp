@@ -17,7 +17,7 @@ void setRect( SDL_Rect& _r, int x, int y, int w, int h )
     _r.h = h;
 }
 
-static SDL_Surface* RecreateSurfaceWithDimensions(
+SDL_Surface* RecreateSurfaceWithDimensions(
     SDL_Surface* surface,
     const int width,
     const int height
@@ -155,25 +155,26 @@ SDL_Surface * ScaleSurface( SDL_Surface *_surface, int Width, int Height, SDL_Su
     return _ret;
 }
 
-SDL_Surface *  FlipSurfaceVerticle(SDL_Surface* _src)
+void FlipSurfaceVertical(SDL_Surface* src, const SDL_Rect* rect)
 {
-    SDL_Surface * ret = RecreateSurface(_src);
-    if(ret == NULL)
+    SDL_Rect use_rect = {0, 0, src->w, src->h};
+    if (rect != NULL)
     {
-        return NULL;
+        use_rect = *rect;
     }
 
-    for(Sint32 y = 0; y < _src->h; y++)
+    for (int rect_y = 0; rect_y < use_rect.h / 2; rect_y++)
     {
-        for(Sint32 x = 0; x < _src->w; x++)
+        for (int rect_x = 0; rect_x < use_rect.w; rect_x++)
         {
-            DrawPixel(ret, x ,(_src->h-1) - y ,ReadPixel(_src, x, y));
+            int x = use_rect.x + rect_x;
+            int y_top = use_rect.y + rect_y;
+            int y_bot = (use_rect.y + use_rect.h - 1) - rect_y;
+            SDL_Color col_top = ReadPixel(src, x, y_top);
+            DrawPixel(src, x, y_top, ReadPixel(src, x, y_bot));
+            DrawPixel(src, x, y_bot, col_top);
         }
-
-
     }
-
-    return ret;
 }
 
 void BlitSurfaceStandard( SDL_Surface* _src, SDL_Rect* _srcRect, SDL_Surface* _dest, SDL_Rect* _destRect )
