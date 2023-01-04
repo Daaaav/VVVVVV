@@ -6,6 +6,8 @@
 #include "Alloc.h"
 #include "FileSystemUtils.h"
 #include "Graphics.h"
+#include "UtilityClass.h"
+#include "XMLUtils.h"
 
 // Sigh... This is the second forward-declaration, we need to put this in a header file
 SDL_Surface* LoadImage(const char *filename);
@@ -69,7 +71,7 @@ static GlyphInfo* add_glyphinfo(
 
 static bool glyph_is_valid(const GlyphInfo* glyph)
 {
-    return glyph->flags == 1; // TODO flags
+    return glyph->flags & GLYPH_EXISTS;
 }
 
 static GlyphInfo* find_glyphinfo(const Font* f, const uint32_t codepoint)
@@ -99,7 +101,7 @@ static void load_font(Font* f, const char* name)
     char name_xml[256];
     SDL_snprintf(name_png, sizeof(name_png), "graphics/%s.png", name);
     SDL_snprintf(name_txt, sizeof(name_txt), "graphics/%s.txt", name);
-    SDL_snprintf(name_xml, sizeof(name_xml), "graphics/%s.fontinfo", name);
+    SDL_snprintf(name_xml, sizeof(name_xml), "graphics/%s.fontmeta", name);
 
     f->glyph_w = 8;
     f->glyph_h = 8;
@@ -107,14 +109,21 @@ static void load_font(Font* f, const char* name)
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* pElem;
-    bool xml_loaded = false;
 
     if (FILESYSTEM_loadAssetTiXml2Document(name_xml, doc))
     {
-        xml_loaded = true;
+        hDoc = hDoc.FirstChildElement("font_metadata");
 
-        //f->glyph_w =
-        //f->glyph_h =
+        pElem = hDoc.FirstChildElement("width").ToElement();
+        if (pElem != NULL)
+        {
+            f->glyph_w = help.Int(pElem->GetText());
+        }
+        pElem = hDoc.FirstChildElement("height").ToElement();
+        if (pElem != NULL)
+        {
+            f->glyph_h = help.Int(pElem->GetText());
+        }
     }
 
     f->image = LoadImage(name_png);
@@ -157,32 +166,64 @@ static void load_font(Font* f, const char* name)
     {
         int codepoint = utf8::unchecked::next(current);
         GlyphInfo* glyph = add_glyphinfo(f, codepoint);
-        if (glyph == NULL)
+        if (glyph == NULL && glyph_is_valid(glyph))
         {
             break;
         }
         glyph->image_idx = pos;
         glyph->advance = f->glyph_w;
-        glyph->flags = 1; // TODO flags
+        glyph->flags = GLYPH_EXISTS;
         ++pos;
     }
 
     VVV_free(charmap);
 
-    // TODO get data from font.xml
-    for (int codepoint = 0; codepoint < 32; codepoint++)
+    pElem = hDoc.FirstChildElement("special").ToElement();
+    if (pElem != NULL)
     {
-        GlyphInfo* glyph = get_glyphinfo(f, codepoint);
-        if (glyph != NULL)
+        tinyxml2::XMLElement* subElem;
+        FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
         {
-            glyph->advance = 6;
+            EXPECT_ELEM(subElem, "range");
+
+            unsigned start, end;
+            if (subElem->QueryUnsignedAttribute("start", &start) != tinyxml2::XML_SUCCESS
+                || subElem->QueryUnsignedAttribute("end", &end) != tinyxml2::XML_SUCCESS
+                || end < start || start > 0x10FFFF)
+            {
+                continue;
+            }
+            end = SDL_min(end, 0x10FFFF);
+
+            int advance = subElem->IntAttribute("advance", -1);
+            int color = subElem->IntAttribute("color", -1);
+
+            for (uint32_t codepoint = start; codepoint <= end; codepoint++)
+            {
+                GlyphInfo* glyph = get_glyphinfo(f, codepoint);
+                if (glyph != NULL)
+                {
+                    if (advance >= 0 && advance < 256)
+                    {
+                        glyph->advance = advance;
+                    }
+                    if (color == 0)
+                    {
+                        glyph->flags &= ~GLYPH_COLOR;
+                    }
+                    else if (color == 1)
+                    {
+                        glyph->flags |= GLYPH_COLOR;
+                    }
+                }
+            }
         }
     }
 }
 
 void load_main(void)
 {
-    // TODO PHYSFS_enumerateFiles, load everything that matches *.fontinfo or font.png (but not font.fontinfo)
+    // TODO PHYSFS_enumerateFiles, load everything that matches *.fontmeta or font.png (but not font.fontmeta)
     load_font(&temp_bfont, "font");
 }
 
@@ -283,7 +324,14 @@ int print_char(
     }
 
     SDL_Rect dest_rect = {x, y, draw_w, draw_h};
-    BlitSurfaceColoured(src_surface, &src_rect, dest_surface, &dest_rect, color);
+    if (glyph->flags & GLYPH_COLOR)
+    {
+        BlitSurfaceStandard(src_surface, &src_rect, dest_surface, &dest_rect);
+    }
+    else
+    {
+        BlitSurfaceColoured(src_surface, &src_rect, dest_surface, &dest_rect, color);
+    }
 
     return glyph->advance * scale;
 }

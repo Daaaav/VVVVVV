@@ -9,6 +9,9 @@
 namespace font
 {
 
+#define GLYPH_EXISTS 0x1
+#define GLYPH_COLOR 0x2
+
 struct GlyphInfo
 {
     uint16_t image_idx;
