@@ -49,11 +49,17 @@ static GlyphInfo* get_glyphinfo(
     return &f->glyph_page[page][glyph];
 }
 
-static GlyphInfo* add_glyphinfo(
+static void add_glyphinfo(
     Font* f,
-    const uint32_t codepoint
+    const uint32_t codepoint,
+    const int image_idx
 )
 {
+    if (image_idx < 0 || image_idx > 65535)
+    {
+        return;
+    }
+
     short page, glyph;
     codepoint_split(codepoint, &page, &glyph);
 
@@ -62,11 +68,13 @@ static GlyphInfo* add_glyphinfo(
         f->glyph_page[page] = (GlyphInfo*) SDL_calloc(FONT_PAGE_SIZE, sizeof(GlyphInfo));
         if (f->glyph_page[page] == NULL)
         {
-            return NULL;
+            return;
         }
     }
 
-    return &f->glyph_page[page][glyph];
+    f->glyph_page[page][glyph].image_idx = image_idx;
+    f->glyph_page[page][glyph].advance = f->glyph_w;
+    f->glyph_page[page][glyph].flags = GLYPH_EXISTS;
 }
 
 static bool glyph_is_valid(const GlyphInfo* glyph)
@@ -94,6 +102,21 @@ static GlyphInfo* find_glyphinfo(const Font* f, const uint32_t codepoint)
     return glyph;
 }
 
+static bool decode_xml_range(tinyxml2::XMLElement* elem, unsigned* start, unsigned* end)
+{
+    /* We do support hexadecimal start/end like "0x10FFFF" */
+    if (elem->QueryUnsignedAttribute("start", start) != tinyxml2::XML_SUCCESS
+        || elem->QueryUnsignedAttribute("end", end) != tinyxml2::XML_SUCCESS
+        || *end < *start || *start > 0x10FFFF
+    )
+    {
+        return false;
+    }
+
+    *end = SDL_min(*end, 0x10FFFF);
+    return true;
+}
+
 static void load_font(Font* f, const char* name)
 {
     char name_png[256];
@@ -109,18 +132,20 @@ static void load_font(Font* f, const char* name)
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* pElem;
+    bool xml_loaded = false;
 
-    if (FILESYSTEM_loadAssetTiXml2Document(name_xml, doc))
+    if (FILESYSTEM_areAssetsInSameRealDir(name_png, name_xml)
+        && FILESYSTEM_loadAssetTiXml2Document(name_xml, doc)
+    )
     {
+        xml_loaded = true;
         hDoc = hDoc.FirstChildElement("font_metadata");
 
-        pElem = hDoc.FirstChildElement("width").ToElement();
-        if (pElem != NULL)
+        if ((pElem = hDoc.FirstChildElement("width").ToElement()) != NULL)
         {
             f->glyph_w = help.Int(pElem->GetText());
         }
-        pElem = hDoc.FirstChildElement("height").ToElement();
-        if (pElem != NULL)
+        if ((pElem = hDoc.FirstChildElement("height").ToElement()) != NULL)
         {
             f->glyph_h = help.Int(pElem->GetText());
         }
@@ -139,84 +164,104 @@ static void load_font(Font* f, const char* name)
     f->n_x_glyphs = f->image->w / f->glyph_w;
     f->n_y_glyphs = f->image->h / f->glyph_h;
 
+    /* We may have a 2.3-style font.txt with all the characters.
+     * font.txt takes priority over <chars> in the XML.
+     * If neither exist, it's just ASCII. */
+    bool charset_loaded = false;
     unsigned char* charmap = NULL;
     size_t length;
     if (FILESYSTEM_areAssetsInSameRealDir(name_png, name_txt))
     {
         FILESYSTEM_loadAssetToMemory(name_txt, &charmap, &length, false);
     }
-    if (charmap == NULL)
+    if (charmap != NULL)
     {
-        /* If we don't have font.txt, it's 2.2-style plain ASCII */
-        length = 0x80;
-        charmap = (unsigned char*) SDL_malloc(length);
-        if (charmap == NULL)
+        charset_loaded = true;
+        unsigned char* current = charmap;
+        unsigned char* end = charmap + length;
+        int pos = 0;
+        while (current != end)
         {
-            return;
+            uint32_t codepoint = utf8::unchecked::next(current);
+            add_glyphinfo(f, codepoint, pos);
+            ++pos;
         }
-        for (uint8_t codepoint = 0x00; codepoint < length; codepoint++)
-        {
-            charmap[codepoint] = codepoint;
-        }
-    }
-    unsigned char* current = charmap;
-    unsigned char* end = charmap + length;
-    int pos = 0;
-    while (current != end)
-    {
-        int codepoint = utf8::unchecked::next(current);
-        GlyphInfo* glyph = add_glyphinfo(f, codepoint);
-        if (glyph == NULL && glyph_is_valid(glyph))
-        {
-            break;
-        }
-        glyph->image_idx = pos;
-        glyph->advance = f->glyph_w;
-        glyph->flags = GLYPH_EXISTS;
-        ++pos;
+
+        VVV_free(charmap);
     }
 
-    VVV_free(charmap);
-
-    pElem = hDoc.FirstChildElement("special").ToElement();
-    if (pElem != NULL)
+    if (xml_loaded)
     {
-        tinyxml2::XMLElement* subElem;
-        FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
+        if (!charset_loaded && (pElem = hDoc.FirstChildElement("chars").ToElement()) != NULL)
         {
-            EXPECT_ELEM(subElem, "range");
-
-            unsigned start, end;
-            if (subElem->QueryUnsignedAttribute("start", &start) != tinyxml2::XML_SUCCESS
-                || subElem->QueryUnsignedAttribute("end", &end) != tinyxml2::XML_SUCCESS
-                || end < start || start > 0x10FFFF)
+            /* <chars> in the XML is only looked at if we haven't already seen font.txt. */
+            int pos = 0;
+            tinyxml2::XMLElement* subElem;
+            FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
             {
-                continue;
-            }
-            end = SDL_min(end, 0x10FFFF);
+                EXPECT_ELEM(subElem, "range");
 
-            int advance = subElem->IntAttribute("advance", -1);
-            int color = subElem->IntAttribute("color", -1);
-
-            for (uint32_t codepoint = start; codepoint <= end; codepoint++)
-            {
-                GlyphInfo* glyph = get_glyphinfo(f, codepoint);
-                if (glyph != NULL)
+                unsigned start, end;
+                if (!decode_xml_range(subElem, &start, &end))
                 {
-                    if (advance >= 0 && advance < 256)
+                    continue;
+                }
+
+                for (uint32_t codepoint = start; codepoint <= end; codepoint++)
+                {
+                    add_glyphinfo(f, codepoint, pos);
+                    ++pos;
+                }
+            }
+            charset_loaded = true;
+        }
+
+        if ((pElem = hDoc.FirstChildElement("special").ToElement()) != NULL)
+        {
+            tinyxml2::XMLElement* subElem;
+            FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
+            {
+                EXPECT_ELEM(subElem, "range");
+
+                unsigned start, end;
+                if (!decode_xml_range(subElem, &start, &end))
+                {
+                    continue;
+                }
+
+                int advance = subElem->IntAttribute("advance", -1);
+                int color = subElem->IntAttribute("color", -1);
+
+                for (uint32_t codepoint = start; codepoint <= end; codepoint++)
+                {
+                    GlyphInfo* glyph = get_glyphinfo(f, codepoint);
+                    if (glyph != NULL)
                     {
-                        glyph->advance = advance;
-                    }
-                    if (color == 0)
-                    {
-                        glyph->flags &= ~GLYPH_COLOR;
-                    }
-                    else if (color == 1)
-                    {
-                        glyph->flags |= GLYPH_COLOR;
+                        if (advance >= 0 && advance < 256)
+                        {
+                            glyph->advance = advance;
+                        }
+                        if (color == 0)
+                        {
+                            glyph->flags &= ~GLYPH_COLOR;
+                        }
+                        else if (color == 1)
+                        {
+                            glyph->flags |= GLYPH_COLOR;
+                        }
                     }
                 }
             }
+        }
+    }
+
+    if (!charset_loaded)
+    {
+        /* If we don't have font.txt and no <chars> tag either,
+         * this font is 2.2-and-below-style plain ASCII. */
+        for (uint8_t codepoint = 0x00; codepoint < 0x80; codepoint++)
+        {
+            add_glyphinfo(f, codepoint, codepoint);
         }
     }
 }
@@ -259,7 +304,7 @@ static inline void image_idx_to_xy(const Font* f, const uint16_t image_idx, int*
 int get_advance(const Font* f, const uint32_t codepoint)
 {
     /* Get the width of a single character in a font */
-    GlyphInfo* glyph = find_glyphinfo(f, codepoint);;
+    GlyphInfo* glyph = find_glyphinfo(f, codepoint);
     if (glyph == NULL)
     {
         return f->glyph_w;
