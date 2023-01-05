@@ -369,7 +369,7 @@ int print_char(
     }
 
     SDL_Rect dest_rect = {x, y, draw_w, draw_h};
-    if (glyph->flags & GLYPH_COLOR)
+    if (glyph->flags & GLYPH_COLOR && (color.r | color.g | color.b) != 0)
     {
         BlitSurfaceStandard(src_surface, &src_rect, dest_surface, &dest_rect);
     }
