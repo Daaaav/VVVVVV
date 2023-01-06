@@ -1,3 +1,28 @@
+/*
+ * == SOME TEXT PRINTING EXAMPLES ==
+ *
+ * Standard print
+ *     font::print(0, 50, 50, "Hello world!", 255, 255, 255);
+ *
+ * Centered text
+ *     font::print(PR_CEN, -1, 50, "Hello world!", 255, 255, 255);
+ *     (set X to -1, unless you want to center *around* X)
+ *
+ * 2x scale
+ *     font::print(PR_2X, 50, 50, "V", 255, 255, 255);
+ *
+ * Centered 2x scale
+ *     font::print(PR_CEN | PR_2X, -1, 50, "V", 255, 255, 255);
+ *
+ * Right-aligned 3x scale with a border around it
+ *     font::print(PR_RIGHT | PR_3X | PR_BOR, 320, 50, "V", 255, 255, 255);
+ *
+ * Wordwrapped centered text
+ *     font::print_wrap(PR_CEN, -1, 50, "Hello world, this will wordwrap to the screen width", 255, 255, 255);
+ *
+ */
+
+
 #ifndef FONT_H
 #define FONT_H
 
@@ -104,28 +129,6 @@ int print_wrap(
     int linespacing = -1,
     int maxwidth = -1
 );
-
-/*
- * SOME TEXT PRINTING EXAMPLES:
- *
- * Standard print
- *     font::print(0, 50, 50, "Hello world!", 255, 255, 255);
- *
- * Centered text
- *     font::print(PR_CEN, -1, 50, "Hello world!", 255, 255, 255);
- *     (set X to -1, unless you want to center *around* X)
- *
- * 2x scale
- *     font::print(PR_2X, 50, 50, "V", 255, 255, 255);
- *
- * Centered 2x scale
- *     font::print(PR_CEN | PR_2X, -1, 50, "V", 255, 255, 255);
- *
- * Right-aligned 3x scale with a border around it
- *     font::print(PR_RIGHT | PR_3X | PR_BOR, 320, 50, "V", 255, 255, 255);
- *
- * TODO: print_wrap
- */
 
 } /* namespace font */
 
