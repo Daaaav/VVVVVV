@@ -6,6 +6,7 @@
 #include "Alloc.h"
 #include "FileSystemUtils.h"
 #include "Graphics.h"
+#include "Localization.h"
 #include "UtilityClass.h"
 #include "XMLUtils.h"
 
@@ -168,6 +169,7 @@ static void load_font(Font* f, const char* name)
      * font.txt takes priority over <chars> in the XML.
      * If neither exist, it's just ASCII. */
     bool charset_loaded = false;
+    bool special_loaded = false;
     unsigned char* charmap = NULL;
     size_t length;
     if (FILESYSTEM_areAssetsInSameRealDir(name_png, name_txt))
@@ -252,6 +254,7 @@ static void load_font(Font* f, const char* name)
                     }
                 }
             }
+            special_loaded = true;
         }
     }
 
@@ -259,9 +262,23 @@ static void load_font(Font* f, const char* name)
     {
         /* If we don't have font.txt and no <chars> tag either,
          * this font is 2.2-and-below-style plain ASCII. */
-        for (uint8_t codepoint = 0x00; codepoint < 0x80; codepoint++)
+        for (uint32_t codepoint = 0x00; codepoint < 0x80; codepoint++)
         {
             add_glyphinfo(f, codepoint, codepoint);
+        }
+    }
+
+    if (!special_loaded && f->glyph_w == 8 && f->glyph_h == 8)
+    {
+        /* If we don't have <special>, and the font is 8x8,
+         * 0x00-0x1F will be less wide because that's how it has always been. */
+        for (uint32_t codepoint = 0x00; codepoint < 0x20; codepoint++)
+        {
+            GlyphInfo* glyph = get_glyphinfo(f, codepoint);
+            if (glyph != NULL)
+            {
+                glyph->advance = 6;
+            }
         }
     }
 }
@@ -383,7 +400,7 @@ static int print_char(
     return glyph->advance * scale;
 }
 
-#define FLAG_PART(start, count) (flags >> start) % (1 << count)
+#define FLAG_PART(start, count) ((flags >> start) % (1 << count))
 static PrintFlags decode_print_flags(uint32_t flags)
 {
     PrintFlags pf;
@@ -481,6 +498,65 @@ void print(
             pf.colorglyph_bri
         );
     }
+}
+
+int print_wrap(
+    const uint32_t flags,
+    const int x,
+    int y,
+    const std::string& text,
+    const int r,
+    const int g,
+    const int b,
+    int linespacing /*= -1*/,
+    int maxwidth /*= -1*/
+)
+{
+    if (linespacing == -1)
+    {
+        linespacing = 10;
+    }
+    linespacing = SDL_max(linespacing, loc::get_langmeta()->font_h);
+
+    if (maxwidth == -1)
+    {
+        maxwidth = 304;
+    }
+
+    // TODO look through all the flags
+
+    const char* str = text.c_str();
+    /* This could fit 64 non-BMP characters onscreen, should be plenty */
+    char buffer[256];
+    size_t start = 0;
+
+    if (graphics.flipmode)
+    {
+        /* Correct for the height of the resulting print. */
+        size_t len = 0;
+        while (graphics.next_wrap(&start, &len, &str[start], maxwidth))
+        {
+            y += linespacing;
+        }
+        y -= linespacing;
+        start = 0;
+    }
+
+    while (graphics.next_wrap_s(buffer, sizeof(buffer), &start, str, maxwidth))
+    {
+        print(flags, x, y, buffer, r, g, b);
+
+        if (graphics.flipmode)
+        {
+            y -= linespacing;
+        }
+        else
+        {
+            y += linespacing;
+        }
+    }
+
+    return y + linespacing;
 }
 
 } /* namespace font */
