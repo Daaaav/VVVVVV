@@ -11,6 +11,7 @@
 #include "DeferCallbacks.h"
 #include "Entity.h"
 #include "Enums.h"
+#include "Font.h"
 #include "Game.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
@@ -1140,7 +1141,7 @@ void editorrender(void)
         }
 
         short lines;
-        message = graphics.string_wordwrap(message, 312, &lines);
+        message = font::string_wordwrap(message, 312, &lines);
         short textheight = 8*lines;
 
         FillRect(graphics.backBuffer, 0,238-textheight,320,240, graphics.getRGB(32,32,32));
@@ -1242,7 +1243,7 @@ void editorrender(void)
     else if (ed.textmod)
     {
         short lines;
-        std::string wrapped = graphics.string_wordwrap(ed.textdesc, 312, &lines);
+        std::string wrapped = font::string_wordwrap(ed.textdesc, 312, &lines);
         short textheight = 8*lines+8;
 
         FillRect(graphics.backBuffer, 0, 238-textheight, 320, 240, graphics.getRGB(32, 32, 32));
@@ -1579,7 +1580,7 @@ void editorrender(void)
     if(ed.notedelay>0 || ed.oldnotedelay>0)
     {
         short lines;
-        std::string wrapped = graphics.string_wordwrap(ed.note, 304, &lines);
+        std::string wrapped = font::string_wordwrap(ed.note, 304, &lines);
         short textheight = 8+(lines-1)*10;
         short banner_y = 120 - textheight/2 - 5;
 
