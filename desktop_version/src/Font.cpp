@@ -313,19 +313,20 @@ int get_advance(const Font* f, const uint32_t codepoint)
     return glyph->advance;
 }
 
-int print_char(
+static int print_char(
     const Font* f,
     SDL_Surface* dest_surface,
     const uint32_t codepoint,
     const int x,
     const int y,
     const int scale,
-    const SDL_Color color
+    const SDL_Color color,
+    const uint8_t colorglyph_bri
 )
 {
     /* Draws the glyph for a codepoint at x,y on dest_surface.
      * Returns the amount of pixels to advance the cursor. */
-    GlyphInfo* glyph = find_glyphinfo(f, codepoint);;
+    GlyphInfo* glyph = find_glyphinfo(f, codepoint);
     if (glyph == NULL)
     {
         return f->glyph_w * scale;
@@ -371,7 +372,8 @@ int print_char(
     SDL_Rect dest_rect = {x, y, draw_w, draw_h};
     if (glyph->flags & GLYPH_COLOR && (color.r | color.g | color.b) != 0)
     {
-        BlitSurfaceStandard(src_surface, &src_rect, dest_surface, &dest_rect);
+        SDL_Color color_mix = {colorglyph_bri, colorglyph_bri, colorglyph_bri, color.a};
+        BlitSurfaceMixed(src_surface, &src_rect, dest_surface, &dest_rect, color_mix);
     }
     else
     {
@@ -379,6 +381,106 @@ int print_char(
     }
 
     return glyph->advance * scale;
+}
+
+#define FLAG_PART(start, count) (flags >> start) % (1 << count)
+static PrintFlags decode_print_flags(uint32_t flags)
+{
+    PrintFlags pf;
+    pf.scale = FLAG_PART(0, 3) + 1;
+    pf.font_sel = FLAG_PART(3, 5);
+
+    if (flags & PR_AB_IS_BRI)
+    {
+        pf.alpha = 255;
+        pf.colorglyph_bri = ~FLAG_PART(8, 8) & 0xff;
+    }
+    else
+    {
+        pf.alpha = ~FLAG_PART(8, 8) & 0xff;
+        pf.colorglyph_bri = 255;
+    }
+
+    pf.border = flags & PR_BOR;
+    pf.align_cen = flags & PR_CEN;
+    pf.align_right = flags & PR_RIGHT;
+    pf.cjk_low = flags & PR_CJK_LOW;
+    pf.cjk_high = flags & PR_CJK_HIGH;
+
+    return pf;
+}
+#undef FLAG_PART
+
+void print(
+    const uint32_t flags,
+    int x,
+    int y,
+    const std::string& text,
+    int r,
+    int g,
+    int b
+)
+{
+    PrintFlags pf = decode_print_flags(flags);
+
+    // TODO pf.font_sel
+
+    r = SDL_clamp(r, 0, 255);
+    g = SDL_clamp(g, 0, 255);
+    b = SDL_clamp(b, 0, 255);
+    const SDL_Color ct = graphics.getRGBA(r, g, b, pf.alpha);
+
+    if (pf.align_cen || pf.align_right)
+    {
+        const int textlen = graphics.len(text) * pf.scale;
+
+        if (pf.align_cen)
+        {
+            if (x == -1)
+            {
+                x = 160;
+            }
+            x = SDL_max(x - textlen/2, 0);
+        }
+        else
+        {
+            x -= textlen;
+        }
+    }
+    // TODO cjk_low/cjk_high
+
+    if (pf.border && !graphics.notextoutline)
+    {
+        static const int offsets[4][2] = {{0,-1}, {-1,0}, {1,0}, {0,1}};
+
+        for (int offset = 0; offset < 4; offset++)
+        {
+            print(
+                flags & ~PR_BOR & ~PR_CEN & ~PR_RIGHT,
+                x + offsets[offset][0]*pf.scale,
+                y + offsets[offset][1]*pf.scale,
+                text,
+                0, 0, 0
+            );
+        }
+    }
+
+    int position = 0;
+    std::string::const_iterator iter = text.begin();
+    while (iter != text.end())
+    {
+        const uint32_t character = utf8::unchecked::next(iter);
+        position += font::print_char(
+            &font::temp_bfont,
+            graphics.backBuffer,
+            character,
+            x + position,
+            y,
+            pf.scale,
+            ct,
+            pf.colorglyph_bri
+        );
+    }
 }
 
 } /* namespace font */

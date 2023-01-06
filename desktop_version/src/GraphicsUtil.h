@@ -18,6 +18,8 @@ void BlitSurfaceColoured(SDL_Surface* src, const SDL_Rect* src_rect, SDL_Surface
 
 void BlitSurfaceTinted(SDL_Surface* src, const SDL_Rect* src_rect, SDL_Surface* dest, SDL_Rect* dest_rect, SDL_Color color);
 
+void BlitSurfaceMixed(SDL_Surface* src, const SDL_Rect* src_rect, SDL_Surface* dest, SDL_Rect* dest_rect, SDL_Color color);
+
 void FillRect( SDL_Surface* surface, const int x, const int y, const int w, const int h, const int r, int g, int b );
 
 void FillRect( SDL_Surface* surface, const int r, int g, int b );

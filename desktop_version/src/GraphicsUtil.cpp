@@ -312,6 +312,43 @@ void BlitSurfaceTinted(
     );
 }
 
+static SDL_Color transform_mix(const SDL_Color pixel, const SDL_Color color)
+{
+    float div1, div2;
+    Uint8 r, g, b, a;
+
+    div1 = pixel.r / 255.0f;
+    div2 = color.r / 255.0f;
+    r = (div1 * div2) * 255.0f;
+
+    div1 = pixel.g / 255.0f;
+    div2 = color.g / 255.0f;
+    g = (div1 * div2) * 255.0f;
+
+    div1 = pixel.b / 255.0f;
+    div2 = color.b / 255.0f;
+    b = (div1 * div2) * 255.0f;
+
+    div1 = pixel.a / 255.0f;
+    div2 = color.a / 255.0f;
+    a = (div1 * div2) * 255.0f;
+
+    const SDL_Color result = {r, g, b, a};
+    return result;
+}
+
+void BlitSurfaceMixed(
+    SDL_Surface* src,
+    const SDL_Rect* src_rect,
+    SDL_Surface* dest,
+    SDL_Rect* dest_rect,
+    const SDL_Color color
+) {
+    return BlitSurfaceTransform(
+        src, src_rect, dest, dest_rect, transform_mix, color
+    );
+}
+
 
 static int oldscrollamount = 0;
 static int scrollamount = 0;
