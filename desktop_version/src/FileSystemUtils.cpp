@@ -1042,6 +1042,92 @@ void FILESYSTEM_enumerateLevelDirFileNames(
     }
 }
 
+typedef struct _enum_handle
+{
+    char** physfs_list;
+    char** item;
+    char* mounted_path;
+}
+enum_handle;
+
+const char* FILESYSTEM_enumerate(const char* folder, void** p_handle)
+{
+    /* List all files in a folder with PHYSFS_enumerateFiles.
+     *
+     * Doing it this way means we can decide and filter what's in the lists (in
+     * wrapper functions), and the caller does not have to PHYSFS_freeList.
+     *
+     * Called like this:
+     *
+     *  void* handle = NULL;
+     *  const char* item;
+     *  while ((item = FILESYSTEM_enumerate("graphics", &handle)) != NULL)
+     *  {
+     *      puts(item);
+     *  }
+     */
+
+    enum_handle* handle = (enum_handle*) *p_handle;
+    if (*p_handle == NULL)
+    {
+        /* First iteration, set things up */
+        handle = (enum_handle*) SDL_malloc(sizeof(enum_handle));
+        char* mounted_path = (char*) SDL_malloc(MAX_PATH);
+        if (handle == NULL || mounted_path == NULL)
+        {
+            VVV_free(handle);
+            VVV_free(mounted_path);
+            return NULL;
+        }
+        handle->mounted_path = mounted_path;
+        getMountedPath(handle->mounted_path, MAX_PATH, folder);
+        handle->physfs_list = PHYSFS_enumerateFiles(handle->mounted_path);
+        handle->item = handle->physfs_list;
+
+        *p_handle = handle;
+    }
+
+    if (*handle->item == NULL)
+    {
+        /* We're done! */
+        PHYSFS_freeList(handle->physfs_list);
+        VVV_free(handle->mounted_path);
+        VVV_free(handle);
+        return NULL;
+    }
+
+    /* Return the next item, and increment the pointer */
+    return *(handle->item++);
+}
+
+const char* FILESYSTEM_enumerateAssets(const char* folder, void** p_handle)
+{
+    /* This function enumerates ONLY level-specific assets.
+     * If there are only global assets and no level-specific ones,
+     * we want an empty list.
+     *
+     * This function is called the same way as FILESYSTEM_enumerate, see above. */
+
+    if (!FILESYSTEM_isAssetMounted(folder))
+    {
+        return NULL;
+    }
+
+    const char* item;
+    while ((item = FILESYSTEM_enumerate(folder, p_handle)) != NULL)
+    {
+        enum_handle* handle = (enum_handle*) *p_handle;
+        char full_name[128];
+        SDL_snprintf(full_name, sizeof(full_name), "%s/%s", handle->mounted_path, item);
+        if (FILESYSTEM_isFile(full_name) && item[0] != '.')
+        {
+            return item;
+        }
+    }
+
+    return NULL;
+}
+
 std::vector<std::string> FILESYSTEM_getLanguageCodes(void)
 {
     std::vector<std::string> list;

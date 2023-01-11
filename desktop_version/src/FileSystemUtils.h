@@ -49,6 +49,9 @@ bool FILESYSTEM_loadAssetTiXml2Document(const char *name, tinyxml2::XMLDocument&
 
 void FILESYSTEM_enumerateLevelDirFileNames(void (*callback)(const char* filename));
 
+const char* FILESYSTEM_enumerate(const char* folder, void** p_handle);
+const char* FILESYSTEM_enumerateAssets(const char* folder, void** p_handle);
+
 std::vector<std::string> FILESYSTEM_getLanguageCodes(void);
 
 bool FILESYSTEM_levelDirHasError(void);
