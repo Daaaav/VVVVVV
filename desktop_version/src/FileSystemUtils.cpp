@@ -1128,26 +1128,26 @@ const char* FILESYSTEM_enumerateAssets(const char* folder, void** p_handle)
     return NULL;
 }
 
-std::vector<std::string> FILESYSTEM_getLanguageCodes(void)
+const char* FILESYSTEM_enumerateLanguageCodes(void** p_handle)
 {
-    std::vector<std::string> list;
-    char** fileList = PHYSFS_enumerateFiles("lang");
-    char** item;
+    /* This function enumerates all the language codes.
+     *
+     * This function is called the same way as FILESYSTEM_enumerate, see above. */
 
-    for (item = fileList; *item != NULL; item++)
+    const char* item;
+    while ((item = FILESYSTEM_enumerate("lang", p_handle)) != NULL)
     {
-        char fullName[128];
-        SDL_snprintf(fullName, sizeof(fullName), "lang/%s", *item);
+        enum_handle* handle = (enum_handle*) *p_handle;
+        char full_name[128];
+        SDL_snprintf(full_name, sizeof(full_name), "lang/%s", item);
 
-        if (FILESYSTEM_isDirectory(fullName) && *item[0] != '.')
+        if (FILESYSTEM_isDirectory(full_name) && item[0] != '.')
         {
-            list.push_back(*item);
+            return item;
         }
     }
 
-    PHYSFS_freeList(fileList);
-
-    return list;
+    return NULL;
 }
 
 static int PLATFORM_getOSDirectory(char* output, const size_t output_size)
