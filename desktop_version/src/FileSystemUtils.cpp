@@ -1050,12 +1050,27 @@ typedef struct _enum_handle
 }
 enum_handle;
 
+void FILESYSTEM_freeEnumerate(void** p_handle)
+{
+    /* Call this function after enumerating with FILESYSTEM_enumerate or friends. */
+    if (p_handle != NULL)
+    {
+        enum_handle* handle = (enum_handle*) *p_handle;
+        if (handle != NULL)
+        {
+            PHYSFS_freeList(handle->physfs_list);
+            VVV_free(handle->mounted_path);
+            VVV_free(handle);
+        }
+    }
+}
+
 const char* FILESYSTEM_enumerate(const char* folder, void** p_handle)
 {
     /* List all files in a folder with PHYSFS_enumerateFiles.
      *
-     * Doing it this way means we can decide and filter what's in the lists (in
-     * wrapper functions), and the caller does not have to PHYSFS_freeList.
+     * Doing it this way means we can decide and filter
+     * what's in the lists (in wrapper functions).
      *
      * Called like this:
      *
@@ -1065,6 +1080,7 @@ const char* FILESYSTEM_enumerate(const char* folder, void** p_handle)
      *  {
      *      puts(item);
      *  }
+     *  FILESYSTEM_freeEnumerate(&handle);
      */
 
     enum_handle* handle = (enum_handle*) *p_handle;
@@ -1087,16 +1103,8 @@ const char* FILESYSTEM_enumerate(const char* folder, void** p_handle)
         *p_handle = handle;
     }
 
-    if (*handle->item == NULL)
-    {
-        /* We're done! */
-        PHYSFS_freeList(handle->physfs_list);
-        VVV_free(handle->mounted_path);
-        VVV_free(handle);
-        return NULL;
-    }
-
-    /* Return the next item, and increment the pointer */
+    /* Return the next item, and increment the pointer.
+     * (once we return NULL, handle->item points to 1 past end of array) */
     return *(handle->item++);
 }
 

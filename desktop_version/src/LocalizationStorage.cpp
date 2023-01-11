@@ -1052,6 +1052,7 @@ void loadlanguagelist(void)
             opt++;
         }
     }
+    FILESYSTEM_freeEnumerate(&handle);
 }
 
 

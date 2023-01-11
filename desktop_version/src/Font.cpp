@@ -353,6 +353,7 @@ void load_main(void)
     {
         load_font_filename(false, item);
     }
+    FILESYSTEM_freeEnumerate(&handle);
 }
 
 void load_custom(void)
@@ -364,6 +365,7 @@ void load_custom(void)
     {
         load_font_filename(true, item);
     }
+    FILESYSTEM_freeEnumerate(&handle);
 
     // TODO: decide font_idx_custom
 }
