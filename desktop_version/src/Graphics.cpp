@@ -777,9 +777,9 @@ void Graphics::drawgui(void)
             for (j = 0; j < textboxes[i].lines.size(); j++)
             {
                 font::print(
-                    PR_COLORGLYPH_BRI(tl_lerp*255) | PR_CJK_LOW,
+                    textboxes[i].print_flags | PR_COLORGLYPH_BRI(tl_lerp*255) | PR_CJK_LOW,
                     textboxes[i].xp + 8,
-                    yp + text_yoff + text_sign * (j * font::height(PR_FONT_LEVEL)),
+                    yp + text_yoff + text_sign * (j * font::height(textboxes[i].print_flags)),
                     textboxes[i].lines[j],
                     r, g, b
                 );
@@ -1234,8 +1234,7 @@ void Graphics::createtextboxreal(
         textboxclass text;
         text.lines.push_back(t);
         text.xp = xp;
-        int length = utf8::unchecked::distance(t.begin(), t.end());
-        if (xp == -1) text.xp = 160 - (((length / 2) + 1) * 8);
+        if (xp == -1) text.xp = 160 - ((font::len(PR_FONT_LEVEL, t) / 2) + 8);
         text.yp = yp;
         text.initcol(r, g, b);
         text.flipme = flipme;
@@ -3010,6 +3009,18 @@ void Graphics::textboxcentertext()
     textboxes[m].centertext();
 }
 
+void Graphics::textboxprintflags(const uint32_t flags)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxprintflags() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].print_flags = flags;
+    textboxes[m].resize();
+}
+
 void Graphics::textboxcommsrelay()
 {
     /* Special treatment for the gamestate textboxes in Comms Relay */
@@ -3018,6 +3029,7 @@ void Graphics::textboxcommsrelay()
         vlog_error("textboxcommsrelay() out-of-bounds!");
         return;
     }
+    textboxprintflags(PR_FONT_INTERFACE);
     textboxwrap(11);
     textboxes[m].xp = 224 - textboxes[m].w;
 }
@@ -3322,9 +3334,9 @@ SDL_Color Graphics::crewcolourreal(int t)
     return col_crewcyan;
 }
 
-void Graphics::render_roomname(const char* roomname, int r, int g, int b)
+void Graphics::render_roomname(uint32_t font_flag, const char* roomname, int r, int g, int b)
 {
-    int font_height = font::height(PR_FONT_LEVEL);
+    int font_height = font::height(font_flag);
     if (font_height <= 8)
     {
         footerrect.h = font_height + 2;
@@ -3337,11 +3349,11 @@ void Graphics::render_roomname(const char* roomname, int r, int g, int b)
     if (translucentroomname)
     {
         SDL_BlitSurface(footerbuffer, NULL, backBuffer, &footerrect);
-        font::print(PR_CEN | PR_BOR | PR_FONT_LEVEL | PR_CJK_LOW, -1, footerrect.y+1, roomname, r, g, b);
+        font::print(font_flag | PR_CEN | PR_BOR | PR_CJK_LOW, -1, footerrect.y+1, roomname, r, g, b);
     }
     else
     {
         FillRect(backBuffer, footerrect, 0, 0, 0);
-        font::print(PR_CEN | PR_FONT_LEVEL | PR_CJK_LOW, -1, footerrect.y+1, roomname, r, g, b);
+        font::print(font_flag | PR_CEN | PR_CJK_LOW, -1, footerrect.y+1, roomname, r, g, b);
     }
 }
