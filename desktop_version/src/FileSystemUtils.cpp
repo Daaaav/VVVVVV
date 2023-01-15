@@ -1145,7 +1145,6 @@ const char* FILESYSTEM_enumerateLanguageCodes(void** p_handle)
     const char* item;
     while ((item = FILESYSTEM_enumerate("lang", p_handle)) != NULL)
     {
-        enum_handle* handle = (enum_handle*) *p_handle;
         char full_name[128];
         SDL_snprintf(full_name, sizeof(full_name), "lang/%s", item);
 
