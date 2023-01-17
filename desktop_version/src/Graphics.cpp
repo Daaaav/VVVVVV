@@ -367,11 +367,11 @@ void Graphics::map_tab(int opt, const char* text, bool selected /*= false*/)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select_tight.c_str(), "label:str", text);
-        Print(x - len(buffer)/2, 220, buffer, 196, 196, 255 - help.glow);
+        font::print(PR_CEN, x, 220, buffer, 196, 196, 255 - help.glow);
     }
     else
     {
-        Print(x - len(text)/2, 220, text, 64, 64, 64);
+        font::print(PR_CEN, x, 220, text, 64, 64, 64);
     }
 }
 
@@ -461,12 +461,6 @@ void Graphics::bigbprint(int x, int y, const std::string& text, int r, int g, in
         font::print(PR_scX | PR_CEN | PR_BOR, -1, y, text, r, g, b);
     else
         font::print(PR_scX | PR_BOR, x, y, text, r, g, b);
-}
-
-int Graphics::len(const std::string& t)
-{
-    // DEPRECATED
-    return font::len(0, t);
 }
 
 void Graphics::bprint( int x, int y, const std::string& text, int r, int g, int b, bool cen /*= false*/ ) {
@@ -805,7 +799,7 @@ void Graphics::drawgui(void)
             {
                 int sc = 2;
                 int y = 28;
-                if (len(translation) > 144)
+                if (font::len(0, translation) > 144)
                 {
                     // We told translators how long it could be... Ah well, mitigate the damage.
                     sc = 1;
@@ -815,7 +809,7 @@ void Graphics::drawgui(void)
                 {
                     y = 240 - y - 8*sc;
                 }
-                bigprint(-1, y, translation, 164, 164, 255, true, sc);
+                font::print(sc==2 ? PR_2X : PR_1X | PR_CEN, -1, y, translation, 164, 164, 255);
             }
             else
             {
@@ -841,7 +835,7 @@ void Graphics::drawgui(void)
             {
                 int sc = 2;
                 int y = 28;
-                if (len(translation) > 144)
+                if (font::len(0, translation) > 144)
                 {
                     // We told translators how long it could be... Ah well, mitigate the damage.
                     sc = 1;
@@ -851,7 +845,7 @@ void Graphics::drawgui(void)
                 {
                     y = 240 - y - 8*sc;
                 }
-                bigprint(-1, y, translation, 164, 164, 255, true, sc);
+                font::print(sc==2 ? PR_2X : PR_1X | PR_CEN, -1, y, translation, 196, 196, 243);
             }
             else
             {
