@@ -1046,7 +1046,6 @@ typedef struct _enum_handle
 {
     char** physfs_list;
     char** item;
-    char* mounted_path;
 }
 enum_handle;
 
@@ -1059,7 +1058,6 @@ void FILESYSTEM_freeEnumerate(void** p_handle)
         if (handle != NULL)
         {
             PHYSFS_freeList(handle->physfs_list);
-            VVV_free(handle->mounted_path);
             VVV_free(handle);
         }
     }
@@ -1088,16 +1086,11 @@ const char* FILESYSTEM_enumerate(const char* folder, void** p_handle)
     {
         /* First iteration, set things up */
         handle = (enum_handle*) SDL_malloc(sizeof(enum_handle));
-        char* mounted_path = (char*) SDL_malloc(MAX_PATH);
-        if (handle == NULL || mounted_path == NULL)
+        if (handle == NULL)
         {
-            VVV_free(handle);
-            VVV_free(mounted_path);
             return NULL;
         }
-        handle->mounted_path = mounted_path;
-        getMountedPath(handle->mounted_path, MAX_PATH, folder);
-        handle->physfs_list = PHYSFS_enumerateFiles(handle->mounted_path);
+        handle->physfs_list = PHYSFS_enumerateFiles(folder);
         handle->item = handle->physfs_list;
 
         *p_handle = handle;
@@ -1121,12 +1114,15 @@ const char* FILESYSTEM_enumerateAssets(const char* folder, void** p_handle)
         return NULL;
     }
 
+    char mounted_path[MAX_PATH];
+    getMountedPath(mounted_path, sizeof(mounted_path), folder);
+
     const char* item;
-    while ((item = FILESYSTEM_enumerate(folder, p_handle)) != NULL)
+    while ((item = FILESYSTEM_enumerate(mounted_path, p_handle)) != NULL)
     {
         enum_handle* handle = (enum_handle*) *p_handle;
         char full_name[128];
-        SDL_snprintf(full_name, sizeof(full_name), "%s/%s", handle->mounted_path, item);
+        SDL_snprintf(full_name, sizeof(full_name), "%s/%s", mounted_path, item);
         if (FILESYSTEM_isFile(full_name) && item[0] != '.')
         {
             return item;
