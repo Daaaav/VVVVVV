@@ -6,6 +6,7 @@
 #include "Alloc.h"
 #include "FileSystemUtils.h"
 #include "Graphics.h"
+#include "GraphicsUtil.h"
 #include "Localization.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -16,6 +17,58 @@ SDL_Surface* LoadImage(const char *filename);
 
 namespace font
 {
+
+#define GLYPH_EXISTS 0x1
+#define GLYPH_COLOR 0x2
+
+struct GlyphInfo
+{
+    uint16_t image_idx;
+    uint8_t advance;
+    uint8_t flags;
+};
+
+/* Codepoints go up to U+10FFFF, so we have 0x110 (272) pages
+ * of 0x1000 (4096) glyphs, allocated as needed */
+#define FONT_N_PAGES 0x110
+#define FONT_PAGE_SIZE 0x1000
+
+struct Font
+{
+    char name[64];
+
+    uint8_t glyph_w;
+    uint8_t glyph_h;
+
+    uint16_t n_x_glyphs;
+    uint16_t n_y_glyphs;
+
+    SDL_Surface* image;
+
+    SDL_Surface* scratch_1x;
+    SDL_Surface* scratch_8x;
+
+    GlyphInfo* glyph_page[FONT_N_PAGES];
+};
+
+struct FontContainer
+{
+    uint8_t count;
+    Font* fonts;
+};
+
+struct PrintFlags
+{
+    uint8_t scale;
+    Font* font_sel;
+    uint8_t alpha;
+    uint8_t colorglyph_bri;
+    bool border;
+    bool align_cen;
+    bool align_right;
+    bool cjk_low;
+    bool cjk_high;
+};
 
 static FontContainer fonts_main = {0};
 static FontContainer fonts_custom = {0};
