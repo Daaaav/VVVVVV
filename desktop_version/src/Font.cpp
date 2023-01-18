@@ -223,6 +223,8 @@ static uint8_t load_font(FontContainer* container, const char* name)
     f->glyph_w = 8;
     f->glyph_h = 8;
 
+    bool white_teeth = false;
+
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* pElem;
@@ -243,9 +245,14 @@ static uint8_t load_font(FontContainer* container, const char* name)
         {
             f->glyph_h = help.Int(pElem->GetText());
         }
+        if ((pElem = hDoc.FirstChildElement("white_teeth").ToElement()) != NULL)
+        {
+            /* If 1, we don't need to whiten the entire font (like in old versions) */
+            white_teeth = help.Int(pElem->GetText());
+        }
     }
 
-    f->image = LoadImage(name_png);
+    f->image = LoadImage(name_png); // TODO after renderer merge: white_teeth ? TEX_COLOR : TEX_WHITE
     f->scratch_1x = RecreateSurfaceWithDimensions(f->image, f->glyph_w, f->glyph_h);
     f->scratch_8x = RecreateSurfaceWithDimensions(f->image, f->glyph_w*8, f->glyph_h*8);
     SDL_zeroa(f->glyph_page);
@@ -799,7 +806,7 @@ static int print_char(
     }
     else
     {
-        BlitSurfaceColoured(src_surface, &src_rect, dest_surface, &dest_rect, color);
+        BlitSurfaceMixed(src_surface, &src_rect, dest_surface, &dest_rect, color);
     }
 
     return glyph->advance * scale;

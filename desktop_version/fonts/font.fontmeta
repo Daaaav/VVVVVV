@@ -2,6 +2,7 @@
 <font_metadata>
     <width>8</width>
     <height>8</height>
+    <white_teeth>1</white_teeth>
     <chars>
         <range start="0x20" end="0x7F"/>
         <range start="0xA0" end="0x17F"/>
