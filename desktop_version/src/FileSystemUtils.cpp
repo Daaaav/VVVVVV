@@ -1120,7 +1120,6 @@ const char* FILESYSTEM_enumerateAssets(const char* folder, void** p_handle)
     const char* item;
     while ((item = FILESYSTEM_enumerate(mounted_path, p_handle)) != NULL)
     {
-        enum_handle* handle = (enum_handle*) *p_handle;
         char full_name[128];
         SDL_snprintf(full_name, sizeof(full_name), "%s/%s", mounted_path, item);
         if (FILESYSTEM_isFile(full_name) && item[0] != '.')
