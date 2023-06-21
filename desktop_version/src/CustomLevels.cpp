@@ -279,7 +279,7 @@ void customlevelclass::getDirectoryData(void)
     {
         for(size_t k = 0; k < ListOfMetaData.size(); k++)
         {
-            if(compare_nocase(ListOfMetaData[i].title, ListOfMetaData[k].title ))
+            if(compare_nocase(ListOfMetaData[i].creator, ListOfMetaData[k].creator ))
             {
                 std::swap(ListOfMetaData[i] , ListOfMetaData[k]);
             }
