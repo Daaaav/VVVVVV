@@ -235,7 +235,7 @@ static void menurender(void)
         int tmp=game.currentmenuoption+(game.levelpage*8);
         if (INBOUNDS_VEC(tmp, cl.ListOfMetaData))
         {
-            const bool nextlastoptions = cl.ListOfMetaData.size() > 8;
+            const bool nextlastoptions = cl.ListOfMetaData.size() > 10;
             //Don't show next/previous page or return to menu options here!
             if (nextlastoptions && game.menuoptions.size() - game.currentmenuoption<=3)
             {

@@ -6308,7 +6308,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         {
             for(int i=0; i<(int) cl.ListOfMetaData.size(); i++) // FIXME: int/size_t! -flibit
             {
-                if(i>=levelpage*8 && i< (levelpage*8)+8)
+                if(i>=levelpage*10 && i< (levelpage*10)+10)
                 {
                     //This is, er, suboptimal. Whatever, life optimisation and all that
                     int tvar=-1;
@@ -6369,7 +6369,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                     );
                 }
             }
-            if (cl.ListOfMetaData.size() > 8)
+            if (cl.ListOfMetaData.size() > 10)
             {
                 if((size_t) ((levelpage*8)+8) <cl.ListOfMetaData.size())
                 {
