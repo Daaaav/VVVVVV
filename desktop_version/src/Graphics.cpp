@@ -1742,7 +1742,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
         if (menu == Menu::levellist)
         {
             size_t separator;
-            if (cl.ListOfMetaData.size() > 8)
+            if (cl.ListOfMetaData.size() > 10)
             {
                 separator = 3;
             }

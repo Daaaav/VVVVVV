@@ -478,7 +478,7 @@ static void menuactionpress(void)
     }
     case Menu::levellist:
     {
-        const bool nextlastoptions = cl.ListOfMetaData.size() > 8;
+        const bool nextlastoptions = cl.ListOfMetaData.size() > 10;
         if(game.currentmenuoption==(int)game.menuoptions.size()-1){
             //go back to menu
             music.playef(Sound_VIRIDIAN);
