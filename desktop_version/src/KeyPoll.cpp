@@ -226,6 +226,12 @@ void KeyPoll::Poll(void)
                 keybuffer += evt.text.text;
             }
             break;
+        case SDL_TEXTEDITING:
+            vlog_error("Standard editing event: %s [%d,%d]", evt.edit.text, evt.edit.start, evt.edit.length);
+            break;
+        case SDL_TEXTEDITING_EXT:
+            vlog_error("EXTENDED editing event: %s [%d,%d]", evt.editExt.text, evt.editExt.start, evt.editExt.length);
+            break;
 
         /* Mouse Input */
         case SDL_MOUSEMOTION:
