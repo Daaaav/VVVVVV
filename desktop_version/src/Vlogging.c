@@ -168,6 +168,8 @@ void vlog_open_console(void)
         return;
     }
 
+    SetConsoleOutputCP(CP_UTF8);
+
     const FILE* handle = freopen("CON", "w", stdout);
     if (handle == NULL)
     {
