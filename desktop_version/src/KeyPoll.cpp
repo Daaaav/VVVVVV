@@ -227,10 +227,11 @@ void KeyPoll::Poll(void)
             }
             break;
         case SDL_TEXTEDITING:
-            vlog_error("Standard editing event: %s [%d,%d]", evt.edit.text, evt.edit.start, evt.edit.length);
+            vlog_warn("Standard editing event: %s [start=%d,length=%d]", evt.edit.text, evt.edit.start, evt.edit.length);
             break;
         case SDL_TEXTEDITING_EXT:
-            vlog_error("EXTENDED editing event: %s [%d,%d]", evt.editExt.text, evt.editExt.start, evt.editExt.length);
+            vlog_warn("EXTENDED editing event: %s [start=%d,length=%d]", evt.editExt.text, evt.editExt.start, evt.editExt.length);
+            SDL_free(evt.editExt.text);
             break;
 
         /* Mouse Input */
