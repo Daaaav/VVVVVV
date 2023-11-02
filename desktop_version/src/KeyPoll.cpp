@@ -44,7 +44,8 @@ KeyPoll::KeyPoll(void)
     // 0..5
     sensitivity = 2;
 
-    keybuffer="";
+    keybuffer = "";
+    imebuffer = "";
     leftbutton=0; rightbutton=0; middlebutton=0;
     mousex = 0;
     mousey = 0;
@@ -58,7 +59,8 @@ KeyPoll::KeyPoll(void)
 
 void KeyPoll::enabletextentry(void)
 {
-    keybuffer="";
+    keybuffer = "";
+    imebuffer = "";
     SDL_StartTextInput();
 }
 
@@ -228,9 +230,11 @@ void KeyPoll::Poll(void)
             break;
         case SDL_TEXTEDITING:
             vlog_warn("Standard editing event: %s [start=%d,length=%d]", evt.edit.text, evt.edit.start, evt.edit.length);
+            imebuffer = evt.edit.text;
             break;
         case SDL_TEXTEDITING_EXT:
             vlog_warn("EXTENDED editing event: %s [start=%d,length=%d]", evt.editExt.text, evt.editExt.start, evt.editExt.length);
+            imebuffer = evt.editExt.text;
             SDL_free(evt.editExt.text);
             break;
 
