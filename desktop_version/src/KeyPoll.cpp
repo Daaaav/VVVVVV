@@ -110,8 +110,7 @@ void KeyPoll::print_textentry(
     }
     font::print(flags, x, y, keybuffer, r, g, b);
     x += keybuffer_width;
-    font::print(flags, x, y, imebuffer, r, g, b);
-    graphics.draw_rect(x, y + font::height(flags)-2, imebuffer_width, 1, r, g, b);
+    font::print(flags, x, y, imebuffer, r/2, g/2, b/2);
     x += imebuffer_width;
     if (show_cursor)
     {
