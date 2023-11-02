@@ -173,6 +173,15 @@ public:
 
     void printcrewnamestatus(int x, int y, int t, bool rescued);
 
+    int draw_level_creator_face(
+        uint32_t print_flags,
+        int y,
+        const std::string& creator,
+        uint8_t r,
+        uint8_t g,
+        uint8_t b
+    );
+
     void print_level_creator(
         uint32_t print_flags,
         int y,
@@ -180,6 +189,15 @@ public:
         uint8_t r,
         uint8_t g,
         uint8_t b
+    );
+
+    void print_level_creator_editing(
+        uint32_t print_flags,
+        int y,
+        uint8_t r,
+        uint8_t g,
+        uint8_t b,
+        const bool show_cursor
     );
 
     int set_render_target(SDL_Texture* texture);

@@ -12,6 +12,7 @@
 #include "FileSystemUtils.h"
 #include "Font.h"
 #include "GraphicsUtil.h"
+#include "KeyPoll.h"
 #include "Localization.h"
 #include "Map.h"
 #include "Maths.h"
@@ -402,6 +403,25 @@ void Graphics::printcrewnamestatus( int x, int y, int t, bool rescued )
     font::print(flipmode ? PR_CJK_HIGH : PR_CJK_LOW, x, y, status_text, r, g, b);
 }
 
+int Graphics::draw_level_creator_face(
+    const uint32_t print_flags,
+    const int y,
+    const std::string& creator,
+    const uint8_t r,
+    const uint8_t g,
+    const uint8_t b
+) {
+    /* Just draw the face for the creator, doesn't print the text itself yet.
+     * See print_level_creator[_editing]() below */
+    int width_for_face = 17;
+    int total_width = width_for_face + font::len(print_flags, creator.c_str());
+    int face_x = (SCREEN_WIDTH_PIXELS - total_width) / 2;
+    set_texture_color_mod(grphx.im_sprites, r, g, b);
+    draw_texture_part(grphx.im_sprites, face_x, y - 1, 7, 2, 10, 10, 1, 1);
+    set_texture_color_mod(grphx.im_sprites, 255, 255, 255);
+    return face_x + width_for_face;
+}
+
 void Graphics::print_level_creator(
     const uint32_t print_flags,
     const int y,
@@ -417,13 +437,22 @@ void Graphics::print_level_creator(
      * - avoids likely grammar problems: male/female difference, name inflection in user-written text...
      * - it makes sense to make it a face
      * - if anyone is sad about this decision, the happy face will cheer them up anyway :D */
-    int width_for_face = 17;
-    int total_width = width_for_face + font::len(print_flags, creator.c_str());
-    int face_x = (SCREEN_WIDTH_PIXELS - total_width) / 2;
-    set_texture_color_mod(grphx.im_sprites, r, g, b);
-    draw_texture_part(grphx.im_sprites, face_x, y - 1, 7, 2, 10, 10, 1, 1);
-    set_texture_color_mod(grphx.im_sprites, 255, 255, 255);
-    font::print(print_flags, face_x + width_for_face, y, creator, r, g, b);
+    int x = draw_level_creator_face(print_flags, y, creator, r, g, b);
+    font::print(print_flags, x, y, creator, r, g, b);
+}
+
+void Graphics::print_level_creator_editing(
+    const uint32_t print_flags,
+    const int y,
+    const uint8_t r,
+    const uint8_t g,
+    const uint8_t b,
+    const bool show_cursor
+) {
+    /* Same as above, but now we're editing it... */
+    const std::string creator = key.keybuffer + key.imebuffer + "_";
+    int x = draw_level_creator_face(print_flags, y, creator, r, g, b);
+    key.print_textentry(print_flags, x, y, NULL, r, g, b, show_cursor);
 }
 
 int Graphics::set_render_target(SDL_Texture* texture)

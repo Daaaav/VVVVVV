@@ -67,6 +67,18 @@ public:
     int mousey;
 
     bool textentry(void);
+
+    void print_textentry(
+        uint32_t flags,
+        int x,
+        int y,
+        const char* text,
+        uint8_t r,
+        uint8_t g,
+        uint8_t b,
+        bool show_cursor
+    );
+
     bool pressedbackspace;
     std::string keybuffer;
     std::string imebuffer;

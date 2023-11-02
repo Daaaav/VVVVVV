@@ -522,11 +522,11 @@ static void editormenurender(int tr, int tg, int tb)
         break;
     case Menu::ed_desc:
     {
-        const std::string input_text = key.keybuffer + ((ed.entframe < 2) ? "_" : " ");
+        bool cursor_blink = (ed.entframe < 2);
 
         if (ed.current_text_mode == TEXT_TITLE)
         {
-            font::print(PR_2X | PR_CEN | PR_FONT_LEVEL, -1, 35, input_text, tr, tg, tb);
+            key.print_textentry(PR_2X | PR_CEN | PR_FONT_LEVEL, -1, 35, NULL, tr, tg, tb, cursor_blink);
         }
         else
         {
@@ -536,19 +536,26 @@ static void editormenurender(int tr, int tg, int tb)
         }
 
         bool creator_is_gettext = false;
-        std::string creator = (ed.current_text_mode == TEXT_CREATOR) ? input_text : translate_creator(cl.creator, &creator_is_gettext);
+        const uint32_t creator_flags = creator_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL;
 
         int sp = SDL_max(10, font::height(PR_FONT_LEVEL));
-        graphics.print_level_creator((creator_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL), 60, creator, tr, tg, tb);
+        if (ed.current_text_mode == TEXT_CREATOR)
+        {
+            graphics.print_level_creator_editing(creator_flags, 60, tr, tg, tb, cursor_blink);
+        }
+        else
+        {
+            graphics.print_level_creator(creator_flags, 60, translate_creator(cl.creator, &creator_is_gettext), tr, tg, tb);
+        }
 
-        font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp, (ed.current_text_mode == TEXT_WEBSITE) ? input_text : cl.website, tr, tg, tb);
-        font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 3, (ed.current_text_mode == TEXT_DESC1) ? input_text : cl.Desc1, tr, tg, tb);
-        font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 4, (ed.current_text_mode == TEXT_DESC2) ? input_text : cl.Desc2, tr, tg, tb);
+        key.print_textentry(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp, (ed.current_text_mode == TEXT_WEBSITE) ? NULL : cl.website.c_str(), tr, tg, tb, cursor_blink);
+        key.print_textentry(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 3, (ed.current_text_mode == TEXT_DESC1) ? NULL : cl.Desc1.c_str(), tr, tg, tb, cursor_blink);
+        key.print_textentry(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 4, (ed.current_text_mode == TEXT_DESC2) ? NULL : cl.Desc2.c_str(), tr, tg, tb, cursor_blink);
 
 
         if (ed.current_text_mode == TEXT_DESC3)
         {
-            font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 5, input_text, tr, tg, tb);
+            key.print_textentry(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 5, NULL, tr, tg, tb, cursor_blink);
         }
         else if (sp <= 10)
         {

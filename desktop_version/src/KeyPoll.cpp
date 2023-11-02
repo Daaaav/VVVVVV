@@ -7,6 +7,7 @@
 #include "ButtonGlyphs.h"
 #include "Constants.h"
 #include "Exit.h"
+#include "Font.h"
 #include "Game.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
@@ -72,6 +73,49 @@ void KeyPoll::disabletextentry(void)
 bool KeyPoll::textentry(void)
 {
     return SDL_IsTextInputActive() == SDL_TRUE;
+}
+
+void KeyPoll::print_textentry(
+    uint32_t flags,
+    int x,
+    int y,
+    const char* text,
+    const uint8_t r,
+    const uint8_t g,
+    const uint8_t b,
+    const bool show_cursor
+) {
+    /* Print possibly editable text.
+     * If the text is not being edited, pass text,
+     * and it will be passed to font::print as usual.
+     * If the text is being edited, pass NULL for text,
+     * and the keybuffer will be printed instead. */
+    if (text != NULL)
+    {
+        font::print(flags, x, y, text, r, g, b);
+        return;
+    }
+    int keybuffer_width = font::len(flags, keybuffer.c_str());
+    int imebuffer_width = font::len(flags, imebuffer.c_str());
+    int cursor_width = font::len(flags, "_");
+    if (flags & PR_CEN)
+    {
+        int total_width = keybuffer_width + imebuffer_width + cursor_width;
+        if (x == -1)
+        {
+            x = SCREEN_WIDTH_PIXELS / 2;
+        }
+        x = SDL_max(x - total_width/2, 0);
+        flags &= ~PR_CEN;
+    }
+    font::print(flags, x, y, keybuffer, r, g, b);
+    x += keybuffer_width;
+    font::print(flags, x, y, imebuffer, r/2, g/2, b/2);
+    x += imebuffer_width;
+    if (show_cursor)
+    {
+        font::print(flags, x, y, "_", r, g, b);
+    }   
 }
 
 void KeyPoll::toggleFullscreen(void)
