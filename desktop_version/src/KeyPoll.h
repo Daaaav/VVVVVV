@@ -82,6 +82,8 @@ public:
     bool pressedbackspace;
     std::string keybuffer;
     std::string imebuffer;
+    int ime_start, ime_length;
+    bool ime_needs_rect;
 
     bool linealreadyemptykludge;
 

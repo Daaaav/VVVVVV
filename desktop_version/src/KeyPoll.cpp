@@ -47,6 +47,10 @@ KeyPoll::KeyPoll(void)
 
     keybuffer = "";
     imebuffer = "";
+    ime_start = 0;
+    ime_length = 0;
+    ime_needs_rect = false;
+
     leftbutton=0; rightbutton=0; middlebutton=0;
     mousex = 0;
     mousey = 0;
@@ -62,6 +66,10 @@ void KeyPoll::enabletextentry(void)
 {
     keybuffer = "";
     imebuffer = "";
+    ime_start = 0;
+    ime_length = 0;
+    ime_needs_rect = false;
+
     SDL_StartTextInput();
 }
 
@@ -111,6 +119,15 @@ void KeyPoll::print_textentry(
     font::print(flags, x, y, keybuffer, r, g, b);
     x += keybuffer_width;
     font::print(flags, x, y, imebuffer, r/2, g/2, b/2);
+    if (ime_needs_rect)
+    {
+        SDL_Rect rect;
+        rect.x = x;
+        rect.y = y-2;
+        rect.w = imebuffer_width;
+        rect.h = font::height(flags);
+        SDL_SetTextInputRect(&rect);
+    }
     x += imebuffer_width;
     if (show_cursor)
     {
@@ -275,10 +292,16 @@ void KeyPoll::Poll(void)
         case SDL_TEXTEDITING:
             vlog_warn("Standard editing event: %s [start=%d,length=%d]", evt.edit.text, evt.edit.start, evt.edit.length);
             imebuffer = evt.edit.text;
+            ime_start = evt.edit.start;
+            ime_length = evt.edit.length;
+            ime_needs_rect = true;
             break;
         case SDL_TEXTEDITING_EXT:
             vlog_warn("EXTENDED editing event: %s [start=%d,length=%d]", evt.editExt.text, evt.editExt.start, evt.editExt.length);
             imebuffer = evt.editExt.text;
+            ime_start = evt.editExt.start;
+            ime_length = evt.editExt.length;
+            ime_needs_rect = true;
             SDL_free(evt.editExt.text);
             break;
 
