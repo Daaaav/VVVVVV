@@ -535,17 +535,16 @@ static void editormenurender(int tr, int tg, int tb)
             font::print(PR_2X | PR_CEN | (title_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL), -1, 35, title, tr, tg, tb);
         }
 
-        bool creator_is_gettext = false;
-        const uint32_t creator_flags = creator_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL;
-
         int sp = SDL_max(10, font::height(PR_FONT_LEVEL));
         if (ed.current_text_mode == TEXT_CREATOR)
         {
-            graphics.print_level_creator_editing(creator_flags, 60, tr, tg, tb, cursor_blink);
+            graphics.print_level_creator_editing(PR_FONT_LEVEL, 60, tr, tg, tb, cursor_blink);
         }
         else
         {
-            graphics.print_level_creator(creator_flags, 60, translate_creator(cl.creator, &creator_is_gettext), tr, tg, tb);
+            bool creator_is_gettext;
+            std::string creator = translate_creator(cl.creator, &creator_is_gettext);
+            graphics.print_level_creator(creator_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL, 60, creator, tr, tg, tb);
         }
 
         key.print_textentry(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp, (ed.current_text_mode == TEXT_WEBSITE) ? NULL : cl.website.c_str(), tr, tg, tb, cursor_blink);
