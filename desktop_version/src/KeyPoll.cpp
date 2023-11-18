@@ -125,21 +125,13 @@ void KeyPoll::print_textentry(
         rect.x = x;
         rect.y = y-2;
         rect.w = imebuffer_width;
-        rect.h = font::height(flags)+4;
+        rect.h = font::height(flags);
         SDL_SetTextInputRect(&rect);
     }
     x += imebuffer_width;
     if (show_cursor)
     {
         font::print(flags, x, y, "_", r, g, b);
-        SDL_Rect rect;
-        SDL_RenderGetViewport(gameScreen.m_renderer, &rect);
-        float scale_x, scale_y;
-        SDL_RenderGetScale(gameScreen.m_renderer, &scale_x, &scale_y);
-        //vlog_error("Viewport is %d,%d,%d,%d with scale %f,%f", rect.x, rect.y, rect.w, rect.h, scale_x, scale_y);
-        int w, h;
-        SDL_RenderLogicalToWindow(gameScreen.m_renderer, 160, 120, &w, &h);
-        vlog_error("Logincal esicze %d, %d", w, h);
     }   
 }
 
