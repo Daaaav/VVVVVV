@@ -226,6 +226,37 @@ void KeyPoll::Poll(void)
     bool keyboard_was_active = BUTTONGLYPHS_keyboard_is_active();
     while (SDL_PollEvent(&evt))
     {
+        if (evt.type == SDL_KEYDOWN || evt.type == SDL_KEYUP)
+        {
+            SDL_Keycode rep = 0;
+
+            switch (evt.key.keysym.sym)
+            {
+            case SDLK_KP_4:
+            case SDLK_KP_1:
+                rep = SDLK_LEFT;
+                break;
+            case SDLK_KP_6:
+            case SDLK_KP_3:
+                rep = SDLK_RIGHT;
+                break;
+            case SDLK_KP_8:
+            case SDLK_KP_5:
+                rep = SDLK_UP;
+                break;
+            case SDLK_KP_2:
+                rep = SDLK_DOWN;
+                break;
+            case SDLK_KP_ENTER:
+                rep = SDLK_RETURN;
+            }
+
+            if (rep != 0)
+            {
+                evt.key.keysym.sym = rep;
+            }
+        }
+
         switch (evt.type)
         {
         /* Keyboard Input */
