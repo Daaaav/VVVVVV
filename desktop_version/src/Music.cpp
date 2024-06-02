@@ -87,8 +87,10 @@ class MusicTrack;
 static std::vector<SoundTrack> soundTracks;
 static std::vector<MusicTrack> musicTracks;
 
-static FAudio* faudioctx = NULL;
-static FAudioMasteringVoice* masteringvoice = NULL;
+static FAudio* faudioctx_mus = NULL;
+static FAudio* faudioctx_sfx = NULL;
+static FAudioMasteringVoice* masteringvoice_mus = NULL;
+static FAudioMasteringVoice* masteringvoice_sfx = NULL;
 
 class SoundTrack
 {
@@ -200,11 +202,11 @@ end:
                     VVV_freefunc(FAudioVoice_DestroyVoice, voices[i]);
                     if (vorbis != NULL)
                     {
-                        FAudio_CreateSourceVoice(faudioctx, &voices[i], &format, 0, 2.0f, &callbacks, NULL, NULL);
+                        FAudio_CreateSourceVoice(faudioctx_sfx, &voices[i], &format, 0, 2.0f, &callbacks, NULL, NULL);
                     }
                     else
                     {
-                        FAudio_CreateSourceVoice(faudioctx, &voices[i], &format, 0, 2.0f, NULL, NULL, NULL);
+                        FAudio_CreateSourceVoice(faudioctx_sfx, &voices[i], &format, 0, 2.0f, NULL, NULL, NULL);
                     }
                     voice_formats[i] = format;
                 }
@@ -266,7 +268,7 @@ end:
                 format.nAvgBytesPerSec = format.nSamplesPerSec * format.nBlockAlign;
                 format.cbSize = 0;
                 voice_formats[i] = format;
-                if (FAudio_CreateSourceVoice(faudioctx, &voices[i], &format, 0, 2.0f, NULL, NULL, NULL))
+                if (FAudio_CreateSourceVoice(faudioctx_sfx, &voices[i], &format, 0, 2.0f, NULL, NULL, NULL))
                 {
                     vlog_error("Unable to create source voice no. %i", i);
                     return;
@@ -440,7 +442,7 @@ end:
         SDL_zero(callbacks);
         callbacks.OnBufferStart = &MusicTrack::refillReserve;
         callbacks.OnBufferEnd = &MusicTrack::swapBuffers;
-        FAudio_CreateSourceVoice(faudioctx, &musicVoice, &format, 0, 2.0f, &callbacks, NULL, NULL);
+        FAudio_CreateSourceVoice(faudioctx_mus, &musicVoice, &format, 0, 2.0f, &callbacks, NULL, NULL);
 
         FAudioBuffer faudio_buffer;
         SDL_zero(faudio_buffer);
@@ -729,16 +731,60 @@ musicclass::musicclass(void)
     usingmmmmmm = false;
 }
 
+static uint32_t get_device(FAudio* faudio, const char* name)
+{
+    uint32_t dev_count;
+    if (FAudio_GetDeviceCount(faudio, &dev_count))
+    {
+        vlog_error("Unable to get audio device count");
+        return 0;
+    }
+
+    for (uint32_t i = 0; i < dev_count; i++)
+    {
+        FAudioDeviceDetails details;
+        if (FAudio_GetDeviceDetails(faudio, i, &details))
+        {
+            vlog_error("Unable to get audio device %d details", i);
+            return 0;
+        }
+
+        char device_id[256];
+        char display_name[256];
+        PHYSFS_utf8FromUtf16((uint16_t*) details.DeviceID, device_id, sizeof(device_id));
+        PHYSFS_utf8FromUtf16((uint16_t*) details.DisplayName, display_name, sizeof(display_name));
+
+        if (strcmp(display_name, name) == 0)
+        {
+            vlog_warn("Successfully using audio device %s", display_name);
+            return i;
+        }
+    }
+
+    vlog_warn("Using DEFAULT audio device instead of %s", name);
+    return 0;
+}
+
 void musicclass::init(void)
 {
-    if (FAudioCreate(&faudioctx, 0, FAUDIO_DEFAULT_PROCESSOR))
+    if (FAudioCreate(&faudioctx_mus, 0, FAUDIO_DEFAULT_PROCESSOR))
     {
-        vlog_error("Unable to initialize FAudio");
+        vlog_error("Unable to initialize MUSIC FAudio");
         return;
     }
-    if (FAudio_CreateMasteringVoice(faudioctx, &masteringvoice, 2, 44100, 0, 0, NULL))
+    if (FAudio_CreateMasteringVoice(faudioctx_mus, &masteringvoice_mus, 2, 44100, 0, get_device(faudioctx_mus, "V6MUS"), NULL))
     {
-        vlog_error("Unable to create mastering voice");
+        vlog_error("Unable to create MUSIC mastering voice");
+        return;
+    }
+    if (FAudioCreate(&faudioctx_sfx, 0, FAUDIO_DEFAULT_PROCESSOR))
+    {
+        vlog_error("Unable to initialize SFX FAudio");
+        return;
+    }
+    if (FAudio_CreateMasteringVoice(faudioctx_sfx, &masteringvoice_sfx, 2, 44100, 0, get_device(faudioctx_mus, "V6SFX"), NULL))
+    {
+        vlog_error("Unable to create SFX mastering voice");
         return;
     }
 
@@ -905,8 +951,10 @@ void musicclass::destroy(void)
 
     pppppp_blob.clear();
     mmmmmm_blob.clear();
-    VVV_freefunc(FAudioVoice_DestroyVoice, masteringvoice);
-    VVV_freefunc(FAudio_Release, faudioctx);
+    VVV_freefunc(FAudioVoice_DestroyVoice, masteringvoice_mus);
+    VVV_freefunc(FAudioVoice_DestroyVoice, masteringvoice_sfx);
+    VVV_freefunc(FAudio_Release, faudioctx_mus);
+    VVV_freefunc(FAudio_Release, faudioctx_sfx);
 }
 
 void musicclass::set_music_volume(int volume)
