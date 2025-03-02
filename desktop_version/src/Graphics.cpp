@@ -1748,7 +1748,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
             }
             else
             {
-                separator = 1;
+                separator = 0;
             }
             if (game.menuoptions.size() - i <= separator)
             {

@@ -6817,7 +6817,6 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                     option(loc::gettext("previous page"));
                 }
             }
-            option(loc::gettext("return"));
 
             menuxoff = 20;
             menuyoff = 70-(menuoptions.size()*10);

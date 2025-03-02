@@ -479,12 +479,7 @@ static void menuactionpress(void)
     case Menu::levellist:
     {
         const bool nextlastoptions = cl.ListOfMetaData.size() > 10;
-        if(game.currentmenuoption==(int)game.menuoptions.size()-1){
-            //go back to menu
-            music.playef(Sound_VIRIDIAN);
-            game.returnmenu();
-            map.nexttowercolour();
-        }else if(nextlastoptions && game.currentmenuoption==(int)game.menuoptions.size()-2){
+        if(nextlastoptions && game.currentmenuoption==(int)game.menuoptions.size()-2){
             //previous page
             music.playef(Sound_VIRIDIAN);
             if(game.levelpage==0){
