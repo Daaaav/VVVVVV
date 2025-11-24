@@ -261,6 +261,7 @@ void Game::init(void)
     silence_settings_error = false;
 
     deathcounts = 0;
+    cp_deathcounts = 0;
     gameoverdelay = 0;
     framecounter = 0;
     seed_use_sdl_getticks = false;
@@ -851,6 +852,12 @@ void Game::show_save_fail(void)
 
 void Game::checkpoint_save(void)
 {
+    cp_frames = frames;
+    cp_seconds = seconds;
+    cp_minutes = minutes;
+    cp_hours = hours;
+    cp_deathcounts = deathcounts;
+
     if (checkpoint_saving && !inspecial() && (!map.custommode || (map.custommode && map.custommodeforreal)) && !cliplaytest)
     {
         bool success = map.custommode ? customsavequick(cl.ListOfMetaData[playcustomlevel].filename) : savequick();
@@ -5642,22 +5649,27 @@ void Game::readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc)
         else if (SDL_strcmp(pKey, "frames") == 0)
         {
             frames = help.Int(pText);
+            cp_frames = frames;
         }
         else if (SDL_strcmp(pKey, "seconds") == 0)
         {
             seconds = help.Int(pText);
+            cp_seconds = seconds;
         }
         else if (SDL_strcmp(pKey, "minutes") == 0)
         {
             minutes = help.Int(pText);
+            cp_minutes = minutes;
         }
         else if (SDL_strcmp(pKey, "hours") == 0)
         {
             hours = help.Int(pText);
+            cp_hours = hours;
         }
         else if (SDL_strcmp(pKey, "deathcounts") == 0)
         {
             deathcounts = help.Int(pText);
+            cp_deathcounts = deathcounts;
         }
         else if (SDL_strcmp(pKey, "totalflips") == 0)
         {
@@ -5869,22 +5881,27 @@ void Game::customloadquick(const std::string& savfile)
         else if (SDL_strcmp(pKey, "frames") == 0)
         {
             frames = help.Int(pText);
+            cp_frames = frames;
         }
         else if (SDL_strcmp(pKey, "seconds") == 0)
         {
             seconds = help.Int(pText);
+            cp_seconds = seconds;
         }
         else if (SDL_strcmp(pKey, "minutes") == 0)
         {
             minutes = help.Int(pText);
+            cp_minutes = minutes;
         }
         else if (SDL_strcmp(pKey, "hours") == 0)
         {
             hours = help.Int(pText);
+            cp_hours = hours;
         }
         else if (SDL_strcmp(pKey, "deathcounts") == 0)
         {
             deathcounts = help.Int(pText);
+            cp_deathcounts = deathcounts;
         }
         else if (SDL_strcmp(pKey, "totalflips") == 0)
         {
@@ -7638,6 +7655,10 @@ void Game::resetgameclock(void)
     seconds = 0;
     minutes = 0;
     hours = 0;
+    cp_frames = 0;
+    cp_seconds = 0;
+    cp_minutes = 0;
+    cp_hours = 0;
 }
 
 int Game::trinkets(void)

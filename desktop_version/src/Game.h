@@ -353,11 +353,13 @@ public:
     int menupage;
     int lastsaved;
     int deathcounts;
+    int cp_deathcounts;
 
     int framecounter;
     bool seed_use_sdl_getticks;
     bool editor_disabled;
     int frames, seconds, minutes, hours;
+    int cp_frames, cp_seconds, cp_minutes, cp_hours;
     bool gamesaved;
     bool gamesavefailed;
     std::string savetime;

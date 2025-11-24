@@ -2380,6 +2380,66 @@ static void mode_indicator_text(const int alpha)
     }
 }
 
+static void infostrip(void)
+{
+    // Calculate the difference between game time and checkpoint time
+    int gametime_allfrm = help.hms_to_seconds(game.hours, game.minutes, game.seconds)*30 + game.frames;
+    int cptime_allfrm = help.hms_to_seconds(game.cp_hours, game.cp_minutes, game.cp_seconds)*30 + game.cp_frames;
+    int diff_allfrm = gametime_allfrm - cptime_allfrm;
+    if (diff_allfrm < 0)
+    {
+        diff_allfrm = 0;
+    }
+    int diff_f = diff_allfrm % 30;
+    int diff_s = (diff_allfrm - diff_f) / 30;
+    char cp_timebuf[16];
+    help.format_time(cp_timebuf, sizeof(cp_timebuf), diff_s, -1, false);
+
+    // What's the total game time? But without the seconds.
+    char total_timebuf[16];
+    SDL_strlcpy(total_timebuf, game.timestring().c_str(), sizeof(total_timebuf));
+    char* last_colon = SDL_strrchr(total_timebuf, ':');
+    if (game.hours >= 1)
+    {
+        if (last_colon != NULL)
+        {
+            *last_colon = '\0';
+        }
+        last_colon = SDL_strrchr(total_timebuf, ':');
+        if (last_colon != NULL)
+        {
+            *last_colon = 'h';
+        }
+    }
+    else if (last_colon != NULL)
+    {
+        last_colon[0] = 'm';
+        last_colon[1] = '\0';
+    }
+
+    const char* time_emoji = " 🕒️ "; // "⏳︎";
+    const char* death_emoji = " 🪦️ "; // "✝︎";
+
+    static char titledata_old[256] = "VVVVVV";
+    static char titledata[256] = "VVVVVV";
+
+    SDL_strlcpy(titledata_old, titledata, sizeof(titledata_old));
+    vformat_buf(titledata, sizeof(titledata),
+        "VVVVVV [ Total: {te}{totaltime} {de}{totaldeaths} | Checkpoint: {te}{cptime} {de}{cpdeaths} ]",
+        "totaltime:str, totaldeaths:int, cptime:str, cpdeaths:int, te:str, de:str",
+        total_timebuf,
+        game.deathcounts,
+        cp_timebuf,
+        game.deathcounts - game.cp_deathcounts,
+        time_emoji, death_emoji
+    );
+
+    if (SDL_strcmp(titledata, titledata_old) != 0)
+    {
+        SDL_SetWindowTitle(gameScreen.m_window, titledata);
+    }
+}
+
 void gamerender(void)
 {
     graphics.set_render_target(graphics.gameplayTexture);
@@ -2835,6 +2895,8 @@ void gamerender(void)
     level_debugger::render();
 
     graphics.renderwithscreeneffects();
+
+    infostrip();
 }
 
 static void draw_roomname_menu(void)
@@ -3543,6 +3605,8 @@ void maprender(void)
 
 
     graphics.renderwithscreeneffects();
+
+    infostrip();
 }
 
 #undef FLIP_PR_CJK_HIGH

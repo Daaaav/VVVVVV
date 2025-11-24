@@ -1618,6 +1618,7 @@ void scriptclass::run(void)
                     obj.customcollect[i] = false;
                 }
                 game.deathcounts = 0;
+                game.cp_deathcounts = 0;
                 game.advancetext = false;
                 game.hascontrol = true;
                 game.resetgameclock();
@@ -3303,6 +3304,7 @@ void scriptclass::hardreset(void)
     game.lastsaved = 0;
 
     game.deathcounts = 0;
+    game.cp_deathcounts = 0;
     game.gameoverdelay = 0;
     game.resetgameclock();
     game.gamesaved = false;
