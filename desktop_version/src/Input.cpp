@@ -2612,6 +2612,51 @@ void gameinput(void)
         {
             return;
         }
+        else
+        {
+            static bool held_i = false;
+            static bool held_c = false;
+            static bool held_u = false;
+
+            if (key.isDown(SDLK_i) && !game.intimetrial && !game.incompetitive())
+            {
+                if (!held_i)
+                {
+                    map.invincibility = !map.invincibility;
+                    held_i = true;
+                }
+            }
+            else
+            {
+                held_i = false;
+            }
+
+            if (key.isDown(SDLK_c))
+            {
+                if (!held_c)
+                {
+                    game.CKEY_set();
+                    held_c = true;
+                }
+            }
+            else
+            {
+                held_c = false;
+            }
+
+            if (key.isDown(SDLK_u))
+            {
+                if (!held_u)
+                {
+                    game.CKEY_undo();
+                    held_u = true;
+                }
+            }
+            else
+            {
+                held_u = false;
+            }
+        }
 
         game.press_left = false;
         game.press_right = false;

@@ -180,6 +180,17 @@ struct MenuStackFrame
     enum Menu::MenuName name;
 };
 
+struct CKEY_CheckpointState
+{
+    int savepoint;
+    int savex;
+    int savey;
+    int savegc;
+    int saverx;
+    int savery;
+    int savedir;
+};
+
 
 class Game
 {
@@ -588,6 +599,14 @@ public:
 
     void sabotage_time_trial(void);
 
+    CKEY_CheckpointState CKEY_getstate(void);
+    void CKEY_applystate(CKEY_CheckpointState state);
+    void CKEY_clear(void);
+    void CKEY_set(void);
+    void CKEY_undo(void);
+
+    std::vector<CKEY_CheckpointState> CKEY_undostack;
+
     bool over30mode;
     bool showingametimer;
 
@@ -609,6 +628,10 @@ public:
 
     int old_mode_indicator_timer;
     int mode_indicator_timer;
+
+    int old_checkpoint_indicator_timer;
+    int checkpoint_indicator_timer;
+    bool checkpoint_indicator_is_undo;
 
     int old_screenshot_border_timer;
     int screenshot_border_timer;

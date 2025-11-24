@@ -140,7 +140,13 @@ void gamerenderfixed(void)
     game.old_mode_indicator_timer = game.mode_indicator_timer;
     if (game.mode_indicator_timer > 0)
     {
-        game.mode_indicator_timer -= 15;
+        //game.mode_indicator_timer -= 15;
+    }
+
+    game.old_checkpoint_indicator_timer = game.checkpoint_indicator_timer;
+    if (game.checkpoint_indicator_timer > 0)
+    {
+        game.checkpoint_indicator_timer -= 15;
     }
 
     // Editor ghosts!

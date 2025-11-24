@@ -262,6 +262,7 @@ void Game::init(void)
 
     deathcounts = 0;
     cp_deathcounts = 0;
+    CKEY_clear();
     gameoverdelay = 0;
     framecounter = 0;
     seed_use_sdl_getticks = false;
@@ -377,6 +378,10 @@ void Game::init(void)
 
     old_mode_indicator_timer = 0;
     mode_indicator_timer = 0;
+
+    old_checkpoint_indicator_timer = 0;
+    checkpoint_indicator_timer = 0;
+    checkpoint_indicator_is_undo = false;
 
     old_screenshot_border_timer = 0;
     screenshot_border_timer = 0;
@@ -857,6 +862,7 @@ void Game::checkpoint_save(void)
     cp_minutes = minutes;
     cp_hours = hours;
     cp_deathcounts = deathcounts;
+    CKEY_clear();
 
     if (checkpoint_saving && !inspecial() && (!map.custommode || (map.custommode && map.custommodeforreal)) && !cliplaytest)
     {
@@ -5670,6 +5676,7 @@ void Game::readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc)
         {
             deathcounts = help.Int(pText);
             cp_deathcounts = deathcounts;
+            CKEY_clear();
         }
         else if (SDL_strcmp(pKey, "totalflips") == 0)
         {
@@ -5902,6 +5909,7 @@ void Game::customloadquick(const std::string& savfile)
         {
             deathcounts = help.Int(pText);
             cp_deathcounts = deathcounts;
+            CKEY_clear();
         }
         else if (SDL_strcmp(pKey, "totalflips") == 0)
         {
@@ -8059,4 +8067,98 @@ void Game::sabotage_time_trial(void)
 bool Game::isingamecompletescreen(void)
 {
     return (state >= 3501 && state <= 3518) || (state >= 3520 && state <= 3522);
+}
+
+CKEY_CheckpointState Game::CKEY_getstate(void)
+{
+    CKEY_CheckpointState state;
+    state.savepoint = savepoint;
+    state.savex = savex;
+    state.savey = savey;
+    state.savegc = savegc;
+    state.saverx = saverx;
+    state.savery = savery;
+    state.savedir = savedir;
+    return state;
+}
+
+void Game::CKEY_applystate(CKEY_CheckpointState state)
+{
+    savepoint = state.savepoint;
+    savex = state.savex;
+    savey = state.savey;
+    savegc = state.savegc;
+    saverx = state.saverx;
+    savery = state.savery;
+    savedir = state.savedir;
+
+    // Partially copy-pasted from Entity.cpp.
+    // Deactivate all other savepoints, activate the correct one (if there)
+    for (size_t j = 0; j < obj.entities.size(); j++)
+    {
+        if (obj.entities[j].type == EntityType_CHECKPOINT)
+        {
+            if (obj.entities[j].para == savepoint)
+            {
+                obj.entities[j].colour = EntityColour_ACTIVE_ENTITY;
+                obj.entities[j].onentity = 0;
+            }
+            else
+            {
+                obj.entities[j].colour = EntityColour_INACTIVE_ENTITY;
+                obj.entities[j].onentity = 1;
+            }
+        }
+    }
+}
+
+void Game::CKEY_clear(void)
+{
+    CKEY_undostack.clear();
+}
+
+void Game::CKEY_set(void)
+{
+    // Backup current checkpoint
+    CKEY_undostack.push_back(CKEY_getstate());
+
+    // Apply checkpoint for current position
+    CKEY_CheckpointState state;
+    state.savepoint = 0;
+    int i = obj.getplayer();
+    if (INBOUNDS_VEC(i, obj.entities))
+    {
+        state.savex = obj.entities[i].xp;
+        state.savey = obj.entities[i].yp;
+        state.savedir = obj.entities[i].dir;
+    }
+    else
+    {
+        // Fallback
+        state.savex = savex;
+        state.savey = savey;
+        state.savedir = savedir;
+    }
+    state.savegc = gravitycontrol;
+    state.saverx = roomx;
+    state.savery = roomy;
+
+    CKEY_applystate(state);
+
+    checkpoint_indicator_is_undo = false;
+    checkpoint_indicator_timer = 900;
+}
+
+void Game::CKEY_undo(void)
+{
+    if (CKEY_undostack.empty())
+    {
+        return;
+    }
+
+    CKEY_applystate(CKEY_undostack[CKEY_undostack.size()-1]);
+    CKEY_undostack.pop_back();
+
+    checkpoint_indicator_is_undo = true;
+    checkpoint_indicator_timer = 900;
 }

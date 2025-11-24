@@ -1619,6 +1619,7 @@ void scriptclass::run(void)
                 }
                 game.deathcounts = 0;
                 game.cp_deathcounts = 0;
+                game.CKEY_clear();
                 game.advancetext = false;
                 game.hascontrol = true;
                 game.resetgameclock();
@@ -3305,6 +3306,7 @@ void scriptclass::hardreset(void)
 
     game.deathcounts = 0;
     game.cp_deathcounts = 0;
+    game.CKEY_clear();
     game.gameoverdelay = 0;
     game.resetgameclock();
     game.gamesaved = false;

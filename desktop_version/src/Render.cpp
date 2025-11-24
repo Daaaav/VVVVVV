@@ -2294,9 +2294,10 @@ static const char* interact_prompt(
     return buffer;
 }
 
-static void mode_indicator_text(const int alpha)
+static void mode_indicator_text(const int alpha, const int checkpoint_alpha)
 {
     const uint32_t flags = PR_BRIGHTNESS(alpha) | PR_BOR | PR_RTL_XFLIP;
+    const uint32_t checkpoint_flags = PR_BRIGHTNESS(checkpoint_alpha) | PR_BOR | PR_RTL_XFLIP;
     const int r = 220 - help.glow;
     const int g = 220 - help.glow;
     const int b = 255 - help.glow/2;
@@ -2376,6 +2377,15 @@ static void mode_indicator_text(const int alpha)
         break;
     case 12:
         font::print(flags, x, y, loc::gettext("Game speed is at 40%"), r, g, b);
+        y += spacing;
+    }
+
+    if (game.checkpoint_indicator_timer && checkpoint_alpha > 100)
+    {
+        font::print(checkpoint_flags, x, y,
+            game.checkpoint_indicator_is_undo ? "Undid checkpoint set" : "Checkpoint set",
+            r, g, b
+        );
         y += spacing;
     }
 }
@@ -2500,11 +2510,14 @@ void gamerender(void)
     int mode_indicator_alpha = graphics.lerp(
         game.old_mode_indicator_timer, game.mode_indicator_timer
     );
+    int checkpoint_indicator_alpha = graphics.lerp(
+        game.old_checkpoint_indicator_timer, game.checkpoint_indicator_timer
+    );
     bool any_mode_active = map.invincibility
         || GlitchrunnerMode_get() != GlitchrunnerNone
         || graphics.flipmode
         || game.slowdown < 30;
-    bool draw_mode_indicator_text = mode_indicator_alpha > 100 && any_mode_active;
+    bool draw_mode_indicator_text = (mode_indicator_alpha > 100 && any_mode_active) || checkpoint_indicator_alpha > 100;
 
     if (graphics.fademode == FADE_NONE
     && !game.intimetrial
@@ -2580,7 +2593,7 @@ void gamerender(void)
 
     if (draw_mode_indicator_text && !draw_return_editor_text)
     {
-        mode_indicator_text(mode_indicator_alpha);
+        mode_indicator_text(mode_indicator_alpha, checkpoint_indicator_alpha);
     }
 
     graphics.set_render_target(graphics.gameTexture);
